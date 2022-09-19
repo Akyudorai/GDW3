@@ -27,8 +27,18 @@ public class PlayerController2 : MonoBehaviour
     public float BrakeSpeed = 0.1f;
     public float JumpForce = 1.0f;
     public float MaxFallSpeed = 20.0f;
+    public bool IsJumping = false;
+    public bool IsGrounded = false;
+    public bool GroundCheck = true;
+    public float f_AirTime = 0.0f;  // Track how long the player remains airborne.
+
+    [Header("Interactions")]
+    public float InteractionDistance = 5.0f;
+    public Interactable targetInteractable;
+     
 
     [Header("Debugging")]
+    public bool DebugInteractionRadius = false;
     public Vector3 Velocity;    
     public float VelocityMagnitude;
     public float CurrentSpeedRatio;
@@ -46,6 +56,7 @@ public class PlayerController2 : MonoBehaviour
         Camera();
         HorizontalMotion();
         VerticalMotion();
+        Interactables();
     }
 
     private void Camera()
@@ -70,9 +81,67 @@ public class PlayerController2 : MonoBehaviour
 
     private void VerticalMotion()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) 
+        if (Input.GetKeyDown(KeyCode.Space) && !IsJumping) 
         {
             rigid.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+            IsJumping = true;
+            IsGrounded = false;
+            StartCoroutine(JumpDelay());
+        }
+
+        // Ground Check
+        if (GroundCheck) 
+        {
+            int layerMask = 1 << 6; // Ground Layer
+            if (Physics.Raycast(rigid.transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
+            {
+                IsGrounded = true;
+                IsJumping = false;                            
+                f_AirTime = 0.0f;            
+            } else {
+                IsGrounded = false;
+            }
+        }
+        
+
+        if (!IsGrounded) {
+            f_AirTime += Time.deltaTime;
+        }
+    }
+
+    private IEnumerator JumpDelay() 
+    {
+        GroundCheck = false;
+        yield return new WaitForSeconds(0.5f);
+        GroundCheck = true;
+    }
+
+    private void Interactables()
+    {
+        // Run a spherical scan for all interactables within the players vicinity                
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, InteractionDistance);
+        foreach (var hit in hitColliders) {
+            if (hit.gameObject.tag == "Interactable") 
+            {   
+                // If no interactable has been set yet, set the first one we find
+                if (targetInteractable == null) targetInteractable = hit.gameObject.GetComponent<Interactable>();
+                else 
+                {
+                    // Get distance from player to interactable and compare with current target interactable
+                    float dist_target = Vector3.Distance(transform.position, targetInteractable.gameObject.transform.position);
+                    float dist_compare = Vector3.Distance(transform.position, hit.gameObject.transform.position);
+
+                    // If the new target is closer than the old, replace it
+                    if (dist_compare < dist_target) {
+                        targetInteractable = hit.gameObject.GetComponent<Interactable>();
+                    }
+                }
+            }
+        }  
+
+        // Interact with target interactable, if one exists
+        if (targetInteractable != null && Input.GetKeyDown(KeyCode.E)) {
+            targetInteractable.Interact();
         }
     }
 
@@ -127,7 +196,9 @@ public class PlayerController2 : MonoBehaviour
 
         // -- DEBUGGING VALUES -- 
         Velocity = rigid.velocity;
-        VelocityMagnitude = Velocity.magnitude;        
+        Vector3 horizontalVelocity = Velocity;
+        horizontalVelocity.y = 0;
+        VelocityMagnitude = horizontalVelocity.magnitude;        
         CurrentSpeedRatio = VelocityMagnitude / MaxSpeed;
     }
 
@@ -137,5 +208,10 @@ public class PlayerController2 : MonoBehaviour
         if (angle < 0f) angle = 360 + angle;
         if (angle > 180f) return Mathf.Max(angle, 360+from);
         return Mathf.Min(angle, to);
+    }
+
+    private void OnDrawGizmos() 
+    {
+        if (DebugInteractionRadius) Gizmos.DrawWireSphere(transform.position, InteractionDistance);             
     }
 }

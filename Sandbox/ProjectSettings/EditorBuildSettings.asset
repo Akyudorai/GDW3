@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Fusion/Lobby.unity
+    path: Assets/Action Blocks/Fusion Networking/Scenes/Lobby.unity
     guid: 56dcdb55e1a90b2488a091f8b4b826a2
   - enabled: 1
-    path: Assets/Scenes/OutdoorsScene.unity
+    path: Assets/Action Blocks/Animation Controller/AnimationsActionBlock.unity
     guid: 8124e5870f4fd4c779e7a5f994e84ad1
   m_configObjects: {}
