@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class PlayerController2 : MonoBehaviour
 {
-    /*
-        NOTE TO SELF
-        Need to find a way to stop rigid velocity from being canceled/negated upon landing from a jump or fall
-    */
-
     [Header("Components")]
     public Camera cam;
     public GameObject camera_pivot;
@@ -42,6 +37,7 @@ public class PlayerController2 : MonoBehaviour
     public Vector3 Velocity;    
     public float VelocityMagnitude;
     public float CurrentSpeedRatio;
+    public Vector3 targetInteractableHitPoint;
 
     private void Awake() 
     {
@@ -133,15 +129,30 @@ public class PlayerController2 : MonoBehaviour
 
                     // If the new target is closer than the old, replace it
                     if (dist_compare < dist_target) {
-                        targetInteractable = hit.gameObject.GetComponent<Interactable>();
+                        targetInteractable = hit.gameObject.GetComponent<Interactable>();                        
                     }
+                }
+
+                if (targetInteractable.gameObject == hit.gameObject) 
+                {
+                    targetInteractableHitPoint = hit.ClosestPoint(transform.position);
                 }
             }
         }  
 
         // Interact with target interactable, if one exists
         if (targetInteractable != null && Input.GetKeyDown(KeyCode.E)) {
-            targetInteractable.Interact();
+            //targetInteractable.Interact(this);
+            
+            // Temporary: Walljump
+            Vector3 direction = (transform.position - targetInteractableHitPoint).normalized;
+            direction *= JumpForce * 2;
+            Vector3 upwardVector = transform.up * JumpForce;
+            rigid.AddForce(direction + upwardVector, ForceMode.Impulse);
+        }
+
+        if (Vector3.Distance(transform.position, targetInteractableHitPoint) > InteractionDistance) {
+            targetInteractable = null;
         }
     }
 
@@ -184,8 +195,8 @@ public class PlayerController2 : MonoBehaviour
 
         xzVel = Vector3.ClampMagnitude(xzVel, MaxSpeed);
         yVel = Vector3.ClampMagnitude(yVel, MaxFallSpeed);        
-        rigid.velocity = xzVel + yVel;
-
+        //rigid.velocity = xzVel + yVel;
+        transform.Translate((xzVel + yVel) * Time.deltaTime);
         // Clamp the Rigidbody velocity based on maximum speed
         // -- Need to figure out how to clamp based on input values.  With commented out code, it doesn't take account of camera orientation
         // float resultX = Mathf.Clamp(currentVelocity.x, -MaxSpeed/2, MaxSpeed/2);
@@ -213,5 +224,10 @@ public class PlayerController2 : MonoBehaviour
     private void OnDrawGizmos() 
     {
         if (DebugInteractionRadius) Gizmos.DrawWireSphere(transform.position, InteractionDistance);             
+    
+        if (targetInteractable != null) 
+        {
+            Gizmos.DrawLine(transform.position, targetInteractableHitPoint);
+        }
     }
 }

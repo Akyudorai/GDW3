@@ -6,8 +6,8 @@ public class Interactable : MonoBehaviour
 {
     public string DebugInteraction = "Test";
 
-    public void Interact() 
+    public void Interact(PlayerController2 controller) 
     {
-        Debug.Log("Interaction: " + DebugInteraction);
+        Debug.Log("Interaction: " + DebugInteraction);        
     }
 }
