@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interactable : MonoBehaviour
+public abstract class Interactable : MonoBehaviour
 {
-    public string DebugInteraction = "Test";
+    public KeyCode InteractionKey = KeyCode.Space;
 
-    public void Interact(PlayerController2 controller) 
+    public KeyCode GetInteractionKey() 
     {
-        Debug.Log("Interaction: " + DebugInteraction);        
+        return InteractionKey;
     }
+
+    public abstract void Interact(PlayerController2 controller);
 }
