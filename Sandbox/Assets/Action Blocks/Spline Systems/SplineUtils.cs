@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SplineUtils : MonoBehaviour
 {
-    public static SplinePath GenerateWallRunPath(Vector3 position, Vector3 direction, float speed) 
+    public static SplinePath GenerateWallRunPath(Vector3 position, Vector3 direction, float speed, bool isForward) 
     {
         // Generate the new SplinePath object
         GameObject pathCollider = new GameObject();
@@ -12,19 +12,29 @@ public class SplineUtils : MonoBehaviour
         SplinePath path = pathCollider.AddComponent<SplinePath>();
         path.splineType = SplineType.Wall;
         path.DebugSplinePath = true;
-
-        // Create 5 points and generate a node for each
+   
+        // Generate 5 points
         GameObject p1 = new GameObject();
-        p1.transform.position = position;
+        p1.transform.SetParent(pathCollider.transform);
         GameObject p2 = new GameObject();
-        p2.transform.position = position + direction * speed + Vector3.up;
+        p2.transform.SetParent(pathCollider.transform);
         GameObject p3 = new GameObject();
-        p3.transform.position = position + direction * speed * 2 + Vector3.up * 1.5f;
+        p3.transform.SetParent(pathCollider.transform);
         GameObject p4 = new GameObject();
-        p4.transform.position = position + direction * speed * 3 + Vector3.up;
+        p4.transform.SetParent(pathCollider.transform);
         GameObject p5 = new GameObject();
-        p5.transform.position = position + direction * speed * 4;
-        
+        p5.transform.SetParent(pathCollider.transform);
+
+        // Generate a directional inverter value
+        float inverter = ((isForward) ? 1 : -1);
+
+        // Set the positions of each point relative to direction, travel      
+        p1.transform.position = position;
+        p2.transform.position = position + direction * speed * inverter + Vector3.up;
+        p3.transform.position = position + direction * speed * 2 * inverter + Vector3.up * 1.5f;
+        p4.transform.position = position + direction * speed * 3 * inverter + Vector3.up;
+        p5.transform.position = position + direction * speed * 4 * inverter; 
+
         // Populate the points for SplinePath
         path.points = new List<GameObject>();
         path.points.Add(p1);
@@ -35,30 +45,6 @@ public class SplineUtils : MonoBehaviour
 
         // Initialize the SplinePath
         path.Initialize();
-        
-        // SplineNode n1 = new SplineNode();
-        // n1.index = 0; n1.position = p1; n1.path = path;
-        // n1.previous = null;
-        // SplineNode n2 = new SplineNode();
-        // n2.index = 1; n2.position = p2; n2.path = path;
-        // n1.next = n2; n2.previous = n1;
-        // SplineNode n3 = new SplineNode();
-        // n3.index = 2; n3.position = p3; n3.path = path;
-        // n2.next = n3; n3.previous = n2;
-        // SplineNode n4 = new SplineNode();
-        // n4.index = 3; n4.position = p4; n4.path = path;
-        // n3.next = n4; n4.previous = n3;
-        // SplineNode n5 = new SplineNode();
-        // n5.index = 4; n5.position = p5; n5.path = path;
-        // n4.next = n5; n5.previous = n4; n5.next = null;
-
-        // // Populate the path with the spline points
-        // path.nodes = new List<SplineNode>();
-        // path.nodes.Add(n1); 
-        // path.nodes.Add(n2);
-        // path.nodes.Add(n3);
-        // path.nodes.Add(n4);
-        // path.nodes.Add(n5);
 
         return path;
     } 

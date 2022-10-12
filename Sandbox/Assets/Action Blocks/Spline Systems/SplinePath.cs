@@ -24,18 +24,20 @@ public class SplinePath : MonoBehaviour
     public bool DebugSplinePath = false;
 
     private void Start() 
-    {
+    {   
+        // We only want to initialize for manually created splines, not generated spline paths (like wall running)
         if (splineType == SplineType.Rail || splineType == SplineType.Zipline) {
             Initialize();
         }
     }
 
+    // Generates the interactables and collision components of the spline path
     public void Initialize() 
     {
-        // Generate a spline node for each point
+        // Generate a spline node for each point based on position of points specified in the inspector
         GenerateNodes();
 
-        // Generate collider and interaction data
+        // Generate collider, interaction data, and type-specific interactable scripts
         for (int i = 0; i < nodes.Count - 1; i++) 
         {
             GameObject pathCollider = new GameObject();
@@ -67,11 +69,20 @@ public class SplinePath : MonoBehaviour
         }
     }
 
+    private void Update() 
+    {
+        if (splineType == SplineType.Wall && pcRef == null) {
+            Destroy(gameObject);
+        }
+    }
+
+    // Return current node for use by the Player Controller
     public SplineNode GetCurrentNode()
     {
         return nodes[nodeIndex];
     }
 
+    // Use recursion to generate spline nodes using GameObjects placed in inspector
     public SplineNode GenerateNodes(int index = 0) 
     {
         SplineNode result = new SplineNode();
@@ -86,6 +97,7 @@ public class SplinePath : MonoBehaviour
 
     public void OnDrawGizmos() 
     {
+        // As long as there is at least 2 objects acting as nodes, draw a line between them to visualize the path
         if (DebugSplinePath && points.Count >= 2) 
         {
             for (int i = 0; i < points.Count - 1; i++)

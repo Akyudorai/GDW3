@@ -4,33 +4,27 @@ using UnityEngine;
 
 public class WallInteractable : Interactable
 {      
-    public override void Interact(PlayerController2 pc) 
+    public override void Interact(PlayerController2 pc, RaycastHit hit) 
     {
-        if (pc.IsJumping) return;
-      
-        Vector3 moveDirection = (pc.camera_pivot.transform.forward).normalized;
-        moveDirection.y = 0;
-
-        Vector3 wallNormalDirection = Vector3.zero;
-        if (Physics.Raycast(pc.transform.position, transform.position, out RaycastHit hit, (pc.transform.position - transform.position).magnitude))
-        {
-            if (hit.collider.gameObject == this.gameObject) 
-            {
-                wallNormalDirection = hit.normal;
-            }
-        }        
-
-        // ** TO DO **
-        // Rotate wall direction based on direction of travel        
-        wallNormalDirection = Quaternion.Euler(0, 90, 0) * wallNormalDirection;
-
+        if (pc.IsGrounded) return;
+              
+        // Calculate Direction of spline
         
-        SplinePath wallRunSpline = SplineUtils.GenerateWallRunPath(pc.transform.position, wallNormalDirection.normalized, 3.0f);
-        wallRunSpline.GetCurrentNode().Attach(pc, 0.0f);  
-    }
+        Vector3 playerRelativeDir = (hit.point + pc.rigid.velocity);                // Player's current direction of travel
+        Vector3 surfaceNormal = hit.normal;                                         // The normal for the surface of the wall
+        Vector3 surfaceDir = Quaternion.Euler(0, 90, 0) * surfaceNormal;            // The direction the spline will be traveling        
+        
+        // Generate a comparison point to see forward or back
+        Vector3 pos_dir = hit.point - surfaceDir;                                   // Generate a point in the positive direction 
+        Vector3 neg_dir = hit.point + surfaceDir;                                   // Generate a point in the negative direction
+        
+        // Compare which point is closer to the direction of travel relative to the hit point
+        float pos_dist = Vector3.Distance(playerRelativeDir, pos_dir);              
+        float neg_dist = Vector3.Distance(playerRelativeDir, neg_dir);
+        bool isForward = ((pos_dist >= neg_dist) ? true : false);
 
-    public void OnDrawGizmos() 
-    {
-                
+        // Generate a spline path along the wall to follow and attach the player to it
+        SplinePath wallRunSpline = SplineUtils.GenerateWallRunPath(hit.point + surfaceNormal * 0.5f, surfaceDir, pc.rigid.velocity.magnitude * 2, isForward);
+        wallRunSpline.GetCurrentNode().Attach(pc, 0.0f, true);  
     }
 }

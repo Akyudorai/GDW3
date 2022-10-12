@@ -9,6 +9,7 @@ public class PlayerController2 : MonoBehaviour
     public GameObject camera_pivot;
     public Rigidbody rigid;    
     public InputActions inputAction;
+    public GameObject mesh;
 
     [Header("Camera")]
     public float f_MouseSensitivity = 1.0f;
@@ -30,6 +31,7 @@ public class PlayerController2 : MonoBehaviour
     public bool b_LimitVelocity = true;
     public bool IsWallJumping = false;
     private Vector2 v_Movement;
+    public bool IsSliding = false;
 
 
     [Header("Interactions")]
@@ -79,24 +81,39 @@ public class PlayerController2 : MonoBehaviour
         if (currentSpline != null) 
         {
             transform.position = currentSpline.GetCurrentNode().GetCurrentPosition();
-            currentSpline.GetCurrentNode().Traverse(1.0f);                       
-        } else 
+            mesh.transform.LookAt(transform.position + currentSpline.GetCurrentNode().GetDirection());
+            currentSpline.GetCurrentNode().Traverse(MaxSpeed * 3);                       
+        } 
+        else 
         {
             Movement();
         }
 
         Camera();
 
-         // Ground Check
+        // Ground Check
         if (GroundCheck) 
         {
             int layerMask = 1 << 6; // Ground Layer
             if (Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
             {
                 IsGrounded = true;                                            
-                f_AirTime = 0.0f;            
+                f_AirTime = 0.0f;  
+
+                Vector3 normalDir = hit.normal;
+                Vector3 upDir = Vector3.up;
+
+                float angleBetween = Vector3.Angle(upDir, normalDir);
+
+                if (angleBetween > 30.0f) {
+                    IsSliding = true;                    
+                } else {
+                    IsSliding = false;
+                }
+
             } else {
                 IsGrounded = false;
+                IsSliding = false;             
             }
         }
         
@@ -106,9 +123,15 @@ public class PlayerController2 : MonoBehaviour
         }                
     }
 
+    private void Slide(Vector3 direction) 
+    {
+        rigid.MovePosition(transform.position + direction * RunSpeed * Time.deltaTime);
+    }
+
     private void Movement() 
     {
-        if (IsWallJumping) return;
+        if (IsWallJumping) return;   
+        if (IsSliding) return;     
 
         // Prepare a motion vector to used to modify the velocity
         Vector3 motionVector = Vector3.zero;        
@@ -117,8 +140,8 @@ public class PlayerController2 : MonoBehaviour
         if (v_Movement.y > 0.1f || v_Movement.x > 0.1f || v_Movement.y < -0.1f || v_Movement.x < -0.1f) 
         {            
             // Set the motion vector to be relative to the input direction multiplied by the player speed and DeltaTime
-            //motionVector = new Vector3(horizontal * RunSpeed * Time.deltaTime, 0, vertical * RunSpeed * Time.deltaTime);
-            Vector3 forwardMotion = camera_pivot.transform.forward * v_Movement.y * RunSpeed * Time.deltaTime;
+            //motionVector = new Vector3(horizontal * RunSpeed * Time.deltaTime, 0, vertical * RunSpeed * Time.deltaTime);            
+            Vector3 forwardMotion = camera_pivot.transform.forward * v_Movement.y * RunSpeed * Time.deltaTime;               
             Vector3 rightMotion = camera_pivot.transform.right * v_Movement.x * RunSpeed * Time.deltaTime;
             motionVector = forwardMotion + rightMotion;
             motionVector.y = 0;
@@ -126,9 +149,9 @@ public class PlayerController2 : MonoBehaviour
         
         // Otherwise, if there is no input along the X or Z axis
         else 
-        {
+        {   
             // Set the motion vector to a brake force to that will slow down the velocity
-            if (rigid.velocity.magnitude > 0 || rigid.velocity.magnitude < 0) {
+            if (rigid.velocity.magnitude > 0) {
                 Vector3 brakeVector = -rigid.velocity * BrakeSpeed;                
                 motionVector = brakeVector;
                 motionVector.y = 0;
@@ -145,7 +168,7 @@ public class PlayerController2 : MonoBehaviour
         yVel = Vector3.ClampMagnitude(yVel, MaxFallSpeed);        
         rigid.MovePosition(transform.position + (xzVel + yVel) * Time.deltaTime);    
         if (b_LimitVelocity) 
-            rigid.velocity = new Vector3(Mathf.Clamp(rigid.velocity.x, -MaxSpeed, MaxSpeed), rigid.velocity.y, Mathf.Clamp(rigid.velocity.z, -MaxSpeed, MaxSpeed));    
+            rigid.velocity = new Vector3(Mathf.Clamp(rigid.velocity.x, -MaxSpeed, MaxSpeed), rigid.velocity.y, Mathf.Clamp(rigid.velocity.z, -MaxSpeed, MaxSpeed));            
 
         targetDirection.x = xzVel.x;
         targetDirection.z = xzVel.z;        
@@ -178,15 +201,41 @@ public class PlayerController2 : MonoBehaviour
         if (currentSpline != null) {
             currentSpline.GetCurrentNode().Detatch();
             return;
-        }
+        }        
 
         // If grounded and not in the middle of a jump, then perform a jump.
         if (!IsJumping && IsGrounded) 
         {
-            rigid.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);            
+            Vector3 surfaceNormal = Vector3.up;
+            int layerMask = 1 << 6; // Ground Layer
+            if (Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
+            {
+                surfaceNormal = hit.normal;                                
+            }
+
+            Vector3 result = surfaceNormal;
+            if (IsSliding) result += Vector3.up;
+            ApplyForce(result * ((IsSliding) ? JumpForce * 2.0f : JumpForce));
             IsGrounded = false;
+
+            Debug.Log("Jump");
             StartCoroutine(JumpDelay());
         }       
+    }
+
+    public void ApplyForce(Vector3 force, ForceMode mode = ForceMode.Impulse)
+    {
+        Debug.Log("Force Applied: " + force);
+        rigid.AddForce(force, mode);
+    } 
+
+    public void Brake(float speed)
+    {
+        // Set the motion vector to a brake force to that will slow down the velocity
+        if (rigid.velocity.magnitude > 0) {
+            Vector3 brakeVector = -rigid.velocity * speed;                
+            rigid.velocity += brakeVector;
+        } 
     }
 
     public IEnumerator JumpDelay() 
@@ -216,23 +265,25 @@ public class PlayerController2 : MonoBehaviour
 
                     // If the new target is closer than the old, replace it
                     if (dist_compare < dist_target) {
-                        targetInteractable = hit.gameObject.GetComponent<Interactable>();                        
+                        targetInteractable = hit.gameObject.GetComponent<Interactable>();                                                
+                    }                    
+                }
+
+                // Get the closest interactable point                
+                if (targetInteractable != null) // BUG: for some reason, it doesn't often detect there's a target interactable there
+                {
+                    if (targetInteractable.gameObject == hit.gameObject) 
+                    {
+                        targetInteractableHitPoint = hit.ClosestPoint(transform.position);    
+                        if (Physics.Raycast(transform.position, targetInteractableHitPoint - transform.position, out RaycastHit hitResult))
+                        {
+                            targetInteractable.Interact(this, hitResult);
+                        }                
                     }
                 }
-
-                // Get the closest interactable point
-                if (targetInteractable.gameObject == hit.gameObject) 
-                {
-                    targetInteractableHitPoint = hit.ClosestPoint(transform.position);                    
-                }
+                
             }
         }  
-        
-
-        // Interact with target interactable, if one exists
-        if (targetInteractable != null && currentSpline == null) {                       
-            targetInteractable.Interact(this);
-        }
 
         if (Vector3.Distance(transform.position, targetInteractableHitPoint) > InteractionDistance) {
             targetInteractable = null;
@@ -261,6 +312,26 @@ public class PlayerController2 : MonoBehaviour
         if (angle < 0f) angle = 360 + angle;
         if (angle > 180f) return Mathf.Max(angle, 360+from);
         return Mathf.Min(angle, to);
+    }
+
+    private void OnCollisionEnter(Collision col) 
+    {
+        // if (col.gameObject.tag == "Interactable" && col.gameObject.GetComponent<WallInteractable>() != null && currentSpline == null) 
+        // {   
+        //     targetInteractable = col.gameObject.GetComponent<Interactable>();                 
+        //     targetInteractableHitPoint = col.contacts[0].point;
+
+        //     if (targetInteractable != null) // BUG: for some reason, it doesn't often detect there's a target interactable there
+        //     {
+        //         if (targetInteractable.gameObject == col.gameObject) 
+        //         {  
+        //             if (Physics.Raycast(transform.position, targetInteractableHitPoint - transform.position, out RaycastHit hitResult))
+        //             {
+        //                 targetInteractable.Interact(this, hitResult);
+        //             }                
+        //         }
+        //     }            
+        // }
     }
 
     private void OnDrawGizmos() 
