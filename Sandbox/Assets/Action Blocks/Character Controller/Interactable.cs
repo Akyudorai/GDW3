@@ -2,12 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interactable : MonoBehaviour
+public abstract class Interactable : MonoBehaviour
 {
-    public string DebugInteraction = "Test";
-
-    public void Interact() 
-    {
-        Debug.Log("Interaction: " + DebugInteraction);
-    }
+    public abstract void Interact(PlayerController2 controller, RaycastHit hit);
 }

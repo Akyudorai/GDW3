@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 25453986}
   - component: {fileID: 25453985}
   - component: {fileID: 25453984}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,27 +437,13 @@ GameObject:
   - component: {fileID: 140118241}
   - component: {fileID: 140118240}
   - component: {fileID: 140118239}
-  - component: {fileID: 140118238}
   m_Layer: 0
   m_Name: Cylinder
-  m_TagString: Interactable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &140118238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 140118237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f02b37a80271fc34b8f707692551831a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DebugInteraction: Cylinder
 --- !u!136 &140118239
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -779,7 +765,7 @@ GameObject:
   - component: {fileID: 284302883}
   - component: {fileID: 284302882}
   - component: {fileID: 284302881}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1113,10 +1099,9 @@ GameObject:
   - component: {fileID: 461216830}
   - component: {fileID: 461216829}
   - component: {fileID: 461216828}
-  - component: {fileID: 461216832}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Interactable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1199,19 +1184,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &461216832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 461216827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f02b37a80271fc34b8f707692551831a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DebugInteraction: Cube
 --- !u!1 &469926474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,7 +1325,7 @@ GameObject:
   - component: {fileID: 539195359}
   - component: {fileID: 539195358}
   - component: {fileID: 539195357}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2769,14 +2741,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1033396248}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.29881617, y: 0.6408994, z: -0.29885617, w: 0.64081347}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 90.008, z: 0}
 --- !u!114 &1033396251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3040,7 +3012,7 @@ GameObject:
   - component: {fileID: 1139996348}
   - component: {fileID: 1139996347}
   - component: {fileID: 1139996346}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3659,27 +3631,13 @@ GameObject:
   - component: {fileID: 1200646650}
   - component: {fileID: 1200646649}
   - component: {fileID: 1200646648}
-  - component: {fileID: 1200646647}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Interactable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1200646647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1200646646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f02b37a80271fc34b8f707692551831a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DebugInteraction: Sphere
 --- !u!135 &1200646648
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4093,7 +4051,7 @@ GameObject:
   - component: {fileID: 1455411290}
   - component: {fileID: 1455411289}
   - component: {fileID: 1455411288}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4617,25 +4575,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 651995245}
   camera_pivot: {fileID: 929852776}
+  rigid: {fileID: 0}
   f_MouseSensitivity: 2
   b_InvertMouse: 0
   hCameraClamp: {x: -60, y: 30}
   FovRange: {x: 60, y: 90}
   RunSpeed: 10
-  MaxSpeed: 10
+  MaxSpeed: 5
   BrakeSpeed: 0.1
-  JumpForce: 10
+  JumpForce: 5
   MaxFallSpeed: 20
   IsJumping: 0
   IsGrounded: 0
   GroundCheck: 1
   f_AirTime: 0
-  InteractionDistance: 5
+  b_LimitVelocity: 1
+  IsWallJumping: 0
+  InteractionDistance: 2
   targetInteractable: {fileID: 0}
   DebugInteractionRadius: 1
   Velocity: {x: 0, y: 0, z: 0}
   VelocityMagnitude: 0
   CurrentSpeedRatio: 0
+  targetInteractableHitPoint: {x: 0, y: 0, z: 0}
+  targetDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &1589577280
 GameObject:
   m_ObjectHideFlags: 0
@@ -4648,7 +4611,7 @@ GameObject:
   - component: {fileID: 1589577284}
   - component: {fileID: 1589577283}
   - component: {fileID: 1589577282}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5625,7 +5588,7 @@ GameObject:
   - component: {fileID: 1871685418}
   - component: {fileID: 1871685417}
   - component: {fileID: 1871685416}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6142,7 +6105,7 @@ GameObject:
   - component: {fileID: 2042482665}
   - component: {fileID: 2042482664}
   - component: {fileID: 2042482663}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
