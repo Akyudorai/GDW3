@@ -25,7 +25,7 @@ public class QuestManager : MonoBehaviour
 
     [Header("Quest Components")]
     [SerializeField]
-    private Quest activeQuest;
+    public Quest activeQuest;
     private List<Quest> quests;
 
 
@@ -37,6 +37,10 @@ public class QuestManager : MonoBehaviour
             questTitle.text = _quest.GetQuestName();
             questDescription.text = _quest.GetQuestDescription();
             questObjective.text = _quest.GetQuestObjective();
+            for(int i = 0; i < activeQuest.questItems.Count; i++)
+            {
+                Instantiate(activeQuest.questItems[i]);
+            }
         }        
     }
 
@@ -53,13 +57,12 @@ public class QuestManager : MonoBehaviour
     {
         if(activeQuest.questItems.Count > 0)
         {
-            activeQuest.questItems.Remove(item);
+            activeQuest.questItems.RemoveAt(activeQuest.questItems.Count-1);
         }
         if(activeQuest.questItems.Count == 0)
         {
-            QuestComplete();
-        }
-        
+            activeQuest.allItemsCollected = true;
+        }        
     }
 
 }

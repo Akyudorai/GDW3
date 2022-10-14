@@ -12,8 +12,12 @@ public class QuestItem : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        QuestManager.questManager.QuestItemCollected(this);
-        Destroy(this.gameObject);
+        if(other.gameObject.CompareTag("Player"))
+        {
+            QuestManager.questManager.QuestItemCollected(this);
+            Destroy(this.gameObject);
+        }
+        
     }
 
 

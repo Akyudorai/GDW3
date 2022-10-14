@@ -9,8 +9,9 @@ public class Quest : MonoBehaviour
     public string questDescription;
     public string questObjective;
     [SerializeField]
-    private bool isComplete;
+    public bool isComplete;
     public List<QuestItem> questItems;
+    public bool allItemsCollected = false;
 
 
     public string GetQuestName()
