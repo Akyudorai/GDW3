@@ -9,9 +9,9 @@ public class UI_Manager : MonoBehaviour
 {
 
     // ============ SINGLETON ============
-    private static GameManager instance;    
+    private static UI_Manager instance;    
 
-    public static GameManager GetInstance() 
+    public static UI_Manager GetInstance() 
     {
         return instance;
     }
