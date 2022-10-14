@@ -1,0 +1,54 @@
+{
+    "name": "Cheats",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "b18860b1-4dcf-4b4c-b076-7ad16233f8c8",
+            "actions": [
+                {
+                    "name": "IncreaseNum",
+                    "type": "Value",
+                    "id": "f2c09bd6-bd51-4777-b2a9-cdd449069aad",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "DecreaseNum",
+                    "type": "Value",
+                    "id": "d1c6e824-a1ca-4da4-afda-053fccd1417e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2d096497-7951-474a-ba81-66e9e622e60e",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "IncreaseNum",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "13003dce-fcd4-40fb-9ff9-f1c6bd656efb",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DecreaseNum",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
