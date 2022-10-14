@@ -17,6 +17,18 @@ public class GameManager : MonoBehaviour
     public PlayerController2 PlayerRef;
     public Transform StartPoint;
 
+    public void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     private void Start() 
     {
         //Initalize();
