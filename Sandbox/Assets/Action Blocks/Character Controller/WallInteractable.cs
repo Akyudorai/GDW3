@@ -24,7 +24,7 @@ public class WallInteractable : Interactable
         bool isForward = ((pos_dist >= neg_dist) ? true : false);
 
         // Generate a spline path along the wall to follow and attach the player to it
-        SplinePath wallRunSpline = SplineUtils.GenerateWallRunPath(hit.point + surfaceNormal * 0.5f, surfaceDir, pc.rigid.velocity.magnitude * 2, isForward);
+        SplinePath wallRunSpline = SplineUtils.GenerateWallRunPath(hit.point + surfaceNormal * 0.5f, surfaceDir, pc.MaxSpeed, isForward);
         wallRunSpline.GetCurrentNode().Attach(pc, 0.0f, true);  
     }
 }

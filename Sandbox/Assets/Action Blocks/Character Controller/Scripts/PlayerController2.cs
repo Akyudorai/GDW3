@@ -81,12 +81,12 @@ public class PlayerController2 : MonoBehaviour
         if (currentSpline != null) 
         {
             transform.position = currentSpline.GetCurrentNode().GetCurrentPosition();
-            mesh.transform.LookAt(transform.position + currentSpline.GetCurrentNode().GetDirection());
+            mesh.transform.LookAt(currentSpline.GetCurrentNode().GetDirection());
             currentSpline.GetCurrentNode().Traverse(MaxSpeed * 3);                       
         } 
         else 
         {
-            Movement();
+            Movement();            
         }
 
         Camera();
@@ -145,6 +145,8 @@ public class PlayerController2 : MonoBehaviour
             Vector3 rightMotion = camera_pivot.transform.right * v_Movement.x * RunSpeed * Time.deltaTime;
             motionVector = forwardMotion + rightMotion;
             motionVector.y = 0;
+
+            mesh.transform.LookAt(mesh.transform.position + motionVector);
         } 
         
         // Otherwise, if there is no input along the X or Z axis
@@ -159,7 +161,7 @@ public class PlayerController2 : MonoBehaviour
         }                                          
 
         // Lastly, set the new velocity for the rigidbody equal to our resulting velocity.        
-        rigid.velocity += ((IsGrounded) ? motionVector : motionVector * 0.25f); // Change 0.25 to whatever value you want air motion control ratio to be
+        rigid.velocity += ((IsGrounded) ? motionVector : motionVector * 0.4f); // Change 0.25 to whatever value you want air motion control ratio to be
 
         Vector3 xzVel = new Vector3(rigid.velocity.x, 0, rigid.velocity.z);
         Vector3 yVel = new Vector3(0, rigid.velocity.y, 0);
@@ -224,8 +226,7 @@ public class PlayerController2 : MonoBehaviour
     }
 
     public void ApplyForce(Vector3 force, ForceMode mode = ForceMode.Impulse)
-    {
-        Debug.Log("Force Applied: " + force);
+    {        
         rigid.AddForce(force, mode);
     } 
 

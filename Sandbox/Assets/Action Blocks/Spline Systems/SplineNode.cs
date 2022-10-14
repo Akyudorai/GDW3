@@ -49,8 +49,9 @@ public class SplineNode
 			case SplineType.Zipline: launchDirection = Vector3.zero; break;
 			// Walls launch the player in the direction of their normal
 			case SplineType.Wall: 
-				bool isRight = (Physics.Raycast(path.pcRef.mesh.transform.position, path.pcRef.mesh.transform.right, 10));				
-				Vector3 normalLaunch = Quaternion.Euler(0, -90, 0) * GetDirection();
+				bool isRight = (Physics.Raycast(path.pcRef.mesh.transform.position, path.pcRef.mesh.transform.right, 10));
+				Debug.Log("Is Right (" + isRight + ")");				
+				Vector3 normalLaunch = Quaternion.Euler(0, 90, 0) * GetDirection();
 				normalLaunch.y = 0;
 				Vector3 verticalLaunch = Vector3.up;
 				launchDirection = normalLaunch.normalized + verticalLaunch; 
@@ -119,11 +120,15 @@ public class SplineNode
 	// Get which way we want to move depending on a boolean
 	public Vector3 GetDirection() 
 	{
+		return (IsForward) ?
+			next.position :
+			position;
+
 		// Forward = N[i] - (N[i] - N[i+1])
 		// Backward = N[i+1] - (N[i+1] - N[i])
-		return (IsForward) ?
-			position - ((position - next.position)) :
-			next.position - ((next.position - position));
+		// return (IsForward) ?
+		// 	position - ((position - next.position)) :
+		//  	next.position - ((next.position - position));
 	}
 
 	// Simply calculates the distance between the current node and the next node. Important for velocity-based motion
