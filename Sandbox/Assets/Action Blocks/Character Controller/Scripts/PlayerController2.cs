@@ -76,6 +76,11 @@ public class PlayerController2 : MonoBehaviour
         inputAction.Player.Disable();
     }
 
+    private void Start() 
+    {
+        GameManager.GetInstance().PlayerRef = this;
+    }
+
     private void Update() 
     {
         if (currentSpline != null) 
@@ -141,7 +146,7 @@ public class PlayerController2 : MonoBehaviour
         {            
             // Set the motion vector to be relative to the input direction multiplied by the player speed and DeltaTime
             //motionVector = new Vector3(horizontal * RunSpeed * Time.deltaTime, 0, vertical * RunSpeed * Time.deltaTime);            
-            Vector3 forwardMotion = camera_pivot.transform.forward * v_Movement.y * RunSpeed * Time.deltaTime;               
+            Vector3 forwardMotion = camera_pivot.transform.forward * v_Movement.y * RunSpeed * Time.fixedDeltaTime;               
             Vector3 rightMotion = camera_pivot.transform.right * v_Movement.x * RunSpeed * Time.deltaTime;
             motionVector = forwardMotion + rightMotion;
             motionVector.y = 0;
