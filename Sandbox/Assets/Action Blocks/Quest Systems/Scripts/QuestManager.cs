@@ -26,7 +26,7 @@ public class QuestManager : MonoBehaviour
     [Header("Quest Components")]
     [SerializeField]
     public Quest activeQuest;
-    private List<Quest> quests;
+    private List<Quest> quests; //not currently in use
 
 
     public void ActivateQuest(Quest _quest)
@@ -39,7 +39,7 @@ public class QuestManager : MonoBehaviour
             questObjective.text = _quest.GetQuestObjective();
             for(int i = 0; i < activeQuest.questItems.Count; i++)
             {
-                Instantiate(activeQuest.questItems[i]);
+                Instantiate(activeQuest.questItems[i], activeQuest.questItemsPositions[i].position, Quaternion.identity);
             }
         }        
     }

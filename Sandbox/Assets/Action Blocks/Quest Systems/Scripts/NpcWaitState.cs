@@ -18,10 +18,10 @@ public class NpcWaitState : NpcBaseState
 
     public override void OnCollisionEnter(NpcStateManager npc, Collision collision)
     {
-        if(QuestManager.questManager.activeQuest.allItemsCollected == true)
-        {
-            QuestManager.questManager.QuestComplete();
-            npc.SwitchState(npc.CompleteState);
-        }
+        //if(QuestManager.questManager.activeQuest.allItemsCollected == true)
+        //{
+        //    QuestManager.questManager.QuestComplete();
+        //    npc.SwitchState(npc.CompleteState);
+        //}
     }
 }

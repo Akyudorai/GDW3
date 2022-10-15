@@ -11,6 +11,7 @@ public class Quest : MonoBehaviour
     [SerializeField]
     public bool isComplete;
     public List<QuestItem> questItems;
+    public List<Transform> questItemsPositions;
     public bool allItemsCollected = false;
 
 

@@ -35,8 +35,8 @@ public class NpcHelpState : NpcBaseState
 
     public override void OnCollisionEnter (NpcStateManager npc, Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
-        QuestManager.questManager.ActivateQuest(npc.gameObject.GetComponent<Quest>());
-        npc.SwitchState(npc.WaitState);
+        //Debug.Log(collision.gameObject.name);
+        //QuestManager.questManager.ActivateQuest(npc.gameObject.GetComponent<Quest>());
+        //npc.SwitchState(npc.WaitState);
     }
 }
