@@ -78,7 +78,7 @@ public class PlayerController2 : MonoBehaviour
 
     private void Start() 
     {
-        GameManager.GetInstance().PlayerRef = this;
+        //GameManager.GetInstance().PlayerRef = this;
     }
 
     private void Update() 
