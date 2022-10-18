@@ -9,8 +9,10 @@ public class UI_Manager : MonoBehaviour
 {
 
     // ============ SINGLETON ============
-    private static UI_Manager instance;    
-
+    private static UI_Manager instance;
+    public float timeDuration = 3f;
+    public float timer;
+    public bool enableTimer = false;
     public static UI_Manager GetInstance() 
     {
         return instance;
@@ -45,4 +47,5 @@ public class UI_Manager : MonoBehaviour
     {
         ScoreDisplay.text = "Score: " + score;
     }
+    
 }

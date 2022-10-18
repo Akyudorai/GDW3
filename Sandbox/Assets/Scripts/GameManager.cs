@@ -39,7 +39,17 @@ public class GameManager : MonoBehaviour
         PlayerRef.transform.position = StartPoint.position;
     }
 
-
+    public void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
 
 

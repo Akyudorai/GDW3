@@ -62,6 +62,24 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""IncreaseNum"",
+                    ""type"": ""Button"",
+                    ""id"": ""3d154865-715c-47f9-9025-bf141d85dd3e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DecreaseNum"",
+                    ""type"": ""Button"",
+                    ""id"": ""5833af65-20b1-44b0-9da4-7682884e9487"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +170,28 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f66a2a1-e6dd-4887-a2fd-7f99ae1efd6b"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""IncreaseNum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7d32e21-0dd8-4d4e-a972-e5ff183980fa"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DecreaseNum"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +204,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_IncreaseNum = m_Player.FindAction("IncreaseNum", throwIfNotFound: true);
+        m_Player_DecreaseNum = m_Player.FindAction("DecreaseNum", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +269,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_IncreaseNum;
+    private readonly InputAction m_Player_DecreaseNum;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -235,6 +279,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @IncreaseNum => m_Wrapper.m_Player_IncreaseNum;
+        public InputAction @DecreaseNum => m_Wrapper.m_Player_DecreaseNum;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -256,6 +302,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @IncreaseNum.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnIncreaseNum;
+                @IncreaseNum.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnIncreaseNum;
+                @IncreaseNum.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnIncreaseNum;
+                @DecreaseNum.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDecreaseNum;
+                @DecreaseNum.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDecreaseNum;
+                @DecreaseNum.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDecreaseNum;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -272,6 +324,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @IncreaseNum.started += instance.OnIncreaseNum;
+                @IncreaseNum.performed += instance.OnIncreaseNum;
+                @IncreaseNum.canceled += instance.OnIncreaseNum;
+                @DecreaseNum.started += instance.OnDecreaseNum;
+                @DecreaseNum.performed += instance.OnDecreaseNum;
+                @DecreaseNum.canceled += instance.OnDecreaseNum;
             }
         }
     }
@@ -282,5 +340,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnIncreaseNum(InputAction.CallbackContext context);
+        void OnDecreaseNum(InputAction.CallbackContext context);
     }
 }

@@ -17,4 +17,6 @@ public class ChangeScore : MonoBehaviour
         score--;
         UI_Manager.GetInstance().SetScoreDisplay(score);
     }
+
+    
 }

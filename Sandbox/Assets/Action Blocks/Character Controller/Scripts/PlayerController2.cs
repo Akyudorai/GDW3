@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController2 : MonoBehaviour
 {
+   
     [Header("Components")]
     public Camera cam;
     public GameObject camera_pivot;

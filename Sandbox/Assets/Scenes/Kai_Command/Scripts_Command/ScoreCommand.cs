@@ -17,4 +17,6 @@ public class ScoreCommand : ICommand
     {
         ChangeScore.SubtractPoint();
     }
+
+   
 }
