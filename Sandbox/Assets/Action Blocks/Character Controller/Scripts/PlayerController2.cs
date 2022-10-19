@@ -20,8 +20,11 @@ public class PlayerController2 : MonoBehaviour
     public Vector2 v_Rotation;
 
     [Header("Motion")]
-    public float RunSpeed = 5.0f;
-    public float MaxSpeed = 10.0f;
+    public float CurrentSpeed = 0.0f;
+    public float QuickAcceleration = 10.0f;
+    public float TopAcceleration = 0.5f;
+    public float QuickMaxSpeed = 10.0f;
+    public float TopMaxSpeed = 20.0f;
     public float BrakeSpeed = 0.1f;
     public float JumpForce = 1.0f;
     public float MaxFallSpeed = 20.0f;
@@ -33,7 +36,7 @@ public class PlayerController2 : MonoBehaviour
     public bool IsWallJumping = false;
     private Vector2 v_Movement;
     public bool IsSliding = false;
-
+    public bool IsOverridingMovement = false;
 
     [Header("Interactions")]
     public float InteractionDistance = 5.0f;
@@ -88,7 +91,9 @@ public class PlayerController2 : MonoBehaviour
         {
             transform.position = currentSpline.GetCurrentNode().GetCurrentPosition();
             mesh.transform.LookAt(currentSpline.GetCurrentNode().GetDirection());
-            currentSpline.GetCurrentNode().Traverse(MaxSpeed * 3);                       
+
+            float splineSpeed = Mathf.Max(QuickMaxSpeed, CurrentSpeed);
+            currentSpline.GetCurrentNode().Traverse(splineSpeed);                       
         } 
         else 
         {
@@ -130,57 +135,135 @@ public class PlayerController2 : MonoBehaviour
     }
 
     private void Slide(Vector3 direction) 
-    {
-        rigid.MovePosition(transform.position + direction * RunSpeed * Time.deltaTime);
+    {   
+        float slideSpeed = Mathf.Max(QuickMaxSpeed, CurrentSpeed);
+        rigid.MovePosition(transform.position + direction * slideSpeed * Time.deltaTime);
     }
 
     private void Movement() 
     {
         if (IsWallJumping) return;   
-        if (IsSliding) return;     
+        if (IsSliding) return;   
+        if (IsOverridingMovement) return;
+          
 
         // Prepare a motion vector to used to modify the velocity
         Vector3 motionVector = Vector3.zero;        
 
         // If there is input along the X or Z axis in either direction
         if (v_Movement.y > 0.1f || v_Movement.x > 0.1f || v_Movement.y < -0.1f || v_Movement.x < -0.1f) 
-        {            
-            // Set the motion vector to be relative to the input direction multiplied by the player speed and DeltaTime
-            //motionVector = new Vector3(horizontal * RunSpeed * Time.deltaTime, 0, vertical * RunSpeed * Time.deltaTime);            
-            Vector3 forwardMotion = camera_pivot.transform.forward * v_Movement.y * RunSpeed * Time.fixedDeltaTime;               
-            Vector3 rightMotion = camera_pivot.transform.right * v_Movement.x * RunSpeed * Time.deltaTime;
+        {                     
+            
+            //======================================================
+            // Handles the horizontal motion of the player.
+            //======================================================
+
+            // Get Current Acceleration Rate
+            float acceleration = ((Velocity.magnitude < QuickMaxSpeed) ? QuickAcceleration : TopAcceleration);
+
+            // Get direction of motion
+            Vector3 forwardMotion = camera_pivot.transform.forward * v_Movement.y;               
+            Vector3 rightMotion = camera_pivot.transform.right * v_Movement.x;
             motionVector = forwardMotion + rightMotion;
             motionVector.y = 0;
 
-            mesh.transform.LookAt(mesh.transform.position + motionVector);
+            // Apply Velocity Change
+            Velocity += motionVector * acceleration * Time.deltaTime;
+            Velocity = Vector3.ClampMagnitude(Velocity, TopMaxSpeed);
+            
+            //======================================================
+
+            //======================================================
+            // Handles the rotation of the character
+            //======================================================
+
+            // Calculate between motion vector and current velocity
+            float angle = Vector3.Angle(motionVector.normalized, Velocity.normalized);
+
+            // If the angle between current velocity vector and the intended direciton is greater than 90 degrees
+            if (angle > 90 && Velocity != Vector3.zero) 
+            {
+                // Apply a brake force to the character
+                // Intended to simulate sharp turns (character needs to stop themselves before moving around a sharp corner)
+                if (Velocity.magnitude > 0.1f) {
+                    Vector3 brakeVector = -Velocity * BrakeSpeed;
+                    Velocity += brakeVector * Time.deltaTime;            
+                } else {
+                    Velocity = Vector3.zero;
+                }                
+            } 
+            
+            // Otherwise, if the angle between current velocity vector and intended direction is less than 90 degrees
+            else 
+            {
+                // Grab the cross product to determine which way we want to rotate
+                Vector3 delta = ((transform.position + motionVector) - transform.position).normalized;
+                Vector3 cross = Vector3.Cross(delta, Velocity.normalized);
+
+                // motionVector is Parallel with Velocity; do nothing
+                if (cross == Vector3.zero) { }
+                
+                // motionVector is to the left of velocity direction
+                else if (cross.y > 0) 
+                {    
+                    // Rotate the Direction of Velocity by a negative angle                    
+                    Vector3 newDirection = Quaternion.AngleAxis(-angle * Time.deltaTime, Vector3.up) * Velocity;
+                    Velocity = newDirection;
+                } 
+
+                // motionVector is to the right of the velocity direction
+                else 
+                {
+                    // Rotate Direction of Velocity by a positive angle
+                    Vector3 newDirection = Quaternion.AngleAxis(angle * Time.deltaTime, Vector3.up) * Velocity;
+                    Velocity = newDirection;
+                }
+            }
+
+            // Lastly, rotate the character to look towards the direction of velocity
+            /// We can have the players head rotate to look towards intended motion, while body faces direction of velocity in future
+            mesh.transform.LookAt(mesh.transform.position + Velocity);
+
+            //======================================================
         } 
         
         // Otherwise, if there is no input along the X or Z axis
         else 
         {   
             // Set the motion vector to a brake force to that will slow down the velocity
-            if (rigid.velocity.magnitude > 0) {
-                Vector3 brakeVector = -rigid.velocity * BrakeSpeed;                
-                motionVector = brakeVector;
-                motionVector.y = 0;
+            if (Velocity.magnitude > 0.1f) {
+                Vector3 brakeVector = -Velocity * BrakeSpeed;
+                Velocity += brakeVector * Time.deltaTime;            
+            } else {
+                Velocity = Vector3.zero;
+            }
+            
+            if (CurrentSpeed > 0) {
+                CurrentSpeed *= BrakeSpeed * Time.deltaTime;
             } 
-        }                                          
+        }                                                  
+        
+        // Move the players position in the direction of velocity
+        rigid.MovePosition(transform.position + Velocity * Time.deltaTime);
+        
+        //rigid.velocity += motionVector * CurrentSpeed * Time.deltaTime;
 
-        // Lastly, set the new velocity for the rigidbody equal to our resulting velocity.        
-        rigid.velocity += ((IsGrounded) ? motionVector : motionVector * 0.4f); // Change 0.25 to whatever value you want air motion control ratio to be
+        //rigid.velocity += ((IsGrounded) ? motionVector : motionVector * 0.6f); // Change 0.25 to whatever value you want air motion control ratio to be
+        
 
-        Vector3 xzVel = new Vector3(rigid.velocity.x, 0, rigid.velocity.z);
-        Vector3 yVel = new Vector3(0, rigid.velocity.y, 0);
+        //Vector3 xzVel = new Vector3(rigid.velocity.x, 0, rigid.velocity.z);
+        //Vector3 yVel = new Vector3(0, rigid.velocity.y, 0);
 
-        xzVel = Vector3.ClampMagnitude(xzVel, MaxSpeed);
-        yVel = Vector3.ClampMagnitude(yVel, MaxFallSpeed);        
-        rigid.MovePosition(transform.position + (xzVel + yVel) * Time.deltaTime);    
-        if (b_LimitVelocity) 
-            rigid.velocity = new Vector3(Mathf.Clamp(rigid.velocity.x, -MaxSpeed, MaxSpeed), rigid.velocity.y, Mathf.Clamp(rigid.velocity.z, -MaxSpeed, MaxSpeed));            
+        //xzVel = Vector3.ClampMagnitude(xzVel, TopMaxSpeed);
+        //yVel = Vector3.ClampMagnitude(yVel, MaxFallSpeed);        
+        //rigid.MovePosition(transform.position + (xzVel + yVel) * Time.deltaTime);    
+        //if (b_LimitVelocity) 
+            //rigid.velocity = new Vector3(Mathf.Clamp(rigid.velocity.x, -TopMaxSpeed, TopMaxSpeed), rigid.velocity.y, Mathf.Clamp(rigid.velocity.z, -TopMaxSpeed, TopMaxSpeed));            
 
-        targetDirection.x = xzVel.x;
-        targetDirection.z = xzVel.z;        
-        targetDirection.Normalize();
+        
+        //targetDirection.x = xzVel.x;
+        //targetDirection.z = xzVel.z;        
+        //targetDirection.Normalize();
     }
 
     private void Camera()
@@ -201,6 +284,13 @@ public class PlayerController2 : MonoBehaviour
 
         // Set the local Euler Angles and clamp the angles to prevent weird camera movements        
         camera_pivot.transform.localEulerAngles = new Vector3(ClampAngle(camera_pivot.transform.localEulerAngles.x, hCameraClamp.x, hCameraClamp.y), camera_pivot.transform.localEulerAngles.y, 0);   
+    }
+
+    public IEnumerator OverrideMovement(float duration) 
+    {
+        IsOverridingMovement = true;
+        yield return new WaitForSeconds(duration);
+        IsOverridingMovement = false;
     }
 
     private void Jump()
@@ -233,6 +323,7 @@ public class PlayerController2 : MonoBehaviour
 
     public void ApplyForce(Vector3 force, ForceMode mode = ForceMode.Impulse)
     {        
+        Debug.Log("Launched with force of " + force);
         rigid.AddForce(force, mode);
     } 
 

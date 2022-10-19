@@ -16,15 +16,16 @@ public class SplineNode
 	public bool IsForward = false;
 	public float distanceTraveled = 0.0f;
 	public float percentTraveled = 0.0f;
+	private float traversalSpeed = 0.0f;
 
 	// Bind our player to the spline and restrict its controls to spline-specific actions
 	public void Attach(PlayerController2 pc, float pos = 0.0f, bool isForward = true)
 	{
 		// Initialize Path Values
-		path.pcRef = pc;									// Player Reference
-        path.nodeIndex = index;								// Node Index (of current node)
-		IsForward = isForward;								// Direction of Travel
-		percentTraveled = pos;								// The point on the spline the player latches onto
+		path.pcRef = pc;															// Player Reference
+        path.nodeIndex = index;														// Node Index (of current node)
+		IsForward = (path.splineType == SplineType.Zipline) ? true : isForward;		// Direction of Travel
+		percentTraveled = pos;														// The point on the spline the player latches onto
 		distanceTraveled = GetDistanceToTravel() * pos;		// For measuring distance traveled (important for velocity-based motion along spline)
 
 		// Update Player Values
@@ -60,8 +61,8 @@ public class SplineNode
 
 		// Calculate a launch force based on direction of travel.  The more velocity we have, the further we jump.
 		Vector3 launchForce = (IsForward) ? 				
-			(next.position - position).normalized * path.pcRef.rigid.velocity.magnitude + launchDirection  : 
-			(position - next.position).normalized * path.pcRef.rigid.velocity.magnitude + launchDirection;
+			(next.position - position).normalized * traversalSpeed + launchDirection  : 
+			(position - next.position).normalized * traversalSpeed + launchDirection;
         
 		path.pcRef.rigid.velocity = Vector3.zero;					// Zero-out velocity so our launch force takes over
 		path.pcRef.ApplyForce(launchForce * path.pcRef.JumpForce);	// Apply launch force to the player
@@ -110,6 +111,10 @@ public class SplineNode
 		// Reverse calculate position based on percentage of spline		  	
 		if (next != null) {
 			Vector3 newPosition = position - (position - next.position) * percentTraveled;
+			if (path.splineType == SplineType.Zipline) {
+				newPosition -= Vector3.up * (path.pcRef.transform.localScale.y*2);
+			}
+			
 			return newPosition;
 		}	
 

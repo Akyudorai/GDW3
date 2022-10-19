@@ -11,7 +11,7 @@ public class NPCSpawner : MonoBehaviour
         foreach (Transform spawnLocation in spawnLocations)     // Iterates through list of spawn locations
         {
             // Ideally this code would contain some sort of functionality to make the NPCs say interesting flavor text as the player passes by
-            Debug.LogError("Spawn");
+            //Debug.LogError("Spawn");
             NPCFactory.GetInstance().GetNPC("I am NPC #" + ++npcIncrement + " :)", spawnLocation.position);  // Calling the factory function
         }
     }

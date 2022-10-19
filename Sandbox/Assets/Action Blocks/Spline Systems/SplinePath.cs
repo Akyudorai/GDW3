@@ -22,12 +22,21 @@ public class SplinePath : MonoBehaviour
 
     [Header("Debugging")]
     public bool DebugSplinePath = false;
+    private LineRenderer pathLine;
 
     private void Start() 
     {   
         // We only want to initialize for manually created splines, not generated spline paths (like wall running)
         if (splineType == SplineType.Rail || splineType == SplineType.Zipline) {
             Initialize();
+        }
+
+        if (GetComponent<LineRenderer>() != null) {
+            pathLine = GetComponent<LineRenderer>();
+            pathLine.positionCount = points.Count;
+            for (int i = 0 ; i < points.Count; i++) {
+                pathLine.SetPosition(i, points[i].transform.position);
+            }
         }
     }
 

@@ -9,8 +9,7 @@ public class WallInteractable : Interactable
         if (pc.IsGrounded) return;
               
         // Calculate Direction of spline
-        
-        Vector3 playerRelativeDir = (hit.point + pc.rigid.velocity);                // Player's current direction of travel
+        Vector3 playerRelativeDir = (hit.point + pc.Velocity);                      // Player's current direction of travel
         Vector3 surfaceNormal = hit.normal;                                         // The normal for the surface of the wall
         Vector3 surfaceDir = Quaternion.Euler(0, 90, 0) * surfaceNormal;            // The direction the spline will be traveling        
         
@@ -23,8 +22,11 @@ public class WallInteractable : Interactable
         float neg_dist = Vector3.Distance(playerRelativeDir, neg_dir);
         bool isForward = ((pos_dist >= neg_dist) ? true : false);
 
+        Debug.Log("Is Forward");
+
         // Generate a spline path along the wall to follow and attach the player to it
-        SplinePath wallRunSpline = SplineUtils.GenerateWallRunPath(hit.point + surfaceNormal * 0.5f, surfaceDir, pc.MaxSpeed, isForward);
+        float splineSpeed = Mathf.Max(pc.QuickMaxSpeed, pc.CurrentSpeed);
+        SplinePath wallRunSpline = SplineUtils.GenerateWallRunPath(hit.point + surfaceNormal * 0.5f, surfaceDir, splineSpeed, isForward);
         wallRunSpline.GetCurrentNode().Attach(pc, 0.0f, true);  
     }
 }

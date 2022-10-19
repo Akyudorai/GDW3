@@ -5,8 +5,8 @@ using UnityEngine;
 public class NpcHelpState : NpcBaseState
 {
     public bool helpFound = false;
-    float currentTime = 0f;
-    float targetTime = 3f;
+    //float currentTime = 0f;
+    //float targetTime = 3f;
     public override void EnterState (NpcStateManager npc)
     {
         Debug.Log("Hello I need help!");

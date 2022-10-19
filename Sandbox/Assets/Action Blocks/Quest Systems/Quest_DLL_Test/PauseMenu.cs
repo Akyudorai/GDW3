@@ -26,6 +26,23 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] GameObject pauseMenu;
     public TextMeshProUGUI tip;
+    
+    private void Start() 
+    {
+        GameManager.GetInstance().pcRef.inputAction.Player.Escape.performed += cntxt => Toggle();
+    }
+
+    private void Toggle() 
+    {
+        if (!pauseMenu.activeInHierarchy) { 
+            Pause(); 
+        } 
+        
+        else {
+            Resume(); 
+        }
+    }
+
     public void Pause()
     {
         FreshTip();

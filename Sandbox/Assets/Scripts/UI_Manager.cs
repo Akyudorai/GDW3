@@ -10,9 +10,7 @@ public class UI_Manager : MonoBehaviour
 
     // ============ SINGLETON ============
     private static UI_Manager instance;
-    public float timeDuration = 3f;
-    public float timer;
-    public bool enableTimer = false;
+    
     public static UI_Manager GetInstance() 
     {
         return instance;
@@ -30,7 +28,7 @@ public class UI_Manager : MonoBehaviour
     // ============ SINGLETON ============
 
     // References
-    public TMP_Text ScoreDisplay;
+    public TMP_Text MoneyDisplay;
     public TMP_Text InteractionDisplay;
 
     public void ToggleInteraction(bool state) 
@@ -43,9 +41,9 @@ public class UI_Manager : MonoBehaviour
         InteractionDisplay.text = text;
     }
 
-    public void SetScoreDisplay(int score) 
+    public void SetMoneyDisplay(int value) 
     {
-        ScoreDisplay.text = "Score: " + score;
+        MoneyDisplay.text = "Money: " + value;
     }
     
 }
