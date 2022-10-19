@@ -26,7 +26,7 @@ public abstract class LampEvents
 
         public static float GetIntensity()
         {
-            return 1000000f;
+            return 40000f;
         }
     }
 }
