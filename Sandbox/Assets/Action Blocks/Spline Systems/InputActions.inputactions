@@ -1,5 +1,5 @@
 {
-    "name": "PlayerActions",
+    "name": "InputActions",
     "maps": [
         {
             "name": "Player",
@@ -36,6 +36,24 @@
                     "name": "Interact",
                     "type": "Value",
                     "id": "42ab45f1-e199-41ea-9434-4c5616fe0568",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "EnableCheats",
+                    "type": "Value",
+                    "id": "3d154865-715c-47f9-9025-bf141d85dd3e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Escape",
+                    "type": "Value",
+                    "id": "ad291901-7022-4363-9d91-50924ecabf72",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -128,6 +146,156 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f66a2a1-e6dd-4887-a2fd-7f99ae1efd6b",
+                    "path": "<Keyboard>/backquote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableCheats",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "989c1207-8f7b-42d5-9fb9-b0880fcdc1ce",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Cheats",
+            "id": "cf15d783-4085-4410-8295-3311bd6df898",
+            "actions": [
+                {
+                    "name": "Sunrise",
+                    "type": "Value",
+                    "id": "316f5400-0c49-4f6c-8008-4f5a7bec0c8a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Noon",
+                    "type": "Value",
+                    "id": "82d5c0b5-6c3a-4e8a-94af-c71555e45b76",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Sunset",
+                    "type": "Value",
+                    "id": "16bc641d-816b-4b4a-b107-603c8b4d8cbb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Midnight",
+                    "type": "Value",
+                    "id": "b622b4e6-f8f6-437e-b2fb-ff070ec9050c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MoneyUp",
+                    "type": "Value",
+                    "id": "ca3fda42-ab43-4571-9d37-b2783196dc2c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MoneyDown",
+                    "type": "Value",
+                    "id": "6c5d44bd-050d-46ef-8ebe-562b32f94b77",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2411decf-23f0-4158-8420-a6b1bb976288",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sunrise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "61a3e335-db39-4cfc-86b5-ec6ba18d8853",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Noon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27ee518b-70b1-4c45-bcd4-f8bfebaa86c0",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sunset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d459ef9-88df-4690-849e-666bc49bd61a",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Midnight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "95d34fb7-3ec3-4daa-baa5-a8dcd419b586",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoneyUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "61e67cc5-58ba-49ab-935f-1ed6018b4828",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoneyDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

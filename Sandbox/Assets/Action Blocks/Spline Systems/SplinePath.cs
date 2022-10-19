@@ -20,14 +20,26 @@ public class SplinePath : MonoBehaviour
     public int nodeIndex = 0;
     public PlayerController2 pcRef;
 
+    [Header("Wall Spline Specific")]
+    public bool isRight = false;
+
     [Header("Debugging")]
     public bool DebugSplinePath = false;
+    private LineRenderer pathLine;
 
     private void Start() 
     {   
         // We only want to initialize for manually created splines, not generated spline paths (like wall running)
         if (splineType == SplineType.Rail || splineType == SplineType.Zipline) {
             Initialize();
+        }
+
+        if (GetComponent<LineRenderer>() != null) {
+            pathLine = GetComponent<LineRenderer>();
+            pathLine.positionCount = points.Count;
+            for (int i = 0 ; i < points.Count; i++) {
+                pathLine.SetPosition(i, points[i].transform.position);
+            }
         }
     }
 
@@ -71,8 +83,23 @@ public class SplinePath : MonoBehaviour
 
     private void Update() 
     {
-        if (splineType == SplineType.Wall && pcRef == null) {
-            Destroy(gameObject);
+        if (splineType == SplineType.Wall) 
+        {            
+            if (pcRef != null) 
+            {
+                // Check to see if we're still running on the wall
+                bool checkWall = (Physics.Raycast(pcRef.mesh.transform.position, pcRef.mesh.transform.right * ((isRight) ? 1 : -1), 1));				
+                
+                if (!checkWall) 
+                {
+                    GetCurrentNode().Detatch();
+                }
+            } 
+            
+            else 
+            {
+                Destroy(gameObject);
+            }    
         }
     }
 

@@ -16,15 +16,16 @@ public class SplineNode
 	public bool IsForward = false;
 	public float distanceTraveled = 0.0f;
 	public float percentTraveled = 0.0f;
+	private float traversalSpeed = 0.0f;
 
 	// Bind our player to the spline and restrict its controls to spline-specific actions
 	public void Attach(PlayerController2 pc, float pos = 0.0f, bool isForward = true)
 	{
 		// Initialize Path Values
-		path.pcRef = pc;									// Player Reference
-        path.nodeIndex = index;								// Node Index (of current node)
-		IsForward = isForward;								// Direction of Travel
-		percentTraveled = pos;								// The point on the spline the player latches onto
+		path.pcRef = pc;															// Player Reference
+        path.nodeIndex = index;														// Node Index (of current node)
+		IsForward = (path.splineType == SplineType.Zipline) ? true : isForward;		// Direction of Travel
+		percentTraveled = pos;														// The point on the spline the player latches onto
 		distanceTraveled = GetDistanceToTravel() * pos;		// For measuring distance traveled (important for velocity-based motion along spline)
 
 		// Update Player Values
@@ -45,14 +46,14 @@ public class SplineNode
 			default:
 			// Rail launches player upwards
 			case SplineType.Rail: launchDirection = Vector3.up;	break;
-			// Zipline launches has the player drop with no direction modifier
-			case SplineType.Zipline: launchDirection = Vector3.zero; break;
+			// Zipline launches has the player drop donwards
+			case SplineType.Zipline: launchDirection = -Vector3.up; break;
 			// Walls launch the player in the direction of their normal
-			case SplineType.Wall: 
-				bool isRight = (Physics.Raycast(path.pcRef.mesh.transform.position, path.pcRef.mesh.transform.right, 10));
-				Debug.Log("Is Right (" + isRight + ")");				
-				Vector3 normalLaunch = Quaternion.Euler(0, 90, 0) * GetDirection();
+			case SplineType.Wall: 				
+				//Debug.Log("Is Right (" + isRight + ")");				
+				Vector3 normalLaunch = Quaternion.Euler(0, ((path.isRight) ? 90 : -90), 0) * GetDirection().normalized;
 				normalLaunch.y = 0;
+				//Debug.Log(normalLaunch);
 				Vector3 verticalLaunch = Vector3.up;
 				launchDirection = normalLaunch.normalized + verticalLaunch; 
 				break;
@@ -60,8 +61,8 @@ public class SplineNode
 
 		// Calculate a launch force based on direction of travel.  The more velocity we have, the further we jump.
 		Vector3 launchForce = (IsForward) ? 				
-			(next.position - position).normalized * path.pcRef.rigid.velocity.magnitude + launchDirection  : 
-			(position - next.position).normalized * path.pcRef.rigid.velocity.magnitude + launchDirection;
+			(next.position - position).normalized * traversalSpeed + launchDirection  : 
+			(position - next.position).normalized * traversalSpeed + launchDirection;
         
 		path.pcRef.rigid.velocity = Vector3.zero;					// Zero-out velocity so our launch force takes over
 		path.pcRef.ApplyForce(launchForce * path.pcRef.JumpForce);	// Apply launch force to the player
@@ -110,6 +111,10 @@ public class SplineNode
 		// Reverse calculate position based on percentage of spline		  	
 		if (next != null) {
 			Vector3 newPosition = position - (position - next.position) * percentTraveled;
+			if (path.splineType == SplineType.Zipline) {
+				newPosition -= Vector3.up * (path.pcRef.transform.localScale.y*2);
+			}
+			
 			return newPosition;
 		}	
 
@@ -120,15 +125,16 @@ public class SplineNode
 	// Get which way we want to move depending on a boolean
 	public Vector3 GetDirection() 
 	{
-		return (IsForward) ?
-			next.position :
-			position;
-
-		// Forward = N[i] - (N[i] - N[i+1])
-		// Backward = N[i+1] - (N[i+1] - N[i])
 		// return (IsForward) ?
-		// 	position - ((position - next.position)) :
-		//  	next.position - ((next.position - position));
+		// 	next.position :
+		// 	position;
+
+		//Forward = N[i] - (N[i] - N[i+1])
+		//Backward = N[i+1] - (N[i+1] - N[i])
+		
+		return (IsForward) ?
+			position - next.position :
+		 	next.position - position;
 	}
 
 	// Simply calculates the distance between the current node and the next node. Important for velocity-based motion

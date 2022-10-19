@@ -28,6 +28,23 @@ public class PauseMenu : MonoBehaviour
     public TextMeshProUGUI tip;
     public Animator blackCapAnimator;
     public Animator pigTailsAnimator;
+    
+    private void Start() 
+    {
+        GameManager.GetInstance().pcRef.inputAction.Player.Escape.performed += cntxt => Toggle();
+    }
+
+    private void Toggle() 
+    {
+        if (!pauseMenu.activeInHierarchy) { 
+            Pause(); 
+        } 
+        
+        else {
+            Resume(); 
+        }
+    }
+
     public void Pause()
     {
         FreshTip();

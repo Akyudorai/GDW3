@@ -62,6 +62,24 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""EnableCheats"",
+                    ""type"": ""Value"",
+                    ""id"": ""3d154865-715c-47f9-9025-bf141d85dd3e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Value"",
+                    ""id"": ""ad291901-7022-4363-9d91-50924ecabf72"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -152,6 +170,156 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f66a2a1-e6dd-4887-a2fd-7f99ae1efd6b"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EnableCheats"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""989c1207-8f7b-42d5-9fb9-b0880fcdc1ce"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Cheats"",
+            ""id"": ""cf15d783-4085-4410-8295-3311bd6df898"",
+            ""actions"": [
+                {
+                    ""name"": ""Sunrise"",
+                    ""type"": ""Value"",
+                    ""id"": ""316f5400-0c49-4f6c-8008-4f5a7bec0c8a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Noon"",
+                    ""type"": ""Value"",
+                    ""id"": ""82d5c0b5-6c3a-4e8a-94af-c71555e45b76"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Sunset"",
+                    ""type"": ""Value"",
+                    ""id"": ""16bc641d-816b-4b4a-b107-603c8b4d8cbb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Midnight"",
+                    ""type"": ""Value"",
+                    ""id"": ""b622b4e6-f8f6-437e-b2fb-ff070ec9050c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MoneyUp"",
+                    ""type"": ""Value"",
+                    ""id"": ""ca3fda42-ab43-4571-9d37-b2783196dc2c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MoneyDown"",
+                    ""type"": ""Value"",
+                    ""id"": ""6c5d44bd-050d-46ef-8ebe-562b32f94b77"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""2411decf-23f0-4158-8420-a6b1bb976288"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sunrise"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61a3e335-db39-4cfc-86b5-ec6ba18d8853"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Noon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27ee518b-70b1-4c45-bcd4-f8bfebaa86c0"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sunset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d459ef9-88df-4690-849e-666bc49bd61a"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Midnight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95d34fb7-3ec3-4daa-baa5-a8dcd419b586"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoneyUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61e67cc5-58ba-49ab-935f-1ed6018b4828"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoneyDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +332,16 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_EnableCheats = m_Player.FindAction("EnableCheats", throwIfNotFound: true);
+        m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
+        // Cheats
+        m_Cheats = asset.FindActionMap("Cheats", throwIfNotFound: true);
+        m_Cheats_Sunrise = m_Cheats.FindAction("Sunrise", throwIfNotFound: true);
+        m_Cheats_Noon = m_Cheats.FindAction("Noon", throwIfNotFound: true);
+        m_Cheats_Sunset = m_Cheats.FindAction("Sunset", throwIfNotFound: true);
+        m_Cheats_Midnight = m_Cheats.FindAction("Midnight", throwIfNotFound: true);
+        m_Cheats_MoneyUp = m_Cheats.FindAction("MoneyUp", throwIfNotFound: true);
+        m_Cheats_MoneyDown = m_Cheats.FindAction("MoneyDown", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +405,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_EnableCheats;
+    private readonly InputAction m_Player_Escape;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -235,6 +415,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @EnableCheats => m_Wrapper.m_Player_EnableCheats;
+        public InputAction @Escape => m_Wrapper.m_Player_Escape;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -256,6 +438,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @EnableCheats.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEnableCheats;
+                @EnableCheats.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEnableCheats;
+                @EnableCheats.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEnableCheats;
+                @Escape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -272,15 +460,105 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @EnableCheats.started += instance.OnEnableCheats;
+                @EnableCheats.performed += instance.OnEnableCheats;
+                @EnableCheats.canceled += instance.OnEnableCheats;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Cheats
+    private readonly InputActionMap m_Cheats;
+    private ICheatsActions m_CheatsActionsCallbackInterface;
+    private readonly InputAction m_Cheats_Sunrise;
+    private readonly InputAction m_Cheats_Noon;
+    private readonly InputAction m_Cheats_Sunset;
+    private readonly InputAction m_Cheats_Midnight;
+    private readonly InputAction m_Cheats_MoneyUp;
+    private readonly InputAction m_Cheats_MoneyDown;
+    public struct CheatsActions
+    {
+        private @InputActions m_Wrapper;
+        public CheatsActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Sunrise => m_Wrapper.m_Cheats_Sunrise;
+        public InputAction @Noon => m_Wrapper.m_Cheats_Noon;
+        public InputAction @Sunset => m_Wrapper.m_Cheats_Sunset;
+        public InputAction @Midnight => m_Wrapper.m_Cheats_Midnight;
+        public InputAction @MoneyUp => m_Wrapper.m_Cheats_MoneyUp;
+        public InputAction @MoneyDown => m_Wrapper.m_Cheats_MoneyDown;
+        public InputActionMap Get() { return m_Wrapper.m_Cheats; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CheatsActions set) { return set.Get(); }
+        public void SetCallbacks(ICheatsActions instance)
+        {
+            if (m_Wrapper.m_CheatsActionsCallbackInterface != null)
+            {
+                @Sunrise.started -= m_Wrapper.m_CheatsActionsCallbackInterface.OnSunrise;
+                @Sunrise.performed -= m_Wrapper.m_CheatsActionsCallbackInterface.OnSunrise;
+                @Sunrise.canceled -= m_Wrapper.m_CheatsActionsCallbackInterface.OnSunrise;
+                @Noon.started -= m_Wrapper.m_CheatsActionsCallbackInterface.OnNoon;
+                @Noon.performed -= m_Wrapper.m_CheatsActionsCallbackInterface.OnNoon;
+                @Noon.canceled -= m_Wrapper.m_CheatsActionsCallbackInterface.OnNoon;
+                @Sunset.started -= m_Wrapper.m_CheatsActionsCallbackInterface.OnSunset;
+                @Sunset.performed -= m_Wrapper.m_CheatsActionsCallbackInterface.OnSunset;
+                @Sunset.canceled -= m_Wrapper.m_CheatsActionsCallbackInterface.OnSunset;
+                @Midnight.started -= m_Wrapper.m_CheatsActionsCallbackInterface.OnMidnight;
+                @Midnight.performed -= m_Wrapper.m_CheatsActionsCallbackInterface.OnMidnight;
+                @Midnight.canceled -= m_Wrapper.m_CheatsActionsCallbackInterface.OnMidnight;
+                @MoneyUp.started -= m_Wrapper.m_CheatsActionsCallbackInterface.OnMoneyUp;
+                @MoneyUp.performed -= m_Wrapper.m_CheatsActionsCallbackInterface.OnMoneyUp;
+                @MoneyUp.canceled -= m_Wrapper.m_CheatsActionsCallbackInterface.OnMoneyUp;
+                @MoneyDown.started -= m_Wrapper.m_CheatsActionsCallbackInterface.OnMoneyDown;
+                @MoneyDown.performed -= m_Wrapper.m_CheatsActionsCallbackInterface.OnMoneyDown;
+                @MoneyDown.canceled -= m_Wrapper.m_CheatsActionsCallbackInterface.OnMoneyDown;
+            }
+            m_Wrapper.m_CheatsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Sunrise.started += instance.OnSunrise;
+                @Sunrise.performed += instance.OnSunrise;
+                @Sunrise.canceled += instance.OnSunrise;
+                @Noon.started += instance.OnNoon;
+                @Noon.performed += instance.OnNoon;
+                @Noon.canceled += instance.OnNoon;
+                @Sunset.started += instance.OnSunset;
+                @Sunset.performed += instance.OnSunset;
+                @Sunset.canceled += instance.OnSunset;
+                @Midnight.started += instance.OnMidnight;
+                @Midnight.performed += instance.OnMidnight;
+                @Midnight.canceled += instance.OnMidnight;
+                @MoneyUp.started += instance.OnMoneyUp;
+                @MoneyUp.performed += instance.OnMoneyUp;
+                @MoneyUp.canceled += instance.OnMoneyUp;
+                @MoneyDown.started += instance.OnMoneyDown;
+                @MoneyDown.performed += instance.OnMoneyDown;
+                @MoneyDown.canceled += instance.OnMoneyDown;
+            }
+        }
+    }
+    public CheatsActions @Cheats => new CheatsActions(this);
     public interface IPlayerActions
     {
         void OnJump(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnEnableCheats(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
+    }
+    public interface ICheatsActions
+    {
+        void OnSunrise(InputAction.CallbackContext context);
+        void OnNoon(InputAction.CallbackContext context);
+        void OnSunset(InputAction.CallbackContext context);
+        void OnMidnight(InputAction.CallbackContext context);
+        void OnMoneyUp(InputAction.CallbackContext context);
+        void OnMoneyDown(InputAction.CallbackContext context);
     }
 }

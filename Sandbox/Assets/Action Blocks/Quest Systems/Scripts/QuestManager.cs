@@ -19,6 +19,7 @@ public class QuestManager : MonoBehaviour
     }
 
     [Header("UI Components")]
+    public GameObject questPanel;
     public TextMeshProUGUI questTitle;
     public TextMeshProUGUI questDescription;
     public TextMeshProUGUI questObjective;
@@ -28,7 +29,13 @@ public class QuestManager : MonoBehaviour
     public Quest activeQuest;
     private List<Quest> quests; //not currently in use
 
-
+    private void Start() 
+    {   
+        // Turn off quest panel when we dont have a quest
+        if (activeQuest == null) {
+            questPanel.SetActive(false);
+        }
+    }
     public void ActivateQuest(Quest _quest)
     {
         if(activeQuest == null)
@@ -41,6 +48,9 @@ public class QuestManager : MonoBehaviour
             {
                 Instantiate(activeQuest.questItems[i], activeQuest.questItemsPositions[i].position, Quaternion.identity);
             }
+
+            // Turn on quest panel when we have a quest
+            questPanel.SetActive(true);
         }        
     }
 
@@ -51,6 +61,11 @@ public class QuestManager : MonoBehaviour
         questTitle.text = "Quest Title: -";
         questDescription.text = "Quest Description: -";
         questObjective.text = "Quest Objective: -";
+
+        GameManager.GetInstance().playerRef.AddMoney(50);
+
+        // Turn off Quest Panel when no quest is left
+        questPanel.SetActive(false);
     }
 
     public void QuestItemCollected(QuestItem item)
