@@ -1752,7 +1752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b470afa7612f2848b8bc44baeebb1c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LaunchForce: 25
+  LaunchForce: 22
   CanLaunch: 1
 --- !u!65 &1059252212
 BoxCollider:
@@ -2716,6 +2716,7 @@ MonoBehaviour:
   nodes: []
   nodeIndex: 0
   pcRef: {fileID: 0}
+  isRight: 0
   DebugSplinePath: 1
 --- !u!4 &1368819436
 Transform:

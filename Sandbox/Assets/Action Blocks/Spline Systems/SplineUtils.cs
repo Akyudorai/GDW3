@@ -30,10 +30,10 @@ public class SplineUtils : MonoBehaviour
 
         // Set the positions of each point relative to direction, travel      
         p1.transform.position = position;
-        p2.transform.position = position + direction * speed * inverter + Vector3.up;
-        p3.transform.position = position + direction * speed * 2 * inverter + Vector3.up * 1.5f;
-        p4.transform.position = position + direction * speed * 3 * inverter + Vector3.up;
-        p5.transform.position = position + direction * speed * 4 * inverter; 
+        p2.transform.position = position + direction * (speed/2) * inverter + Vector3.up;
+        p3.transform.position = position + direction * (speed/2) * 2 * inverter + Vector3.up * 1.5f;
+        p4.transform.position = position + direction * (speed/2) * 3 * inverter + Vector3.up;
+        p5.transform.position = position + direction * (speed/2) * 4 * inverter; 
 
         // Populate the points for SplinePath
         path.points = new List<GameObject>();

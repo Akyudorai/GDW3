@@ -46,14 +46,14 @@ public class SplineNode
 			default:
 			// Rail launches player upwards
 			case SplineType.Rail: launchDirection = Vector3.up;	break;
-			// Zipline launches has the player drop with no direction modifier
-			case SplineType.Zipline: launchDirection = Vector3.zero; break;
+			// Zipline launches has the player drop donwards
+			case SplineType.Zipline: launchDirection = -Vector3.up; break;
 			// Walls launch the player in the direction of their normal
-			case SplineType.Wall: 
-				bool isRight = (Physics.Raycast(path.pcRef.mesh.transform.position, path.pcRef.mesh.transform.right, 10));
-				Debug.Log("Is Right (" + isRight + ")");				
-				Vector3 normalLaunch = Quaternion.Euler(0, 90, 0) * GetDirection();
+			case SplineType.Wall: 				
+				//Debug.Log("Is Right (" + isRight + ")");				
+				Vector3 normalLaunch = Quaternion.Euler(0, ((path.isRight) ? 90 : -90), 0) * GetDirection().normalized;
 				normalLaunch.y = 0;
+				//Debug.Log(normalLaunch);
 				Vector3 verticalLaunch = Vector3.up;
 				launchDirection = normalLaunch.normalized + verticalLaunch; 
 				break;
@@ -125,15 +125,16 @@ public class SplineNode
 	// Get which way we want to move depending on a boolean
 	public Vector3 GetDirection() 
 	{
-		return (IsForward) ?
-			next.position :
-			position;
-
-		// Forward = N[i] - (N[i] - N[i+1])
-		// Backward = N[i+1] - (N[i+1] - N[i])
 		// return (IsForward) ?
-		// 	position - ((position - next.position)) :
-		//  	next.position - ((next.position - position));
+		// 	next.position :
+		// 	position;
+
+		//Forward = N[i] - (N[i] - N[i+1])
+		//Backward = N[i+1] - (N[i+1] - N[i])
+		
+		return (IsForward) ?
+			position - next.position :
+		 	next.position - position;
 	}
 
 	// Simply calculates the distance between the current node and the next node. Important for velocity-based motion

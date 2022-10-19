@@ -20,6 +20,9 @@ public class SplinePath : MonoBehaviour
     public int nodeIndex = 0;
     public PlayerController2 pcRef;
 
+    [Header("Wall Spline Specific")]
+    public bool isRight = false;
+
     [Header("Debugging")]
     public bool DebugSplinePath = false;
     private LineRenderer pathLine;
@@ -80,8 +83,23 @@ public class SplinePath : MonoBehaviour
 
     private void Update() 
     {
-        if (splineType == SplineType.Wall && pcRef == null) {
-            Destroy(gameObject);
+        if (splineType == SplineType.Wall) 
+        {            
+            if (pcRef != null) 
+            {
+                // Check to see if we're still running on the wall
+                bool checkWall = (Physics.Raycast(pcRef.mesh.transform.position, pcRef.mesh.transform.right * ((isRight) ? 1 : -1), 1));				
+                
+                if (!checkWall) 
+                {
+                    GetCurrentNode().Detatch();
+                }
+            } 
+            
+            else 
+            {
+                Destroy(gameObject);
+            }    
         }
     }
 

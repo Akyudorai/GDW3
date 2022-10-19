@@ -90,9 +90,11 @@ public class PlayerController2 : MonoBehaviour
         if (currentSpline != null) 
         {
             transform.position = currentSpline.GetCurrentNode().GetCurrentPosition();
-            mesh.transform.LookAt(currentSpline.GetCurrentNode().GetDirection());
+            Vector3 lookDir = currentSpline.GetCurrentNode().GetDirection();
+            lookDir.y = 0;
+            mesh.transform.LookAt(mesh.transform.position - lookDir);
 
-            float splineSpeed = Mathf.Max(QuickMaxSpeed, CurrentSpeed);
+            float splineSpeed = Mathf.Min(QuickMaxSpeed, CurrentSpeed);
             currentSpline.GetCurrentNode().Traverse(splineSpeed);                       
         } 
         else 
@@ -136,7 +138,7 @@ public class PlayerController2 : MonoBehaviour
 
     private void Slide(Vector3 direction) 
     {   
-        float slideSpeed = Mathf.Max(QuickMaxSpeed, CurrentSpeed);
+        float slideSpeed = Mathf.Min(QuickMaxSpeed, CurrentSpeed);
         rigid.MovePosition(transform.position + direction * slideSpeed * Time.deltaTime);
     }
 
@@ -170,6 +172,7 @@ public class PlayerController2 : MonoBehaviour
             // Apply Velocity Change
             Velocity += motionVector * acceleration * Time.deltaTime;
             Velocity = Vector3.ClampMagnitude(Velocity, TopMaxSpeed);
+            CurrentSpeed = Velocity.magnitude;
             
             //======================================================
 
@@ -323,7 +326,7 @@ public class PlayerController2 : MonoBehaviour
 
     public void ApplyForce(Vector3 force, ForceMode mode = ForceMode.Impulse)
     {        
-        Debug.Log("Launched with force of " + force);
+        //Debug.Log("Launched with force of " + force);
         rigid.AddForce(force, mode);
     } 
 
@@ -434,6 +437,8 @@ public class PlayerController2 : MonoBehaviour
 
     private void OnDrawGizmos() 
     {
+        Gizmos.color = Color.white;
+
         if (DebugInteractionRadius) Gizmos.DrawWireSphere(transform.position + transform.up * 1.5f, InteractionDistance);             
     
         if (!IsGrounded) {
@@ -443,6 +448,12 @@ public class PlayerController2 : MonoBehaviour
         if (targetInteractable != null) 
         {
             Gizmos.DrawLine(transform.position + transform.up * 1.5f, targetInteractableHitPoint);
+        }
+
+        if (currentSpline != null) 
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, transform.position + currentSpline.GetCurrentNode().GetDirection());
         }
     }
 }

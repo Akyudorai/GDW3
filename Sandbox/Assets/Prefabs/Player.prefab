@@ -380,10 +380,10 @@ MonoBehaviour:
   FovRange: {x: 60, y: 90}
   v_Rotation: {x: 0, y: 0}
   CurrentSpeed: 0
-  QuickAcceleration: 7
+  QuickAcceleration: 10
   TopAcceleration: 2
-  QuickMaxSpeed: 10
-  TopMaxSpeed: 15
+  QuickMaxSpeed: 15
+  TopMaxSpeed: 20
   BrakeSpeed: 5
   JumpForce: 7
   MaxFallSpeed: 20
@@ -394,6 +394,7 @@ MonoBehaviour:
   b_LimitVelocity: 1
   IsWallJumping: 0
   IsSliding: 0
+  IsOverridingMovement: 0
   InteractionDistance: 2
   targetInteractable: {fileID: 0}
   currentSpline: {fileID: 0}

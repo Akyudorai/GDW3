@@ -23,7 +23,7 @@ public class ZiplineInteractable : Interactable
         float result = nodeToPoint.magnitude / nodeToNode.magnitude;
         
         // Calculate Direction of spline
-        Vector3 playerRelativeDir = (hit.point + pc.rigid.velocity);                // Player's current direction of travel
+        Vector3 playerRelativeDir = (hit.point + pc.Velocity);                // Player's current direction of travel
         Vector3 surfaceDir = (pB - pA).normalized;                                  // The direction the spline is traveling in
 
         // Generate a comparison point to see which is closer
