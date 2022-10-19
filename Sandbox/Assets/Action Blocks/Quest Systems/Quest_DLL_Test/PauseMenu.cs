@@ -26,11 +26,15 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] GameObject pauseMenu;
     public TextMeshProUGUI tip;
+    public Animator blackCapAnimator;
+    public Animator pigTailsAnimator;
     public void Pause()
     {
         FreshTip();
         pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
+        blackCapAnimator.Play("blackCapPopIn");
+        pigTailsAnimator.Play("pigTailsPopIn");
     }
 
     public void Resume()
