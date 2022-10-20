@@ -47,11 +47,8 @@ public class TestPlugin : MonoBehaviour
                    
         GenerateTip(str, str.Capacity);
         string myString = str.ToString();
-        //tip.text = myString;
-        
-        
+        //tip.text = myString;               
 
         freeTest(test);
     }
-
 }
