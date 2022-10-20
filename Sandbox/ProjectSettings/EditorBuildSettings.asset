@@ -8,10 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Action Blocks/A5 - Aligned Components/AB_AlignedComponents.unity
+    guid: d5f460189bd2e2a4c94733a4dbec9279
   - enabled: 0
     path: Assets/Action Blocks/Animation Controller/AnimationsActionBlock.unity
     guid: 8124e5870f4fd4c779e7a5f994e84ad1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Action Blocks/Quest Systems/Quest_DLL_Test/QuestDLLTestScene.unity
     guid: f8f85d62278f3d6428ccb90c26fc5ceb
   m_configObjects: {}
