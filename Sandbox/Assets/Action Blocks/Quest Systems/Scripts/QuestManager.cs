@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class QuestManager : MonoBehaviour
@@ -23,6 +24,7 @@ public class QuestManager : MonoBehaviour
     public TextMeshProUGUI questTitle;
     public TextMeshProUGUI questDescription;
     public TextMeshProUGUI questObjective;
+    public Image questImage;
 
     [Header("Quest Components")]
     [SerializeField]
@@ -44,13 +46,14 @@ public class QuestManager : MonoBehaviour
             questTitle.text = _quest.GetQuestName();
             questDescription.text = _quest.GetQuestDescription();
             questObjective.text = _quest.GetQuestObjective();
+            questImage.GetComponent<Image>().sprite = _quest.GetQuestSprite();
             for(int i = 0; i < activeQuest.questItems.Count; i++)
             {
                 Instantiate(activeQuest.questItems[i], activeQuest.questItemsPositions[i].position, Quaternion.identity);
             }
 
             // Turn on quest panel when we have a quest
-            questPanel.SetActive(true);
+            //questPanel.SetActive(true);
         }        
     }
 
@@ -61,8 +64,9 @@ public class QuestManager : MonoBehaviour
         questTitle.text = "Quest Title: -";
         questDescription.text = "Quest Description: -";
         questObjective.text = "Quest Objective: -";
+        questImage.GetComponent<Image>().sprite = null;
 
-        GameManager.GetInstance().playerRef.AddMoney(50);
+        //GameManager.GetInstance().playerRef.AddMoney(50);
 
         // Turn off Quest Panel when no quest is left
         questPanel.SetActive(false);
