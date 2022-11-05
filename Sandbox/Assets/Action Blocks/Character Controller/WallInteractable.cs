@@ -32,6 +32,6 @@ public class WallInteractable : Interactable
 
         pc.mesh.transform.LookAt(pc.mesh.transform.position - surfaceDir * ((isForward) ? -1 : 1));
         wallRunSpline.isRight = (Physics.Raycast(pc.mesh.transform.position, pc.mesh.transform.right, 1));
-        wallRunSpline.GetCurrentNode().Attach(pc, 0.0f, true);  
+        wallRunSpline.GetNode(0).Attach(pc.splineController, 0.0f, true);  
     }
 }

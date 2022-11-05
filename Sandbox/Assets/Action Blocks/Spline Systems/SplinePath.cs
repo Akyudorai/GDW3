@@ -15,20 +15,22 @@ public class SplinePath : MonoBehaviour
     public SplineType splineType;
     public List<GameObject> points;
     [SerializeField] List<SplineNode> nodes = new List<SplineNode>();
-
-    [Header("Values")]
-    public int nodeIndex = 0;
-    public PlayerController2 pcRef;
+    public bool IsLooping = false;
 
     [Header("Wall Spline Specific")]
     public bool isRight = false;
+    
 
     [Header("Debugging")]
     public bool DebugSplinePath = false;
     private LineRenderer pathLine;
 
-    private void Start() 
+    public bool isGenerated = true;
+
+    private void Awake() 
     {   
+        if (isGenerated) return;
+
         // We only want to initialize for manually created splines, not generated spline paths (like wall running)
         if (splineType == SplineType.Rail || splineType == SplineType.Zipline) {
             Initialize();
@@ -81,34 +83,6 @@ public class SplinePath : MonoBehaviour
         }
     }
 
-    private void Update() 
-    {
-        if (splineType == SplineType.Wall) 
-        {            
-            if (pcRef != null) 
-            {
-                // Check to see if we're still running on the wall
-                bool checkWall = (Physics.Raycast(pcRef.mesh.transform.position, pcRef.mesh.transform.right * ((isRight) ? 1 : -1), 1));				
-                
-                if (!checkWall) 
-                {
-                    GetCurrentNode().Detatch();
-                }
-            } 
-            
-            else 
-            {
-                Destroy(gameObject);
-            }    
-        }
-    }
-
-    // Return current node for use by the Player Controller
-    public SplineNode GetCurrentNode()
-    {
-        return nodes[nodeIndex];
-    }
-
     // Use recursion to generate spline nodes using GameObjects placed in inspector
     public SplineNode GenerateNodes(int index = 0) 
     {
@@ -119,8 +93,32 @@ public class SplinePath : MonoBehaviour
         result.previous = ((index > 0) ? nodes[index-1] : null);
         result.next = ((index < points.Count - 1) ? GenerateNodes(index+1) : null);                
         result.path = this;
+
+        if (index == points.Count - 1 && IsLooping) 
+        {            
+            nodes[0].previous = result;
+            result.next = nodes[0];
+        }
+
         return result;
     }
+
+    // Unbind our player to the spline and allow it to return to normal controls
+	public void Detatch() 
+	{   
+		// If the spline type is generated 
+        if (splineType == SplineType.Wall) 
+		{
+			// Destroy the generated spline after being done with it.
+			Destroy(this.gameObject);
+		}								
+	}
+
+    // Return current node for use by the Player Controller
+    public SplineNode GetNode(int index)
+    {        
+        return nodes[index];
+    }    
 
     public void OnDrawGizmos() 
     {
@@ -130,6 +128,11 @@ public class SplinePath : MonoBehaviour
             for (int i = 0; i < points.Count - 1; i++)
             {
                 Gizmos.DrawLine(points[i].transform.position, points[i+1].transform.position);
+            }
+
+            if (IsLooping == true) 
+            {
+                Gizmos.DrawLine(points[points.Count-1].transform.position, points[0].transform.position);   
             }
         }
     }

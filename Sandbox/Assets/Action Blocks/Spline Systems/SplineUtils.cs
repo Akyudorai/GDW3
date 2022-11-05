@@ -44,7 +44,8 @@ public class SplineUtils : MonoBehaviour
         path.points.Add(p5);
 
         // Initialize the SplinePath
-        path.Initialize();
+        //path.Initialize();
+        path.GenerateNodes();
 
         return path;
     } 

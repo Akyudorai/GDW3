@@ -43,7 +43,7 @@ public class PlayerController2 : MonoBehaviour
     public Interactable targetInteractable;
      
     [Header("Splines")]
-    public SplinePath currentSpline = null;
+    public SplineController splineController;
 
     [Header("Debugging")]
     public bool DebugInteractionRadius = false;
@@ -66,6 +66,10 @@ public class PlayerController2 : MonoBehaviour
 
         rigid = GetComponent<Rigidbody>();        
 
+        splineController.pcRef = this;
+        splineController.rigid = rigid;
+        splineController.mesh = mesh;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -87,15 +91,10 @@ public class PlayerController2 : MonoBehaviour
 
     private void Update() 
     {
-        if (currentSpline != null) 
+        if (splineController.currentSpline != null) 
         {
-            transform.position = currentSpline.GetCurrentNode().GetCurrentPosition();
-            Vector3 lookDir = currentSpline.GetCurrentNode().GetDirection();
-            lookDir.y = 0;
-            mesh.transform.LookAt(mesh.transform.position - lookDir);
-
             float splineSpeed = Mathf.Min(QuickMaxSpeed, CurrentSpeed);
-            currentSpline.GetCurrentNode().Traverse(splineSpeed);                       
+            splineController.SetTraversalSpeed(splineSpeed);      
         } 
         else 
         {
@@ -124,9 +123,17 @@ public class PlayerController2 : MonoBehaviour
                     IsSliding = false;
                 }
 
+                // Temporarily disabled until scale issue is resolved when parenting
+                //transform.SetParent(hit.collider.gameObject.transform);
+
             } else {
                 IsGrounded = false;
-                IsSliding = false;             
+                IsSliding = false;  
+
+                // Temporarily disabled until scale issue is resolved when parenting
+                //if (transform.parent != null) {
+                //    transform.parent = null;
+                //}           
             }
         }
         
@@ -299,8 +306,8 @@ public class PlayerController2 : MonoBehaviour
     private void Jump()
     {
         // If on a spline, detatch from it
-        if (currentSpline != null) {
-            currentSpline.GetCurrentNode().Detatch();
+        if (splineController.currentSpline != null) {
+            splineController.Detatch();
             return;
         }        
 
@@ -448,12 +455,6 @@ public class PlayerController2 : MonoBehaviour
         if (targetInteractable != null) 
         {
             Gizmos.DrawLine(transform.position + transform.up * 1.5f, targetInteractableHitPoint);
-        }
-
-        if (currentSpline != null) 
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(transform.position, transform.position + currentSpline.GetCurrentNode().GetDirection());
         }
     }
 }

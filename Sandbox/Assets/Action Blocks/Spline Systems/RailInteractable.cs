@@ -36,6 +36,6 @@ public class RailInteractable : Interactable
         bool isForward = ((pos_dist >= neg_dist) ? true : false);
     
         // Attach the player to the node at the point of interaction (closest point)
-        node.Attach(pc, result, isForward);        
+        node.Attach(pc.splineController, result, isForward);        
     }
 }
