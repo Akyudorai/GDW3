@@ -68,10 +68,7 @@ public class PlayerController : MonoBehaviour
 
         splineController.pcRef = this;
         splineController.rigid = rigid;
-        splineController.mesh = mesh;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        splineController.mesh = mesh;        
     }
 
     private void OnEnable() 
@@ -91,6 +88,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update() 
     {
+        if (GameManager.GetInstance().IsPaused) return;
+        
         if (splineController.currentSpline != null) 
         {
             float splineSpeed = Mathf.Min(QuickMaxSpeed, CurrentSpeed);

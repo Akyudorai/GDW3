@@ -31,7 +31,7 @@ public class PauseMenu : MonoBehaviour
     
     private void Start() 
     {
-        GameManager.GetInstance().pcRef.inputAction.Player.Escape.performed += cntxt => Toggle();
+        //GameManager.GetInstance().pcRef.inputAction.Player.Escape.performed += cntxt => Toggle();
     }
 
     private void Toggle() 

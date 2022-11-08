@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public int RespawnIndex = 0;
     public List<Transform> SpawnPoints;
 
+    public bool IsPaused = false;
+
     private void Awake()
     {
         if (instance != null)
@@ -35,6 +37,9 @@ public class GameManager : MonoBehaviour
     private void Start() 
     {
         Initialize();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Initialize() 
@@ -70,6 +75,14 @@ public class GameManager : MonoBehaviour
             }
             
         }
+    }
+
+
+    public void Pause(bool state) 
+    {
+        Cursor.visible = state;
+        Cursor.lockState = (state) ? CursorLockMode.Confined : CursorLockMode.Locked;     
+        IsPaused = state;   
     }
 
 
