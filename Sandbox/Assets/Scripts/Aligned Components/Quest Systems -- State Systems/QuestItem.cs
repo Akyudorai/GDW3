@@ -15,9 +15,9 @@ public class QuestItem : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             QuestManager.GetInstance().QuestItemCollected(this);
-            Destroy(this.gameObject);
-        }
-        
+            this.gameObject.SetActive(false);
+            //Destroy(this.gameObject);
+        }        
     }
 
 

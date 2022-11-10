@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class FinishLine : MonoBehaviour
 {
-    public EventManager.OnVoidDelegate OnContact;
+    //public EventManager.OnVoidDelegate OnContact;
 
     private void OnTriggerEnter(Collider other) 
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            OnContact?.Invoke();
+            EventManager.OnRaceEnd?.Invoke(false);
             Destroy(this.gameObject);
         }
     }

@@ -35,6 +35,15 @@ public class RaceManager : MonoBehaviour
     public bool m_RaceActive;
     public GameObject finishColliderReference;
     
+    private void Start() 
+    {
+        EventManager.OnRaceEnd += RaceComplete;
+
+        for (int i = 0; i < raceList.Count; i++) 
+        {
+            LoadScore(i);
+        }
+    }
 
     public void InitializeRace(PlayerController pcRef, int raceID)
     {
@@ -43,10 +52,9 @@ public class RaceManager : MonoBehaviour
 
         m_RaceTimer = 0.0f;
         finishColliderReference = Instantiate(finishColliderPrefab, raceList[raceID].m_EndPoint.position, Quaternion.identity);
-        finishColliderReference.GetComponent<FinishLine>().OnContact += RaceComplete;
+        //finishColliderReference.GetComponent<FinishLine>().OnContact += RaceComplete;
         activeRaceID = raceID;
         m_RaceActive = true;
-
     }
 
     private void Update() 
@@ -54,13 +62,38 @@ public class RaceManager : MonoBehaviour
         if (m_RaceActive) 
         {
             m_RaceTimer += Time.deltaTime;
+            UI_Manager.GetInstance().UpdateRaceTimer(m_RaceTimer);
         }
     }
 
-    public void RaceComplete()
+    public void RaceComplete(bool isForfeit)
     {
         m_RaceActive = false;
-        raceList[activeRaceID].m_Score = m_RaceTimer;
-        activeRaceID = -1;        
+        
+        if (!isForfeit) {            
+            SaveScore(activeRaceID, m_RaceTimer);
+        }
+        
+        activeRaceID = -1;    
+            
+    }
+
+    public void SaveScore(int id, float time) 
+    {
+        if (time <= raceList[id].m_Score) 
+        {     
+            raceList[activeRaceID].m_Score = m_RaceTimer;
+            PlayerPrefs.SetFloat("RaceScore["+id+"]", time);
+            PlayerPrefs.Save();
+            Debug.Log("New Top Score: " + time);
+        } else 
+        {
+            Debug.Log("Your score: " + time + " | Top score: " + raceList[id].m_Score);
+        }
+    }
+
+    public void LoadScore(int id) 
+    {        
+        raceList[id].m_Score = PlayerPrefs.GetFloat("RaceScore["+id+"]");
     }
 }

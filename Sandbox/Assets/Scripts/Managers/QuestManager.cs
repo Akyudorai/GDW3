@@ -51,9 +51,16 @@ public class QuestManager : MonoBehaviour
             questTitle.text = _quest.m_Name;
             questDescription.text = _quest.m_Description;
             questObjective.text = _quest.m_Objective;
+            
+            GameObject objRef;
             for(int i = 0; i < questList[activeQuestID].m_RequiredItems.Count; i++)
             {
-                Instantiate(questList[activeQuestID].m_RequiredItems[i], questList[activeQuestID].m_ItemsPositions[i].position, Quaternion.identity);
+                objRef = AssetManager.GetInstance().Get(_quest.m_RequiredItems[i].name);
+                objRef.transform.position = _quest.m_ItemsPositions[i].position;
+                objRef.transform.rotation = Quaternion.identity;
+                objRef.SetActive(true);
+
+                //Instantiate(questList[activeQuestID].m_RequiredItems[i], questList[activeQuestID].m_ItemsPositions[i].position, Quaternion.identity);
             }
 
             // Turn on quest panel when we have a quest

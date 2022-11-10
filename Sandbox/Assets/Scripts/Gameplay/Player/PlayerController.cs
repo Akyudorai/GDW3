@@ -101,13 +101,22 @@ public class PlayerController : MonoBehaviour
         }
 
         Camera();
+        
+        if (!IsGrounded) {
+            f_AirTime += Time.deltaTime;
+        }                
+    }
 
+    private void FixedUpdate() 
+    {
         // Ground Check
         if (GroundCheck) 
         {
             int layerMask = 1 << 6; // Ground Layer
             if (Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
             {
+                Debug.Log(hit.collider.name);
+
                 IsGrounded = true;                                            
                 f_AirTime = 0.0f;  
 
@@ -135,11 +144,6 @@ public class PlayerController : MonoBehaviour
                 //}           
             }
         }
-        
-
-        if (!IsGrounded) {
-            f_AirTime += Time.deltaTime;
-        }                
     }
 
     private void Slide(Vector3 direction) 
@@ -160,8 +164,7 @@ public class PlayerController : MonoBehaviour
 
         // If there is input along the X or Z axis in either direction
         if (v_Movement.y > 0.1f || v_Movement.x > 0.1f || v_Movement.y < -0.1f || v_Movement.x < -0.1f) 
-        {                     
-            
+        {                              
             //======================================================
             // Handles the horizontal motion of the player.
             //======================================================
@@ -175,10 +178,17 @@ public class PlayerController : MonoBehaviour
             motionVector = forwardMotion + rightMotion;
             motionVector.y = 0;
 
+            motionVector *= ((IsGrounded) ? 1.0f : 0.1f);
+
             // Apply Velocity Change
             Velocity += motionVector * acceleration * Time.deltaTime;
             Velocity = Vector3.ClampMagnitude(Velocity, TopMaxSpeed);
             CurrentSpeed = Velocity.magnitude;
+
+            // Slow midair
+            if (!IsGrounded) {
+                Velocity += -Velocity * BrakeSpeed * 0.25f * Time.deltaTime;
+            }
             
             //======================================================
 
@@ -316,7 +326,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 surfaceNormal = Vector3.up;
             int layerMask = 1 << 6; // Ground Layer
-            if (Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
+            if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
             {
                 surfaceNormal = hit.normal;                                
             }
@@ -450,7 +460,7 @@ public class PlayerController : MonoBehaviour
         if (DebugInteractionRadius) Gizmos.DrawWireSphere(transform.position + transform.up * 1.5f, InteractionDistance);             
     
         if (!IsGrounded) {
-            Gizmos.DrawLine(transform.position, transform.position - Vector3.up * 0.5f);
+            Gizmos.DrawLine(transform.position + Vector3.up*0.1f, transform.position - Vector3.up * 0.5f);
         }
 
         if (targetInteractable != null) 
