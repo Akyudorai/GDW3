@@ -58,6 +58,9 @@ public class QuestManager : MonoBehaviour
 
             // Turn on quest panel when we have a quest
             questPanel.SetActive(true);
+
+            //Send a notification to the player
+            UI_Manager.GetInstance().FadeInNotification();
         }        
     }
 

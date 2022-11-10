@@ -30,6 +30,7 @@ public class UI_Manager : MonoBehaviour
     // References
     public TMP_Text MoneyDisplay;
     public TMP_Text InteractionDisplay;
+    public GameObject notificationIcon;
 
     [Header("Phone Panel")]
     public GameObject PhonePanel;
@@ -119,5 +120,15 @@ public class UI_Manager : MonoBehaviour
     {
         MoneyDisplay.text = "Money: " + value;
     }
-    
+
+    public void FadeInNotification()
+    {
+        notificationIcon.GetComponent<Animation>().Play("notificationFadeIn");
+    }
+
+    public void FadeOutNotification()
+    {
+        notificationIcon.GetComponent<Animation>().Play("notificationFadeOut");
+    }
+
 }
