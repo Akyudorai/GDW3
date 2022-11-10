@@ -18,3 +18,9 @@ public class RaceData
     public Transform m_EndPoint;
 }
 
+[Serializable] 
+public class RaceRecord
+{
+    public int m_ID;
+    public float m_Score;
+}

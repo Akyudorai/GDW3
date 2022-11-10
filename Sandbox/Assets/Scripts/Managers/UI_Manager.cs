@@ -31,6 +31,10 @@ public class UI_Manager : MonoBehaviour
     public TMP_Text MoneyDisplay;
     public TMP_Text InteractionDisplay;
 
+    [Header("Screen Panel")]
+    public GameObject ScreenPanel;
+    public TMP_Text RaceTimer;
+
     [Header("Phone Panel")]
     public GameObject PhonePanel;
     public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel;
@@ -38,15 +42,40 @@ public class UI_Manager : MonoBehaviour
     private void Start() 
     {
         GameManager.GetInstance().pcRef.inputAction.Player.Escape.performed += cntxt => TogglePhonePanel(!PhonePanel.activeInHierarchy);
+    
+        EventManager.OnRaceBegin += EnableRaceTimer;
+        EventManager.OnRaceEnd += DisableRaceTimer;
     }
+
+    // ============ SCREEN PANEL FUNCTIONS =====================
+
+    public void EnableRaceTimer(int id) 
+    {
+        RaceTimer.enabled = true;
+    }
+
+    public void DisableRaceTimer(bool state) 
+    {
+        RaceTimer.enabled = false;
+    }
+
+    public void UpdateRaceTimer(float time) 
+    {
+        int minutes = Mathf.RoundToInt(time / 60);
+        int seconds = Mathf.RoundToInt(time);
+        RaceTimer.text = minutes + ":" + ((seconds<10) ? " 0 " + seconds : seconds);
+    }
+
+    
+
+    // ============ PHONE PANEL FUNCTIONS =====================
 
     public void TogglePhonePanel(bool state) 
     {
         PhonePanel.SetActive(state);
         GameManager.GetInstance().Pause(state);
     }
-
-    // Phone Panel Functions
+    
     public void ToggleMapPanel(bool state) 
     {
         MapPanel.SetActive(state);

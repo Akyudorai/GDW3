@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 392411728777886786}
   - component: {fileID: 392411728777886787}
   m_Layer: 0
-  m_Name: FinishLinePrefab
+  m_Name: Finish Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
