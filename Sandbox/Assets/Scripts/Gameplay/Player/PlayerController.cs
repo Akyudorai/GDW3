@@ -263,7 +263,7 @@ public class PlayerController : MonoBehaviour
         }                                                  
         
         // Move the players position in the direction of velocity
-        rigid.MovePosition(transform.position + Velocity * Time.deltaTime);
+        rigid.MovePosition(transform.position + Velocity * Time.fixedDeltaTime);
         
         //rigid.velocity += motionVector * CurrentSpeed * Time.deltaTime;
 
