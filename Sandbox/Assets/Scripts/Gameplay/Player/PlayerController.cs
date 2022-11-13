@@ -314,6 +314,8 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        SoundManager.GetInstance().Play("Alabama");
+
         // If on a spline, detatch from it
         if (splineController.currentSpline != null) {
             splineController.Detatch();
