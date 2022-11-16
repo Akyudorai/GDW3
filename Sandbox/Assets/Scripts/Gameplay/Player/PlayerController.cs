@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
             int layerMask = 1 << 6; // Ground Layer
             if (Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
             {
-                Debug.Log(hit.collider.name);
+                //Debug.Log(hit.collider.name);
 
                 IsGrounded = true;                                            
                 f_AirTime = 0.0f;  

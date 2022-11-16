@@ -39,6 +39,7 @@ public class UI_Manager : MonoBehaviour
     [Header("Phone Panel")]
     public GameObject PhonePanel;
     public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel;
+    public Animator phoneAnimator;
 
     private void Start() 
     {
@@ -93,6 +94,7 @@ public class UI_Manager : MonoBehaviour
     public void ToggleMessengerPanel(bool state) 
     {
         MessengerPanel.SetActive(state);
+        phoneAnimator.Play("open_messenger");
         HomepagePanel.SetActive(!state);
     }
 
@@ -111,6 +113,7 @@ public class UI_Manager : MonoBehaviour
     public void ToggleSettingsPanel(bool state) 
     {
         SettingsPanel.SetActive(state);
+        phoneAnimator.Play("open_settings");
         HomepagePanel.SetActive(!state);
     }
 
@@ -160,4 +163,9 @@ public class UI_Manager : MonoBehaviour
         notificationIcon.GetComponent<Animation>().Play("notificationFadeOut");
     }
 
+    private IEnumerator PlayPhoneAnim(float waitTime, string animName)
+    {
+        yield return new WaitForSeconds(waitTime);
+        phoneAnimator.Play(animName);
+    }
 }

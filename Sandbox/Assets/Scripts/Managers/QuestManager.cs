@@ -45,7 +45,7 @@ public class QuestManager : MonoBehaviour
     }
     public void ActivateQuest(QuestData _quest)
     {
-        if(activeQuestID == -1 && questList[_quest.m_ID].m_Completed == false)
+        if(activeQuestID == -1 && questList[_quest.m_ID].m_Completed == false) //checks if no quest is currently active and the quest trying to be activated has not already been completed
         {
             activeQuestID = _quest.m_ID;
             questTitle.text = _quest.m_Name;
