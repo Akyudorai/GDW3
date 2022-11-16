@@ -42,7 +42,7 @@ public class UI_Manager : MonoBehaviour
 
     private void Start() 
     {
-        GameManager.GetInstance().pcRef.inputAction.Player.Escape.performed += cntxt => TogglePhonePanel(!PhonePanel.activeInHierarchy);
+        InputManager.GetInput().Player.Escape.performed += cntxt => TogglePhonePanel(!PhonePanel.activeInHierarchy);
     
         EventManager.OnRaceBegin += EnableRaceTimer;
         EventManager.OnRaceEnd += DisableRaceTimer;

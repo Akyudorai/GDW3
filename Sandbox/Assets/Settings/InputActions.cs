@@ -422,6 +422,34 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""1247957e-42f0-496b-ac6e-95c6433a5403"",
+            ""actions"": [
+                {
+                    ""name"": ""Enter"",
+                    ""type"": ""Value"",
+                    ""id"": ""6a18ab29-4ec2-4169-bfb3-a833365195d8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""9235d78b-07f3-4832-89f5-62c9f70ce412"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -447,6 +475,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Cheats_TeleportMall = m_Cheats.FindAction("TeleportMall", throwIfNotFound: true);
         m_Cheats_TeleportConyard = m_Cheats.FindAction("TeleportConyard", throwIfNotFound: true);
         m_Cheats_TeleportUnderpass = m_Cheats.FindAction("TeleportUnderpass", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_Enter = m_Menu.FindAction("Enter", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -688,6 +719,39 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         }
     }
     public CheatsActions @Cheats => new CheatsActions(this);
+
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private IMenuActions m_MenuActionsCallbackInterface;
+    private readonly InputAction m_Menu_Enter;
+    public struct MenuActions
+    {
+        private @InputActions m_Wrapper;
+        public MenuActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Enter => m_Wrapper.m_Menu_Enter;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterface != null)
+            {
+                @Enter.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnEnter;
+                @Enter.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnEnter;
+                @Enter.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnEnter;
+            }
+            m_Wrapper.m_MenuActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Enter.started += instance.OnEnter;
+                @Enter.performed += instance.OnEnter;
+                @Enter.canceled += instance.OnEnter;
+            }
+        }
+    }
+    public MenuActions @Menu => new MenuActions(this);
     public interface IPlayerActions
     {
         void OnJump(InputAction.CallbackContext context);
@@ -710,5 +774,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnTeleportMall(InputAction.CallbackContext context);
         void OnTeleportConyard(InputAction.CallbackContext context);
         void OnTeleportUnderpass(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
+        void OnEnter(InputAction.CallbackContext context);
     }
 }

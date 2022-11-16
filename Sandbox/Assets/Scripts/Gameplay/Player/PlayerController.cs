@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public Camera cam;
     public GameObject camera_pivot;
     public Rigidbody rigid;    
-    public InputActions inputAction;
     public GameObject mesh;
 
     [Header("Camera")]
@@ -55,14 +54,8 @@ public class PlayerController : MonoBehaviour
     
 
     private void Awake() 
-    {
-        inputAction = new InputActions();
-        inputAction.Player.Move.performed += cntxt => v_Movement = cntxt.ReadValue<Vector2>();
-        inputAction.Player.Move.canceled += cntxt => v_Movement = Vector2.zero;
-        inputAction.Player.Look.performed += cntxt => v_Rotation = cntxt.ReadValue<Vector2>();
-        inputAction.Player.Look.canceled += cntxt => v_Rotation = Vector2.zero;
-        inputAction.Player.Jump.performed += cntxt => Jump();
-        inputAction.Player.Interact.performed += cntxt => Interact();
+    {        
+       
 
         rigid = GetComponent<Rigidbody>();        
 
@@ -71,19 +64,17 @@ public class PlayerController : MonoBehaviour
         splineController.mesh = mesh;        
     }
 
-    private void OnEnable() 
-    {
-        inputAction.Player.Enable();
-    }
-
-    private void OnDisable() 
-    {
-        inputAction.Player.Disable();
-    }
+    
 
     private void Start() 
     {
         //GameManager.GetInstance().PlayerRef = this;
+        InputManager.GetInput().Player.Move.performed += cntxt => v_Movement = cntxt.ReadValue<Vector2>();
+        InputManager.GetInput().Player.Move.canceled += cntxt => v_Movement = Vector2.zero;
+        InputManager.GetInput().Player.Look.performed += cntxt => v_Rotation = cntxt.ReadValue<Vector2>();
+        InputManager.GetInput().Player.Look.canceled += cntxt => v_Rotation = Vector2.zero;
+        InputManager.GetInput().Player.Jump.performed += cntxt => Jump();
+        InputManager.GetInput().Player.Interact.performed += cntxt => Interact();
     }
 
     private void Update() 

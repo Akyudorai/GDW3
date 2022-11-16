@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     public bool IsPaused = false;
 
+   
+
     private void Awake()
     {
         if (instance != null)
