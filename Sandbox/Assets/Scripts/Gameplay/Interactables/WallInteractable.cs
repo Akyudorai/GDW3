@@ -6,11 +6,11 @@ public class WallInteractable : Interactable
 {      
     public override void Interact(PlayerController pc, RaycastHit hit) 
     {
-        if (pc.IsGrounded) return;
-        if (pc.CurrentSpeed < pc.QuickMaxSpeed / 2) return;
-              
+        if (pc.IsGrounded) { Debug.Log("IsGrounded"); return; }
+        if (pc.v_HorizontalVelocity.magnitude < pc.QuickMaxSpeed/3) return;    
+
         // Calculate Direction of spline
-        Vector3 playerRelativeDir = (hit.point + pc.Velocity);                      // Player's current direction of travel
+        Vector3 playerRelativeDir = (hit.point + pc.v_HorizontalVelocity);                      // Player's current direction of travel
         Vector3 surfaceNormal = hit.normal;                                         // The normal for the surface of the wall
         Vector3 surfaceDir = Quaternion.Euler(0, 90, 0) * surfaceNormal;            // The direction the spline will be traveling        
         
@@ -21,12 +21,11 @@ public class WallInteractable : Interactable
         // Compare which point is closer to the direction of travel relative to the hit point
         float pos_dist = Vector3.Distance(playerRelativeDir, pos_dir);              
         float neg_dist = Vector3.Distance(playerRelativeDir, neg_dir);
-        bool isForward = ((pos_dist >= neg_dist) ? true : false);
-
-        Debug.Log("Is Forward");
+        bool isForward = ((pos_dist >= neg_dist) ? true : false);        
 
         // Generate a spline path along the wall to follow and attach the player to it
-        float splineSpeed = Mathf.Min(pc.QuickMaxSpeed, pc.CurrentSpeed);
+        float splineSpeed = (pc.v_HorizontalVelocity.magnitude / pc.TopMaxSpeed) * 10;
+        
         //float splineSpeed = pc.CurrentSpeed;
         SplinePath wallRunSpline = SplineUtils.GenerateWallRunPath(hit.point + surfaceNormal * 0.5f, surfaceDir, splineSpeed, isForward);
 

@@ -31,9 +31,9 @@ public class SplineNode
 		// Update Player Values
 		sc.currentSpline = path;							// Player's Spline Path Reference
 		
-		if (sc.rigid != null) {
-			sc.rigid.useGravity = false;						// Disable Rigidbody Gravity While Grinding
-		}
+		//if (sc.rigid != null) {
+		//	sc.rigid.useGravity = false;						// Disable Rigidbody Gravity While Grinding
+		//}
 	}
 
 	// Increments the traversal point on the spline and checks if we've reached an end

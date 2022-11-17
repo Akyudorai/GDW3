@@ -8,7 +8,7 @@ public class SplineController : MonoBehaviour
     public SplinePath currentSpline = null;
     public int nodeIndex = 0;
     public GameObject mesh;
-    public Rigidbody rigid;
+    //public Rigidbody rigid;
 
     float traversalSpeed = 1f;
     public PlayerController pcRef;
@@ -23,7 +23,9 @@ public class SplineController : MonoBehaviour
             lookDir.y = 0;
             mesh.transform.LookAt(mesh.transform.position - lookDir);
             currentSpline.GetNode(nodeIndex).Traverse(this, traversalSpeed);                       
-        
+            
+            if (currentSpline == null) return;
+
             if (currentSpline.splineType == SplineType.Wall)
             {
                 CheckWall();
@@ -56,11 +58,11 @@ public class SplineController : MonoBehaviour
         SplinePath pathRef = currentSpline;
         currentSpline = null;
 
-        if (rigid != null) 
-		{			
+        //if (rigid != null) 
+		//{			
 			// Re-enable gravity so we can jump off
-			rigid.useGravity = true;	 
-		}	
+		//	rigid.useGravity = true;	 
+		//}	
 
         // Only want to add a launch force if it's the player
 		if (pcRef != null) 
@@ -89,11 +91,12 @@ public class SplineController : MonoBehaviour
 				(pathRef.GetNode(nodeIndex).next.position - pathRef.GetNode(nodeIndex).position).normalized + launchDirection  : 
 				(pathRef.GetNode(nodeIndex).position - pathRef.GetNode(nodeIndex).next.position).normalized  + launchDirection;
 			
-            Debug.Log(launchForce);
+            //Debug.Log(launchForce);
 
 			// Modify player velocity and direction
-			rigid.velocity = Vector3.zero;					// Zero-out velocity so our launch force takes over
+			pcRef.v_VerticalVelocity = Vector3.zero;					// Zero-out velocity so our launch force takes over
 			pcRef.ApplyForce(launchForce * pcRef.JumpForce);	// Apply launch force to the player
+            pcRef.StartCoroutine(pcRef.JumpDelay());
 			mesh.transform.rotation = Quaternion.identity;	// Rotate the mesh in the direction of travel
 			pcRef.targetInteractable = null;						// Testing to see if this resolves wall run bug
 		} 

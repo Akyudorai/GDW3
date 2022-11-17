@@ -7,7 +7,7 @@ public class NpcCompleteState : NpcBaseState
     public override void EnterState(NpcStateManager npc)
     {
         Debug.Log("Entered completion state.");
-        npc.gameObject.GetComponent<Renderer>().material.color = Color.green;
+        npc.GetComponentInChildren<Renderer>().material.color = Color.green;
     }
 
     public override void UpdateState(NpcStateManager npc)

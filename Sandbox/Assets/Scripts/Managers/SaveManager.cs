@@ -29,7 +29,7 @@ public class SaveManager : MonoBehaviour
     private void Awake() 
     {
         instance = CreateInstance();       
-        Debug.Log(instance); 
+         
     }
 
     private void Start()

@@ -59,6 +59,15 @@ public class GameLoader : MonoBehaviour
             return;
         }
 
+        // == ASSET MANAGER
+        GameObject amObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/AssetManager"), Vector3.zero, Quaternion.identity);
+
+        if (amObj == null) 
+        {
+            Debug.LogError("AssetManager failed to load.");
+            return;
+        }
+
         isLoaded = true;        
     }
 
