@@ -47,11 +47,11 @@ public class RaceManager : MonoBehaviour
 
     public void InitializeRace(PlayerController pcRef, int raceID)
     {
-        pcRef.gameObject.transform.position = raceList[raceID].m_StartPoint.position;
-        pcRef.gameObject.transform.rotation = raceList[raceID].m_StartPoint.rotation;
+        pcRef.gameObject.transform.position = raceList[raceID].m_StartPosition;
+        pcRef.gameObject.transform.rotation = Quaternion.Euler(raceList[raceID].m_StartRotation);
 
         m_RaceTimer = 0.0f;
-        finishColliderReference = Instantiate(finishColliderPrefab, raceList[raceID].m_EndPoint.position, Quaternion.identity);
+        finishColliderReference = Instantiate(finishColliderPrefab, raceList[raceID].m_EndPosition, Quaternion.identity);
         //finishColliderReference.GetComponent<FinishLine>().OnContact += RaceComplete;
         activeRaceID = raceID;
         m_RaceActive = true;

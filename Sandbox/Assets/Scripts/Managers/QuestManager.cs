@@ -5,32 +5,25 @@ using TMPro;
 
 public class QuestManager : MonoBehaviour
 {
-    // -- SINGLETON --
+    // Singleton Instance
     private static QuestManager instance;
     public static QuestManager GetInstance() 
     {
         return instance;
     }
 
-    private void Awake()
+    // Initialization
+    private void Awake() 
     {
-        if(instance != null && instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            instance = this;
-        }
+        if (instance != null) {
+            Destroy(this.gameObject);
+        } 
+     
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // -- END OF SINGLETON --
-
-    [Header("UI Components")]
-    public GameObject questPanel;
-    public TextMeshProUGUI questTitle;
-    public TextMeshProUGUI questDescription;
-    public TextMeshProUGUI questObjective;
 
     [Header("Quest Components")]
     public int activeQuestID = -1;
@@ -40,7 +33,7 @@ public class QuestManager : MonoBehaviour
     {   
         // Turn off quest panel when we dont have a quest
         if (activeQuestID == -1) {
-            questPanel.SetActive(false);
+            UI_Manager.GetInstance().ToggleQuestPanel(false);
         }
     }
     public void ActivateQuest(QuestData _quest)
@@ -48,23 +41,22 @@ public class QuestManager : MonoBehaviour
         if(activeQuestID == -1 && questList[_quest.m_ID].m_Completed == false)
         {
             activeQuestID = _quest.m_ID;
-            questTitle.text = _quest.m_Name;
-            questDescription.text = _quest.m_Description;
-            questObjective.text = _quest.m_Objective;
+            UI_Manager.GetInstance().UpdateQuestName(_quest.m_Name);
+            UI_Manager.GetInstance().UpdateQuestDescription(_quest.m_Description);
+            UI_Manager.GetInstance().UpdateQuestObjective(_quest.m_Objective);
             
             GameObject objRef;
             for(int i = 0; i < questList[activeQuestID].m_RequiredItems.Count; i++)
             {
                 objRef = AssetManager.GetInstance().Get(_quest.m_RequiredItems[i].name);
-                objRef.transform.position = _quest.m_ItemsPositions[i].position;
-                objRef.transform.rotation = Quaternion.identity;
+                objRef.transform.position = _quest.m_ItemsPositions[i];                
                 objRef.SetActive(true);
 
                 //Instantiate(questList[activeQuestID].m_RequiredItems[i], questList[activeQuestID].m_ItemsPositions[i].position, Quaternion.identity);
             }
 
             // Turn on quest panel when we have a quest
-            questPanel.SetActive(true);
+            UI_Manager.GetInstance().ToggleQuestPanel(true);
 
             //Send a notification to the player
             UI_Manager.GetInstance().FadeInNotification();
@@ -74,15 +66,19 @@ public class QuestManager : MonoBehaviour
     public void QuestComplete()
     {
         questList[activeQuestID].m_Completed = true;
+
+        // Signal the EventManager that a quest was completed
+        EventManager.OnQuestComplete?.Invoke(activeQuestID);
+        
         activeQuestID = -1;
-        questTitle.text = "Quest Title: -";
-        questDescription.text = "Quest Description: -";
-        questObjective.text = "Quest Objective: -";
+        UI_Manager.GetInstance().UpdateQuestName("Quest Title: -");
+        UI_Manager.GetInstance().UpdateQuestDescription("Quest Description: -");
+        UI_Manager.GetInstance().UpdateQuestObjective("Quest Objective: -");
 
         GameManager.GetInstance().playerRef.AddMoney(50);
 
         // Turn off Quest Panel when no quest is left
-        questPanel.SetActive(false);
+        UI_Manager.GetInstance().ToggleQuestPanel(false);
     }
 
     public void QuestItemCollected(QuestItem item)

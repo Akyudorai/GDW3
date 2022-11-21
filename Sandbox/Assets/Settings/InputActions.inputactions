@@ -400,6 +400,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Menu",
+            "id": "1247957e-42f0-496b-ac6e-95c6433a5403",
+            "actions": [
+                {
+                    "name": "Enter",
+                    "type": "Value",
+                    "id": "6a18ab29-4ec2-4169-bfb3-a833365195d8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9235d78b-07f3-4832-89f5-62c9f70ce412",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

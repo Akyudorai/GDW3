@@ -22,6 +22,6 @@ public class QuestData
     [Header("QuestData Requirements")]
     public QuestType m_Type;
     public List<QuestItem> m_RequiredItems;
-    public List<Transform> m_ItemsPositions;
+    public List<Vector3> m_ItemsPositions;
     public bool m_RequirementsMet;
 }
