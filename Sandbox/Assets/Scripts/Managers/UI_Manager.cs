@@ -16,13 +16,15 @@ public class UI_Manager : MonoBehaviour
         return instance;
     }
 
+    // Initialization
     private void Awake() 
     {
         if (instance != null) {
             Destroy(this.gameObject);
-        } else {
-            instance = this;
-        }
+        } 
+     
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // ============ SINGLETON ============
@@ -39,6 +41,12 @@ public class UI_Manager : MonoBehaviour
     [Header("Phone Panel")]
     public GameObject PhonePanel;
     public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel;
+
+    [Header("Quest Panel")]
+    public GameObject questPanel;
+    public TextMeshProUGUI questTitle;
+    public TextMeshProUGUI questDescription;
+    public TextMeshProUGUI questObjective;
 
     private void Start() 
     {
@@ -112,6 +120,28 @@ public class UI_Manager : MonoBehaviour
     {
         SettingsPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+    }
+
+    // ============ QUEST PANEL FUNCTIONS =====================
+
+    public void ToggleQuestPanel(bool state) 
+    {
+        questPanel.SetActive(state);
+    }
+
+    public void UpdateQuestName(string name) 
+    {
+        questTitle.text = name;
+    }
+
+    public void UpdateQuestDescription(string description)
+    {
+        questDescription.text = description;
+    }
+
+    public void UpdateQuestObjective(string objective) 
+    {
+        questObjective.text = objective;
     }
 
     // ============ QUIT PANEL =====================

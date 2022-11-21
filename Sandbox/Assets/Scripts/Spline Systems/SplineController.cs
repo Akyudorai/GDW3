@@ -12,7 +12,7 @@ public class SplineController : MonoBehaviour
 
     float traversalSpeed = 1f;
     public PlayerController pcRef;
-    //public bool isActive = false;
+    //public bool isActive = false;     
 
     private void Update() 
     {
@@ -24,6 +24,16 @@ public class SplineController : MonoBehaviour
             mesh.transform.LookAt(mesh.transform.position - lookDir);
             currentSpline.GetNode(nodeIndex).Traverse(this, traversalSpeed);                       
             
+            // Check if wall is ahead
+            bool checkWall = (Physics.Raycast(mesh.transform.position, mesh.transform.forward, 1));
+            
+            // If a wall was detected, detatch from spline            
+            if (checkWall) 
+            {
+                Detatch();
+            }
+
+
             if (currentSpline == null) return;
 
             if (currentSpline.splineType == SplineType.Wall)
@@ -98,7 +108,8 @@ public class SplineController : MonoBehaviour
 			pcRef.ApplyForce(launchForce * pcRef.JumpForce);	// Apply launch force to the player
             pcRef.StartCoroutine(pcRef.JumpDelay());
 			mesh.transform.rotation = Quaternion.identity;	// Rotate the mesh in the direction of travel
-			pcRef.targetInteractable = null;						// Testing to see if this resolves wall run bug
+			pcRef.targetInteractable = null;						
+            pcRef.interactionDelay = 0.5f;
 		} 
 
         // Lastly, call the OnDetatched method from the spline path to allow it to handle itself

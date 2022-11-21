@@ -14,8 +14,9 @@ public class RaceData
     public float m_Score = 0;    
 
     [Header("Race Components")]
-    public Transform m_StartPoint;
-    public Transform m_EndPoint;
+    public Vector3 m_StartPosition;
+    public Vector3 m_StartRotation;
+    public Vector3 m_EndPosition;
 }
 
 [Serializable] 

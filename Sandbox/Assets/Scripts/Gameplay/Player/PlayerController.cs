@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
     [Header("Interactions")]
     public float InteractionDistance = 5.0f;
     public Interactable targetInteractable;
+    public Interactable lastInteractable = null;   
+    public float interactionDelay = 0f;
      
     [Header("Splines")]
     public SplineController splineController;
@@ -65,8 +67,6 @@ public class PlayerController : MonoBehaviour
 
     private void Awake() 
     {        
-       
-
         rigid = GetComponent<Rigidbody>();        
 
         splineController.pcRef = this;
@@ -78,6 +78,12 @@ public class PlayerController : MonoBehaviour
 
     private void Start() 
     {
+        // Set Reference when scene is loaded
+        GameManager.GetInstance().pcRef = this;
+
+        // Set Position when scene is loaded
+        GameManager.GetInstance().RespawnPlayer(SpawnPointManager.currentSpawnIndex);        
+
         //GameManager.GetInstance().PlayerRef = this;
         InputManager.GetInput().Player.Move.performed += cntxt => v_MotionInput = cntxt.ReadValue<Vector2>();
         InputManager.GetInput().Player.Move.canceled += cntxt => v_MotionInput = Vector2.zero;
@@ -105,7 +111,13 @@ public class PlayerController : MonoBehaviour
         
         if (!IsGrounded) {
             f_AirTime += Time.fixedDeltaTime;
-        }                
+        }         
+
+        if (interactionDelay > 0f && splineController.currentSpline == null) 
+        {
+            interactionDelay -= Time.deltaTime;
+            interactionDelay = Mathf.Clamp(interactionDelay, 0, 100);
+        }       
     }
 
     private void FixedUpdate() 
@@ -380,14 +392,22 @@ public class PlayerController : MonoBehaviour
                 }
 
                 // Get the closest interactable point                
-                if (targetInteractable != null) // BUG: for some reason, it doesn't often detect there's a target interactable there
+                if (targetInteractable != null) 
                 {
+                    if (lastInteractable == targetInteractable && interactionDelay > 0) 
+                    {
+                        Debug.Log("Cannot use interactable that frequently!");
+                        return;
+                    }
+
                     if (targetInteractable.gameObject == hit.gameObject) 
                     {
                         targetInteractableHitPoint = hit.ClosestPoint(transform.position);    
                         if (Physics.Raycast(transform.position, targetInteractableHitPoint - transform.position, out RaycastHit hitResult))
                         {
                             targetInteractable.Interact(this, hitResult);
+                            lastInteractable = targetInteractable;
+                            interactionDelay = 0.5f;
                         }                
                     }
                 }

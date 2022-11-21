@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     public PlayerController pcRef;
 
     public int RespawnIndex = 0;
-    public List<Transform> SpawnPoints;
 
     public bool IsPaused = false;
 
@@ -46,11 +45,8 @@ public class GameManager : MonoBehaviour
 
     private void Initialize() 
     {   
-        // Load the Player Data
-        playerRef = new Player(); // Can replace this with a save/load feature
-
         // Spawn player at start position
-        RespawnPlayer(0);
+        //RespawnPlayer(0);
     }
 
     public void RespawnPlayer(int overrideIndex = -1)
@@ -58,20 +54,22 @@ public class GameManager : MonoBehaviour
         Rigidbody pRigid = pcRef.rigid.gameObject.GetComponent<Rigidbody>();        
         pRigid.velocity = Vector3.zero;
 
+        List<SpawnPoint> points = SpawnPointManager.GetInstance().SpawnPoints[SpawnPointManager.currentSceneIndex];
+
         if (overrideIndex == -1) {
             // Teleport to last checkpoint
-            pcRef.gameObject.transform.position = SpawnPoints[RespawnIndex].position;
-            pcRef.gameObject.transform.rotation = SpawnPoints[RespawnIndex].rotation;
+            pcRef.gameObject.transform.position = points[RespawnIndex].Position;
+            pcRef.gameObject.transform.rotation = Quaternion.Euler(points[RespawnIndex].EulerRotation);
             return;
         }
 
         else 
         {
-            if (overrideIndex > -1 && overrideIndex < SpawnPoints.Count) 
+            if (overrideIndex > -1 && overrideIndex < points.Count) 
             {
                 // Teleport to specified checkpoint
-                pcRef.gameObject.transform.position = SpawnPoints[overrideIndex].position;
-                pcRef.gameObject.transform.rotation = SpawnPoints[overrideIndex].rotation;
+                pcRef.gameObject.transform.position = points[overrideIndex].Position;
+                pcRef.gameObject.transform.rotation = Quaternion.Euler(points[overrideIndex].EulerRotation);
             } else {
                 Debug.LogError("RespawnPlayer: No such spawn point with index of [" + overrideIndex + "]");
             }

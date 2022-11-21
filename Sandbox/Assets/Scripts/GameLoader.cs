@@ -10,6 +10,7 @@ public class GameLoader : MonoBehaviour
 {
     private static bool isLoaded = false;
     public static bool IsLoaded { get { return isLoaded; }} 
+    public static int nextSceneIndex = 1;
 
     public TMP_Text StatusDisplay;
     public TMP_Text VersionDisplay;
@@ -27,6 +28,9 @@ public class GameLoader : MonoBehaviour
         FadeImage.color = new Color(0, 0, 0, 0);
 
         GenerateManagers();                
+
+        // Load the Player Data 
+        GameManager.GetInstance().playerRef = new Player(); // Can replace this with a save/load feature in future 
     }
 
     private void Update() 
@@ -37,7 +41,7 @@ public class GameLoader : MonoBehaviour
         if (LoadingBar.fillAmount >= 1.0f && isLoaded && !sceneChanging && !SkipLoadingSequence) {
             StartCoroutine(LoadNextScene());
         } else if (isLoaded && SkipLoadingSequence) {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(nextSceneIndex);
         }
     }
 
@@ -59,12 +63,58 @@ public class GameLoader : MonoBehaviour
             return;
         }
 
+        // == UI Manager
+        GameObject umObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/UI Manager"), Vector3.zero, Quaternion.identity);
+
+        if (umObj == null) 
+        {
+            Debug.Log("UI Manager failed to load.");
+            return;
+        }
+
         // == ASSET MANAGER
         GameObject amObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/AssetManager"), Vector3.zero, Quaternion.identity);
 
         if (amObj == null) 
         {
             Debug.LogError("AssetManager failed to load.");
+            return;
+        }
+
+        // == GAME MANAGER
+        GameObject gmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/GameManager"), Vector3.zero, Quaternion.identity);
+
+        if (gmObj == null) 
+        {
+            Debug.LogError("GameManager failed to load.");
+            return;
+        }
+
+
+        // == QUEST MANAGER
+        GameObject qmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/QuestManager"), Vector3.zero, Quaternion.identity);
+
+        if (qmObj == null) 
+        {
+            Debug.LogError("QuestManager failed to load.");
+            return;
+        }
+
+        // == RACE MANAGER
+        GameObject rmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/RaceManager"), Vector3.zero, Quaternion.identity);
+
+        if (rmObj == null) 
+        {
+            Debug.LogError("RaceManager failed to load.");
+            return;
+        }
+
+        // == SPAWN POINT MANAGER
+        GameObject spmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/SpawnPointManager"), Vector3.zero, Quaternion.identity);
+
+        if (spmObj == null) 
+        {
+            Debug.LogError("SpawnPointManager failed to load.");
             return;
         }
 
@@ -86,6 +136,6 @@ public class GameLoader : MonoBehaviour
             yield return null;
         } 
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(nextSceneIndex);
     }
 }

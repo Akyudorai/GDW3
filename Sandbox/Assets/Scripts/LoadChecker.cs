@@ -9,10 +9,12 @@ public class LoadChecker : MonoBehaviour
     private void Awake() 
     {
         if (!GameLoader.IsLoaded) {
-            int index = SceneManager.GetActiveScene().buildIndex;
+            int index = SceneManager.GetActiveScene().buildIndex;    
+            SpawnPointManager.currentSceneIndex = index;        
             SceneManager.UnloadSceneAsync(index);
+            GameLoader.nextSceneIndex = index;
             SceneManager.LoadSceneAsync(0);
-        } else {
+        } else {             
             Destroy(this.gameObject);
         }
     }
