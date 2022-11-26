@@ -22,8 +22,8 @@ public class CameraController : MonoBehaviour
         camRotation = transform.localRotation;
         camera_offset = t_camera.localPosition;     
 
-        pcRef.inputAction.Player.Look.performed += cntxt => v_Rotation = cntxt.ReadValue<Vector2>();
-        pcRef.inputAction.Player.Look.canceled += cntxt => v_Rotation = Vector2.zero;   
+        InputManager.GetInput().Player.Look.performed += cntxt => v_Rotation = cntxt.ReadValue<Vector2>();
+        InputManager.GetInput().Player.Look.canceled += cntxt => v_Rotation = Vector2.zero;   
     }
 
     private void Update() 

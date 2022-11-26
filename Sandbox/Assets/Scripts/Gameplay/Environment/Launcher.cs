@@ -19,12 +19,13 @@ public class Launcher : MonoBehaviour
         if (collision.gameObject.tag == "Player" && CanLaunch) 
         {
             PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
-            pc.rigid.velocity = Vector3.zero;
+            pc.v_VerticalVelocity = Vector3.zero;
             
             Vector3 launchVector = transform.up * LaunchForce;            
             pc.ApplyForce(launchVector, ForceMode.Impulse);            
             //StartCoroutine(pc.OverrideMovement(2.0f));
             StartCoroutine(LaunchpadDelay());
+            StartCoroutine(pc.JumpDelay());
         }
     }
 }

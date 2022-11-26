@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5140052101937357171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5140052101937357132}
+  - component: {fileID: 5140052101937357133}
+  m_Layer: 0
+  m_Name: QuestManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5140052101937357132
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5140052101937357171}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5140052101937357133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5140052101937357171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62a43ba93d5b854eb04eb1e8d6d5593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeQuestID: -1
+  questList:
+  - m_ID: 0
+    m_Name: Milk Run
+    m_Description: I've really been craving a nice bottle of milk.  I heard the grocer
+      over at the mall is handing them out for free!
+    m_Objective: Head over to the Mall and collect a bottle of milk for NPC.
+    m_Completed: 0
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
+    m_ItemsPositions:
+    - {x: -108.47, y: 11.21, z: 93.33}
+    m_RequirementsMet: 0
+  - m_ID: 1
+    m_Name: Shady Dealings
+    m_Description: My 'clients' have stashed 4 packages around the city.  Go and
+      get them for me.
+    m_Objective: Collect 4 "packages", found in shady parts of town.
+    m_Completed: 0
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 7538479070952630666, guid: 92fcdba786a78c14d849a23c3bc6ca37, type: 3}
+    - {fileID: 7538479070952630666, guid: 92fcdba786a78c14d849a23c3bc6ca37, type: 3}
+    - {fileID: 7538479070952630666, guid: 92fcdba786a78c14d849a23c3bc6ca37, type: 3}
+    - {fileID: 7538479070952630666, guid: 92fcdba786a78c14d849a23c3bc6ca37, type: 3}
+    m_ItemsPositions:
+    - {x: -45.55, y: 5.53, z: -78.68}
+    - {x: -128.52, y: 6.4, z: -12.13}
+    - {x: 38.97, y: 1, z: -148.07}
+    - {x: 38.6, y: 1, z: -63.91}
+    m_RequirementsMet: 0
+  - m_ID: 2
+    m_Name: 'Tutorial: Wall Running'
+    m_Description: You can run along the sides of walls by pressing the 'E' key while
+      mid-air and moving fast enough.  You can perform a wall jump while in the middle
+      of a wall run to launch yourself off the wall.
+    m_Objective: Use wall running to reach the target destination.
+    m_Completed: 0
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
+    m_ItemsPositions:
+    - {x: 17.13, y: 3.4414, z: 34.79}
+    m_RequirementsMet: 0
+  - m_ID: 3
+    m_Name: 'Tutorial: Grinding'
+    m_Description: You can grind across certain edges by pressing the 'E' key while
+      one.  The faster you are moving at the time of interaction, the faster you
+      will grind along the surface.   You can perform a jump while grinding to detatch
+      from the spline and launch yourself in a direction.
+    m_Objective: Use grinding to reach the target destination.
+    m_Completed: 0
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
+    m_ItemsPositions:
+    - {x: 10.2, y: 3.4414, z: 38.530003}
+    m_RequirementsMet: 0
+  - m_ID: 4
+    m_Name: 'Tutorial: Elevation'
+    m_Description: 'Scattered around the world, you can find jump pads to help you
+      get up high in the world.  Touching one will launch you high up into the air. '
+    m_Objective: Use launch pads and the zipline to reach the target destination.
+    m_Completed: 0
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
+    m_ItemsPositions:
+    - {x: 5.7, y: 3.4414, z: 38.530006}
+    m_RequirementsMet: 0

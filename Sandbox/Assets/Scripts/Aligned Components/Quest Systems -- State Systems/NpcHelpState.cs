@@ -9,7 +9,7 @@ public class NpcHelpState : NpcBaseState
     //float targetTime = 3f;
     public override void EnterState (NpcStateManager npc)
     {
-        npc.GetComponent<Renderer>().material.color = Color.red;
+        npc.GetComponentInChildren<Renderer>().material.color = Color.red;
     }
 
     public override void UpdateState (NpcStateManager npc)

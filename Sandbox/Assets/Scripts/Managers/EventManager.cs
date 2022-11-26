@@ -9,7 +9,7 @@ public static class EventManager
     public delegate void OnIntDelegate(int i);
     public delegate void OnBoolDelegate(bool b);
     
-    // -- EVENTS
+    // -- GAME EVENTS
     public static OnIntDelegate OnRaceBegin;
     public static OnBoolDelegate OnRaceEnd;
     public static OnVoidDelegate OnDayBegin;
@@ -22,5 +22,9 @@ public static class EventManager
     public static OnIntDelegate OnQuestBegin;
     public static OnIntDelegate OnQuestComplete;
     public static OnIntDelegate OnQuestForfeit; 
+
+
+    // -- TRANSITION EVENTS
+    public static OnVoidDelegate OnGameLoaderComplete;
     
 }

@@ -7,7 +7,7 @@ public class NpcWaitState : NpcBaseState
     float timeTaken;
     public override void EnterState(NpcStateManager npc)
     {
-        npc.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+        npc.GetComponentInChildren<Renderer>().material.color = Color.yellow;
     }
 
     public override void UpdateState(NpcStateManager npc)

@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public Camera cam;
     public GameObject camera_pivot;
     public Rigidbody rigid;    
-    public InputActions inputAction;
     public GameObject mesh;
 
     [Header("Camera")]
@@ -41,49 +40,57 @@ public class PlayerController : MonoBehaviour
     [Header("Interactions")]
     public float InteractionDistance = 5.0f;
     public Interactable targetInteractable;
+    public Interactable lastInteractable = null;   
+    public float interactionDelay = 0f;
      
     [Header("Splines")]
     public SplineController splineController;
 
     [Header("Debugging")]
     public bool DebugInteractionRadius = false;
-    public Vector3 Velocity;    
+    //public Vector3 Velocity;    
     public float VelocityMagnitude;
     public float CurrentSpeedRatio;
     public Vector3 targetInteractableHitPoint;
     public Vector3 targetDirection = Vector3.zero;    
-    
+
+    [Header("New Velocity System")]
+    public Vector2 v_MotionInput = Vector2.zero;
+    public float f_Speed = 0;
+    public Vector3 v_HorizontalVelocity = Vector3.zero;
+    public Vector3 v_VerticalVelocity = Vector3.zero;
+    public float f_Gravity = 9.8f;
+    public float f_RotationSpeed = 4.0f;
+    [Range(0.0f, 1.0f)] public float f_AirControlAmount = 0.5f;
+    [Range(0.0f, 1.0f)] public float f_AirBrakeAmount = 0.1f;
+
 
     private void Awake() 
-    {
-        inputAction = new InputActions();
-        inputAction.Player.Move.performed += cntxt => v_Movement = cntxt.ReadValue<Vector2>();
-        inputAction.Player.Move.canceled += cntxt => v_Movement = Vector2.zero;
-        inputAction.Player.Look.performed += cntxt => v_Rotation = cntxt.ReadValue<Vector2>();
-        inputAction.Player.Look.canceled += cntxt => v_Rotation = Vector2.zero;
-        inputAction.Player.Jump.performed += cntxt => Jump();
-        inputAction.Player.Interact.performed += cntxt => Interact();
-
+    {        
         rigid = GetComponent<Rigidbody>();        
 
         splineController.pcRef = this;
-        splineController.rigid = rigid;
+        //splineController.rigid = rigid;
         splineController.mesh = mesh;        
     }
 
-    private void OnEnable() 
-    {
-        inputAction.Player.Enable();
-    }
-
-    private void OnDisable() 
-    {
-        inputAction.Player.Disable();
-    }
+    
 
     private void Start() 
     {
+        // Set Reference when scene is loaded
+        GameManager.GetInstance().pcRef = this;
+
+        // Set Position when scene is loaded
+        GameManager.GetInstance().RespawnPlayer(SpawnPointManager.currentSpawnIndex);        
+
         //GameManager.GetInstance().PlayerRef = this;
+        InputManager.GetInput().Player.Move.performed += cntxt => v_MotionInput = cntxt.ReadValue<Vector2>();
+        InputManager.GetInput().Player.Move.canceled += cntxt => v_MotionInput = Vector2.zero;
+        InputManager.GetInput().Player.Look.performed += cntxt => v_Rotation = cntxt.ReadValue<Vector2>();
+        InputManager.GetInput().Player.Look.canceled += cntxt => v_Rotation = Vector2.zero;
+        InputManager.GetInput().Player.Jump.performed += cntxt => Jump();
+        InputManager.GetInput().Player.Interact.performed += cntxt => Interact();
     }
 
     private void Update() 
@@ -92,7 +99,7 @@ public class PlayerController : MonoBehaviour
         
         if (splineController.currentSpline != null) 
         {
-            float splineSpeed = Mathf.Min(QuickMaxSpeed, CurrentSpeed);
+            float splineSpeed = (v_HorizontalVelocity.magnitude / TopMaxSpeed) * 15f;
             splineController.SetTraversalSpeed(splineSpeed);      
         } 
         else 
@@ -103,8 +110,14 @@ public class PlayerController : MonoBehaviour
         Camera();
         
         if (!IsGrounded) {
-            f_AirTime += Time.deltaTime;
-        }                
+            f_AirTime += Time.fixedDeltaTime;
+        }         
+
+        if (interactionDelay > 0f && splineController.currentSpline == null) 
+        {
+            interactionDelay -= Time.deltaTime;
+            interactionDelay = Mathf.Clamp(interactionDelay, 0, 100);
+        }       
     }
 
     private void FixedUpdate() 
@@ -118,7 +131,9 @@ public class PlayerController : MonoBehaviour
                 //Debug.Log(hit.collider.name);
 
                 IsGrounded = true;                                            
-                f_AirTime = 0.0f;  
+                f_AirTime = 0.0f; 
+                v_VerticalVelocity = Vector3.zero;
+                
 
                 Vector3 normalDir = hit.normal;
                 Vector3 upDir = Vector3.up;
@@ -126,9 +141,9 @@ public class PlayerController : MonoBehaviour
                 float angleBetween = Vector3.Angle(upDir, normalDir);
 
                 if (angleBetween > 30.0f) {
-                    IsSliding = true;                    
+                    //IsSliding = true;                    
                 } else {
-                    IsSliding = false;
+                    //IsSliding = false;
                 }
 
                 // Temporarily disabled until scale issue is resolved when parenting
@@ -136,7 +151,9 @@ public class PlayerController : MonoBehaviour
 
             } else {
                 IsGrounded = false;
-                IsSliding = false;  
+                //IsSliding = false;  
+                v_VerticalVelocity -= Vector3.up * f_Gravity * Time.fixedDeltaTime;
+                v_VerticalVelocity = Vector3.ClampMagnitude(v_VerticalVelocity, MaxFallSpeed);
 
                 // Temporarily disabled until scale issue is resolved when parenting
                 //if (transform.parent != null) {
@@ -148,8 +165,8 @@ public class PlayerController : MonoBehaviour
 
     private void Slide(Vector3 direction) 
     {   
-        float slideSpeed = Mathf.Min(QuickMaxSpeed, CurrentSpeed);
-        rigid.MovePosition(transform.position + direction * slideSpeed * Time.deltaTime);
+        float slideSpeed = Mathf.Min(QuickMaxSpeed, f_Speed);
+        rigid.velocity = direction * slideSpeed;
     }
 
     private void Movement() 
@@ -157,37 +174,38 @@ public class PlayerController : MonoBehaviour
         if (IsWallJumping) return;   
         if (IsSliding) return;   
         if (IsOverridingMovement) return;
-          
+
+        // rigid.velocity = v_DirectionalVelocity;
 
         // Prepare a motion vector to used to modify the velocity
         Vector3 motionVector = Vector3.zero;        
 
         // If there is input along the X or Z axis in either direction
-        if (v_Movement.y > 0.1f || v_Movement.x > 0.1f || v_Movement.y < -0.1f || v_Movement.x < -0.1f) 
+        if (v_MotionInput.y > 0.1f || v_MotionInput.x > 0.1f || v_MotionInput.y < -0.1f || v_MotionInput.x < -0.1f) 
         {                              
             //======================================================
             // Handles the horizontal motion of the player.
             //======================================================
 
             // Get Current Acceleration Rate
-            float acceleration = ((Velocity.magnitude < QuickMaxSpeed) ? QuickAcceleration : TopAcceleration);
+            float acceleration = ((v_HorizontalVelocity.magnitude < QuickMaxSpeed) ? QuickAcceleration : TopAcceleration);
 
             // Get direction of motion
-            Vector3 forwardMotion = camera_pivot.transform.forward * v_Movement.y;               
-            Vector3 rightMotion = camera_pivot.transform.right * v_Movement.x;
+            Vector3 forwardMotion = camera_pivot.transform.forward * v_MotionInput.y;               
+            Vector3 rightMotion = camera_pivot.transform.right * v_MotionInput.x;
             motionVector = forwardMotion + rightMotion;
             motionVector.y = 0;
 
-            motionVector *= ((IsGrounded) ? 1.0f : 0.1f);
+            motionVector *= ((IsGrounded) ? 1.0f : f_AirControlAmount);
 
             // Apply Velocity Change
-            Velocity += motionVector * acceleration * Time.deltaTime;
-            Velocity = Vector3.ClampMagnitude(Velocity, TopMaxSpeed);
-            CurrentSpeed = Velocity.magnitude;
+            v_HorizontalVelocity += motionVector * acceleration * Time.fixedDeltaTime;
+            v_HorizontalVelocity = Vector3.ClampMagnitude(v_HorizontalVelocity, TopMaxSpeed);
+            //CurrentSpeed = v_HorizontalVelocity.magnitude;
 
             // Slow midair
             if (!IsGrounded) {
-                Velocity += -Velocity * BrakeSpeed * 0.25f * Time.deltaTime;
+                v_HorizontalVelocity += -v_HorizontalVelocity * BrakeSpeed * f_AirBrakeAmount * Time.fixedDeltaTime;
             }
             
             //======================================================
@@ -197,18 +215,18 @@ public class PlayerController : MonoBehaviour
             //======================================================
 
             // Calculate between motion vector and current velocity
-            float angle = Vector3.Angle(motionVector.normalized, Velocity.normalized);
+            float angle = Vector3.Angle(motionVector.normalized, v_HorizontalVelocity.normalized);
 
             // If the angle between current velocity vector and the intended direciton is greater than 90 degrees
-            if (angle > 90 && Velocity != Vector3.zero) 
+            if (angle > 90 && v_HorizontalVelocity != Vector3.zero && IsGrounded) 
             {
                 // Apply a brake force to the character
                 // Intended to simulate sharp turns (character needs to stop themselves before moving around a sharp corner)
-                if (Velocity.magnitude > 0.1f) {
-                    Vector3 brakeVector = -Velocity * BrakeSpeed;
-                    Velocity += brakeVector * Time.deltaTime;            
+                if (v_HorizontalVelocity.magnitude > 0.1f) {
+                    Vector3 brakeVector = -v_HorizontalVelocity * BrakeSpeed;
+                    v_HorizontalVelocity += brakeVector * Time.fixedDeltaTime;            
                 } else {
-                    Velocity = Vector3.zero;
+                    v_HorizontalVelocity = Vector3.zero;
                 }                
             } 
             
@@ -217,7 +235,7 @@ public class PlayerController : MonoBehaviour
             {
                 // Grab the cross product to determine which way we want to rotate
                 Vector3 delta = ((transform.position + motionVector) - transform.position).normalized;
-                Vector3 cross = Vector3.Cross(delta, Velocity.normalized);
+                Vector3 cross = Vector3.Cross(delta, v_HorizontalVelocity.normalized);
 
                 // motionVector is Parallel with Velocity; do nothing
                 if (cross == Vector3.zero) { }
@@ -226,22 +244,22 @@ public class PlayerController : MonoBehaviour
                 else if (cross.y > 0) 
                 {    
                     // Rotate the Direction of Velocity by a negative angle                    
-                    Vector3 newDirection = Quaternion.AngleAxis(-angle * Time.deltaTime, Vector3.up) * Velocity;
-                    Velocity = newDirection;
+                    Vector3 newDirection = Quaternion.AngleAxis(-angle * f_RotationSpeed * Time.fixedDeltaTime, Vector3.up) * v_HorizontalVelocity; 
+                    v_HorizontalVelocity = newDirection;
                 } 
 
                 // motionVector is to the right of the velocity direction
                 else 
                 {
                     // Rotate Direction of Velocity by a positive angle
-                    Vector3 newDirection = Quaternion.AngleAxis(angle * Time.deltaTime, Vector3.up) * Velocity;
-                    Velocity = newDirection;
+                    Vector3 newDirection = Quaternion.AngleAxis(angle * f_RotationSpeed * Time.fixedDeltaTime, Vector3.up) * v_HorizontalVelocity;
+                    v_HorizontalVelocity = newDirection;
                 }
             }
 
             // Lastly, rotate the character to look towards the direction of velocity
             /// We can have the players head rotate to look towards intended motion, while body faces direction of velocity in future
-            mesh.transform.LookAt(mesh.transform.position + Velocity);
+            mesh.transform.LookAt(mesh.transform.position + v_HorizontalVelocity);
 
             //======================================================
         } 
@@ -250,39 +268,20 @@ public class PlayerController : MonoBehaviour
         else 
         {   
             // Set the motion vector to a brake force to that will slow down the velocity
-            if (Velocity.magnitude > 0.1f) {
-                Vector3 brakeVector = -Velocity * BrakeSpeed;
-                Velocity += brakeVector * Time.deltaTime;            
+            if (v_HorizontalVelocity.magnitude > 0.1f) {
+                Vector3 brakeVector = -v_HorizontalVelocity * BrakeSpeed;
+                v_HorizontalVelocity += brakeVector * Time.fixedDeltaTime;            
             } else {
-                Velocity = Vector3.zero;
+                v_HorizontalVelocity = Vector3.zero;
             }
             
             if (CurrentSpeed > 0) {
-                CurrentSpeed *= BrakeSpeed * Time.deltaTime;
+                CurrentSpeed *= BrakeSpeed * Time.fixedDeltaTime;
             } 
         }                                                  
-        
+
         // Move the players position in the direction of velocity
-        rigid.MovePosition(transform.position + Velocity * Time.deltaTime);
-        
-        //rigid.velocity += motionVector * CurrentSpeed * Time.deltaTime;
-
-        //rigid.velocity += ((IsGrounded) ? motionVector : motionVector * 0.6f); // Change 0.25 to whatever value you want air motion control ratio to be
-        
-
-        //Vector3 xzVel = new Vector3(rigid.velocity.x, 0, rigid.velocity.z);
-        //Vector3 yVel = new Vector3(0, rigid.velocity.y, 0);
-
-        //xzVel = Vector3.ClampMagnitude(xzVel, TopMaxSpeed);
-        //yVel = Vector3.ClampMagnitude(yVel, MaxFallSpeed);        
-        //rigid.MovePosition(transform.position + (xzVel + yVel) * Time.deltaTime);    
-        //if (b_LimitVelocity) 
-            //rigid.velocity = new Vector3(Mathf.Clamp(rigid.velocity.x, -TopMaxSpeed, TopMaxSpeed), rigid.velocity.y, Mathf.Clamp(rigid.velocity.z, -TopMaxSpeed, TopMaxSpeed));            
-
-        
-        //targetDirection.x = xzVel.x;
-        //targetDirection.z = xzVel.z;        
-        //targetDirection.Normalize();
+        rigid.velocity = v_HorizontalVelocity + v_VerticalVelocity;        
     }
 
     private void Camera()
@@ -314,6 +313,8 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        SoundManager.GetInstance().Play("Alabama");
+
         // If on a spline, detatch from it
         if (splineController.currentSpline != null) {
             splineController.Detatch();
@@ -345,7 +346,9 @@ public class PlayerController : MonoBehaviour
     public void ApplyForce(Vector3 force, ForceMode mode = ForceMode.Impulse)
     {        
         //Debug.Log("Launched with force of " + force);
-        rigid.AddForce(force, mode);
+        v_HorizontalVelocity += new Vector3(force.x, 0, force.z);
+        v_VerticalVelocity += new Vector3(0, force.y, 0);
+        //rigid.AddForce(force, mode);
     } 
 
     public void Brake(float speed)
@@ -389,14 +392,22 @@ public class PlayerController : MonoBehaviour
                 }
 
                 // Get the closest interactable point                
-                if (targetInteractable != null) // BUG: for some reason, it doesn't often detect there's a target interactable there
+                if (targetInteractable != null) 
                 {
+                    if (lastInteractable == targetInteractable && interactionDelay > 0) 
+                    {
+                        Debug.Log("Cannot use interactable that frequently!");
+                        return;
+                    }
+
                     if (targetInteractable.gameObject == hit.gameObject) 
                     {
                         targetInteractableHitPoint = hit.ClosestPoint(transform.position);    
                         if (Physics.Raycast(transform.position, targetInteractableHitPoint - transform.position, out RaycastHit hitResult))
                         {
                             targetInteractable.Interact(this, hitResult);
+                            lastInteractable = targetInteractable;
+                            interactionDelay = 0.5f;
                         }                
                     }
                 }

@@ -15,14 +15,14 @@ public class NPCFactory : MonoBehaviour
         {
             GameObject obj = new GameObject("NPC Factory");
             instance = obj.AddComponent<NPCFactory>();
-            DontDestroyOnLoad(instance);    // Making sure the factory doesn't disappear if we change scenes
+            //DontDestroyOnLoad(instance);    // Making sure the factory doesn't disappear if we change scenes
         }
         return instance;        // Either way we're giving them back an instance of a factory
     }
 
     private void Awake() {
         instance = this;                // Set the singleton instance = this
-        DontDestroyOnLoad(instance);    // Redundant check to keep the factory from being destroyed on load
+        //DontDestroyOnLoad(instance);    // Redundant check to keep the factory from being destroyed on load
     }
 
     public SpeakingNPC GetNPC(string npcMessage, Vector3 npcLocation)   // The function that actually makes this a factory class

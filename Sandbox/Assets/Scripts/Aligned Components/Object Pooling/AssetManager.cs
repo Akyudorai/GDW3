@@ -19,6 +19,7 @@ public class AssetManager : MonoBehaviour
         // Initialize Assets
         ObjectDict = new Dictionary<string, ObjectPool>();
         AssetLoader.Initialize();
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // --------------------

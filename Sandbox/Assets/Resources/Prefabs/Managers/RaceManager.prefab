@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5269300121273750626
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5269300121273750627}
+  - component: {fileID: 5269300121273750628}
+  m_Layer: 0
+  m_Name: RaceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5269300121273750627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5269300121273750626}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5269300121273750628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5269300121273750626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aca20ac84bab0f408f88872b6348dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  finishColliderPrefab: {fileID: 392411728777886784, guid: a084d73184a9cee43ad3873ec17a88c7,
+    type: 3}
+  raceList:
+  - m_ID: 0
+    m_Name: Rooftop Race
+    m_Description: Get from the top of the city center to the top of the bank across
+      town.
+    m_Objective: Complete the race!
+    m_Score: 0
+    m_StartPosition: {x: 118.7, y: 54.85, z: -6.81}
+    m_StartRotation: {x: 0, y: -60, z: 0}
+    m_EndPosition: {x: -54.57, y: 40.67, z: 164.34}
+  - m_ID: 1
+    m_Name: Cross City Race
+    m_Description: Get from the apartment complex to the construction yard.
+    m_Objective: Complete the race!
+    m_Score: 0
+    m_StartPosition: {x: 23.94, y: 6.27, z: 6.25}
+    m_StartRotation: {x: 0, y: 45, z: 0}
+    m_EndPosition: {x: -118.41, y: 5.57, z: -96.35}
+  activeRaceID: -1
+  m_RaceTimer: 0
+  m_RaceActive: 0
+  finishColliderReference: {fileID: 0}
