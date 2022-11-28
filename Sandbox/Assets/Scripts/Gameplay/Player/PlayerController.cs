@@ -46,6 +46,16 @@ public class PlayerController : MonoBehaviour
     [Header("Splines")]
     public SplineController splineController;
 
+    // NOTE TO SELF: 
+    /// Current tracks every wall that has been ran on and counts down a timer. Until it can be ran on again 
+    /// Considering the idea where instead of tracking every single wall, we just track the most recent wall ran on.
+    /// This would allow us to jump between two walls infinitely for extended "hallway" sequences, as the previous wall timer
+    /// would get reset to zero once the new wall timer is set.
+    /// Alternatively, could keep it as it is now, and add a function where everytime we run on a new wall, we reduce the timer of 
+    /// all other timers by X seconds.  Would still encourage chaining jumps between walls, but also still allow us to restrict how 
+    /// quickly they can do so. 
+    public Dictionary<WallInteractable, float> wallDelays = new Dictionary<WallInteractable, float>();
+
     [Header("Debugging")]
     public bool DebugInteractionRadius = false;
     //public Vector3 Velocity;    
@@ -61,8 +71,9 @@ public class PlayerController : MonoBehaviour
     public Vector3 v_VerticalVelocity = Vector3.zero;
     public float f_Gravity = 9.8f;
     public float f_RotationSpeed = 4.0f;
+    public float f_HorizontalJumpBoost = 2.0f;
+    public float f_AirResistance = 1.0f;
     [Range(0.0f, 1.0f)] public float f_AirControlAmount = 0.5f;
-    [Range(0.0f, 1.0f)] public float f_AirBrakeAmount = 0.1f;
 
 
     private void Awake() 
@@ -106,6 +117,26 @@ public class PlayerController : MonoBehaviour
         {
             Movement();            
         }
+        
+
+        // Count down wall delay timers while airborne
+        if (wallDelays.Count > 0) 
+        {   
+            var keyList = new List<WallInteractable>();
+            foreach (var key in wallDelays.Keys) 
+            {
+                keyList.Add(key);
+            }
+
+            foreach (var key in keyList)
+            {
+                wallDelays[key] -= Time.deltaTime;
+                if (wallDelays[key] <= 0) 
+                {
+                    wallDelays.Remove(key);
+                }
+            }
+        }
 
         Camera();
         
@@ -134,7 +165,6 @@ public class PlayerController : MonoBehaviour
                 f_AirTime = 0.0f; 
                 v_VerticalVelocity = Vector3.zero;
                 
-
                 Vector3 normalDir = hit.normal;
                 Vector3 upDir = Vector3.up;
 
@@ -144,6 +174,21 @@ public class PlayerController : MonoBehaviour
                     //IsSliding = true;                    
                 } else {
                     //IsSliding = false;
+                }
+
+                // Reset Wall Run Delay Timers if Grounded               
+                if (wallDelays.Count > 0) 
+                {   
+                    var keyList = new List<WallInteractable>();
+                    foreach (var key in wallDelays.Keys) 
+                    {
+                        keyList.Add(key);
+                    }
+
+                    foreach (var key in keyList)
+                    {
+                        wallDelays.Remove(key);
+                    }
                 }
 
                 // Temporarily disabled until scale issue is resolved when parenting
@@ -205,7 +250,7 @@ public class PlayerController : MonoBehaviour
 
             // Slow midair
             if (!IsGrounded) {
-                v_HorizontalVelocity += -v_HorizontalVelocity * BrakeSpeed * f_AirBrakeAmount * Time.fixedDeltaTime;
+                v_HorizontalVelocity += -v_HorizontalVelocity * f_AirResistance * Time.fixedDeltaTime;
             }
             
             //======================================================
@@ -334,6 +379,16 @@ public class PlayerController : MonoBehaviour
 
             Vector3 result = surfaceNormal;
             if (IsSliding) result += Vector3.up;
+            
+            if (v_HorizontalVelocity != Vector3.zero) 
+            {
+                Vector3 horizontal_boost = v_HorizontalVelocity;
+                horizontal_boost.y = 0;
+                horizontal_boost *= f_HorizontalJumpBoost;           
+                result += horizontal_boost;
+            }
+            
+
             ApplyForce(result * ((IsSliding) ? JumpForce * 2.0f : JumpForce));
             IsGrounded = false;
 

@@ -6,8 +6,13 @@ public class WallInteractable : Interactable
 {      
     public override void Interact(PlayerController pc, RaycastHit hit) 
     {
+        
+
         if (pc.IsGrounded) { Debug.Log("IsGrounded"); return; }
-        if (pc.v_HorizontalVelocity.magnitude < pc.QuickMaxSpeed/3) return;    
+        if (pc.v_HorizontalVelocity.magnitude < pc.QuickMaxSpeed/3) { Debug.Log("Too Slow"); return; }    
+        if (pc.wallDelays.ContainsKey(this)) { Debug.Log("That Wall Is On Cooldown!"); return; }
+
+        Debug.Log("Wall Run Started");
 
         // Calculate Direction of spline
         Vector3 playerRelativeDir = (hit.point + pc.v_HorizontalVelocity);                      // Player's current direction of travel
@@ -27,10 +32,12 @@ public class WallInteractable : Interactable
         float splineSpeed = (pc.v_HorizontalVelocity.magnitude / pc.TopMaxSpeed) * 10;
         
         //float splineSpeed = pc.CurrentSpeed;
-        SplinePath wallRunSpline = SplineUtils.GenerateWallRunPath(hit.point + surfaceNormal * 0.5f, surfaceDir, splineSpeed, isForward);
+        SplinePath wallRunSpline = SplineUtils.GenerateWallRunPath(hit.point + surfaceNormal * 1f, surfaceDir, splineSpeed, isForward);
 
         pc.mesh.transform.LookAt(pc.mesh.transform.position - surfaceDir * ((isForward) ? -1 : 1));
         wallRunSpline.isRight = (Physics.Raycast(pc.mesh.transform.position, pc.mesh.transform.right, 1));
         wallRunSpline.GetNode(0).Attach(pc.splineController, 0.0f, true);  
+                
+        pc.wallDelays.Add(this, 3f); // Change value to variable for adjustable wall delay time
     }
 }
