@@ -11,18 +11,6 @@ public class RaceManager : MonoBehaviour
         return instance;
     }
 
-    private void Awake()
-    {
-        if(instance != null && instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            instance = this;
-        }
-    }
-
     // -- END OF SINGLETON --
 
     [Header("Race Data")]
@@ -35,14 +23,22 @@ public class RaceManager : MonoBehaviour
     public bool m_RaceActive;
     public GameObject finishColliderReference;
     
-    private void Start() 
+    // Initialization
+    private void Awake() 
     {
-        EventManager.OnRaceEnd += RaceComplete;
+        if (instance != null) {
+            Destroy(this.gameObject);
+        } 
+
+        instance = this;
 
         for (int i = 0; i < raceList.Count; i++) 
         {
             LoadScore(i);
         }
+
+        EventManager.OnRaceEnd += RaceComplete;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void InitializeRace(PlayerController pcRef, int raceID)
@@ -55,10 +51,15 @@ public class RaceManager : MonoBehaviour
         //finishColliderReference.GetComponent<FinishLine>().OnContact += RaceComplete;
         activeRaceID = raceID;
         m_RaceActive = true;
+
+        // Initialize the appropriate Waypoint System based on index
+        WaypointManager wpm = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
+        wpm.Initialize(raceList[raceID].WPS_Index);
+        EventManager.OnRaceBegin?.Invoke(raceID);
     }
 
     private void Update() 
-    {
+    {        
         if (m_RaceActive) 
         {
             m_RaceTimer += Time.deltaTime;

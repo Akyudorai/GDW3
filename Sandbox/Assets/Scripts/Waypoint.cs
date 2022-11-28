@@ -4,20 +4,13 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [HideInInspector] public WaypointSystem system;
 
     private void OnTriggerEnter(Collider other)
     {
-        this.gameObject.SetActive(false);
+        if (other.tag == "Player") 
+        {
+            system.NextWaypoint();
+        }
     }
 }

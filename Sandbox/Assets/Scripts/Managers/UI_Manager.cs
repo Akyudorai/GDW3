@@ -48,6 +48,7 @@ public class UI_Manager : MonoBehaviour
     public TextMeshProUGUI questDescription;
     public TextMeshProUGUI questObjective;
 
+
     private void Start() 
     {
         InputManager.GetInput().Player.Escape.performed += cntxt => TogglePhonePanel(!PhonePanel.activeInHierarchy);
@@ -60,6 +61,7 @@ public class UI_Manager : MonoBehaviour
 
     public void EnableRaceTimer(int id) 
     {
+        Debug.Log("Race Timer Enabled");
         RaceTimer.enabled = true;
     }
 
@@ -70,8 +72,8 @@ public class UI_Manager : MonoBehaviour
 
     public void UpdateRaceTimer(float time) 
     {
-        int minutes = Mathf.RoundToInt(time / 60);
-        int seconds = Mathf.RoundToInt(time);
+        int minutes = Mathf.FloorToInt(time / 60);
+        int seconds = Mathf.RoundToInt(time % 60);
         RaceTimer.text = minutes + ":" + ((seconds<10) ? " 0 " + seconds : seconds);
     }
 

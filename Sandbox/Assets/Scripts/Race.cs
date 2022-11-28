@@ -19,7 +19,7 @@ public class Race : MonoBehaviour
 
     public void StartRace1()
     {
-        WaypointManager.waypointManager.ActivateRace(this.GetComponent<Race>());
+        //WaypointManager.waypointManager.ActivateRace(this.GetComponent<Race>());
     }
 
     public void OnTriggerEnter(Collider other)

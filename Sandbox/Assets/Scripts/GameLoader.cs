@@ -27,10 +27,7 @@ public class GameLoader : MonoBehaviour
         LoadingBar.fillAmount = 0.0f;
         FadeImage.color = new Color(0, 0, 0, 0);
 
-        GenerateManagers();                
-
-        // Load the Player Data 
-        GameManager.GetInstance().playerRef = new Player(); // Can replace this with a save/load feature in future 
+        GenerateManagers();                                
     }
 
     private void Update() 
