@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public GameObject camera_pivot;
     public Rigidbody rigid;    
     public GameObject mesh;
+    public Animator animator;
 
     [Header("Camera")]
     public float f_MouseSensitivity = 1.0f;
@@ -148,7 +149,10 @@ public class PlayerController : MonoBehaviour
         {
             interactionDelay -= Time.deltaTime;
             interactionDelay = Mathf.Clamp(interactionDelay, 0, 100);
-        }       
+        }
+
+        animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
+        Debug.Log($"Movement: {v_HorizontalVelocity.magnitude}");
     }
 
     private void FixedUpdate() 
@@ -323,7 +327,8 @@ public class PlayerController : MonoBehaviour
             if (CurrentSpeed > 0) {
                 CurrentSpeed *= BrakeSpeed * Time.fixedDeltaTime;
             } 
-        }                                                  
+        }
+
 
         // Move the players position in the direction of velocity
         rigid.velocity = v_HorizontalVelocity + v_VerticalVelocity;        

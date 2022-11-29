@@ -104,6 +104,7 @@ public class dep_AnimatedPlayerController : MonoBehaviour
         camera_pivot.transform.localEulerAngles = new Vector3(camera_pivot.transform.localEulerAngles.x, 0, 0);
         animator.SetFloat("Movement-X", movement.x);
         animator.SetFloat("Movement-Z", movement.z);
+        animator.SetFloat("Movement", movement.magnitude);
 
         //==========================                
 
