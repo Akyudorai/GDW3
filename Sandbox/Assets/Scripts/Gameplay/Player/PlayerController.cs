@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -96,12 +97,54 @@ public class PlayerController : MonoBehaviour
         GameManager.GetInstance().RespawnPlayer(SpawnPointManager.currentSpawnIndex);        
 
         //GameManager.GetInstance().PlayerRef = this;
-        InputManager.GetInput().Player.Move.performed += cntxt => v_MotionInput = cntxt.ReadValue<Vector2>();
-        InputManager.GetInput().Player.Move.canceled += cntxt => v_MotionInput = Vector2.zero;
-        InputManager.GetInput().Player.Look.performed += cntxt => v_Rotation = cntxt.ReadValue<Vector2>();
-        InputManager.GetInput().Player.Look.canceled += cntxt => v_Rotation = Vector2.zero;
-        InputManager.GetInput().Player.Jump.performed += cntxt => Jump();
-        InputManager.GetInput().Player.Interact.performed += cntxt => Interact();
+        InputManager.GetInput().Player.Move.performed += MoveWithContext;
+        InputManager.GetInput().Player.Move.canceled += MoveCancelWithContext;
+        InputManager.GetInput().Player.Look.performed += LookWithContext;
+        InputManager.GetInput().Player.Look.canceled += LookCancelWithContext;
+        InputManager.GetInput().Player.Jump.performed += JumpWithContext;
+        InputManager.GetInput().Player.Interact.performed += InteractWithContext;
+    }
+
+    private void OnDestroy() 
+    {
+        if (InputManager.GetInput() == null) return;
+
+        InputManager.GetInput().Player.Move.performed -= MoveWithContext;
+        InputManager.GetInput().Player.Move.canceled -= MoveCancelWithContext;
+        InputManager.GetInput().Player.Look.performed -= LookWithContext;
+        InputManager.GetInput().Player.Look.canceled -= LookCancelWithContext;
+        InputManager.GetInput().Player.Jump.performed -= JumpWithContext;
+        InputManager.GetInput().Player.Interact.performed -= InteractWithContext;
+    }
+
+    private void JumpWithContext(InputAction.CallbackContext context)
+    {
+        Jump();
+    }
+
+    private void MoveWithContext(InputAction.CallbackContext context) 
+    {
+        v_MotionInput = context.ReadValue<Vector2>();
+    }
+
+    private void MoveCancelWithContext(InputAction.CallbackContext context) 
+    {
+        v_MotionInput = Vector2.zero;
+    }
+
+    private void LookWithContext(InputAction.CallbackContext context) 
+    {
+        v_Rotation = context.ReadValue<Vector2>();
+    }
+
+    private void LookCancelWithContext(InputAction.CallbackContext context) 
+    {
+        v_Rotation = Vector2.zero;
+    }
+
+    private void InteractWithContext(InputAction.CallbackContext context) 
+    {
+        Interact();
     }
 
     private void Update() 
@@ -372,6 +415,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 surfaceNormal = Vector3.up;
             int layerMask = 1 << 6; // Ground Layer
+            Debug.Log(transform.position);
             if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
             {
                 surfaceNormal = hit.normal;                                

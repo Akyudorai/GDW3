@@ -30,12 +30,7 @@ public class RaceManager : MonoBehaviour
             Destroy(this.gameObject);
         } 
 
-        instance = this;
-
-        for (int i = 0; i < raceList.Count; i++) 
-        {
-            LoadScore(i);
-        }
+        instance = this;       
 
         EventManager.OnRaceEnd += RaceComplete;
         DontDestroyOnLoad(this.gameObject);
@@ -81,20 +76,14 @@ public class RaceManager : MonoBehaviour
 
     public void SaveScore(int id, float time) 
     {
-        if (time <= raceList[id].m_Score) 
+        if (time <= raceList[id].m_Score || raceList[id].m_Score <= 0) 
         {     
             raceList[activeRaceID].m_Score = m_RaceTimer;
-            PlayerPrefs.SetFloat("RaceScore["+id+"]", time);
-            PlayerPrefs.Save();
+            SaveManager.GetInstance().SaveFile();            
             Debug.Log("New Top Score: " + time);
         } else 
         {
             Debug.Log("Your score: " + time + " | Top score: " + raceList[id].m_Score);
         }
-    }
-
-    public void LoadScore(int id) 
-    {        
-        raceList[id].m_Score = PlayerPrefs.GetFloat("RaceScore["+id+"]");
     }
 }
