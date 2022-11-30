@@ -13044,12 +13044,17 @@ PrefabInstance:
     - target: {fileID: 883506118139845227, guid: 95f5cea21c8996749bda0cbee7315902,
         type: 3}
       propertyPath: JumpForce
-      value: 4
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 883506118139845227, guid: 95f5cea21c8996749bda0cbee7315902,
+        type: 3}
+      propertyPath: f_Gravity
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 883506118139845227, guid: 95f5cea21c8996749bda0cbee7315902,
         type: 3}
       propertyPath: BrakeSpeed
-      value: 14
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 883506118139845227, guid: 95f5cea21c8996749bda0cbee7315902,
         type: 3}

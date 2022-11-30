@@ -27,10 +27,7 @@ public class GameLoader : MonoBehaviour
         LoadingBar.fillAmount = 0.0f;
         FadeImage.color = new Color(0, 0, 0, 0);
 
-        GenerateManagers();                
-
-        // Load the Player Data 
-        GameManager.GetInstance().playerRef = new Player(); // Can replace this with a save/load feature in future 
+        GenerateManagers();                                
     }
 
     private void Update() 
@@ -115,6 +112,15 @@ public class GameLoader : MonoBehaviour
         if (spmObj == null) 
         {
             Debug.LogError("SpawnPointManager failed to load.");
+            return;
+        }
+
+        // == SAVE AND LOAD MANAGER
+        GameObject slm = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/SaveLoadManager"), Vector3.zero, Quaternion.identity);
+
+        if (slm == null) 
+        {
+            Debug.LogError("SaveLoadManager failed to load.");
             return;
         }
 

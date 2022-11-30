@@ -23,30 +23,21 @@ public class GameManager : MonoBehaviour
 
    
 
-    private void Awake()
+    // Initialization
+    private void Awake() 
     {
-        if (instance != null)
-        {
+        if (instance != null) {
             Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
-    }
+        } 
 
-    private void Start() 
-    {
-        Initialize();
+        instance = this;
+                
+        // Load the Player Data 
+        playerRef = new Player(); // Can replace this with a save/load feature in future 
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-    }
-
-    private void Initialize() 
-    {   
-        // Spawn player at start position
-        //RespawnPlayer(0);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void RespawnPlayer(int overrideIndex = -1)
