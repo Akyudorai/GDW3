@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Launcher : MonoBehaviour
 {
-    public float LaunchForce = 15.0f;
+    public float LaunchForce = 10.0f;
     public bool CanLaunch = true;
 
     private IEnumerator LaunchpadDelay() 

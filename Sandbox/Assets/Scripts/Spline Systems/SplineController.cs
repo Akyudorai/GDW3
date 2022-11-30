@@ -24,14 +24,14 @@ public class SplineController : MonoBehaviour
             mesh.transform.LookAt(mesh.transform.position - lookDir);
             currentSpline.GetNode(nodeIndex).Traverse(this, traversalSpeed);                       
             
-            // // Check if wall is ahead
-            // bool checkWall = (Physics.Raycast(mesh.transform.position, mesh.transform.forward, 1));
+            // Check if wall is ahead
+            bool checkWall = (Physics.Raycast(mesh.transform.position, mesh.transform.forward, 1));
             
-            // // If a wall was detected, detatch from spline            
-            // if (checkWall) 
-            // {
-            //     Detatch();
-            // }
+            // If a wall was detected, detatch from spline            
+            if (checkWall) 
+            {
+                Detatch();
+            }
 
 
             if (currentSpline == null) return;
@@ -50,12 +50,11 @@ public class SplineController : MonoBehaviour
         if (pcRef != null) 
         {
             // Check to see if we're still running on the wall or if we've reached the end of it
-            bool checkWall = (Physics.Raycast(mesh.transform.position, mesh.transform.right * ((currentSpline.isRight) ? 1 : -1), 2f));				            
+            bool checkWall = (Physics.Raycast(mesh.transform.position, mesh.transform.right * ((currentSpline.isRight) ? 1 : -1), 1));				
+            
             // If we reached the end of the wall
             if (!checkWall) 
             {
-                Debug.Log("Wall No Longer Detected!");
-
                 // Detatch ourselves
                 Detatch();
             }
@@ -88,12 +87,12 @@ public class SplineController : MonoBehaviour
 				case SplineType.Zipline: launchDirection = -Vector3.up; break;
 				// Walls launch the player in the direction of their normal
 				case SplineType.Wall: 				
-					Debug.Log("Is Right (" + pathRef.isRight + ")");				
+					//Debug.Log("Is Right (" + isRight + ")");				
 					Vector3 normalLaunch = Quaternion.Euler(0, ((pathRef.isRight) ? 90 : -90), 0) * pathRef.GetNode(nodeIndex).GetDirection().normalized;
 					normalLaunch.y = 0;
 					//Debug.Log(normalLaunch);
 					Vector3 verticalLaunch = Vector3.up;
-					launchDirection = normalLaunch.normalized * 3.0f + verticalLaunch; 
+					launchDirection = normalLaunch.normalized + verticalLaunch; 
 					break;
 			}
 
@@ -121,15 +120,6 @@ public class SplineController : MonoBehaviour
     public void SetTraversalSpeed(float newSpeed) 
     {
         traversalSpeed = newSpeed;
-    }
-
-    private void OnCollisionEnter(Collision other) 
-    {
-        if (currentSpline != null) 
-        {
-            Debug.Log("Collided with " + other.gameObject.name + " while on a spline.");  
-            Detatch();
-        }          
     }
 
     private void OnDrawGizmos() 

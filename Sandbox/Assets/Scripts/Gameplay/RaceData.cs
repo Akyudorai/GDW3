@@ -17,9 +17,6 @@ public class RaceData
     public Vector3 m_StartPosition;
     public Vector3 m_StartRotation;
     public Vector3 m_EndPosition;
-
-    public int WPS_Index;
-    public List<Vector3> m_Checkpoints;
 }
 
 [Serializable] 

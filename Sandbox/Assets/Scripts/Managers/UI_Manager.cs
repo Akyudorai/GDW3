@@ -40,14 +40,13 @@ public class UI_Manager : MonoBehaviour
 
     [Header("Phone Panel")]
     public GameObject PhonePanel;
-    public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel, TipPanel;
+    public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel;
 
     [Header("Quest Panel")]
     public GameObject questPanel;
     public TextMeshProUGUI questTitle;
     public TextMeshProUGUI questDescription;
     public TextMeshProUGUI questObjective;
-
 
     private void Start() 
     {
@@ -61,7 +60,6 @@ public class UI_Manager : MonoBehaviour
 
     public void EnableRaceTimer(int id) 
     {
-        Debug.Log("Race Timer Enabled");
         RaceTimer.enabled = true;
     }
 
@@ -72,9 +70,9 @@ public class UI_Manager : MonoBehaviour
 
     public void UpdateRaceTimer(float time) 
     {
-        int minutes = Mathf.FloorToInt(time / 60);
-        int seconds = Mathf.RoundToInt(time % 60);
-        RaceTimer.text = minutes + ":" + ((seconds<10) ? "0" + seconds : seconds);
+        int minutes = Mathf.RoundToInt(time / 60);
+        int seconds = Mathf.RoundToInt(time);
+        RaceTimer.text = minutes + ":" + ((seconds<10) ? " 0 " + seconds : seconds);
     }
 
     
@@ -121,12 +119,6 @@ public class UI_Manager : MonoBehaviour
     public void ToggleSettingsPanel(bool state) 
     {
         SettingsPanel.SetActive(state);
-        HomepagePanel.SetActive(!state);
-    }
-
-    public void ToggleTipPanel(bool state)
-    {
-        TipPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
     }
 

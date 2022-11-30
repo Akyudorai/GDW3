@@ -48,9 +48,7 @@ public class TimeManager : MonoBehaviour
     {
         dayCycle.InitializeDayCycle();
         skyVolume.profile.TryGet(out sky);
-        timeOfDay = 86400.0f/2;
         Tick();
-        
 
         EventManager.OnDayBegin += StartDay;
         EventManager.OnNightBegin += StartNight;
@@ -71,9 +69,8 @@ public class TimeManager : MonoBehaviour
 
     private void Update() 
     {
-        //dayCycle.Tick();
-        //timeOfDay = dayCycle.CurrentTime;
-        
+        dayCycle.Tick();
+        timeOfDay = dayCycle.CurrentTime;
 
         Tick();
     }

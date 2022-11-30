@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,7 +10,6 @@ public class PlayerController : MonoBehaviour
     public GameObject camera_pivot;
     public Rigidbody rigid;    
     public GameObject mesh;
-    public Animator animator;
 
     [Header("Camera")]
     public float f_MouseSensitivity = 1.0f;
@@ -48,16 +46,6 @@ public class PlayerController : MonoBehaviour
     [Header("Splines")]
     public SplineController splineController;
 
-    // NOTE TO SELF: 
-    /// Current tracks every wall that has been ran on and counts down a timer. Until it can be ran on again 
-    /// Considering the idea where instead of tracking every single wall, we just track the most recent wall ran on.
-    /// This would allow us to jump between two walls infinitely for extended "hallway" sequences, as the previous wall timer
-    /// would get reset to zero once the new wall timer is set.
-    /// Alternatively, could keep it as it is now, and add a function where everytime we run on a new wall, we reduce the timer of 
-    /// all other timers by X seconds.  Would still encourage chaining jumps between walls, but also still allow us to restrict how 
-    /// quickly they can do so. 
-    public Dictionary<WallInteractable, float> wallDelays = new Dictionary<WallInteractable, float>();
-
     [Header("Debugging")]
     public bool DebugInteractionRadius = false;
     //public Vector3 Velocity;    
@@ -73,9 +61,8 @@ public class PlayerController : MonoBehaviour
     public Vector3 v_VerticalVelocity = Vector3.zero;
     public float f_Gravity = 9.8f;
     public float f_RotationSpeed = 4.0f;
-    public float f_HorizontalJumpBoost = 2.0f;
-    public float f_AirResistance = 1.0f;
     [Range(0.0f, 1.0f)] public float f_AirControlAmount = 0.5f;
+    [Range(0.0f, 1.0f)] public float f_AirBrakeAmount = 0.1f;
 
 
     private void Awake() 
@@ -98,54 +85,12 @@ public class PlayerController : MonoBehaviour
         GameManager.GetInstance().RespawnPlayer(SpawnPointManager.currentSpawnIndex);        
 
         //GameManager.GetInstance().PlayerRef = this;
-        InputManager.GetInput().Player.Move.performed += MoveWithContext;
-        InputManager.GetInput().Player.Move.canceled += MoveCancelWithContext;
-        InputManager.GetInput().Player.Look.performed += LookWithContext;
-        InputManager.GetInput().Player.Look.canceled += LookCancelWithContext;
-        InputManager.GetInput().Player.Jump.performed += JumpWithContext;
-        InputManager.GetInput().Player.Interact.performed += InteractWithContext;
-    }
-
-    private void OnDestroy() 
-    {
-        if (InputManager.GetInput() == null) return;
-
-        InputManager.GetInput().Player.Move.performed -= MoveWithContext;
-        InputManager.GetInput().Player.Move.canceled -= MoveCancelWithContext;
-        InputManager.GetInput().Player.Look.performed -= LookWithContext;
-        InputManager.GetInput().Player.Look.canceled -= LookCancelWithContext;
-        InputManager.GetInput().Player.Jump.performed -= JumpWithContext;
-        InputManager.GetInput().Player.Interact.performed -= InteractWithContext;
-    }
-
-    private void JumpWithContext(InputAction.CallbackContext context)
-    {
-        Jump();
-    }
-
-    private void MoveWithContext(InputAction.CallbackContext context) 
-    {
-        v_MotionInput = context.ReadValue<Vector2>();
-    }
-
-    private void MoveCancelWithContext(InputAction.CallbackContext context) 
-    {
-        v_MotionInput = Vector2.zero;
-    }
-
-    private void LookWithContext(InputAction.CallbackContext context) 
-    {
-        v_Rotation = context.ReadValue<Vector2>();
-    }
-
-    private void LookCancelWithContext(InputAction.CallbackContext context) 
-    {
-        v_Rotation = Vector2.zero;
-    }
-
-    private void InteractWithContext(InputAction.CallbackContext context) 
-    {
-        Interact();
+        InputManager.GetInput().Player.Move.performed += cntxt => v_MotionInput = cntxt.ReadValue<Vector2>();
+        InputManager.GetInput().Player.Move.canceled += cntxt => v_MotionInput = Vector2.zero;
+        InputManager.GetInput().Player.Look.performed += cntxt => v_Rotation = cntxt.ReadValue<Vector2>();
+        InputManager.GetInput().Player.Look.canceled += cntxt => v_Rotation = Vector2.zero;
+        InputManager.GetInput().Player.Jump.performed += cntxt => Jump();
+        InputManager.GetInput().Player.Interact.performed += cntxt => Interact();
     }
 
     private void Update() 
@@ -162,25 +107,6 @@ public class PlayerController : MonoBehaviour
             Movement();            
         }
 
-        // Count down wall delay timers while airborne
-        if (wallDelays.Count > 0) 
-        {   
-            var keyList = new List<WallInteractable>();
-            foreach (var key in wallDelays.Keys) 
-            {
-                keyList.Add(key);
-            }
-
-            foreach (var key in keyList)
-            {
-                wallDelays[key] -= Time.deltaTime;
-                if (wallDelays[key] <= 0) 
-                {
-                    wallDelays.Remove(key);
-                }
-            }
-        }
-
         Camera();
         
         if (!IsGrounded) {
@@ -191,12 +117,7 @@ public class PlayerController : MonoBehaviour
         {
             interactionDelay -= Time.deltaTime;
             interactionDelay = Mathf.Clamp(interactionDelay, 0, 100);
-        }
-
-        animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
-        animator.SetBool("IsGrounded", IsGrounded);
-        animator.SetBool("IsWallrunning", splineController.currentSpline != null);
-        //Debug.Log($"Movement: {v_HorizontalVelocity.magnitude}");
+        }       
     }
 
     private void FixedUpdate() 
@@ -213,6 +134,7 @@ public class PlayerController : MonoBehaviour
                 f_AirTime = 0.0f; 
                 v_VerticalVelocity = Vector3.zero;
                 
+
                 Vector3 normalDir = hit.normal;
                 Vector3 upDir = Vector3.up;
 
@@ -222,21 +144,6 @@ public class PlayerController : MonoBehaviour
                     //IsSliding = true;                    
                 } else {
                     //IsSliding = false;
-                }
-
-                // Reset Wall Run Delay Timers if Grounded               
-                if (wallDelays.Count > 0) 
-                {   
-                    var keyList = new List<WallInteractable>();
-                    foreach (var key in wallDelays.Keys) 
-                    {
-                        keyList.Add(key);
-                    }
-
-                    foreach (var key in keyList)
-                    {
-                        wallDelays.Remove(key);
-                    }
                 }
 
                 // Temporarily disabled until scale issue is resolved when parenting
@@ -298,7 +205,7 @@ public class PlayerController : MonoBehaviour
 
             // Slow midair
             if (!IsGrounded) {
-                v_HorizontalVelocity += -v_HorizontalVelocity * f_AirResistance * Time.fixedDeltaTime;
+                v_HorizontalVelocity += -v_HorizontalVelocity * BrakeSpeed * f_AirBrakeAmount * Time.fixedDeltaTime;
             }
             
             //======================================================
@@ -371,8 +278,7 @@ public class PlayerController : MonoBehaviour
             if (CurrentSpeed > 0) {
                 CurrentSpeed *= BrakeSpeed * Time.fixedDeltaTime;
             } 
-        }
-
+        }                                                  
 
         // Move the players position in the direction of velocity
         rigid.velocity = v_HorizontalVelocity + v_VerticalVelocity;        
@@ -421,7 +327,6 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 surfaceNormal = Vector3.up;
             int layerMask = 1 << 6; // Ground Layer
-            Debug.Log(transform.position);
             if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
             {
                 surfaceNormal = hit.normal;                                
@@ -429,16 +334,6 @@ public class PlayerController : MonoBehaviour
 
             Vector3 result = surfaceNormal;
             if (IsSliding) result += Vector3.up;
-            
-            if (v_HorizontalVelocity != Vector3.zero) 
-            {
-                Vector3 horizontal_boost = v_HorizontalVelocity;
-                horizontal_boost.y = 0;
-                horizontal_boost *= f_HorizontalJumpBoost;           
-                result += horizontal_boost;
-            }
-            
-
             ApplyForce(result * ((IsSliding) ? JumpForce * 2.0f : JumpForce));
             IsGrounded = false;
 

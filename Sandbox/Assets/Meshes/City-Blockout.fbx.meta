@@ -3,62 +3,7 @@ guid: 28938c6db3033234281707cd8a33e397
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Building 1
-    second: {fileID: 2100000, guid: 3b4ab67b6ef05b345abac893a62a789d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Building 2
-    second: {fileID: 2100000, guid: 3b6a92b4d6409554883c21c599912adb, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Building Roof Ledge
-    second: {fileID: 2100000, guid: 2d60cf8287ceb4e43bb2c07d7f10fe43, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Building Roof Top
-    second: {fileID: 2100000, guid: bb24f95e4d9c0914393bd9818f1c3314, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Construction
-    second: {fileID: 2100000, guid: db0722b04c703d5459497b289ce47a30, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: 279295c0389ab05419ea59ff68799be2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: b07ba2930ba953048a003e51ad8f8d15, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Pillar
-    second: {fileID: 2100000, guid: 611b77df4ead45241ad887bed7b06c7f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Sidewalk
-    second: {fileID: 2100000, guid: 1276216d7e72d5c489883bc202e67fea, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: StepWalls
-    second: {fileID: 2100000, guid: c7dec4e27d45a024d9f2d7a5a1f7c3ea, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Steps Communal
-    second: {fileID: 2100000, guid: 3165ba25aaa4ad645a5b8803024a6b85, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

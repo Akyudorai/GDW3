@@ -36,24 +36,17 @@ public class NpcInteractable : Interactable
                     // Accept the Quest if we don't have one already
                     if (QuestManager.GetInstance().activeQuestID == -1) 
                     {
-                        if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Completed == false) 
-                        {
-                            QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[npcRef.m_QuestID]);
-                            stateManager.SwitchState(stateManager.WaitState);
-                        }                        
+                        QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[npcRef.m_QuestID]);
+                        stateManager.SwitchState(stateManager.WaitState);
                     } 
 
                     else 
                     {
-                        if (QuestManager.GetInstance().activeQuestID == npcRef.m_QuestID) 
+                        if (QuestManager.GetInstance().questList[QuestManager.GetInstance().activeQuestID].m_RequirementsMet == true) 
                         {
-                            if (QuestManager.GetInstance().questList[QuestManager.GetInstance().activeQuestID].m_RequirementsMet == true) 
-                            {
-                                QuestManager.GetInstance().QuestComplete();
-                                stateManager.SwitchState(stateManager.CompleteState);
-                            }
+                            QuestManager.GetInstance().QuestComplete();
+                            stateManager.SwitchState(stateManager.CompleteState);
                         }
-                        
                     }
                 }
                 
