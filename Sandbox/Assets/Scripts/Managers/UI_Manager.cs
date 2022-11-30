@@ -40,7 +40,7 @@ public class UI_Manager : MonoBehaviour
 
     [Header("Phone Panel")]
     public GameObject PhonePanel;
-    public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel;
+    public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel, TipPanel;
 
     [Header("Quest Panel")]
     public GameObject questPanel;
@@ -121,6 +121,12 @@ public class UI_Manager : MonoBehaviour
     public void ToggleSettingsPanel(bool state) 
     {
         SettingsPanel.SetActive(state);
+        HomepagePanel.SetActive(!state);
+    }
+
+    public void ToggleTipPanel(bool state)
+    {
+        TipPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
     }
 
