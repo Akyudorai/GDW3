@@ -118,7 +118,6 @@ public class PlayerController : MonoBehaviour
         {
             Movement();            
         }
-        
 
         // Count down wall delay timers while airborne
         if (wallDelays.Count > 0) 
@@ -152,7 +151,9 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
-        Debug.Log($"Movement: {v_HorizontalVelocity.magnitude}");
+        animator.SetBool("IsGrounded", IsGrounded);
+        animator.SetBool("IsWallrunning", splineController.currentSpline != null);
+        //Debug.Log($"Movement: {v_HorizontalVelocity.magnitude}");
     }
 
     private void FixedUpdate() 
