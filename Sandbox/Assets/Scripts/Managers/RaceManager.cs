@@ -14,9 +14,8 @@ public class RaceManager : MonoBehaviour
     // -- END OF SINGLETON --
 
     [Header("Race Data")]
-    public GameObject finishColliderPrefab;
     public List<RaceData> raceList = new List<RaceData>();    
-
+    
     [Header("Race Variables")]
     public int activeRaceID = -1;
     public float m_RaceTimer;
@@ -42,7 +41,7 @@ public class RaceManager : MonoBehaviour
         pcRef.gameObject.transform.rotation = Quaternion.Euler(raceList[raceID].m_StartRotation);
 
         m_RaceTimer = 0.0f;
-        finishColliderReference = Instantiate(finishColliderPrefab, raceList[raceID].m_EndPosition, Quaternion.identity);
+        //finishColliderReference = Instantiate(finishColliderPrefab, raceList[raceID].m_EndPosition, Quaternion.identity);
         //finishColliderReference.GetComponent<FinishLine>().OnContact += RaceComplete;
         activeRaceID = raceID;
         m_RaceActive = true;
