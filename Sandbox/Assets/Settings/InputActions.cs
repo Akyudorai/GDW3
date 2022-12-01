@@ -80,6 +80,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shift"",
+                    ""type"": ""Value"",
+                    ""id"": ""fc6b43a7-80bc-45ce-988c-05326d5a127b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -190,6 +199,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a59b1c5d-074a-4553-963e-bf765d40e1a4"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shift"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -462,6 +482,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_EnableCheats = m_Player.FindAction("EnableCheats", throwIfNotFound: true);
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
+        m_Player_Shift = m_Player.FindAction("Shift", throwIfNotFound: true);
         // Cheats
         m_Cheats = asset.FindActionMap("Cheats", throwIfNotFound: true);
         m_Cheats_Sunrise = m_Cheats.FindAction("Sunrise", throwIfNotFound: true);
@@ -543,6 +564,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_EnableCheats;
     private readonly InputAction m_Player_Escape;
+    private readonly InputAction m_Player_Shift;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -553,6 +575,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @EnableCheats => m_Wrapper.m_Player_EnableCheats;
         public InputAction @Escape => m_Wrapper.m_Player_Escape;
+        public InputAction @Shift => m_Wrapper.m_Player_Shift;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -580,6 +603,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Escape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
                 @Escape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
                 @Escape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                @Shift.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShift;
+                @Shift.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShift;
+                @Shift.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShift;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -602,6 +628,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Escape.started += instance.OnEscape;
                 @Escape.performed += instance.OnEscape;
                 @Escape.canceled += instance.OnEscape;
+                @Shift.started += instance.OnShift;
+                @Shift.performed += instance.OnShift;
+                @Shift.canceled += instance.OnShift;
             }
         }
     }
@@ -760,6 +789,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnEnableCheats(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
+        void OnShift(InputAction.CallbackContext context);
     }
     public interface ICheatsActions
     {

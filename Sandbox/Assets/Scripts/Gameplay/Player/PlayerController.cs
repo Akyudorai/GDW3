@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
     public float f_HorizontalJumpBoost = 2.0f;
     public float f_AirResistance = 1.0f;
     [Range(0.0f, 1.0f)] public float f_AirControlAmount = 0.5f;
+    public bool b_ShiftPressed = false;
 
 
     private void Awake() 
@@ -104,6 +105,8 @@ public class PlayerController : MonoBehaviour
         InputManager.GetInput().Player.Look.canceled += LookCancelWithContext;
         InputManager.GetInput().Player.Jump.performed += JumpWithContext;
         InputManager.GetInput().Player.Interact.performed += InteractWithContext;
+        InputManager.GetInput().Player.Shift.performed += ShiftWithContext;
+        InputManager.GetInput().Player.Shift.canceled += ShiftCancelWithContext;
     }
 
     private void OnDestroy() 
@@ -116,6 +119,8 @@ public class PlayerController : MonoBehaviour
         InputManager.GetInput().Player.Look.canceled -= LookCancelWithContext;
         InputManager.GetInput().Player.Jump.performed -= JumpWithContext;
         InputManager.GetInput().Player.Interact.performed -= InteractWithContext;
+        InputManager.GetInput().Player.Shift.performed -= ShiftWithContext;
+        InputManager.GetInput().Player.Shift.canceled -= ShiftCancelWithContext;
     }
 
     private void JumpWithContext(InputAction.CallbackContext context)
@@ -148,6 +153,16 @@ public class PlayerController : MonoBehaviour
         Interact();
     }
 
+    private void ShiftWithContext(InputAction.CallbackContext context) 
+    {
+        b_ShiftPressed = true;
+    }
+
+    private void ShiftCancelWithContext(InputAction.CallbackContext context) 
+    {
+        b_ShiftPressed = false;
+    }
+
     private void Update() 
     {
         if (GameManager.GetInstance().IsPaused) return;
@@ -155,7 +170,9 @@ public class PlayerController : MonoBehaviour
         if (splineController.currentSpline != null) 
         {
             float splineSpeed = (v_HorizontalVelocity.magnitude / TopMaxSpeed) * 15f;
-            splineController.SetTraversalSpeed(splineSpeed);      
+            float minSpeed = 8f;
+            float resultSpeed = Mathf.Max(splineSpeed, minSpeed);
+            splineController.SetTraversalSpeed(resultSpeed);      
         } 
         else 
         {
@@ -293,7 +310,7 @@ public class PlayerController : MonoBehaviour
 
             // Apply Velocity Change
             v_HorizontalVelocity += motionVector * acceleration * Time.fixedDeltaTime;
-            v_HorizontalVelocity = Vector3.ClampMagnitude(v_HorizontalVelocity, TopMaxSpeed);
+            v_HorizontalVelocity = Vector3.ClampMagnitude(v_HorizontalVelocity, (b_ShiftPressed) ? TopMaxSpeed / 4: TopMaxSpeed);
             //CurrentSpeed = v_HorizontalVelocity.magnitude;
 
             // Slow midair
