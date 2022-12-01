@@ -222,6 +222,8 @@ public class PlayerController : MonoBehaviour
         if (GroundCheck) 
         {
             int layerMask = 1 << 6; // Ground Layer
+           
+            // Switch to box cast in future to prevent getting stuck on edges
             if (Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
             {
                 //Debug.Log(hit.collider.name);
@@ -438,7 +440,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 surfaceNormal = Vector3.up;
             int layerMask = 1 << 6; // Ground Layer
-            Debug.Log(transform.position);
+            //Debug.Log(transform.position);
             if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
             {
                 surfaceNormal = hit.normal;                                
