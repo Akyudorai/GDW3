@@ -115,6 +115,15 @@ public class GameLoader : MonoBehaviour
             return;
         }
 
+        // == SAVE AND LOAD MANAGER
+        GameObject slm = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/SaveLoadManager"), Vector3.zero, Quaternion.identity);
+
+        if (slm == null) 
+        {
+            Debug.LogError("SaveLoadManager failed to load.");
+            return;
+        }
+
         isLoaded = true;        
     }
 

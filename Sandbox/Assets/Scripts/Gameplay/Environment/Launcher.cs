@@ -14,11 +14,11 @@ public class Launcher : MonoBehaviour
         CanLaunch = true;
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Player" && CanLaunch) 
+        if (other.tag == "Player" && CanLaunch) 
         {
-            PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
+            PlayerController pc = other.GetComponent<PlayerController>();
             pc.v_VerticalVelocity = Vector3.zero;
             
             Vector3 launchVector = transform.up * LaunchForce;            

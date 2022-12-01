@@ -25,7 +25,8 @@ public class SplinePath : MonoBehaviour
     public bool DebugSplinePath = false;
     private LineRenderer pathLine;
 
-    public bool isGenerated = true;
+    public bool isGenerated = true; // For Wall Splines only (and any other that get created during run time)
+    public bool generatePathMesh = false;
 
     private void Awake() 
     {   
@@ -42,6 +43,7 @@ public class SplinePath : MonoBehaviour
             for (int i = 0 ; i < points.Count; i++) {
                 pathLine.SetPosition(i, points[i].transform.position);
             }
+            pathLine.enabled = true;
         }
     }
 

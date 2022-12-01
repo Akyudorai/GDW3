@@ -74,7 +74,7 @@ public class UI_Manager : MonoBehaviour
     {
         int minutes = Mathf.FloorToInt(time / 60);
         int seconds = Mathf.RoundToInt(time % 60);
-        RaceTimer.text = minutes + ":" + ((seconds<10) ? " 0 " + seconds : seconds);
+        RaceTimer.text = minutes + ":" + ((seconds<10) ? "0" + seconds : seconds);
     }
 
     

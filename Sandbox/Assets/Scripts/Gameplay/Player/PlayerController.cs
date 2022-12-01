@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameObject camera_pivot;
     public Rigidbody rigid;    
     public GameObject mesh;
+    public Animator animator;
 
     [Header("Camera")]
     public float f_MouseSensitivity = 1.0f;
@@ -74,6 +76,7 @@ public class PlayerController : MonoBehaviour
     public float f_HorizontalJumpBoost = 2.0f;
     public float f_AirResistance = 1.0f;
     [Range(0.0f, 1.0f)] public float f_AirControlAmount = 0.5f;
+    public bool b_ShiftPressed = false;
 
 
     private void Awake() 
@@ -96,12 +99,68 @@ public class PlayerController : MonoBehaviour
         GameManager.GetInstance().RespawnPlayer(SpawnPointManager.currentSpawnIndex);        
 
         //GameManager.GetInstance().PlayerRef = this;
-        InputManager.GetInput().Player.Move.performed += cntxt => v_MotionInput = cntxt.ReadValue<Vector2>();
-        InputManager.GetInput().Player.Move.canceled += cntxt => v_MotionInput = Vector2.zero;
-        InputManager.GetInput().Player.Look.performed += cntxt => v_Rotation = cntxt.ReadValue<Vector2>();
-        InputManager.GetInput().Player.Look.canceled += cntxt => v_Rotation = Vector2.zero;
-        InputManager.GetInput().Player.Jump.performed += cntxt => Jump();
-        InputManager.GetInput().Player.Interact.performed += cntxt => Interact();
+        InputManager.GetInput().Player.Move.performed += MoveWithContext;
+        InputManager.GetInput().Player.Move.canceled += MoveCancelWithContext;
+        InputManager.GetInput().Player.Look.performed += LookWithContext;
+        InputManager.GetInput().Player.Look.canceled += LookCancelWithContext;
+        InputManager.GetInput().Player.Jump.performed += JumpWithContext;
+        InputManager.GetInput().Player.Interact.performed += InteractWithContext;
+        InputManager.GetInput().Player.Shift.performed += ShiftWithContext;
+        InputManager.GetInput().Player.Shift.canceled += ShiftCancelWithContext;
+    }
+
+    private void OnDestroy() 
+    {
+        if (InputManager.GetInput() == null) return;
+
+        InputManager.GetInput().Player.Move.performed -= MoveWithContext;
+        InputManager.GetInput().Player.Move.canceled -= MoveCancelWithContext;
+        InputManager.GetInput().Player.Look.performed -= LookWithContext;
+        InputManager.GetInput().Player.Look.canceled -= LookCancelWithContext;
+        InputManager.GetInput().Player.Jump.performed -= JumpWithContext;
+        InputManager.GetInput().Player.Interact.performed -= InteractWithContext;
+        InputManager.GetInput().Player.Shift.performed -= ShiftWithContext;
+        InputManager.GetInput().Player.Shift.canceled -= ShiftCancelWithContext;
+    }
+
+    private void JumpWithContext(InputAction.CallbackContext context)
+    {
+        Jump();
+    }
+
+    private void MoveWithContext(InputAction.CallbackContext context) 
+    {
+        v_MotionInput = context.ReadValue<Vector2>();
+    }
+
+    private void MoveCancelWithContext(InputAction.CallbackContext context) 
+    {
+        v_MotionInput = Vector2.zero;
+    }
+
+    private void LookWithContext(InputAction.CallbackContext context) 
+    {
+        v_Rotation = context.ReadValue<Vector2>();
+    }
+
+    private void LookCancelWithContext(InputAction.CallbackContext context) 
+    {
+        v_Rotation = Vector2.zero;
+    }
+
+    private void InteractWithContext(InputAction.CallbackContext context) 
+    {
+        Interact();
+    }
+
+    private void ShiftWithContext(InputAction.CallbackContext context) 
+    {
+        b_ShiftPressed = true;
+    }
+
+    private void ShiftCancelWithContext(InputAction.CallbackContext context) 
+    {
+        b_ShiftPressed = false;
     }
 
     private void Update() 
@@ -111,13 +170,14 @@ public class PlayerController : MonoBehaviour
         if (splineController.currentSpline != null) 
         {
             float splineSpeed = (v_HorizontalVelocity.magnitude / TopMaxSpeed) * 15f;
-            splineController.SetTraversalSpeed(splineSpeed);      
+            float minSpeed = 8f;
+            float resultSpeed = Mathf.Max(splineSpeed, minSpeed);
+            splineController.SetTraversalSpeed(resultSpeed);      
         } 
         else 
         {
             Movement();            
         }
-        
 
         // Count down wall delay timers while airborne
         if (wallDelays.Count > 0) 
@@ -148,7 +208,12 @@ public class PlayerController : MonoBehaviour
         {
             interactionDelay -= Time.deltaTime;
             interactionDelay = Mathf.Clamp(interactionDelay, 0, 100);
-        }       
+        }
+
+        animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
+        animator.SetBool("IsGrounded", IsGrounded);
+        animator.SetBool("IsWallrunning", splineController.currentSpline != null);
+        //Debug.Log($"Movement: {v_HorizontalVelocity.magnitude}");
     }
 
     private void FixedUpdate() 
@@ -157,6 +222,8 @@ public class PlayerController : MonoBehaviour
         if (GroundCheck) 
         {
             int layerMask = 1 << 6; // Ground Layer
+           
+            // Switch to box cast in future to prevent getting stuck on edges
             if (Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
             {
                 //Debug.Log(hit.collider.name);
@@ -245,7 +312,7 @@ public class PlayerController : MonoBehaviour
 
             // Apply Velocity Change
             v_HorizontalVelocity += motionVector * acceleration * Time.fixedDeltaTime;
-            v_HorizontalVelocity = Vector3.ClampMagnitude(v_HorizontalVelocity, TopMaxSpeed);
+            v_HorizontalVelocity = Vector3.ClampMagnitude(v_HorizontalVelocity, (b_ShiftPressed) ? TopMaxSpeed / 4: TopMaxSpeed);
             //CurrentSpeed = v_HorizontalVelocity.magnitude;
 
             // Slow midair
@@ -323,7 +390,8 @@ public class PlayerController : MonoBehaviour
             if (CurrentSpeed > 0) {
                 CurrentSpeed *= BrakeSpeed * Time.fixedDeltaTime;
             } 
-        }                                                  
+        }
+
 
         // Move the players position in the direction of velocity
         rigid.velocity = v_HorizontalVelocity + v_VerticalVelocity;        
@@ -372,6 +440,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 surfaceNormal = Vector3.up;
             int layerMask = 1 << 6; // Ground Layer
+            //Debug.Log(transform.position);
             if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
             {
                 surfaceNormal = hit.normal;                                
