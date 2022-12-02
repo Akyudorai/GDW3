@@ -157,7 +157,7 @@ public class UI_Manager : MonoBehaviour
     public void ToggleQuitPanel(bool state) 
     {
         QuitPanel.SetActive(state);
-    }
+    }    
     
     public void Quit() 
     {
@@ -171,6 +171,11 @@ public class UI_Manager : MonoBehaviour
     }
 
     // =================================
+
+    public void ResetPosition() 
+    {
+        GameManager.GetInstance().RespawnPlayer();
+    }
 
     // Other Functions
     public void ToggleInteraction(bool state) 
