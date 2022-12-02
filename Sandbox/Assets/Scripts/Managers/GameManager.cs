@@ -39,12 +39,13 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         DontDestroyOnLoad(this.gameObject);
     }
-
+ 
     public void RespawnPlayer(int overrideIndex = -1)
     {
         Rigidbody pRigid = pcRef.rigid.gameObject.GetComponent<Rigidbody>();        
         pRigid.velocity = Vector3.zero;
 
+        Debug.Log(SpawnPointManager.GetInstance().SpawnPoints[0]);
         List<SpawnPoint> points = SpawnPointManager.GetInstance().SpawnPoints[SpawnPointManager.currentSceneIndex];
 
         if (overrideIndex == -1) {

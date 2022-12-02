@@ -13,7 +13,7 @@ public class LoadChecker : MonoBehaviour
             SpawnPointManager.currentSceneIndex = index;        
             SceneManager.UnloadSceneAsync(index);
             GameLoader.nextSceneIndex = index;
-            SceneManager.LoadSceneAsync(0);
+            SceneManager.LoadSceneAsync(2);
         } else {             
             Destroy(this.gameObject);
         }

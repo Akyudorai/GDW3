@@ -50,8 +50,8 @@ public class SpawnPointManager : MonoBehaviour
         {
             instance = this;
 
-            SpawnPoints.Add(1, WarehouseSpawnPoints);
-            SpawnPoints.Add(2, CitySpawnPoints);
+            SpawnPoints.Add(0, WarehouseSpawnPoints);
+            SpawnPoints.Add(1, CitySpawnPoints);
             
         }
     }

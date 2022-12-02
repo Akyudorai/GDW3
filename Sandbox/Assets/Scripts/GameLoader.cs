@@ -10,7 +10,7 @@ public class GameLoader : MonoBehaviour
 {
     private static bool isLoaded = false;
     public static bool IsLoaded { get { return isLoaded; }} 
-    public static int nextSceneIndex = 1;
+    public static int nextSceneIndex = 0;
 
     public TMP_Text StatusDisplay;
     public TMP_Text VersionDisplay;
@@ -78,6 +78,15 @@ public class GameLoader : MonoBehaviour
             return;
         }
 
+        // == SPAWN POINT MANAGER
+        GameObject spmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/SpawnPointManager"), Vector3.zero, Quaternion.identity);
+
+        if (spmObj == null) 
+        {
+            Debug.LogError("SpawnPointManager failed to load.");
+            return;
+        }
+
         // == GAME MANAGER
         GameObject gmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/GameManager"), Vector3.zero, Quaternion.identity);
 
@@ -103,15 +112,6 @@ public class GameLoader : MonoBehaviour
         if (rmObj == null) 
         {
             Debug.LogError("RaceManager failed to load.");
-            return;
-        }
-
-        // == SPAWN POINT MANAGER
-        GameObject spmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/SpawnPointManager"), Vector3.zero, Quaternion.identity);
-
-        if (spmObj == null) 
-        {
-            Debug.LogError("SpawnPointManager failed to load.");
             return;
         }
 
