@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WarehouseSpawnPoints:
-  - Position: {x: 20.72, y: 2.34, z: 25.08}
+  - Position: {x: 23.72, y: 1.5768905, z: 24.35}
     EulerRotation: {x: 0, y: 0, z: 0}
   - Position: {x: 40.0518, y: 1.773773, z: 13.810211}
     EulerRotation: {x: 0, y: 0, z: 0}

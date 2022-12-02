@@ -195,6 +195,7 @@ public class UI_Manager : MonoBehaviour
 
     public void FadeOutNotification()
     {
+        notificationIcon.SetActive(true);
         notificationIcon.GetComponent<Animation>().Play("notificationFadeOut");
     }
 
