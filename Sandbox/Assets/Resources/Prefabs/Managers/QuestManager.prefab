@@ -77,11 +77,10 @@ MonoBehaviour:
     - {x: 38.6, y: 1, z: -63.91}
     m_RequirementsMet: 0
   - m_ID: 2
-    m_Name: 'Tutorial: Wall Running'
-    m_Description: You can run along the sides of walls by pressing the 'E' key while
-      mid-air and moving fast enough.  You can perform a wall jump while in the middle
-      of a wall run to launch yourself off the wall.
-    m_Objective: Use wall running to reach the target destination.
+    m_Name: I like milk.
+    m_Description: Your co-worker likes milk.
+    m_Objective: Find your co-worker some milk. Once you get the milk, go back to
+      him and press E.
     m_Completed: 0
     m_Type: 0
     m_RequiredItems:
@@ -90,12 +89,10 @@ MonoBehaviour:
     - {x: 17.13, y: 3.4414, z: 34.79}
     m_RequirementsMet: 0
   - m_ID: 3
-    m_Name: 'Tutorial: Grinding'
-    m_Description: You can grind across certain edges by pressing the 'E' key while
-      one.  The faster you are moving at the time of interaction, the faster you
-      will grind along the surface.   You can perform a jump while grinding to detatch
-      from the spline and launch yourself in a direction.
-    m_Objective: Use grinding to reach the target destination.
+    m_Name: Milk tastes good.
+    m_Description: This man also wants milk?
+    m_Objective: Find your co-worker some milk. Once you get the milk, go back to
+      him and press E.
     m_Completed: 0
     m_Type: 0
     m_RequiredItems:
@@ -104,10 +101,10 @@ MonoBehaviour:
     - {x: 10.2, y: 3.4414, z: 38.530003}
     m_RequirementsMet: 0
   - m_ID: 4
-    m_Name: 'Tutorial: Elevation'
-    m_Description: 'Scattered around the world, you can find jump pads to help you
-      get up high in the world.  Touching one will launch you high up into the air. '
-    m_Objective: Use launch pads and the zipline to reach the target destination.
+    m_Name: Reward?
+    m_Description: Get milk? Again? -_-
+    m_Objective: Find your co-worker some milk. Once you get the milk, go back to
+      him and press E.
     m_Completed: 0
     m_Type: 0
     m_RequiredItems:
