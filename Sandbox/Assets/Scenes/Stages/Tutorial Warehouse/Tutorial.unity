@@ -2979,7 +2979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62649cd1561f2e34ab9ff9c370183135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 1
+  sceneIndex: 2
   spawnIndex: 1
 --- !u!65 &417490919
 BoxCollider:
@@ -11130,7 +11130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62649cd1561f2e34ab9ff9c370183135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 1
+  sceneIndex: 2
   spawnIndex: 3
 --- !u!65 &1442976250
 BoxCollider:
@@ -14675,7 +14675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62649cd1561f2e34ab9ff9c370183135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 1
+  sceneIndex: 2
   spawnIndex: 2
 --- !u!65 &1830426960
 BoxCollider:

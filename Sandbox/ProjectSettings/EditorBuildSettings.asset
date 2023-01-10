@@ -9,21 +9,15 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 44050ce2d2c126d428781b676d1f3f4f
+  - enabled: 1
     path: Assets/Scenes/Stages/Tutorial Warehouse/Tutorial.unity
     guid: 5799c24c0067d2e43ac0a9c7985a1f58
   - enabled: 1
     path: Assets/Scenes/Stages/City Block/AB_City.unity
     guid: 6888087166338af41ac8f0188e04d908
   - enabled: 1
-    path: Assets/Scenes/LoadingScene.unity
-    guid: 44050ce2d2c126d428781b676d1f3f4f
-  - enabled: 0
-    path: Assets/Scenes/Action Blocks/A5 - Aligned Components/AB_AlignedComponents.unity
-    guid: d5f460189bd2e2a4c94733a4dbec9279
-  - enabled: 0
-    path: Assets/Scenes/Action Blocks/Animation Controller/AnimationsActionBlock.unity
-    guid: 8124e5870f4fd4c779e7a5f994e84ad1
-  - enabled: 0
-    path: Assets/Scenes/Action Blocks/Quest Systems/QuestDLLTestScene.unity
-    guid: f8f85d62278f3d6428ccb90c26fc5ceb
+    path: Assets/Scenes/Stages/Sandbox/Sandbox.unity
+    guid: a3ebbb468448bd74d8aa1b6507b50d0a
   m_configObjects: {}
