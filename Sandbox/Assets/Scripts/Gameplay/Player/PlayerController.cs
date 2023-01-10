@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     public float f_AirResistance = 1.0f;
     [Range(0.0f, 1.0f)] public float f_AirControlAmount = 0.5f;
     public bool b_ShiftPressed = false;
+    public bool b_JumpPressed = false;
 
 
     private void Awake() 
@@ -104,6 +105,7 @@ public class PlayerController : MonoBehaviour
         InputManager.GetInput().Player.Look.performed += LookWithContext;
         InputManager.GetInput().Player.Look.canceled += LookCancelWithContext;
         InputManager.GetInput().Player.Jump.performed += JumpWithContext;
+        InputManager.GetInput().Player.Jump.canceled += JumpCancelWithContext;
         InputManager.GetInput().Player.Interact.performed += InteractWithContext;
         InputManager.GetInput().Player.Shift.performed += ShiftWithContext;
         InputManager.GetInput().Player.Shift.canceled += ShiftCancelWithContext;
@@ -125,7 +127,13 @@ public class PlayerController : MonoBehaviour
 
     private void JumpWithContext(InputAction.CallbackContext context)
     {
+        b_JumpPressed = true;
         Jump();
+    }
+
+    private void JumpCancelWithContext(InputAction.CallbackContext context)
+    {
+        b_JumpPressed = false;
     }
 
     private void MoveWithContext(InputAction.CallbackContext context) 
@@ -394,7 +402,8 @@ public class PlayerController : MonoBehaviour
 
 
         // Move the players position in the direction of velocity
-        rigid.velocity = v_HorizontalVelocity + v_VerticalVelocity;        
+        rigid.velocity = v_HorizontalVelocity + v_VerticalVelocity;     
+        UI_Manager.GetInstance().UpdateSpeedTracker(v_HorizontalVelocity.magnitude);   
     }
 
     private void Camera()

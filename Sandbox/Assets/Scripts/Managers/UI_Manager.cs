@@ -48,6 +48,9 @@ public class UI_Manager : MonoBehaviour
     public TextMeshProUGUI questDescription;
     public TextMeshProUGUI questObjective;
 
+    [Header("Other Components")]
+    public TMP_Text SpeedTracker;
+
 
     private void Start() 
     {
@@ -76,7 +79,6 @@ public class UI_Manager : MonoBehaviour
         int seconds = Mathf.RoundToInt(time % 60);
         RaceTimer.text = minutes + ":" + ((seconds<10) ? "0" + seconds : seconds);
     }
-
     
 
     // ============ PHONE PANEL FUNCTIONS =====================
@@ -150,6 +152,13 @@ public class UI_Manager : MonoBehaviour
     public void UpdateQuestObjective(string objective) 
     {
         questObjective.text = objective;
+    }
+
+    // ============ OTHER COMPONENTS =====================
+
+    public void UpdateSpeedTracker(float speed) 
+    {
+        SpeedTracker.text = speed.ToString("F2");
     }
 
     // ============ QUIT PANEL =====================
