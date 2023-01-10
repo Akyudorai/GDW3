@@ -18,6 +18,7 @@ public class SpawnPointManager : MonoBehaviour
     public Dictionary<int, List<SpawnPoint>> SpawnPoints = new Dictionary<int, List<SpawnPoint>>();
     [SerializeField] private List<SpawnPoint> WarehouseSpawnPoints = new List<SpawnPoint>();
     [SerializeField] private List<SpawnPoint> CitySpawnPoints = new List<SpawnPoint>();
+    [SerializeField] private List<SpawnPoint> SandboxSpawnPoints = new List<SpawnPoint>();
 
     // WAREHOUSE
     /*
@@ -31,6 +32,11 @@ public class SpawnPointManager : MonoBehaviour
         1 = Warehouse (Front Door)
         2 = Warehouse (Garage Door 1)
         3 = Warehouse (Garage Door 2)
+    */
+
+    // SANDBOX
+    /*
+        0 = default
     */
 
     // -- SINGLETON --
@@ -52,6 +58,7 @@ public class SpawnPointManager : MonoBehaviour
 
             SpawnPoints.Add(1, WarehouseSpawnPoints);
             SpawnPoints.Add(2, CitySpawnPoints);
+            SpawnPoints.Add(3, SandboxSpawnPoints);
             
         }
     }

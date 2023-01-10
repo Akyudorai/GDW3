@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         DontDestroyOnLoad(this.gameObject);
     }
-
+ 
     public void RespawnPlayer(int overrideIndex = -1)
     {
         Rigidbody pRigid = pcRef.rigid.gameObject.GetComponent<Rigidbody>();        

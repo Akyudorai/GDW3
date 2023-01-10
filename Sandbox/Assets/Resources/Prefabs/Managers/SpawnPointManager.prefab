@@ -62,3 +62,6 @@ MonoBehaviour:
     EulerRotation: {x: 0, y: 0, z: 0}
   - Position: {x: -9.259998, y: 1.28, z: 175}
     EulerRotation: {x: 0, y: 0, z: 0}
+  SandboxSpawnPoints:
+  - Position: {x: 0, y: 0, z: 0}
+    EulerRotation: {x: 0, y: -150, z: 0}
