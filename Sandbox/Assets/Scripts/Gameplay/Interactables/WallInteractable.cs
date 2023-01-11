@@ -6,7 +6,6 @@ public class WallInteractable : Interactable
 {      
     public override void Interact(PlayerController pc, RaycastHit hit) 
     {
-        
 
         if (pc.IsGrounded) { Debug.Log("IsGrounded"); return; }
         if (pc.v_HorizontalVelocity.magnitude < pc.QuickMaxSpeed/3) { Debug.Log("Too Slow"); return; }    
