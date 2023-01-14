@@ -66,5 +66,9 @@ MonoBehaviour:
   - Position: {x: 0, y: 0, z: 0}
     EulerRotation: {x: 0, y: -150, z: 0}
   ParkourSpawnPoints:
+  - Position: {x: -67.51734, y: 0.10118669, z: -59.743446}
+    EulerRotation: {x: 0, y: 0, z: 0}
+  - Position: {x: -90.44, y: 55.07, z: -60.94}
+    EulerRotation: {x: 0, y: 0, z: 0}
   - Position: {x: 0, y: 5, z: 0}
     EulerRotation: {x: 0, y: 0, z: 0}
