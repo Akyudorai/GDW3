@@ -29,8 +29,7 @@ public class PlayerController : MonoBehaviour
     public float BrakeSpeed = 0.1f;
     public float JumpForce = 1.0f;
     public float MaxFallSpeed = 20.0f;
-    public bool IsJumping = false;
-    public bool IsGrounded = false;
+    public bool IsJumping = false;    
     public bool GroundCheck = true;
     public float f_AirTime = 0.0f;  // Track how long the player remains airborne.
     public bool b_LimitVelocity = true;
@@ -78,6 +77,7 @@ public class PlayerController : MonoBehaviour
     [Range(0.0f, 1.0f)] public float f_AirControlAmount = 0.5f;
     public bool b_ShiftPressed = false;
     public bool b_JumpPressed = false;
+    public bool b_Grounded = false;
 
 
     private void Awake() 
@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
 
     private void InteractWithContext(InputAction.CallbackContext context) 
     {
-        Interact();
+        Interact(InteractableType.Social);
     }
 
     private void ShiftWithContext(InputAction.CallbackContext context) 
@@ -180,7 +180,14 @@ public class PlayerController : MonoBehaviour
             float splineSpeed = (v_HorizontalVelocity.magnitude / TopMaxSpeed) * 15f;
             float minSpeed = 8f;
             float resultSpeed = Mathf.Max(splineSpeed, minSpeed);
-            splineController.SetTraversalSpeed(resultSpeed);      
+            splineController.SetTraversalSpeed(resultSpeed);     
+
+            // If on a spline and jump button is released, detatch from it
+            if (splineController.currentSpline != null && !b_JumpPressed) {
+                splineController.Detatch();
+                EventManager.OnPlayerJump?.Invoke();
+                return;
+            }     
         } 
         else 
         {
@@ -208,7 +215,7 @@ public class PlayerController : MonoBehaviour
 
         Camera();
         
-        if (!IsGrounded) {
+        if (!b_Grounded) {
             f_AirTime += Time.fixedDeltaTime;
         }         
 
@@ -219,37 +226,26 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
-        animator.SetBool("IsGrounded", IsGrounded);
+        animator.SetBool("IsGrounded", b_Grounded);
         animator.SetBool("IsWallrunning", splineController.currentSpline != null);
         //Debug.Log($"Movement: {v_HorizontalVelocity.magnitude}");
     }
 
     private void FixedUpdate() 
     {
+        Debug.Log(IsSliding);
+
         // Ground Check
         if (GroundCheck) 
-        {
-            int layerMask = 1 << 6; // Ground Layer
-           
-            // Switch to box cast in future to prevent getting stuck on edges
-            if (Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
-            {
-                //Debug.Log(hit.collider.name);
+        {            
+            b_Grounded = IsGrounded();
 
-                IsGrounded = true;                                            
-                f_AirTime = 0.0f; 
+            if (b_Grounded) {                
+                f_AirTime = 0.0f;
                 v_VerticalVelocity = Vector3.zero;
-                
-                Vector3 normalDir = hit.normal;
-                Vector3 upDir = Vector3.up;
 
-                float angleBetween = Vector3.Angle(upDir, normalDir);
-
-                if (angleBetween > 30.0f) {
-                    //IsSliding = true;                    
-                } else {
-                    //IsSliding = false;
-                }
+                // Handle Sliding Maneuver
+                // SlideCheck();
 
                 // Reset Wall Run Delay Timers if Grounded               
                 if (wallDelays.Count > 0) 
@@ -268,9 +264,11 @@ public class PlayerController : MonoBehaviour
 
                 // Temporarily disabled until scale issue is resolved when parenting
                 //transform.SetParent(hit.collider.gameObject.transform);
+            }
 
-            } else {
-                IsGrounded = false;
+            else 
+            {                
+                Debug.Log("Applying Gravity!");
                 //IsSliding = false;  
                 v_VerticalVelocity -= Vector3.up * f_Gravity * Time.fixedDeltaTime;
                 v_VerticalVelocity = Vector3.ClampMagnitude(v_VerticalVelocity, MaxFallSpeed);
@@ -278,9 +276,23 @@ public class PlayerController : MonoBehaviour
                 // Temporarily disabled until scale issue is resolved when parenting
                 //if (transform.parent != null) {
                 //    transform.parent = null;
-                //}           
+                //}  
             }
         }
+    }
+
+    private void SlideCheck() 
+    {
+        //Vector3 normalDir = hit.normal;
+        //Vector3 upDir = Vector3.up;
+
+        //float angleBetween = Vector3.Angle(upDir, normalDir);
+
+        //if (angleBetween > 30.0f) {
+            //IsSliding = true;                    
+        //} else {
+            //IsSliding = false;
+        //}
     }
 
     private void Slide(Vector3 direction) 
@@ -316,7 +328,7 @@ public class PlayerController : MonoBehaviour
             motionVector = forwardMotion + rightMotion;
             motionVector.y = 0;
 
-            motionVector *= ((IsGrounded) ? 1.0f : f_AirControlAmount);
+            motionVector *= ((b_Grounded) ? 1.0f : f_AirControlAmount);
 
             // Apply Velocity Change
             v_HorizontalVelocity += motionVector * acceleration * Time.fixedDeltaTime;
@@ -324,7 +336,7 @@ public class PlayerController : MonoBehaviour
             //CurrentSpeed = v_HorizontalVelocity.magnitude;
 
             // Slow midair
-            if (!IsGrounded) {
+            if (!b_Grounded) {
                 v_HorizontalVelocity += -v_HorizontalVelocity * f_AirResistance * Time.fixedDeltaTime;
             }
             
@@ -338,7 +350,7 @@ public class PlayerController : MonoBehaviour
             float angle = Vector3.Angle(motionVector.normalized, v_HorizontalVelocity.normalized);
 
             // If the angle between current velocity vector and the intended direciton is greater than 90 degrees
-            if (angle > 90 && v_HorizontalVelocity != Vector3.zero && IsGrounded) 
+            if (angle > 90 && v_HorizontalVelocity != Vector3.zero && b_Grounded) 
             {
                 // Apply a brake force to the character
                 // Intended to simulate sharp turns (character needs to stop themselves before moving around a sharp corner)
@@ -435,17 +447,10 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        SoundManager.GetInstance().Play("Alabama");
-
-        // If on a spline, detatch from it
-        if (splineController.currentSpline != null) {
-            splineController.Detatch();
-            EventManager.OnPlayerJump?.Invoke();
-            return;
-        }        
+        SoundManager.GetInstance().Play("Alabama");            
 
         // If grounded and not in the middle of a jump, then perform a jump.
-        if (!IsJumping && IsGrounded) 
+        if (!IsJumping && b_Grounded) 
         {
             Vector3 surfaceNormal = Vector3.up;
             int layerMask = 1 << 6; // Ground Layer
@@ -468,12 +473,17 @@ public class PlayerController : MonoBehaviour
             
 
             ApplyForce(result * ((IsSliding) ? JumpForce * 2.0f : JumpForce));
-            IsGrounded = false;
+            b_Grounded = false;
 
             StartCoroutine(JumpDelay());
 
             EventManager.OnPlayerJump?.Invoke();
-        }       
+        }   
+
+        else if (!b_Grounded && splineController.currentSpline == null)
+        {
+            Interact(InteractableType.Manuever);
+        }    
     }
 
     public void ApplyForce(Vector3 force, ForceMode mode = ForceMode.Impulse)
@@ -502,51 +512,61 @@ public class PlayerController : MonoBehaviour
         IsJumping = false;
     }
 
-    private void Interact()
+    private void Interact(InteractableType iType)
     {        
         // Run a spherical scan for all interactables within the players vicinity                
         /// Can move this to update if we want to scan constantly, not just when interact button is pressed
         Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.up * 1.5f, InteractionDistance);
+       
+        Collider closestHit = null;
         foreach (var hit in hitColliders) {
             if (hit.gameObject.tag == "Interactable") 
             {   
-                // If no interactable has been set yet, set the first one we find
-                if (targetInteractable == null) targetInteractable = hit.gameObject.GetComponent<Interactable>();
-                else 
+                Interactable i = hit.gameObject.GetComponent<Interactable>();
+
+                if (i.GetInteractableType() == iType) 
                 {
-                    // Get distance from player to interactable and compare with current target interactable
-                    float dist_target = Vector3.Distance(transform.position, targetInteractable.gameObject.transform.position);
-                    float dist_compare = Vector3.Distance(transform.position, hit.gameObject.transform.position);
-
-                    // If the new target is closer than the old, replace it
-                    if (dist_compare < dist_target) {
-                        targetInteractable = hit.gameObject.GetComponent<Interactable>();                                                
-                    }                    
-                }
-
-                // Get the closest interactable point                
-                if (targetInteractable != null) 
-                {
-                    if (lastInteractable == targetInteractable && interactionDelay > 0) 
-                    {
-                        Debug.Log("Cannot use interactable that frequently!");
-                        return;
+                    // If no interactable has been set yet, set the first one we find
+                    if (targetInteractable == null) {
+                        targetInteractable = i;
+                        closestHit = hit;
                     }
-
-                    if (targetInteractable.gameObject == hit.gameObject) 
+                    else 
                     {
-                        targetInteractableHitPoint = hit.ClosestPoint(transform.position);    
-                        if (Physics.Raycast(transform.position, targetInteractableHitPoint - transform.position, out RaycastHit hitResult))
-                        {
-                            targetInteractable.Interact(this, hitResult);
-                            lastInteractable = targetInteractable;
-                            interactionDelay = 0.5f;
-                        }                
-                    }
-                }
-                
+                        // Get distance from player to interactable and compare with current target interactable
+                        float dist_target = Vector3.Distance(transform.position, targetInteractable.gameObject.transform.position);
+                        float dist_compare = Vector3.Distance(transform.position, hit.gameObject.transform.position);
+
+                        // If the new target is closer than the old, replace it
+                        if (dist_compare < dist_target) {
+                            targetInteractable = i;
+                            closestHit = hit;                                              
+                        }                    
+                    }    
+                }   
             }
         }  
+
+        // Get the closest interactable point                
+        if (targetInteractable != null && closestHit != null) 
+        {
+            if (lastInteractable == targetInteractable && interactionDelay > 0) 
+            {
+                Debug.Log("Cannot use interactable that frequently!");
+                return;
+            }
+
+            if (targetInteractable.gameObject == closestHit.gameObject) 
+            {
+                targetInteractableHitPoint = closestHit.ClosestPoint(transform.position);    
+                if (Physics.Raycast(transform.position, targetInteractableHitPoint - transform.position, out RaycastHit hitResult))
+                {
+                    targetInteractable.Interact(this, hitResult);
+                    lastInteractable = targetInteractable;
+                    interactionDelay = 0.5f;
+                }                
+            }
+        }
 
         if (Vector3.Distance(transform.position, targetInteractableHitPoint) > InteractionDistance) {
             targetInteractable = null;
@@ -577,6 +597,27 @@ public class PlayerController : MonoBehaviour
         return Mathf.Min(angle, to);
     }
 
+    public bool IsGrounded()
+    {
+        int layerMask = 1 << 6; // Ground Layer
+           
+        Vector3 boxCenter = rigid.GetComponent<Collider>().bounds.center;
+        Vector3 halfExtents = rigid.GetComponent<Collider>().bounds.extents;
+
+        float groundColliderHeight = 0.025f;
+        halfExtents.y += groundColliderHeight;
+
+        float maxDistance = GetComponent<Collider>().bounds.extents.y;
+
+        
+        bool rayResult = Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask);
+        if (rayResult) return rayResult;
+        
+        // if the raycast returns false, attempt a box cast for ledge cases.
+        bool boxResult = Physics.BoxCast(boxCenter, halfExtents, Vector3.down, transform.rotation, maxDistance, layerMask);
+        return boxResult;        
+    }
+
     private void OnCollisionEnter(Collision col) 
     {
         // if (col.gameObject.tag == "Interactable" && col.gameObject.GetComponent<WallInteractable>() != null && currentSpline == null) 
@@ -603,7 +644,7 @@ public class PlayerController : MonoBehaviour
 
         if (DebugInteractionRadius) Gizmos.DrawWireSphere(transform.position + transform.up * 1.5f, InteractionDistance);             
     
-        if (!IsGrounded) {
+        if (!b_Grounded) {
             Gizmos.DrawLine(transform.position + Vector3.up*0.1f, transform.position - Vector3.up * 0.5f);
         }
 

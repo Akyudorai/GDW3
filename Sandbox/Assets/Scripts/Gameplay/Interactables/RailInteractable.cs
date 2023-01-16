@@ -11,6 +11,11 @@ public class RailInteractable : Interactable
         this.node = node;
     }
 
+    public override InteractableType GetInteractableType() 
+    {
+        return InteractableType.Manuever;
+    }
+
     public override void Interact(PlayerController pc, RaycastHit hit) 
     {                       
         // Reference variables make it easier to type and read

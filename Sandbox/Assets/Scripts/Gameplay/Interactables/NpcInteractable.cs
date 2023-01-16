@@ -11,6 +11,11 @@ public class NpcInteractable : Interactable
         npcRef = reference;
     }
 
+    public override InteractableType GetInteractableType() 
+    {
+        return InteractableType.Social;
+    }
+
     public override void Interact(PlayerController controller, RaycastHit hit)
     {
         if (npcRef == null) {

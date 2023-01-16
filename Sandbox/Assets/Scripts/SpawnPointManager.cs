@@ -10,6 +10,15 @@ public class SpawnPoint
     public Vector3 EulerRotation;
 }
 
+/* Scene Indexes
+0 - Loading Scene
+1 - Main Menu Scene
+2 - Warehouse Interior Scene
+3 - City Scene
+4 - Parkour Sandbox Scene
+
+*/
+
 public class SpawnPointManager : MonoBehaviour
 {  
     public static int currentSceneIndex = 0;
@@ -19,7 +28,6 @@ public class SpawnPointManager : MonoBehaviour
     [SerializeField] private List<SpawnPoint> WarehouseSpawnPoints = new List<SpawnPoint>();
     [SerializeField] private List<SpawnPoint> CitySpawnPoints = new List<SpawnPoint>();
     [SerializeField] private List<SpawnPoint> SandboxSpawnPoints = new List<SpawnPoint>();
-    [SerializeField] private List<SpawnPoint> ParkourSpawnPoints = new List<SpawnPoint>();
 
     // WAREHOUSE
     /*
@@ -57,11 +65,10 @@ public class SpawnPointManager : MonoBehaviour
         {
             instance = this;
 
-            SpawnPoints.Add(1, WarehouseSpawnPoints);
-            SpawnPoints.Add(2, CitySpawnPoints);
-            SpawnPoints.Add(3, SandboxSpawnPoints);
-            SpawnPoints.Add(4, ParkourSpawnPoints);
-
+            SpawnPoints.Add(2, WarehouseSpawnPoints);
+            SpawnPoints.Add(3, CitySpawnPoints);
+            SpawnPoints.Add(4, SandboxSpawnPoints);
+            
         }
     }
 }

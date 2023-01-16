@@ -25,12 +25,17 @@ public class WaypointSystem : MonoBehaviour
     public void SetIndex(int index) 
     {
         WaypointIndex = index;
-        Waypoints[WaypointIndex].gameObject.SetActive(true);        
+        Waypoints[WaypointIndex].gameObject.SetActive(true);  
+
+        if (WaypointIndex < Waypoints.Count-1) {
+            Waypoints[WaypointIndex].ActivatePointer(Waypoints[WaypointIndex+1].PointerObj);
+        }     
     }
 
     public void NextWaypoint() 
     {        
         Waypoints[WaypointIndex].gameObject.SetActive(false);
+        Waypoints[WaypointIndex].PointerObj.SetActive(false);
      
         if (WaypointIndex == Waypoints.Count-1) {
             Debug.Log("Waypoint System Complete!");

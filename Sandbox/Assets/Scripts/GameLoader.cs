@@ -10,7 +10,7 @@ public class GameLoader : MonoBehaviour
 {
     private static bool isLoaded = false;
     public static bool IsLoaded { get { return isLoaded; }} 
-    public static int nextSceneIndex = 2; // city scene
+    public static int nextSceneIndex = 2; // TBE -- Change to Menu Scene as Default
 
     public TMP_Text StatusDisplay;
     public TMP_Text VersionDisplay;
