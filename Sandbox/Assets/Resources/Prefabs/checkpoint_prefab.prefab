@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3275445302725951350}
   - component: {fileID: 932448263798501149}
   - component: {fileID: 6426085398197920900}
+  - component: {fileID: 3052048424480046186}
   m_Layer: 0
   m_Name: checkpoint_prefab
   m_TagString: Untagged
@@ -110,3 +111,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 382b820b8b3db7449bdbc902a26d72cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3052048424480046186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3923836312051523235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1326261767
+      Data2: 1293952772
+      Data3: 663443072
+      Data4: 22466643
+    Path: event:/Waypoint
+  Event: 
+  PlayEvent: 3
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
