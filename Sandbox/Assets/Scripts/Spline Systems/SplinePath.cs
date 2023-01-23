@@ -6,7 +6,8 @@ public enum SplineType
 {
     Rail,
     Wall,
-    Zipline
+    Zipline,
+    Ledge
 }
 
 public class SplinePath : MonoBehaviour
@@ -33,7 +34,7 @@ public class SplinePath : MonoBehaviour
         if (isGenerated) return;
 
         // We only want to initialize for manually created splines, not generated spline paths (like wall running)
-        if (splineType == SplineType.Rail || splineType == SplineType.Zipline) {
+        if (splineType == SplineType.Rail || splineType == SplineType.Zipline || splineType == SplineType.Ledge) {
             Initialize();
         }
 
@@ -81,6 +82,10 @@ public class SplinePath : MonoBehaviour
                     ZiplineInteractable zl_interactable = pathCollider.AddComponent<ZiplineInteractable>();
                     zl_interactable.Initialize(nodes[i]);
                     break;
+                case SplineType.Ledge:
+                    LedgeInteractable ldg_interactable = pathCollider.AddComponent<LedgeInteractable>();
+                    ldg_interactable.Initialize(nodes[i]);
+                    break;
             }                    
         }
     }
@@ -127,9 +132,14 @@ public class SplinePath : MonoBehaviour
         // As long as there is at least 2 objects acting as nodes, draw a line between them to visualize the path
         if (DebugSplinePath && points.Count >= 2) 
         {
+            Color c = Color.white;
+            if (splineType == SplineType.Rail) c = Color.yellow;
+            if (splineType == SplineType.Zipline) c = Color.blue;
+            if (splineType == SplineType.Ledge) c = Color.green;
+
             for (int i = 0; i < points.Count - 1; i++)
-            {
-                Gizmos.DrawLine(points[i].transform.position, points[i+1].transform.position);
+            {                   
+                Gizmos.DrawLine(points[i].transform.position, points[i+1].transform.position);                
             }
 
             if (IsLooping == true) 

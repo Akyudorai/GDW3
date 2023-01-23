@@ -78,6 +78,10 @@ public class PlayerController : MonoBehaviour
     public bool b_ShiftPressed = false;
     public bool b_JumpPressed = false;
     public bool b_Grounded = false;
+    public bool b_LedgeGrab = false;
+    public float f_JumpBoostPercentage = 0.2f;
+    public float f_RailBoostPercentage = 0.2f;
+    public bool b_CanLedgeCancel = true;
 
 
     private void Awake() 
@@ -175,19 +179,34 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.GetInstance().IsPaused) return;
         
-        if (splineController.currentSpline != null) 
+        if (b_LedgeGrab) 
+        {
+            // If pressing W, pull the player up from ledge 
+            if (v_MotionInput.y > 0.1f && b_CanLedgeCancel) 
+            {
+                // Trigger Ledge Climb Animation
+                Debug.Log("Ledge Climb Animation");
+                b_LedgeGrab = false;
+                rigid.useGravity = true;                
+                ApplyForce(Vector3.up * JumpForce * 3);
+            }
+
+            else if (v_MotionInput.y < -0.1f && b_CanLedgeCancel)
+            {
+                Debug.Log("Releasing Ledge Grab");
+                // Release the Ledge Grab and Fall
+                b_LedgeGrab = false;
+                rigid.useGravity = true;
+            }
+        }
+        else if (splineController.currentSpline != null) 
         {
             float splineSpeed = (v_HorizontalVelocity.magnitude / TopMaxSpeed) * 15f;
             float minSpeed = 8f;
             float resultSpeed = Mathf.Max(splineSpeed, minSpeed);
             splineController.SetTraversalSpeed(resultSpeed);     
 
-            // If on a spline and jump button is released, detatch from it
-            if (splineController.currentSpline != null && !b_JumpPressed) {
-                splineController.Detatch();
-                EventManager.OnPlayerJump?.Invoke();
-                return;
-            }     
+                
         } 
         else 
         {
@@ -233,7 +252,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate() 
     {
-        Debug.Log(IsSliding);
+        //Debug.Log(IsSliding);
+
+        if (b_LedgeGrab)
+        {
+            Debug.Log("FixedUpdate(): Ledge Grab Pausing Updates");
+            return;
+        } 
 
         // Ground Check
         if (GroundCheck) 
@@ -268,7 +293,7 @@ public class PlayerController : MonoBehaviour
 
             else 
             {                
-                Debug.Log("Applying Gravity!");
+                //Debug.Log("Applying Gravity!");
                 //IsSliding = false;  
                 v_VerticalVelocity -= Vector3.up * f_Gravity * Time.fixedDeltaTime;
                 v_VerticalVelocity = Vector3.ClampMagnitude(v_VerticalVelocity, MaxFallSpeed);
@@ -447,11 +472,21 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        SoundManager.GetInstance().Play("Alabama");            
+        // == I'm tired of the boops every time we jump, so i'm commenting it out
+        //SoundManager.GetInstance().Play("Alabama");            
+
+        // If on a spline and jump button is released, detatch from it
+        if (splineController.currentSpline != null) {
+            splineController.Detatch();
+            EventManager.OnPlayerJump?.Invoke();
+            return;
+        } 
 
         // If grounded and not in the middle of a jump, then perform a jump.
         if (!IsJumping && b_Grounded) 
         {
+            // =========================== VERTICAL FORCE COMPONENT ================================
+
             Vector3 surfaceNormal = Vector3.up;
             int layerMask = 1 << 6; // Ground Layer
             //Debug.Log(transform.position);
@@ -461,29 +496,33 @@ public class PlayerController : MonoBehaviour
             }
 
             Vector3 result = surfaceNormal;
-            if (IsSliding) result += Vector3.up;
+            ApplyForce(result * JumpForce);
+
+            // =========================== HORIZONTAL FORCE COMPONENT ================================
+
+            Vector3 jBoost = v_HorizontalVelocity;
+            jBoost.y = 0;
             
-            if (v_HorizontalVelocity != Vector3.zero) 
-            {
-                Vector3 horizontal_boost = v_HorizontalVelocity;
-                horizontal_boost.y = 0;
-                horizontal_boost *= f_HorizontalJumpBoost;           
-                result += horizontal_boost;
-            }
+            // // Apply a boost to jumps to make it feel less slow amd simulate bunny hopping strategies
+            // if (jBoost != Vector3.zero) 
+            // {
+            //     jBoost = v_HorizontalVelocity * f_JumpBoostPercentage;.
+            //     jBoost.y = 0;            
+            // }
+
+            ApplyForce(jBoost * f_JumpBoostPercentage);
             
 
-            ApplyForce(result * ((IsSliding) ? JumpForce * 2.0f : JumpForce));
+            // =========================== INVOKE JUMP EVENT ================================
             b_Grounded = false;
-
             StartCoroutine(JumpDelay());
-
             EventManager.OnPlayerJump?.Invoke();
         }   
 
         else if (!b_Grounded && splineController.currentSpline == null)
         {
             Interact(InteractableType.Manuever);
-        }    
+        }            
     }
 
     public void ApplyForce(Vector3 force, ForceMode mode = ForceMode.Impulse)
@@ -571,6 +610,27 @@ public class PlayerController : MonoBehaviour
         if (Vector3.Distance(transform.position, targetInteractableHitPoint) > InteractionDistance) {
             targetInteractable = null;
         }
+    }
+
+    public void GrabLedge(Vector3 position, Vector3 direction)
+    {
+        transform.position = position - (Vector3.up*transform.localScale.y*1.75f);
+        mesh.transform.LookAt(mesh.transform.position + direction);
+        b_LedgeGrab = true;
+        v_HorizontalVelocity = Vector3.zero; 
+        v_VerticalVelocity = Vector3.zero; 
+        rigid.velocity = Vector3.zero;      
+        rigid.useGravity = false;
+        // Handle Animation for Ledge Grabbing
+        // Disable Controls
+        StartCoroutine(DelayLedgeCancel());
+    }
+
+    private IEnumerator DelayLedgeCancel() 
+    {
+        b_CanLedgeCancel = false;
+        yield return new WaitForSeconds(1.0f);
+        b_CanLedgeCancel = true;
     }
 
     public IEnumerator WallJump() 

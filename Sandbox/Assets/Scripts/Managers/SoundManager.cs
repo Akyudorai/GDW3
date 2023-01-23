@@ -61,8 +61,7 @@ public class SoundManager : MonoBehaviour
         
         else  {
             Debug.Log("SoundManager: Clip [" + index + "] not found in Audio Library");            
-        }
-              
+        }              
     }
 
     // Play a single clip through the music source
