@@ -181,6 +181,8 @@ public class PlayerController : MonoBehaviour
         
         if (b_LedgeGrab) 
         {
+            rigid.velocity = Vector3.zero;   
+
             // If pressing W, pull the player up from ledge 
             if (v_MotionInput.y > 0.1f && b_CanLedgeCancel) 
             {
