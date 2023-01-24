@@ -437,7 +437,11 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        SoundManager.GetInstance().Play("Alabama");
+        //SoundManager.GetInstance().Play("Alabama");
+        FMOD.Studio.EventInstance jumpSfx;
+        jumpSfx = FMODUnity.RuntimeManager.CreateInstance("event:/Jump");
+        jumpSfx.start();
+        jumpSfx.release();
 
         // If on a spline, detatch from it
         if (splineController.currentSpline != null) {
