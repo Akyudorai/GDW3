@@ -58,6 +58,8 @@ public class Footsteps : MonoBehaviour
             }
             
         }
+        footSteps.setPitch(remapRange(playerController.v_HorizontalVelocity.magnitude, 0f, 15.5f, 0f, 2f));
+        Debug.Log(remapRange(playerController.v_HorizontalVelocity.magnitude, 0f, 15.5f, 0f, 2f));
     }
 
     private void DetermineTerrain()
@@ -102,5 +104,10 @@ public class Footsteps : MonoBehaviour
                 PlayFootSteps(0);
                 break;
         }
+    }
+
+    public float remapRange(float targetNum, float a1, float a2, float b1, float b2)
+    {
+        return b1 + (targetNum - a1) * (b2 - b1) / (a2 - a1);
     }
 }
