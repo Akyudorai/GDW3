@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{86ce2318-8892-4b48-849d-9fbd4f8ce33c}">
+		<property name="assetPath">
+			<value>relaxed-vlog-131746.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>140.93061224489796</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{69092b73-773d-4de4-86e5-4739ee4120ce}</destination>
+		</relationship>
+	</object>
+</objects>

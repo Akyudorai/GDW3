@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
     public bool b_JumpPressed = false;
 
 
+
     private void Awake() 
     {        
         rigid = GetComponent<Rigidbody>();        
@@ -222,6 +223,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsGrounded", IsGrounded);
         animator.SetBool("IsWallrunning", splineController.currentSpline != null);
         //Debug.Log($"Movement: {v_HorizontalVelocity.magnitude}");
+
     }
 
     private void FixedUpdate() 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 using System.IO;
 using UnityEditor;
@@ -18,6 +19,9 @@ public class SoundManager : MonoBehaviour
     // Pitch Adjustment Range
     public float LowPitchRange = 0.95f;
     public float HighPitchRange = 1.05f;
+
+    //Fmod instances
+    public FMOD.Studio.EventInstance backgroundMusic;
 
     // Singleton Instance
     private static SoundManager instance;
@@ -37,6 +41,14 @@ public class SoundManager : MonoBehaviour
         AudioLib = new Dictionary<string, AudioClip>();
         PopulateAudioLib();
         DontDestroyOnLoad(this.gameObject);
+    }
+    private void Start()
+    {
+        backgroundMusic = FMODUnity.RuntimeManager.CreateInstance("event:/BGM");
+        backgroundMusic.start();
+
+        backgroundMusic.setParameterByName("BGMVolume", UI_Manager.GetInstance().bgmSlider.value);
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("SoundEffect", UI_Manager.GetInstance().soundEffectSlider.value);
     }
 
     private void PopulateAudioLib()
@@ -79,5 +91,20 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void AdjustBGMVolume(Slider _slider)
+    {
+        backgroundMusic.setParameterByName("BGMVolume", _slider.value);
+        Debug.Log(_slider.value);
+    }
 
+    public void AdjustBGMVolume(float _value)
+    {
+        backgroundMusic.setParameterByName("BGMVolume", _value);
+        Debug.Log(_value);
+    }
+
+    public void WallRunDetachSFX()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/WallRunDetach");
+    }
 }

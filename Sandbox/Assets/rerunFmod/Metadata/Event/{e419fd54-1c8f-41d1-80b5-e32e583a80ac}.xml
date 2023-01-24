@@ -31,6 +31,9 @@
 		<relationship name="timeline">
 			<destination>{42df8abe-0ce1-4fac-a48f-39206bdebeb9}</destination>
 		</relationship>
+		<relationship name="parameters">
+			<destination>{d7246a9d-7131-4384-9aaf-ae29f493183a}</destination>
+		</relationship>
 		<relationship name="banks">
 			<destination>{b5ffc14c-c885-47b9-8b95-d62388ad8078}</destination>
 		</relationship>
@@ -59,6 +62,9 @@
 	<object class="EventAutomatableProperties" id="{5eeeb0d4-b043-42d6-9278-cfded56bc0f8}" />
 	<object class="MarkerTrack" id="{bbd656e4-1ee6-41c6-8c1e-de2acd20e7c0}" />
 	<object class="GroupTrack" id="{94f26055-434c-4092-bc59-eae07693e4c6}">
+		<relationship name="automationTracks">
+			<destination>{21967b18-0e71-4c6d-a2b3-9729fdfe874d}</destination>
+		</relationship>
 		<relationship name="modules">
 			<destination>{a842b359-8b07-4245-8613-db34128419a8}</destination>
 			<destination>{18e17d6b-c97b-462a-aa7f-7ad8bb8cb1f1}</destination>
@@ -71,6 +77,11 @@
 		<relationship name="modules">
 			<destination>{a842b359-8b07-4245-8613-db34128419a8}</destination>
 			<destination>{18e17d6b-c97b-462a-aa7f-7ad8bb8cb1f1}</destination>
+		</relationship>
+	</object>
+	<object class="ParameterProxy" id="{d7246a9d-7131-4384-9aaf-ae29f493183a}">
+		<relationship name="preset">
+			<destination>{3cd97c0c-11ee-4548-be95-9d393a61d7de}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{68915b5d-4760-4239-8a63-a300791fb2cb}">
@@ -90,6 +101,11 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{5d9bfa67-79ba-4afc-bc83-e02660587e8c}" />
+	<object class="AutomationTrack" id="{21967b18-0e71-4c6d-a2b3-9729fdfe874d}">
+		<relationship name="automator">
+			<destination>{f6ede3b1-93e3-49f7-8aef-6b36075fd936}</destination>
+		</relationship>
+	</object>
 	<object class="SingleSound" id="{a842b359-8b07-4245-8613-db34128419a8}">
 		<property name="length">
 			<value>3</value>
@@ -113,6 +129,9 @@
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
+		<relationship name="automators">
+			<destination>{f6ede3b1-93e3-49f7-8aef-6b36075fd936}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{be9ed21e-53a7-428c-8883-fb76e956a081}</destination>
 		</relationship>
@@ -130,6 +149,14 @@
 	</object>
 	<object class="MixerBusPanner" id="{a8677552-e20a-41ae-a3d5-c92d73dc9de5}" />
 	<object class="MixerBusFader" id="{6b278e7d-0c63-416e-b1dc-2b03eb1b4d54}" />
+	<object class="Automator" id="{f6ede3b1-93e3-49f7-8aef-6b36075fd936}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>volume</value>
+		</property>
+		<relationship name="automationCurves">
+			<destination>{d90618e1-1c37-4110-abca-2bfd4736a28d}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusEffectChain" id="{be9ed21e-53a7-428c-8883-fb76e956a081}">
 		<relationship name="effects">
 			<destination>{8c33ae9e-d842-43de-9cab-78b04c2d6579}</destination>
@@ -137,5 +164,30 @@
 	</object>
 	<object class="MixerBusPanner" id="{4e06a71b-56e5-4523-a710-cc1860703336}" />
 	<object class="MixerBusFader" id="{5243fc06-5d4b-44ce-b476-a6adaec23419}" />
+	<object class="AutomationCurve" id="{d90618e1-1c37-4110-abca-2bfd4736a28d}">
+		<relationship name="parameter">
+			<destination>{3cd97c0c-11ee-4548-be95-9d393a61d7de}</destination>
+		</relationship>
+		<relationship name="automationPoints">
+			<destination>{9191ae3e-cf2b-456b-90ec-d2114e17a285}</destination>
+			<destination>{a3eac784-d43d-4d8b-a992-bdf32f9c05f9}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{8c33ae9e-d842-43de-9cab-78b04c2d6579}" />
+	<object class="AutomationPoint" id="{9191ae3e-cf2b-456b-90ec-d2114e17a285}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="value">
+			<value>-80</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{a3eac784-d43d-4d8b-a992-bdf32f9c05f9}">
+		<property name="position">
+			<value>1</value>
+		</property>
+		<property name="value">
+			<value>0</value>
+		</property>
+	</object>
 </objects>

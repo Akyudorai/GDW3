@@ -48,6 +48,11 @@ public class UI_Manager : MonoBehaviour
     public TextMeshProUGUI questDescription;
     public TextMeshProUGUI questObjective;
 
+    [Header("Settings Panel")]
+    public Slider bgmSlider;
+    public Slider soundEffectSlider;
+
+
     [Header("Other Components")]
     public TMP_Text SpeedTracker;
 
@@ -213,4 +218,16 @@ public class UI_Manager : MonoBehaviour
         notificationIcon.GetComponent<Animation>().Play("notificationFadeOut");
     }
 
+    // ============ SETTINGS PANEL FUNCTIONS =====================
+
+    public void AdjustBGMVolume()
+    {
+        SoundManager.GetInstance().backgroundMusic.setParameterByName("BGMVolume", bgmSlider.value);
+        Debug.Log(bgmSlider.value);
+    }
+
+    public void AdjustSoundEffectVolume()
+    {
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("SoundEffect", soundEffectSlider.value);
+    }
 }
