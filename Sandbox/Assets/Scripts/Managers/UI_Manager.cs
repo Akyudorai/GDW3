@@ -43,10 +43,19 @@ public class UI_Manager : MonoBehaviour
     public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel, TipPanel;
 
     [Header("Quest Panel")]
-    public GameObject questPanel;
+    public GameObject questListPanel; //panel that shows all available/completed quest
+    public GameObject questInfoPanel; //panel that shows details of selected quest
     public TextMeshProUGUI questTitle;
+    public TextMeshProUGUI questStatus;
     public TextMeshProUGUI questDescription;
     public TextMeshProUGUI questObjective;
+    public TextMeshProUGUI questHint;
+    public GameObject questItem1;
+    public GameObject questItem2;
+    public GameObject questItem3;
+    public GameObject questLogItem;
+    public GameObject contentPanel;
+    public GameObject[] questItemIcons;
 
     [Header("Settings Panel")]
     public Slider bgmSlider;
@@ -63,6 +72,11 @@ public class UI_Manager : MonoBehaviour
     
         EventManager.OnRaceBegin += EnableRaceTimer;
         EventManager.OnRaceEnd += DisableRaceTimer;
+
+        questItemIcons = new GameObject[3];
+        questItemIcons[0] = questItem1;
+        questItemIcons[1] = questItem2;
+        questItemIcons[2] = questItem3;
     }
 
     // ============ SCREEN PANEL FUNCTIONS =====================
@@ -139,9 +153,14 @@ public class UI_Manager : MonoBehaviour
 
     // ============ QUEST PANEL FUNCTIONS =====================
 
-    public void ToggleQuestPanel(bool state) 
+    public void ToggleQuestInfoPanel(bool state) 
     {
-        questPanel.SetActive(state);
+        questInfoPanel.SetActive(state);
+    }
+
+    public void ToggleQuestListPanel(bool state)
+    {
+        questListPanel.SetActive(state);
     }
 
     public void UpdateQuestName(string name) 

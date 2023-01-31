@@ -59,7 +59,7 @@ public class Footsteps : MonoBehaviour
             
         }
         footSteps.setPitch(remapRange(playerController.v_HorizontalVelocity.magnitude, 0f, 15.5f, 0f, 2f));
-        Debug.Log(remapRange(playerController.v_HorizontalVelocity.magnitude, 0f, 15.5f, 0f, 2f));
+        //Debug.Log(remapRange(playerController.v_HorizontalVelocity.magnitude, 0f, 15.5f, 0f, 2f));
     }
 
     private void DetermineTerrain()
