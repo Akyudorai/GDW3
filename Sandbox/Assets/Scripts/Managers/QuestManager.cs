@@ -39,12 +39,16 @@ public class QuestManager : MonoBehaviour
     }
     public void ActivateQuest(QuestData _quest)
     {
+        Debug.Log("Phase 0");
         if(activeQuestID == -1 && questList[_quest.m_ID].m_Completed == false)
         {
+            Debug.Log("in");
             activeQuestID = _quest.m_ID;
-            UI_Manager.GetInstance().UpdateQuestName(_quest.m_Name);
-            UI_Manager.GetInstance().UpdateQuestDescription(_quest.m_Description);
-            UI_Manager.GetInstance().UpdateQuestObjective(_quest.m_Objective);
+
+            //outdated
+            //UI_Manager.GetInstance().UpdateQuestName(_quest.m_Name);
+            //UI_Manager.GetInstance().UpdateQuestDescription(_quest.m_Description);
+            //UI_Manager.GetInstance().UpdateQuestObjective(_quest.m_Objective);
             
             GameObject objRef;
             for(int i = 0; i < questList[activeQuestID].m_RequiredItems.Count; i++)
@@ -56,29 +60,51 @@ public class QuestManager : MonoBehaviour
                 //Instantiate(questList[activeQuestID].m_RequiredItems[i], questList[activeQuestID].m_ItemsPositions[i].position, Quaternion.identity);
             }
 
+            //Outdated
             // Turn on quest panel when we have a quest
-            UI_Manager.GetInstance().ToggleQuestInfoPanel(true);
+            //UI_Manager.GetInstance().ToggleQuestInfoPanel(true);
 
+            //Outdated
             //Send a notification to the player
-            UI_Manager.GetInstance().FadeInNotification();
+            //UI_Manager.GetInstance().FadeInNotification();
+
+            UI_Manager.GetInstance().UpdateQuestStatus("In Progress");
+            QuestManager.GetInstance().questList[_quest.m_ID].m_Status = "In Progress";
+            QuestManager.GetInstance().questList[_quest.m_ID].m_QuestDataDisplay = selectedQuest;
+
+            selectedQuest._questStatus.text = "In Progress";
         }        
     }
 
     public void DisplayQuestInfo(QuestData _quest)
     {
         UI_Manager.GetInstance().UpdateQuestName(_quest.m_Name);
+        UI_Manager.GetInstance().UpdateQuestStatus(_quest.m_Status);
         UI_Manager.GetInstance().UpdateQuestDescription(_quest.m_Description);
         UI_Manager.GetInstance().UpdateQuestObjective(_quest.m_Objective);
+        UI_Manager.GetInstance().UpdateQuestHint(_quest.m_Hint);
 
-        for(int i = 0; i < _quest.m_RequiredItems.Count; i++)
+        for (int i = 0; i < _quest.m_RequiredItems.Count; i++)
         {
             UI_Manager.GetInstance().questItemIcons[i].SetActive(true);
+        }
+
+        //check to see if the selected quest is already complete, if so hide the activation toggle
+        if(_quest.m_Completed == true)
+        {
+            UI_Manager.GetInstance().ToggleActivationButton(false);
+        }
+        else
+        {
+            UI_Manager.GetInstance().ToggleActivationButton(true);
         }
     }
 
     public void QuestComplete()
     {
         questList[activeQuestID].m_Completed = true;
+        questList[activeQuestID].m_Status = "Complete";
+        questList[activeQuestID].m_QuestDataDisplay._questStatus.text = "Complete";
 
         // Signal the EventManager that a quest was completed
         EventManager.OnQuestComplete?.Invoke(activeQuestID);
@@ -88,10 +114,14 @@ public class QuestManager : MonoBehaviour
         UI_Manager.GetInstance().UpdateQuestDescription("Quest Description: -");
         UI_Manager.GetInstance().UpdateQuestObjective("Quest Objective: -");
 
-        GameManager.GetInstance().playerRef.AddMoney(50);
+        //GameManager.GetInstance().playerRef.AddMoney(50);
 
         // Turn off Quest Panel when no quest is left
         UI_Manager.GetInstance().ToggleQuestInfoPanel(false);
+        UI_Manager.GetInstance().ToggleQuestListPanel(true);
+
+        UI_Manager.GetInstance().questStatus.text = "Complete";
+        
     }
 
     public void QuestItemCollected(QuestItem item)
@@ -99,12 +129,19 @@ public class QuestManager : MonoBehaviour
         if(questList[activeQuestID].m_RequiredItems.Count > 0)
         {
             QuestItem questObject = questList[activeQuestID].m_RequiredItems[questList[activeQuestID].m_RequiredItems.Count-1];
-            questList[activeQuestID].m_RequiredItems.RemoveAt(questList[activeQuestID].m_RequiredItems.Count-1);            
+            questList[activeQuestID].m_RequiredItems.RemoveAt(questList[activeQuestID].m_RequiredItems.Count-1);
+            Debug.Log("Items remaining " + questList[activeQuestID].m_RequiredItems.Count);
         }
         if(questList[activeQuestID].m_RequiredItems.Count == 0)
         {
             questList[activeQuestID].m_RequirementsMet = true;
+            QuestComplete();
         }        
+    }
+
+    public void ClearSelectedQuest()
+    {
+        selectedQuest = null;
     }
 
 }

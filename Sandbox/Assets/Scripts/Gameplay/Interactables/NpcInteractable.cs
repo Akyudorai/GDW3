@@ -28,8 +28,14 @@ public class NpcInteractable : Interactable
                 break;
             case NpcType.Quest_Giver:
                 Debug.Log("Trigger Quest: [" + npcRef.m_QuestID + "]");
-                GameObject newQuestLogItem = Instantiate(UI_Manager.GetInstance().questLogItem, UI_Manager.GetInstance().contentPanel.transform);
-                newQuestLogItem.GetComponent<QuestDataDisplay>().UpdateQuestData(npcRef.m_QuestID);
+                if(QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected == false) //only adds the quest to the phone, if it isn't already there.
+                {
+                    GameObject newQuestLogItem = Instantiate(UI_Manager.GetInstance().questLogItem, UI_Manager.GetInstance().contentPanel.transform);
+                    newQuestLogItem.GetComponent<QuestDataDisplay>().UpdateQuestData(npcRef.m_QuestID);
+                    QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected = true;
+                }
+
+                
                 
                 //if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Completed == false)
                 //{

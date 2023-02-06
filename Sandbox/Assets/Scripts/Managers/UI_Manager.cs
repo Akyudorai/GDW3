@@ -56,6 +56,7 @@ public class UI_Manager : MonoBehaviour
     public GameObject questLogItem;
     public GameObject contentPanel;
     public GameObject[] questItemIcons;
+    public GameObject ActivateQuestButton;
 
     [Header("Settings Panel")]
     public Slider bgmSlider;
@@ -156,6 +157,10 @@ public class UI_Manager : MonoBehaviour
     public void ToggleQuestInfoPanel(bool state) 
     {
         questInfoPanel.SetActive(state);
+        if(state == false) //if returning to quest list panel, then the selected quest needs to be empty.
+        {
+            QuestManager.GetInstance().ClearSelectedQuest();
+        }
     }
 
     public void ToggleQuestListPanel(bool state)
@@ -163,9 +168,19 @@ public class UI_Manager : MonoBehaviour
         questListPanel.SetActive(state);
     }
 
+    public void ToggleActivationButton(bool state)
+    {
+        ActivateQuestButton.SetActive(state);
+    }
+
     public void UpdateQuestName(string name) 
     {
         questTitle.text = name;
+    }
+
+    public void UpdateQuestStatus(string status)
+    {
+        questStatus.text = status;
     }
 
     public void UpdateQuestDescription(string description)
@@ -176,6 +191,16 @@ public class UI_Manager : MonoBehaviour
     public void UpdateQuestObjective(string objective) 
     {
         questObjective.text = objective;
+    }
+
+    public void UpdateQuestHint(string hint)
+    {
+        questHint.text = hint;
+    }
+
+    public void ActivateToggle()
+    {
+        QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[QuestManager.GetInstance().selectedQuest.questId]); //get the quest id from the quest data display object
     }
 
     // ============ OTHER COMPONENTS =====================
