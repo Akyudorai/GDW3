@@ -42,6 +42,9 @@ public class UI_Manager : MonoBehaviour
     public GameObject PhonePanel;
     public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel, TipPanel;
 
+    [Header("Home Panel")]
+    public TMP_Text SearchBar;
+
     [Header("Quest Panel")]
     public GameObject questListPanel; //panel that shows all available/completed quest
     public GameObject questInfoPanel; //panel that shows details of selected quest
@@ -64,7 +67,7 @@ public class UI_Manager : MonoBehaviour
 
 
     [Header("Other Components")]
-    public TMP_Text SpeedTracker;
+    public TMP_Text SpeedTracker;    
 
 
     private void Start() 
@@ -113,6 +116,7 @@ public class UI_Manager : MonoBehaviour
     {
         MapPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
         Debug.Log("Map Panel Clicked");
     }
 
@@ -120,36 +124,61 @@ public class UI_Manager : MonoBehaviour
     {
         FastTravelPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
     }
-    
+
     public void ToggleMessengerPanel(bool state) 
     {
         MessengerPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
     }
 
     public void ToggleMinigamePanel(bool state) 
     {
         MinigamePanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
     }
 
     public void ToggleMultiplayerPanel(bool state) 
     {
         MultiplayerPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
     }
 
     public void ToggleSettingsPanel(bool state) 
     {
         SettingsPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
     }
 
     public void ToggleTipPanel(bool state)
     {
         TipPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
+    }
+
+    public void ToggleHomePanel(bool state)
+    {
+        MapPanel.SetActive(!state);
+        FastTravelPanel.SetActive(!state);
+        MessengerPanel.SetActive(!state);
+        MinigamePanel.SetActive(!state);
+        MultiplayerPanel.SetActive(!state);
+        SettingsPanel.SetActive(!state);
+        TipPanel.SetActive(!state);
+        QuitPanel.SetActive(!state);
+        HomepagePanel.SetActive(state);
+        SearchBar.gameObject.SetActive(state);
+    }
+
+    public void UpdateSearchBar(string _text)
+    {
+        SearchBar.text = _text;
     }
 
     // ============ QUEST PANEL FUNCTIONS =====================
@@ -274,4 +303,7 @@ public class UI_Manager : MonoBehaviour
     {
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("SoundEffect", soundEffectSlider.value);
     }
+
+
+    
 }
