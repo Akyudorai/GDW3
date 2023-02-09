@@ -6424,6 +6424,7 @@ MonoBehaviour:
   DialoguePanel: {fileID: 7441285623621710505}
   DialogueNameDisplay: {fileID: 6501375223096225441}
   DialogueOutputDisplay: {fileID: 1089219966870380407}
+  YesDialogueButton: {fileID: 4290419682180330084}
 --- !u!1 &6123965535096019311
 GameObject:
   m_ObjectHideFlags: 0

@@ -67,6 +67,7 @@ public class UI_Manager : MonoBehaviour
     public GameObject DialoguePanel;
     public TMP_Text DialogueNameDisplay;
     public TMP_Text DialogueOutputDisplay;
+    public Button YesDialogueButton;
 
 
     private void Start() 

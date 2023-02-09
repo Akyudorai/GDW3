@@ -68,17 +68,25 @@ public class NpcInteractable : Interactable
                 Debug.Log("Trigger Race: [" + npcRef.m_RaceID + "]");
                 
                 if (RaceManager.GetInstance().m_RaceActive == false) 
-                {
-                    if (npcRef.cinematicIndex != -1) {
-                        GameObject.Find("CinematicsManager").GetComponent<CinematicsManager>().Play(npcRef.cinematicIndex);
-                    }            
-                    
+                {                                                
                     // Open Dialogue UI
-                    //UI_Manager.GetInstance().LoadNpcDialogue(npcRef);
+                    UI_Manager.GetInstance().LoadNpcDialogue(npcRef);
 
                     // Set the OK button in dialogue to initialize the race
+                    UI_Manager.GetInstance().YesDialogueButton.onClick.RemoveAllListeners();
+                    UI_Manager.GetInstance().YesDialogueButton.onClick.AddListener(delegate { 
+                        
+                        // Hide the Dialogue Panel
+                        UI_Manager.GetInstance().EndNpcDialogue();
 
-                    RaceManager.GetInstance().InitializeRace(controller, npcRef.m_RaceID);                    
+                        // Begin Cinematic Intro
+                        if (npcRef.cinematicIndex != -1) {
+                            GameObject.Find("CinematicsManager").GetComponent<CinematicsManager>().Play(npcRef.cinematicIndex);
+                        }    
+
+                        // Initialize the Race while cinematic is playing
+                        RaceManager.GetInstance().InitializeRace(controller, npcRef.m_RaceID);                         
+                    });                  
                 }
 
                 break;
@@ -88,7 +96,24 @@ public class NpcInteractable : Interactable
 
                 if (RaceManager.GetInstance().m_ChallengeActive == false) 
                 {
-                    RaceManager.GetInstance().InitializeChallenge(controller, npcRef.m_ChallengeID);
+                    // Open Dialogue UI
+                    UI_Manager.GetInstance().LoadNpcDialogue(npcRef);
+
+                    // Set the OK button in dialogue to initialize the race
+                    UI_Manager.GetInstance().YesDialogueButton.onClick.RemoveAllListeners();
+                    UI_Manager.GetInstance().YesDialogueButton.onClick.AddListener(delegate { 
+                        
+                        // Hide the Dialogue Panel
+                        UI_Manager.GetInstance().EndNpcDialogue();
+
+                        // Begin Cinematic Intro
+                        if (npcRef.cinematicIndex != -1) {
+                            GameObject.Find("CinematicsManager").GetComponent<CinematicsManager>().Play(npcRef.cinematicIndex);
+                        }    
+
+                        // Initialize the Challenge while cinematic is playing
+                        RaceManager.GetInstance().InitializeChallenge(controller, npcRef.m_ChallengeID);                       
+                    });                      
                 }
                 break;
         }
