@@ -9,8 +9,11 @@ using Cinemachine;
 public class CinematicsManager : MonoBehaviour
 {
     [Header("Camera References")]
-    public GameObject CinematicCamera;
+    //public GameObject CinematicCamera;
     public GameObject MainCamera;
+    public GameObject PlayerView;
+    public GameObject CinematicView;
+
 
     [Header("Director")]
     public PlayableDirector Director;
@@ -67,10 +70,10 @@ public class CinematicsManager : MonoBehaviour
         TargetDolly.m_Path = sequence.targetPath;
         TargetDolly.m_Position = 0;
 
-        // Toggle the Player Camera off and the Cinematics Camera on
-        MainCamera.SetActive(false);
-        CinematicCamera.SetActive(true);
-        
+        // Toggle the Player Camera off and the Cinematics Camera on        
+        PlayerView.SetActive(true);
+        CinematicView.SetActive(true);
+
         // Begin the cinematic sequence
         Director.Play();
         EventManager.OnCinematicBegin?.Invoke(index);
@@ -84,8 +87,8 @@ public class CinematicsManager : MonoBehaviour
         if (state) 
         {               
             yield return new WaitForSeconds(waitDuration); 
-            CinematicCamera.SetActive(false);
-            MainCamera.SetActive(true);
+            CinematicView.SetActive(false);
+            PlayerView.SetActive(true);
             EventManager.OnCinematicEnd?.Invoke(currentCinematicIndex);
             currentCinematicIndex = -1;
         }

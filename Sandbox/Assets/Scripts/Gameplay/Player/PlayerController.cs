@@ -93,7 +93,6 @@ public class PlayerController : MonoBehaviour
 
     public PlayerState e_State = PlayerState.Active;
 
-
     private void Awake() 
     {        
         rigid = GetComponent<Rigidbody>();        
@@ -251,7 +250,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        Camera();
+        //Camera();
         
         if (!b_Grounded) {
             f_AirTime += Time.fixedDeltaTime;
@@ -371,8 +370,8 @@ public class PlayerController : MonoBehaviour
             float acceleration = ((v_HorizontalVelocity.magnitude < QuickMaxSpeed) ? QuickAcceleration : TopAcceleration);
 
             // Get direction of motion
-            Vector3 forwardMotion = camera_pivot.transform.forward * v_MotionInput.y;               
-            Vector3 rightMotion = camera_pivot.transform.right * v_MotionInput.x;
+            Vector3 forwardMotion = cam.transform.forward * v_MotionInput.y;               
+            Vector3 rightMotion = cam.transform.right * v_MotionInput.x;
             motionVector = forwardMotion + rightMotion;
             motionVector.y = 0;
 
