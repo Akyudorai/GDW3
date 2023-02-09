@@ -23,12 +23,13 @@ public class NpcInteractable : Interactable
             return;
         }
 
-        switch (npcRef.m_Type) 
+        switch (npcRef.m_Data.m_Type) 
         {
             case NpcType.Standard:
                 Debug.Log("This is a standard NPC.");
 
                 // Trigger Dialogue UI
+                UI_Manager.GetInstance().LoadNpcDialogue(npcRef);
 
                 break;
             case NpcType.Quest_Giver:
@@ -68,9 +69,27 @@ public class NpcInteractable : Interactable
                 
                 if (RaceManager.GetInstance().m_RaceActive == false) 
                 {
-                    RaceManager.GetInstance().InitializeRace(controller, npcRef.m_RaceID);
+                    if (npcRef.cinematicIndex != -1) {
+                        GameObject.Find("CinematicsManager").GetComponent<CinematicsManager>().Play(npcRef.cinematicIndex);
+                    }            
+                    
+                    // Open Dialogue UI
+                    //UI_Manager.GetInstance().LoadNpcDialogue(npcRef);
+
+                    // Set the OK button in dialogue to initialize the race
+
+                    RaceManager.GetInstance().InitializeRace(controller, npcRef.m_RaceID);                    
                 }
 
+                break;
+
+            case NpcType.Challenge_Giver:
+                Debug.Log("Trigger Challenge: [" + npcRef.m_ChallengeID + "]");
+
+                if (RaceManager.GetInstance().m_ChallengeActive == false) 
+                {
+                    RaceManager.GetInstance().InitializeChallenge(controller, npcRef.m_ChallengeID);
+                }
                 break;
         }
     }

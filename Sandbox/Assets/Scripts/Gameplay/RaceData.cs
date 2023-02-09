@@ -14,12 +14,8 @@ public class RaceData
     public float m_Score = 0;    
 
     [Header("Race Components")]
-    public Vector3 m_StartPosition;
-    public Vector3 m_StartRotation;
-    public Vector3 m_EndPosition;
-
     public int WPS_Index;
-    public List<Vector3> m_Checkpoints;
+    
 }
 
 [Serializable] 

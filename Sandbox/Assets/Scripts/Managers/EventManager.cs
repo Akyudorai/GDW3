@@ -12,6 +12,8 @@ public static class EventManager
     // -- GAME EVENTS
     public static OnIntDelegate OnRaceBegin;
     public static OnBoolDelegate OnRaceEnd;
+    public static OnIntDelegate OnChallengeBegin;
+    public static OnBoolDelegate OnChallengeEnd;
     public static OnVoidDelegate OnDayBegin;
     public static OnVoidDelegate OnNightBegin;
     public static OnVoidDelegate OnPlayerJump;
@@ -22,6 +24,9 @@ public static class EventManager
     public static OnIntDelegate OnQuestBegin;
     public static OnIntDelegate OnQuestComplete;
     public static OnIntDelegate OnQuestForfeit; 
+    public static OnIntDelegate OnCollectibleFound;
+    public static OnIntDelegate OnCinematicBegin;
+    public static OnIntDelegate OnCinematicEnd;
 
 
     // -- TRANSITION EVENTS

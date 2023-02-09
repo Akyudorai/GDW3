@@ -50,6 +50,23 @@ public class UI_Manager : MonoBehaviour
 
     [Header("Other Components")]
     public TMP_Text SpeedTracker;
+    public TMP_Text CountdownDisplay;
+
+    [Header("Postgame Panel")]
+    public GameObject PostgamePanel;
+    public TMP_Text PG_TimeDisplay;
+    public TMP_Text PG_HighscoreDisplay;
+    public TMP_Text PG_PositionDisplay;
+
+    [Header("Collectible Panel")]
+    public GameObject CollectiblePanel;
+    public Image CollectibleImage;
+    public TMP_Text CollectibleAnnouncement;
+
+    [Header("Npc Dialogue Panel")]    
+    public GameObject DialoguePanel;
+    public TMP_Text DialogueNameDisplay;
+    public TMP_Text DialogueOutputDisplay;
 
 
     private void Start() 
@@ -57,7 +74,135 @@ public class UI_Manager : MonoBehaviour
         InputManager.GetInput().Player.Escape.performed += cntxt => TogglePhonePanel(!PhonePanel.activeInHierarchy);
     
         EventManager.OnRaceBegin += EnableRaceTimer;
+        EventManager.OnChallengeBegin += EnableRaceTimer;
         EventManager.OnRaceEnd += DisableRaceTimer;
+        EventManager.OnChallengeEnd += DisableRaceTimer;
+
+        EventManager.OnCollectibleFound += UpdateCollectibleImage;
+        EventManager.OnCollectibleFound += UpdateCollectibleAnnouncement;
+    }
+
+    // ============ DIALOGUE FUNCTIONS =====================
+
+    public void LoadNpcDialogue(NPC npcRef) 
+    {
+        // Lock the players controls        
+        PlayerController.LocalPlayer.e_State = PlayerState.Locked;
+
+        // Move Camera to better position and look at NPC
+        // CameraController.LocalCamera.LookAt(npc.gameObject);
+        
+        // Switch cursor mode
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+
+        // Toggle Dialogue Panel
+        DialoguePanel.SetActive(true);        
+
+        // Create an animated typing effect on the dialogue box
+        NpcData data = NpcData.Get(npcRef.m_ID);
+        DialogueNameDisplay.text = data.NpcName;
+        DialogueOutputDisplay.text = data.NpcDialogue[0];
+
+        // Once the typing is complete, reveal list of interaction options
+    }
+
+    public void EndNpcDialogue() 
+    {
+        // Unlock Player Controls
+        PlayerController.LocalPlayer.e_State = PlayerState.Active;
+
+        // Switch Cursor Mode
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        // Toggle Dialogue Panel
+        DialoguePanel.SetActive(false);
+    }
+
+    // ============ COLLECTIBLE FUNCTIONS =====================
+
+    public IEnumerator ToggleCollectiblePanel(bool state, float duration = 0) 
+    {
+        if (state == true) 
+        {
+            CollectiblePanel.SetActive(true);
+            yield return new WaitForSeconds(duration);
+            CollectiblePanel.SetActive(false);            
+        } else 
+        {
+            yield return null;
+            CollectiblePanel.SetActive(false);
+        }
+    }
+
+    public void UpdateCollectibleImage(int ID) 
+    {
+        switch (ID) 
+        {
+            default: // ERROR
+                CollectibleImage.sprite = null;
+                break;
+            case 0: // Rex
+                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/rex");
+                break;
+            case 1: // Mbear
+                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/mbear");
+                break;
+        }
+    }
+
+    public void UpdateCollectibleAnnouncement(int ID) 
+    {
+        CollectibleTracker ct = GameObject.Find("CollectibleTracker").GetComponent<CollectibleTracker>();
+        int collectiblesFound = ct.TotalFound(ID) + 1; // +1 bc the actually collection code gets called after announcement
+        int totalCollectibles = 0;
+
+        switch (ID) 
+        {
+            default: // ERROR
+                CollectibleAnnouncement.text = "UNKNOWN EXCEPTION";
+                break;
+            case 0: // Rex
+                
+                totalCollectibles = ct.Rexs.Length;
+                CollectibleAnnouncement.text = "Tinysaurous Rex!! ("+collectiblesFound+"/"+totalCollectibles+")";
+                break;
+            case 1: // Mbear
+                totalCollectibles = ct.Mbears.Length;
+                CollectibleAnnouncement.text = "Mithunan Bear Plushie!! ("+collectiblesFound+"/"+totalCollectibles+")";
+                break;
+        }
+    }
+
+    // ============ POSTGAME PANEL FUNCTIONS =====================
+
+    public IEnumerator TogglePostgamePanel(bool state, float duration = 0) 
+    {   
+        if (state == true) {
+            PostgamePanel.SetActive(true);
+            yield return new WaitForSeconds(duration);
+            PostgamePanel.SetActive(false);
+        } else 
+        {
+            yield return null;
+            PostgamePanel.SetActive(false);
+        }        
+    }
+
+    public void UpdatePostgameTime(float time) 
+    {
+        PG_TimeDisplay.text = "YOUR TIME: " + time;
+    }
+
+    public void UpdatePostgameHighscore(float highscore)
+    {
+        PG_HighscoreDisplay.text = "HIGHSCORE: " + highscore;
+    }
+
+    public void UpdatePostgamePosition(string result)
+    {
+        PG_PositionDisplay.text = result;
     }
 
     // ============ SCREEN PANEL FUNCTIONS =====================
@@ -159,6 +304,16 @@ public class UI_Manager : MonoBehaviour
     public void UpdateSpeedTracker(float speed) 
     {
         SpeedTracker.text = speed.ToString("F2");
+    }
+
+    public void ToggleCountdown(bool state) 
+    {
+        CountdownDisplay.enabled = state;
+    }
+
+    public void UpdateCountdown(string value) 
+    {
+        CountdownDisplay.text = value;
     }
 
     // ============ QUIT PANEL =====================

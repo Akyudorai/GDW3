@@ -49,13 +49,21 @@ public class SaveManager : MonoBehaviour
     private string GenerateSaveStr() 
     {
         string result = "";
+
         // Load Race Times
-        for (int i = 0; i < RaceManager.GetInstance().raceList.Count; i++) 
+        for (int rc = 0; rc < RaceManager.GetInstance().raceList.Count; rc++) 
         {
-            float score = RaceManager.GetInstance().raceList[i].m_Score;
-            result += "rs-"+i+"-"+score.ToString("F2") + "\n";
+            float rc_score = RaceManager.GetInstance().raceList[rc].m_Score;
+            result += "rc-"+rc+"-"+rc_score.ToString("F2") + "\n";
         }
-        
+
+        // Load Challenge TImes
+        for (int ch = 0; ch < RaceManager.GetInstance().challengeList.Count; ch++) 
+        {
+            float ch_score = RaceManager.GetInstance().challengeList[ch].m_Score;
+            result += "ch-"+ch+"-"+ch_score.ToString("F2")+"\n";
+        }
+
         return result;
     }
     
@@ -82,9 +90,14 @@ public class SaveManager : MonoBehaviour
             // Split into three strings (Type), (ID), (Value) 
             string[] arr = l.Split('-');
             
-            if (arr[0] == "rs") {
+            if (arr[0] == "rc") {
                 // Update race manager with race times                
                 RaceManager.GetInstance().raceList[int.Parse(arr[1])].m_Score = float.Parse(arr[2]);
+            }
+
+            if (arr[0] == "ch") {
+                // Update the racemanager with challenge times
+                RaceManager.GetInstance().challengeList[int.Parse(arr[1])].m_Score = float.Parse(arr[2]);
             }
 
             if (arr[0] == "b") {

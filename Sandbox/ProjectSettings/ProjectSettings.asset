@@ -774,7 +774,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    Standalone: FUSION_WEAVER
+    Standalone: FUSION_WEAVER;UNITY_PIPELINE_HDRP
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

@@ -21,8 +21,6 @@ public class GameManager : MonoBehaviour
 
     public bool IsPaused = false;
 
-   
-
     // Initialization
     private void Awake() 
     {
@@ -45,12 +43,12 @@ public class GameManager : MonoBehaviour
         Rigidbody pRigid = pcRef.rigid.gameObject.GetComponent<Rigidbody>();        
         pRigid.velocity = Vector3.zero;
 
-        List<SpawnPoint> points = SpawnPointManager.GetInstance().SpawnPoints[SpawnPointManager.currentSceneIndex];
+        List<Transform> points = SpawnPointManager.GetInstance().SpawnPoints;
 
         if (overrideIndex == -1) {
             // Teleport to last checkpoint
-            pcRef.gameObject.transform.position = points[RespawnIndex].Position;
-            pcRef.gameObject.transform.rotation = Quaternion.Euler(points[RespawnIndex].EulerRotation);
+            pcRef.gameObject.transform.position = points[RespawnIndex].position;
+            pcRef.gameObject.transform.rotation = points[RespawnIndex].rotation;
             return;
         }
 
@@ -59,8 +57,8 @@ public class GameManager : MonoBehaviour
             if (overrideIndex > -1 && overrideIndex < points.Count) 
             {
                 // Teleport to specified checkpoint
-                pcRef.gameObject.transform.position = points[overrideIndex].Position;
-                pcRef.gameObject.transform.rotation = Quaternion.Euler(points[overrideIndex].EulerRotation);
+                pcRef.gameObject.transform.position = points[overrideIndex].position;
+                pcRef.gameObject.transform.rotation = points[overrideIndex].rotation;
             } else {
                 Debug.LogError("RespawnPlayer: No such spawn point with index of [" + overrideIndex + "]");
             }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaypointSystem : MonoBehaviour
 {
     public int SystemID;
+    public Transform Beginning, End;
     public List<Waypoint> Waypoints = new List<Waypoint>();
     public int WaypointIndex = 0;
 
@@ -39,7 +40,9 @@ public class WaypointSystem : MonoBehaviour
      
         if (WaypointIndex == Waypoints.Count-1) {
             Debug.Log("Waypoint System Complete!");
-            EventManager.OnRaceEnd?.Invoke(false);
+
+            if (RaceManager.GetInstance().m_RaceActive) EventManager.OnRaceEnd?.Invoke(false);
+            else if (RaceManager.GetInstance().m_ChallengeActive) EventManager.OnChallengeEnd?.Invoke(false);            
         } else 
         {
             SetIndex(WaypointIndex+1);
