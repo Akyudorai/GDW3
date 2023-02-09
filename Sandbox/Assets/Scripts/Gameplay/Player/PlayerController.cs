@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum PlayerState 
+{
+    Active,
+    Locked,
+    Paused
+}
+
 public class PlayerController : MonoBehaviour
 {
-   
+    public static PlayerController LocalPlayer;
+
     [Header("Components")]
     public Camera cam;
     public GameObject camera_pivot;
@@ -83,6 +91,8 @@ public class PlayerController : MonoBehaviour
     public float f_RailBoostPercentage = 0.2f;
     public bool b_CanLedgeCancel = true;
 
+    public PlayerState e_State = PlayerState.Active;
+
 
     private void Awake() 
     {        
@@ -99,6 +109,7 @@ public class PlayerController : MonoBehaviour
     {
         // Set Reference when scene is loaded
         GameManager.GetInstance().pcRef = this;
+        LocalPlayer = this;
 
         // Set Position when scene is loaded
         GameManager.GetInstance().RespawnPlayer(SpawnPointManager.currentSpawnIndex);        
@@ -173,11 +184,17 @@ public class PlayerController : MonoBehaviour
     private void ShiftCancelWithContext(InputAction.CallbackContext context) 
     {
         b_ShiftPressed = false;
+    }    
+
+    public void SetPlayerState(PlayerState state)
+    {
+        e_State = state;
     }
 
     private void Update() 
     {
         if (GameManager.GetInstance().IsPaused) return;
+        if (e_State == PlayerState.Locked) return;
         
         if (b_LedgeGrab) 
         {
@@ -269,7 +286,7 @@ public class PlayerController : MonoBehaviour
 
             if (b_Grounded) {                
                 f_AirTime = 0.0f;
-                v_VerticalVelocity = Vector3.zero;
+                v_VerticalVelocity = Vector3.zero;                
 
                 // Handle Sliding Maneuver
                 // SlideCheck();
@@ -298,8 +315,12 @@ public class PlayerController : MonoBehaviour
                 //Debug.Log("Applying Gravity!");
                 //IsSliding = false;  
                 v_VerticalVelocity -= Vector3.up * f_Gravity * Time.fixedDeltaTime;
-                v_VerticalVelocity = Vector3.ClampMagnitude(v_VerticalVelocity, MaxFallSpeed);
+                v_VerticalVelocity = Vector3.ClampMagnitude(v_VerticalVelocity, MaxFallSpeed);                
 
+                if (transform.parent != null)
+                {
+                    transform.SetParent(null);
+                }
                 // Temporarily disabled until scale issue is resolved when parenting
                 //if (transform.parent != null) {
                 //    transform.parent = null;
@@ -324,8 +345,8 @@ public class PlayerController : MonoBehaviour
 
     private void Slide(Vector3 direction) 
     {   
-        float slideSpeed = Mathf.Min(QuickMaxSpeed, f_Speed);
-        rigid.velocity = direction * slideSpeed;
+        // float slideSpeed = Mathf.Min(QuickMaxSpeed, f_Speed);
+        // rigid.velocity = direction * slideSpeed;
     }
 
     private void Movement() 
@@ -489,15 +510,17 @@ public class PlayerController : MonoBehaviour
         {
             // =========================== VERTICAL FORCE COMPONENT ================================
 
-            Vector3 surfaceNormal = Vector3.up;
-            int layerMask = 1 << 6; // Ground Layer
-            //Debug.Log(transform.position);
-            if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
-            {
-                surfaceNormal = hit.normal;                                
-            }
+            Vector3 surfaceNormal = Vector3.up;            
+
+            // STOOPID THING WAS USED FOR SLIDE MECHANIC.  Instead it created push back on the jump when going up slopes
+            //int layerMask = 1 << 6; // Ground Layer
+            // if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
+            // {                
+            //     //surfaceNormal = hit.normal;                                    
+            // }
 
             Vector3 result = surfaceNormal;
+            v_VerticalVelocity = Vector3.zero;
             ApplyForce(result * JumpForce);
 
             // =========================== HORIZONTAL FORCE COMPONENT ================================
@@ -517,6 +540,7 @@ public class PlayerController : MonoBehaviour
 
             // =========================== INVOKE JUMP EVENT ================================
             b_Grounded = false;
+            transform.SetParent(null);
             StartCoroutine(JumpDelay());
             EventManager.OnPlayerJump?.Invoke();
         }   
@@ -672,16 +696,26 @@ public class PlayerController : MonoBehaviour
         float maxDistance = GetComponent<Collider>().bounds.extents.y;
 
         
-        bool rayResult = Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask);
+        bool rayResult = Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.1f, layerMask);        
         if (rayResult) return rayResult;
         
-        // if the raycast returns false, attempt a box cast for ledge cases.
-        bool boxResult = Physics.BoxCast(boxCenter, halfExtents, Vector3.down, transform.rotation, maxDistance, layerMask);
+        
+        
+        // // if the raycast returns false, attempt a box cast for ledge cases.
+        /// BOX CAST SEEMS TO CAUSE THE SINKING EFFECT BUG, NEED AN ALTERNATIVE FOR GROUND CHECKS
+        /// DOESNT EVEN FIX THE LEDGE DETECTION, JUST DELAYS IT
+        bool boxResult = Physics.BoxCast(boxCenter, halfExtents/2, Vector3.down, transform.rotation, maxDistance, layerMask);        
         return boxResult;        
     }
 
     private void OnCollisionEnter(Collision col) 
-    {
+    {       
+        Debug.Log(col.gameObject);
+        if (col.gameObject.tag == "Platform")
+        {
+            // Set Parent if result is of tag "Platform"
+            transform.SetParent(col.gameObject.transform);  
+        }
         // if (col.gameObject.tag == "Interactable" && col.gameObject.GetComponent<WallInteractable>() != null && currentSpline == null) 
         // {   
         //     targetInteractable = col.gameObject.GetComponent<Interactable>();                 
@@ -698,6 +732,15 @@ public class PlayerController : MonoBehaviour
         //         }
         //     }            
         // }
+    }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        if (other.tag == "Collectible") 
+        {
+            Collectible c = other.GetComponent<Collectible>();
+            c.OnCollect();
+        }
     }
 
     private void OnDrawGizmos() 

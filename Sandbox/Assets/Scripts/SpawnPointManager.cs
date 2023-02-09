@@ -24,10 +24,12 @@ public class SpawnPointManager : MonoBehaviour
     public static int currentSceneIndex = 0;
     public static int currentSpawnIndex = 0;
 
-    public Dictionary<int, List<SpawnPoint>> SpawnPoints = new Dictionary<int, List<SpawnPoint>>();
-    [SerializeField] private List<SpawnPoint> WarehouseSpawnPoints = new List<SpawnPoint>();
-    [SerializeField] private List<SpawnPoint> CitySpawnPoints = new List<SpawnPoint>();
-    [SerializeField] private List<SpawnPoint> SandboxSpawnPoints = new List<SpawnPoint>();
+    public List<Transform> SpawnPoints = new List<Transform>();
+
+    // public Dictionary<int, List<SpawnPoint>> SpawnPoints = new Dictionary<int, List<SpawnPoint>>();
+    // [SerializeField] private List<SpawnPoint> WarehouseSpawnPoints = new List<SpawnPoint>();
+    // [SerializeField] private List<SpawnPoint> CitySpawnPoints = new List<SpawnPoint>();
+    // [SerializeField] private List<SpawnPoint> SandboxSpawnPoints = new List<SpawnPoint>();
 
     // WAREHOUSE
     /*
@@ -65,9 +67,9 @@ public class SpawnPointManager : MonoBehaviour
         {
             instance = this;
 
-            SpawnPoints.Add(2, WarehouseSpawnPoints);
-            SpawnPoints.Add(3, CitySpawnPoints);
-            SpawnPoints.Add(4, SandboxSpawnPoints);
+            // SpawnPoints.Add(2, WarehouseSpawnPoints);
+            // SpawnPoints.Add(3, CitySpawnPoints);
+            // SpawnPoints.Add(4, SandboxSpawnPoints);
             
         }
     }
