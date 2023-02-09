@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
     public PlayerState e_State = PlayerState.Active;
 
 
+
     private void Awake() 
     {        
         rigid = GetComponent<Rigidbody>();        
@@ -267,6 +268,7 @@ public class PlayerController : MonoBehaviour
             interactionDelay = Mathf.Clamp(interactionDelay, 0, 100);
         }        
         //Debug.Log($"Movement: {v_HorizontalVelocity.magnitude}");
+
     }
 
     private void FixedUpdate() 
@@ -495,8 +497,11 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        // == I'm tired of the boops every time we jump, so i'm commenting it out
-        //SoundManager.GetInstance().Play("Alabama");            
+        //SoundManager.GetInstance().Play("Alabama");
+        FMOD.Studio.EventInstance jumpSfx;
+        jumpSfx = FMODUnity.RuntimeManager.CreateInstance("event:/Jump");
+        jumpSfx.start();
+        jumpSfx.release();
 
         // If on a spline and jump button is released, detatch from it
         if (splineController.currentSpline != null) {

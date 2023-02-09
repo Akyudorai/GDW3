@@ -38,34 +38,42 @@ public class NpcInteractable : Interactable
                 break;
             case NpcType.Quest_Giver:
                 Debug.Log("Trigger Quest: [" + npcRef.m_QuestID + "]");
-                
-                if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Completed == false)
+                if(QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected == false) //only adds the quest to the phone, if it isn't already there.
                 {
-                    NpcStateManager stateManager = this.gameObject.GetComponent<NpcStateManager>();
-
-                    // Accept the Quest if we don't have one already
-                    if (QuestManager.GetInstance().activeQuestID == -1) 
-                    {
-                        if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Completed == false) 
-                        {
-                            QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[npcRef.m_QuestID]);
-                            stateManager.SwitchState(stateManager.WaitState);
-                        }                        
-                    } 
-
-                    else 
-                    {
-                        if (QuestManager.GetInstance().activeQuestID == npcRef.m_QuestID) 
-                        {
-                            if (QuestManager.GetInstance().questList[QuestManager.GetInstance().activeQuestID].m_RequirementsMet == true) 
-                            {
-                                QuestManager.GetInstance().QuestComplete();
-                                stateManager.SwitchState(stateManager.CompleteState);
-                            }
-                        }
-                        
-                    }
+                    GameObject newQuestLogItem = Instantiate(UI_Manager.GetInstance().questLogItem, UI_Manager.GetInstance().contentPanel.transform);
+                    newQuestLogItem.GetComponent<QuestDataDisplay>().UpdateQuestData(npcRef.m_QuestID);
+                    QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected = true;
                 }
+
+                
+                
+                //if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Completed == false)
+                //{
+                //    NpcStateManager stateManager = this.gameObject.GetComponent<NpcStateManager>();
+
+                //    // Accept the Quest if we don't have one already
+                //    if (QuestManager.GetInstance().activeQuestID == -1) 
+                //    {
+                //        if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Completed == false) 
+                //        {
+                //            QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[npcRef.m_QuestID]);
+                //            stateManager.SwitchState(stateManager.WaitState);
+                //        }                        
+                //    } 
+
+                //    else 
+                //    {
+                //        if (QuestManager.GetInstance().activeQuestID == npcRef.m_QuestID) 
+                //        {
+                //            if (QuestManager.GetInstance().questList[QuestManager.GetInstance().activeQuestID].m_RequirementsMet == true) 
+                //            {
+                //                QuestManager.GetInstance().QuestComplete();
+                //                stateManager.SwitchState(stateManager.CompleteState);
+                //            }
+                //        }
+                        
+                //    }
+                //}
                 
                 break;
             case NpcType.Race_Giver:

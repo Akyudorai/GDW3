@@ -42,11 +42,29 @@ public class UI_Manager : MonoBehaviour
     public GameObject PhonePanel;
     public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel, TipPanel;
 
+    [Header("Home Panel")]
+    public TMP_Text SearchBar;
+
     [Header("Quest Panel")]
-    public GameObject questPanel;
+    public GameObject questListPanel; //panel that shows all available/completed quest
+    public GameObject questInfoPanel; //panel that shows details of selected quest
     public TextMeshProUGUI questTitle;
+    public TextMeshProUGUI questStatus;
     public TextMeshProUGUI questDescription;
     public TextMeshProUGUI questObjective;
+    public TextMeshProUGUI questHint;
+    public GameObject questItem1;
+    public GameObject questItem2;
+    public GameObject questItem3;
+    public GameObject questLogItem;
+    public GameObject contentPanel;
+    public GameObject[] questItemIcons;
+    public GameObject ActivateQuestButton;
+
+    [Header("Settings Panel")]
+    public Slider bgmSlider;
+    public Slider soundEffectSlider;
+
 
     [Header("Other Components")]
     public TMP_Text SpeedTracker;
@@ -74,6 +92,11 @@ public class UI_Manager : MonoBehaviour
     {
         InputManager.GetInput().Player.Escape.performed += cntxt => TogglePhonePanel(!PhonePanel.activeInHierarchy);
     
+        questItemIcons = new GameObject[3];
+        questItemIcons[0] = questItem1;
+        questItemIcons[1] = questItem2;
+        questItemIcons[2] = questItem3;
+
         EventManager.OnRaceBegin += EnableRaceTimer;
         EventManager.OnChallengeBegin += EnableRaceTimer;
         EventManager.OnRaceEnd += DisableRaceTimer;
@@ -239,6 +262,7 @@ public class UI_Manager : MonoBehaviour
     {
         MapPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
         Debug.Log("Map Panel Clicked");
     }
 
@@ -246,48 +270,92 @@ public class UI_Manager : MonoBehaviour
     {
         FastTravelPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
     }
-    
+
     public void ToggleMessengerPanel(bool state) 
     {
         MessengerPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
     }
 
     public void ToggleMinigamePanel(bool state) 
     {
         MinigamePanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
     }
 
     public void ToggleMultiplayerPanel(bool state) 
     {
         MultiplayerPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
     }
 
     public void ToggleSettingsPanel(bool state) 
     {
         SettingsPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
     }
 
     public void ToggleTipPanel(bool state)
     {
         TipPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
+        SearchBar.gameObject.SetActive(!state);
+    }
+
+    public void ToggleHomePanel(bool state)
+    {
+        MapPanel.SetActive(!state);
+        FastTravelPanel.SetActive(!state);
+        MessengerPanel.SetActive(!state);
+        MinigamePanel.SetActive(!state);
+        MultiplayerPanel.SetActive(!state);
+        SettingsPanel.SetActive(!state);
+        TipPanel.SetActive(!state);
+        QuitPanel.SetActive(!state);
+        HomepagePanel.SetActive(state);
+        SearchBar.gameObject.SetActive(state);
+    }
+
+    public void UpdateSearchBar(string _text)
+    {
+        SearchBar.text = _text;
     }
 
     // ============ QUEST PANEL FUNCTIONS =====================
 
-    public void ToggleQuestPanel(bool state) 
+    public void ToggleQuestInfoPanel(bool state) 
     {
-        questPanel.SetActive(state);
+        questInfoPanel.SetActive(state);
+        if(state == false) //if returning to quest list panel, then the selected quest needs to be empty.
+        {
+            QuestManager.GetInstance().ClearSelectedQuest();
+        }
+    }
+
+    public void ToggleQuestListPanel(bool state)
+    {
+        questListPanel.SetActive(state);
+    }
+
+    public void ToggleActivationButton(bool state)
+    {
+        ActivateQuestButton.SetActive(state);
     }
 
     public void UpdateQuestName(string name) 
     {
         questTitle.text = name;
+    }
+
+    public void UpdateQuestStatus(string status)
+    {
+        questStatus.text = status;
     }
 
     public void UpdateQuestDescription(string description)
@@ -298,6 +366,16 @@ public class UI_Manager : MonoBehaviour
     public void UpdateQuestObjective(string objective) 
     {
         questObjective.text = objective;
+    }
+
+    public void UpdateQuestHint(string hint)
+    {
+        questHint.text = hint;
+    }
+
+    public void ActivateToggle()
+    {
+        QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[QuestManager.GetInstance().selectedQuest.questId]); //get the quest id from the quest data display object
     }
 
     // ============ OTHER COMPONENTS =====================
@@ -369,4 +447,19 @@ public class UI_Manager : MonoBehaviour
         notificationIcon.GetComponent<Animation>().Play("notificationFadeOut");
     }
 
+    // ============ SETTINGS PANEL FUNCTIONS =====================
+
+    public void AdjustBGMVolume()
+    {
+        SoundManager.GetInstance().backgroundMusic.setParameterByName("BGMVolume", bgmSlider.value);
+        Debug.Log(bgmSlider.value);
+    }
+
+    public void AdjustSoundEffectVolume()
+    {
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("SoundEffect", soundEffectSlider.value);
+    }
+
+
+    
 }

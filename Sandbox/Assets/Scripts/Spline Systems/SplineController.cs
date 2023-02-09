@@ -54,7 +54,7 @@ public class SplineController : MonoBehaviour
             // If we reached the end of the wall
             if (!checkWall) 
             {
-                Debug.Log("Wall No Longer Detected!");
+                Debug.Log("Wall No Longer Detected!");                
 
                 // Detatch ourselves
                 Detatch();
@@ -96,9 +96,9 @@ public class SplineController : MonoBehaviour
 					launchDirection = normalLaunch.normalized * 3.0f + verticalLaunch; 
 					break;
 			}
-
-			// Calculate a launch force based on direction of travel.  The more velocity we have, the further we jump.
-			Vector3 launchForce = (pathRef.GetNode(nodeIndex).IsForward) ? 				
+            SoundManager.GetInstance().WallRunDetachSFX();
+            // Calculate a launch force based on direction of travel.  The more velocity we have, the further we jump.
+            Vector3 launchForce = (pathRef.GetNode(nodeIndex).IsForward) ? 				
 				(pathRef.GetNode(nodeIndex).next.position - pathRef.GetNode(nodeIndex).position).normalized + launchDirection  : 
 				(pathRef.GetNode(nodeIndex).position - pathRef.GetNode(nodeIndex).next.position).normalized  + launchDirection;
 			
