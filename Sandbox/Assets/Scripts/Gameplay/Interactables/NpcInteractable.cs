@@ -23,6 +23,10 @@ public class NpcInteractable : Interactable
             return;
         }
 
+        controller.v_HorizontalVelocity = Vector3.zero; 
+        controller.v_VerticalVelocity = Vector3.zero; 
+        controller.rigid.velocity = Vector3.zero; 
+
         switch (npcRef.m_Data.m_Type) 
         {
             case NpcType.Standard:

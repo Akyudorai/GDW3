@@ -193,6 +193,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update() 
     {
+        animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
+        animator.SetBool("IsGrounded", b_Grounded);
+        animator.SetBool("IsWallrunning", splineController.currentSpline != null);
+
         if (GameManager.GetInstance().IsPaused) return;
         if (e_State == PlayerState.Locked) return;
         
@@ -261,11 +265,7 @@ public class PlayerController : MonoBehaviour
         {
             interactionDelay -= Time.deltaTime;
             interactionDelay = Mathf.Clamp(interactionDelay, 0, 100);
-        }
-
-        animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
-        animator.SetBool("IsGrounded", b_Grounded);
-        animator.SetBool("IsWallrunning", splineController.currentSpline != null);
+        }        
         //Debug.Log($"Movement: {v_HorizontalVelocity.magnitude}");
     }
 
