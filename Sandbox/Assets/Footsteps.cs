@@ -31,7 +31,7 @@ public class Footsteps : MonoBehaviour
     {
         DetermineTerrain();
 
-        if(playerController.v_HorizontalVelocity.magnitude > 2f && playerController.IsGrounded)
+        if(playerController.v_HorizontalVelocity.magnitude > 2f && playerController.IsGrounded())
         {
             //if(timer > footstepSpeed)
             //{
