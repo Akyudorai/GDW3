@@ -33,6 +33,7 @@ public class UI_Manager : MonoBehaviour
     public TMP_Text MoneyDisplay;
     public TMP_Text InteractionDisplay;
     public GameObject notificationIcon;
+    public int collectiblesCollected = 0;
 
     [Header("Screen Panel")]
     public GameObject ScreenPanel;
@@ -64,6 +65,10 @@ public class UI_Manager : MonoBehaviour
     [Header("Settings Panel")]
     public Slider bgmSlider;
     public Slider soundEffectSlider;
+
+    [Header("Collectible Panel")]
+    public Image Collectible1;
+    public TMP_Text Collectible1Text;
 
 
     [Header("Other Components")]
@@ -109,6 +114,14 @@ public class UI_Manager : MonoBehaviour
     public void TogglePhonePanel(bool state) 
     {
         PhonePanel.SetActive(state);
+        if(state == true)
+        {
+            PhonePanel.GetComponent<Animator>().SetBool("PhoneOpen", true);
+        }
+        else
+        {
+            PhonePanel.GetComponent<Animator>().SetBool("PhoneOpen", false);
+        }
         GameManager.GetInstance().Pause(state);
     }
     
@@ -304,6 +317,11 @@ public class UI_Manager : MonoBehaviour
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("SoundEffect", soundEffectSlider.value);
     }
 
+    // == Test == //
+    public void UpdateCollectible()
+    {
+        collectiblesCollected += 1;
+        //Collectible1.sprite. = collectiblesCollected / 5;
+    }
 
-    
 }
