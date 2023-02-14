@@ -2821,7 +2821,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6123965535056485423}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
         m_MethodName: EndNpcDialogue
         m_Mode: 1
