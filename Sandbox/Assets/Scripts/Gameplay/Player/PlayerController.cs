@@ -196,31 +196,39 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
         animator.SetBool("IsGrounded", b_Grounded);
-        animator.SetBool("IsWallrunning", splineController.currentSpline != null);
+        animator.SetBool("IsWallrunningRight", splineController.currentSpline != null); // Still need a way to determine left vs right wallrun
+        //animator.SetBool("IsWallrunningRight", IsWallrunningRight);
+        //animator.SetBool("IsWallrunningLeft", IsWallrunningLeft);
+        //animator.SetBool("IsRailgrinding", IsRailGrinding);
 
         if (GameManager.GetInstance().IsPaused) return;
         if (e_State == PlayerState.Locked) return;
         
         if (b_LedgeGrab) 
         {
-            rigid.velocity = Vector3.zero;   
-
+            animator.ResetTrigger("LedgeClimb");
+            animator.ResetTrigger("LedgeDrop");
+            animator.SetTrigger("LedgeGrab");
+            rigid.velocity = Vector3.zero;
             // If pressing W, pull the player up from ledge 
             if (v_MotionInput.y > 0.1f && b_CanLedgeCancel) 
             {
                 // Trigger Ledge Climb Animation
+                animator.SetTrigger("LedgeClimb");
                 Debug.Log("Ledge Climb Animation");
                 b_LedgeGrab = false;
-                rigid.useGravity = true;                
-                ApplyForce(Vector3.up * JumpForce * 3);
+                rigid.useGravity = true;
+                animator.ResetTrigger("LedgeGrab");
             }
 
             else if (v_MotionInput.y < -0.1f && b_CanLedgeCancel)
             {
                 Debug.Log("Releasing Ledge Grab");
                 // Release the Ledge Grab and Fall
+                animator.SetTrigger("LedgeDrop");
                 b_LedgeGrab = false;
                 rigid.useGravity = true;
+                animator.ResetTrigger("LedgeGrab");
             }
         }
         else if (splineController.currentSpline != null) 
