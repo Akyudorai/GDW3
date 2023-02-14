@@ -41,6 +41,7 @@ public class UI_Manager : MonoBehaviour
     [Header("Phone Panel")]
     public GameObject PhonePanel;
     public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel, TipPanel;
+    public Animator phoneAnimator;
 
     [Header("Home Panel")]
     public TMP_Text SearchBar;
@@ -255,6 +256,7 @@ public class UI_Manager : MonoBehaviour
     public void TogglePhonePanel(bool state) 
     {
         PhonePanel.SetActive(state);
+        phoneAnimator.SetBool("PhoneOpen", true);
         GameManager.GetInstance().Pause(state);
     }
     
