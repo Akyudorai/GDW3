@@ -24,7 +24,7 @@ public class QuestPanel : MonoBehaviour
         
     }
 
-    public void ActivateQuest(string _title, string _description, string _objective, Image _image)
+    public void ActivateQuest(string _title, string _description, string _objective, Image _image) //am I even using this?
     {
         questTitle.text = _title;
         questDescription.text = _description;

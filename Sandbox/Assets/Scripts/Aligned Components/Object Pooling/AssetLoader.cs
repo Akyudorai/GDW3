@@ -36,7 +36,7 @@ public static class AssetLoader
 
     public static void LoadQuestItems()
     {
-        Load("Milk Bottle", 2);
+        Load("Milk Bottle", 3);
         Load("Shady Package", 4);       
     }
 

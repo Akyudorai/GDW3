@@ -56,13 +56,16 @@ MonoBehaviour:
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 87800654a6014394ea91024ec77a806a, type: 3}
     m_Type: 0
     m_RequiredItems:
+    - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
     m_ItemsPositions:
     - {x: 51.418106, y: 1.11, z: -59.007843}
     - {x: 48.41, y: 1.11, z: -59.09}
+    - {x: 48.3, y: 1.11, z: -65.26}
     m_RequirementsMet: 0
   - m_ID: 1
     m_Name: Shady Dealings
@@ -74,6 +77,7 @@ MonoBehaviour:
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 0}
     m_Type: 0
     m_RequiredItems:
     - {fileID: 7538479070952630666, guid: 92fcdba786a78c14d849a23c3bc6ca37, type: 3}
@@ -96,6 +100,7 @@ MonoBehaviour:
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 0}
     m_Type: 0
     m_RequiredItems:
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
@@ -112,6 +117,7 @@ MonoBehaviour:
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 0}
     m_Type: 0
     m_RequiredItems:
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
@@ -128,6 +134,7 @@ MonoBehaviour:
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 0}
     m_Type: 0
     m_RequiredItems:
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}

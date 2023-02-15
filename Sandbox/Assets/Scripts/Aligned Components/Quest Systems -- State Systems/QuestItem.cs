@@ -5,6 +5,7 @@ using UnityEngine;
 public class QuestItem : MonoBehaviour
 {
     public string questItemName;
+    public bool itemCollected = false;
 
     private void Start()
     {
