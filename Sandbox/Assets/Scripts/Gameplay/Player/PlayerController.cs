@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
     public bool b_CanLedgeCancel = true;
 
     public PlayerState e_State = PlayerState.Active;
+    public GameObject anim_RootTracker;
 
 
 
@@ -192,14 +193,38 @@ public class PlayerController : MonoBehaviour
         e_State = state;
     }
 
+    private IEnumerator LedgeClimb() 
+    {
+        animator.GetComponent<ParentRootMotion>().useRootMotion = true;
+        GetComponent<Collider>().enabled = false;        
+        yield return new WaitForSeconds(1.12f); // length of ledge grab animation    
+        Vector3 rootPos = anim_RootTracker.transform.position;        
+        yield return new WaitForSeconds(0.02f);
+        GetComponent<Collider>().enabled = true;
+        animator.GetComponent<ParentRootMotion>().useRootMotion = false;        
+        transform.position = rootPos;
+        Debug.Log("LEDGE IS SETTING POSITION");
+        b_LedgeGrab = false;
+        rigid.useGravity = true;        
+        animator.ResetTrigger("LedgeGrab");
+    }    
+
     private void Update() 
     {
         animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
-        animator.SetBool("IsGrounded", b_Grounded);
-        animator.SetBool("IsWallrunningRight", splineController.currentSpline != null); // Still need a way to determine left vs right wallrun
+        animator.SetBool("IsGrounded", b_Grounded);        
+
+        animator.SetBool("SplineControl", splineController.currentSpline != null);
+        animator.SetBool("IsWallrunning", splineController.currentSpline != null && splineController.currentSpline.splineType == SplineType.Wall);
+        
+        bool isRailGrinding = splineController.currentSpline != null && splineController.currentSpline.splineType == SplineType.Rail;
+        Debug.Log(isRailGrinding);
+        animator.SetBool("IsRailGrinding", isRailGrinding);
+
+
         //animator.SetBool("IsWallrunningRight", IsWallrunningRight);
         //animator.SetBool("IsWallrunningLeft", IsWallrunningLeft);
-        //animator.SetBool("IsRailgrinding", IsRailGrinding);
+        
 
         if (GameManager.GetInstance().IsPaused) return;
         if (e_State == PlayerState.Locked) return;
@@ -216,9 +241,9 @@ public class PlayerController : MonoBehaviour
                 // Trigger Ledge Climb Animation
                 animator.SetTrigger("LedgeClimb");
                 Debug.Log("Ledge Climb Animation");
-                b_LedgeGrab = false;
-                rigid.useGravity = true;
-                animator.ResetTrigger("LedgeGrab");
+                b_CanLedgeCancel = false;
+                StartCoroutine(LedgeClimb());
+                
             }
 
             else if (v_MotionInput.y < -0.1f && b_CanLedgeCancel)
@@ -227,12 +252,17 @@ public class PlayerController : MonoBehaviour
                 // Release the Ledge Grab and Fall
                 animator.SetTrigger("LedgeDrop");
                 b_LedgeGrab = false;
-                rigid.useGravity = true;
+                rigid.useGravity = false;
                 animator.ResetTrigger("LedgeGrab");
             }
         }
         else if (splineController.currentSpline != null) 
         {
+            // Handle Wall Running Animation
+            if (splineController.currentSpline.splineType == SplineType.Wall) {
+                animator.SetBool("IsWallrunningRight", splineController.currentSpline.isRight);
+            }
+            
             float splineSpeed = (v_HorizontalVelocity.magnitude / TopMaxSpeed) * 15f;
             float minSpeed = 8f;
             float resultSpeed = Mathf.Max(splineSpeed, minSpeed);
@@ -285,7 +315,7 @@ public class PlayerController : MonoBehaviour
 
         if (b_LedgeGrab)
         {
-            Debug.Log("FixedUpdate(): Ledge Grab Pausing Updates");
+            //Debug.Log("FixedUpdate(): Ledge Grab Pausing Updates");
             return;
         } 
 
@@ -337,26 +367,6 @@ public class PlayerController : MonoBehaviour
                 //}  
             }
         }
-    }
-
-    private void SlideCheck() 
-    {
-        //Vector3 normalDir = hit.normal;
-        //Vector3 upDir = Vector3.up;
-
-        //float angleBetween = Vector3.Angle(upDir, normalDir);
-
-        //if (angleBetween > 30.0f) {
-            //IsSliding = true;                    
-        //} else {
-            //IsSliding = false;
-        //}
-    }
-
-    private void Slide(Vector3 direction) 
-    {   
-        // float slideSpeed = Mathf.Min(QuickMaxSpeed, f_Speed);
-        // rigid.velocity = direction * slideSpeed;
     }
 
     private void Movement() 
@@ -653,7 +663,7 @@ public class PlayerController : MonoBehaviour
 
     public void GrabLedge(Vector3 position, Vector3 direction)
     {
-        transform.position = position - (Vector3.up*transform.localScale.y*1.75f);
+        transform.position = position - (Vector3.up*transform.localScale.y*1.25f);
         mesh.transform.LookAt(mesh.transform.position + direction);
         b_LedgeGrab = true;
         v_HorizontalVelocity = Vector3.zero; 
