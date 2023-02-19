@@ -126,6 +126,9 @@ public class PlayerController : MonoBehaviour
         InputManager.GetInput().Player.Interact.performed += InteractWithContext;
         InputManager.GetInput().Player.Shift.performed += ShiftWithContext;
         InputManager.GetInput().Player.Shift.canceled += ShiftCancelWithContext;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false; 
     }
 
     private void OnDestroy() 
