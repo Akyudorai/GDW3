@@ -40,10 +40,8 @@ public class QuestManager : MonoBehaviour
     }
     public void ActivateQuest(QuestData _quest)
     {
-        Debug.Log("Phase 0");
         if(activeQuestID == -1 && questList[_quest.m_ID].m_Completed == false)
         {
-            Debug.Log("in");
             activeQuestID = _quest.m_ID;
 
             //outdated
@@ -55,8 +53,11 @@ public class QuestManager : MonoBehaviour
             for(int i = 0; i < questList[activeQuestID].m_RequiredItems.Count; i++) //enable the quest items in the game world
             {
                 objRef = AssetManager.GetInstance().Get(_quest.m_RequiredItems[i].name);
-                objRef.transform.position = _quest.m_ItemsPositions[i];                
-                objRef.SetActive(true);
+                objRef.transform.position = _quest.m_ItemsPositions[i];
+                if(objRef.GetComponent<QuestItem>().itemCollected == false) //checks to see if the object hasn't already been collected.
+                {
+                    objRef.SetActive(true);
+                }               
 
                 //Instantiate(questList[activeQuestID].m_RequiredItems[i], questList[activeQuestID].m_ItemsPositions[i].position, Quaternion.identity);
             }
@@ -75,6 +76,29 @@ public class QuestManager : MonoBehaviour
 
             selectedQuest._questStatus.text = "In Progress";
         }        
+    }
+
+    public void DeactivateQuest(QuestData _quest)
+    {
+        //Set active quest id to -1
+        activeQuestID = -1;
+
+        //Deactivate all quest item gameobjects
+        GameObject objRef;
+        for (int i = 0; i < questList[activeQuestID].m_RequiredItems.Count; i++) 
+        {
+            objRef = AssetManager.GetInstance().Get(_quest.m_RequiredItems[i].name);
+            objRef.transform.position = _quest.m_ItemsPositions[i];
+            objRef.SetActive(false); //deactivating quest therefore disable quest items
+        }
+
+        //Updating interal quest variables and ui
+        UI_Manager.GetInstance().UpdateQuestStatus("Available");
+        QuestManager.GetInstance().questList[_quest.m_ID].m_Status = "Available";
+        QuestManager.GetInstance().questList[_quest.m_ID].m_QuestDataDisplay = selectedQuest; //?? not sure about this line
+
+        selectedQuest._questStatus.text = "Available";
+
     }
 
     public void DisplayQuestInfo(QuestData _quest)
