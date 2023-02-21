@@ -47,6 +47,7 @@ MonoBehaviour:
   activeQuestID: -1
   questList:
   - m_ID: 0
+    m_questItemsCollected: 0
     m_Name: Milk Run
     m_Status: Available
     m_Description: I've really been craving a nice bottle of milk.  I heard the grocer
@@ -63,11 +64,12 @@ MonoBehaviour:
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
     m_ItemsPositions:
-    - {x: 51.418106, y: 1.11, z: -59.007843}
-    - {x: 48.41, y: 1.11, z: -59.09}
-    - {x: 48.3, y: 1.11, z: -65.26}
+    - {x: 27.210001, y: 1.11, z: 42.720005}
+    - {x: 24.01, y: 1.11, z: 43.070004}
+    - {x: 23.9, y: 1.11, z: 36.9}
     m_RequirementsMet: 0
   - m_ID: 1
+    m_questItemsCollected: 0
     m_Name: Shady Dealings
     m_Status: Available
     m_Description: My 'clients' have stashed 4 packages around the city.  Go and
@@ -91,6 +93,7 @@ MonoBehaviour:
     - {x: 38.6, y: 1, z: -63.91}
     m_RequirementsMet: 0
   - m_ID: 2
+    m_questItemsCollected: 0
     m_Name: I like milk.
     m_Status: Available
     m_Description: Your co-worker likes milk.
@@ -108,6 +111,7 @@ MonoBehaviour:
     - {x: 17.13, y: 3.4414, z: 34.79}
     m_RequirementsMet: 0
   - m_ID: 3
+    m_questItemsCollected: 0
     m_Name: Milk tastes good.
     m_Status: Available
     m_Description: This man also wants milk?
@@ -125,6 +129,7 @@ MonoBehaviour:
     - {x: 10.2, y: 3.4414, z: 38.530003}
     m_RequirementsMet: 0
   - m_ID: 4
+    m_questItemsCollected: 0
     m_Name: Reward?
     m_Status: Available
     m_Description: Get milk? Again? -_-

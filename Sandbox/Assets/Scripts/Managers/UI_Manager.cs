@@ -380,6 +380,11 @@ public class UI_Manager : MonoBehaviour
         QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[QuestManager.GetInstance().selectedQuest.questId]); //get the quest id from the quest data display object
     }
 
+    public void QuestActivateToggle() //testing quest activate and deactivate system
+    {
+        QuestManager.GetInstance().ActivateDeactivateQuest(QuestManager.GetInstance().questList[QuestManager.GetInstance().selectedQuest.questId]);
+    }
+
     // ============ OTHER COMPONENTS =====================
 
     public void UpdateSpeedTracker(float speed) 

@@ -29,6 +29,7 @@ public class QuestManager : MonoBehaviour
     [Header("Quest Components")]
     public int activeQuestID = -1;
     public List<QuestData> questList = new List<QuestData>();
+    public List<GameObject> activeQuestItems = new List<GameObject>();
     public QuestDataDisplay selectedQuest;
 
     private void Start() 
@@ -53,11 +54,13 @@ public class QuestManager : MonoBehaviour
             for(int i = 0; i < questList[activeQuestID].m_RequiredItems.Count; i++) //enable the quest items in the game world
             {
                 objRef = AssetManager.GetInstance().Get(_quest.m_RequiredItems[i].name);
+                activeQuestItems.Add(objRef); //adding active quest item to list of active quest items.
                 objRef.transform.position = _quest.m_ItemsPositions[i];
-                if(objRef.GetComponent<QuestItem>().itemCollected == false) //checks to see if the object hasn't already been collected.
+                if (objRef.GetComponent<QuestItem>().itemCollected == false) //checks to see if the object hasn't already been collected.
                 {
                     objRef.SetActive(true);
-                }               
+                    Debug.Log("Spawned");
+                }
 
                 //Instantiate(questList[activeQuestID].m_RequiredItems[i], questList[activeQuestID].m_ItemsPositions[i].position, Quaternion.identity);
             }
@@ -75,6 +78,7 @@ public class QuestManager : MonoBehaviour
             QuestManager.GetInstance().questList[_quest.m_ID].m_QuestDataDisplay = selectedQuest;
 
             selectedQuest._questStatus.text = "In Progress";
+            Debug.Log("Quest Activated");
         }        
     }
 
@@ -85,12 +89,17 @@ public class QuestManager : MonoBehaviour
 
         //Deactivate all quest item gameobjects
         GameObject objRef;
-        for (int i = 0; i < questList[activeQuestID].m_RequiredItems.Count; i++) 
+        
+        foreach (GameObject obj in activeQuestItems)
         {
-            objRef = AssetManager.GetInstance().Get(_quest.m_RequiredItems[i].name);
-            objRef.transform.position = _quest.m_ItemsPositions[i];
-            objRef.SetActive(false); //deactivating quest therefore disable quest items
+            obj.SetActive(false);
         }
+
+        while (activeQuestItems.Count > 0)
+        {
+            activeQuestItems.RemoveAt(activeQuestItems.Count - 1);
+        }
+
 
         //Updating interal quest variables and ui
         UI_Manager.GetInstance().UpdateQuestStatus("Available");
@@ -98,7 +107,19 @@ public class QuestManager : MonoBehaviour
         QuestManager.GetInstance().questList[_quest.m_ID].m_QuestDataDisplay = selectedQuest; //?? not sure about this line
 
         selectedQuest._questStatus.text = "Available";
+        Debug.Log("Quest Deactivated");
+    }
 
+    public void ActivateDeactivateQuest(QuestData _quest)
+    {
+        if(activeQuestID == -1 && questList[_quest.m_ID].m_Completed == false)
+        {
+            ActivateQuest(_quest);
+        }
+        else if(activeQuestID == _quest.m_ID)
+        {
+            DeactivateQuest(_quest);
+        }
     }
 
     public void DisplayQuestInfo(QuestData _quest)
