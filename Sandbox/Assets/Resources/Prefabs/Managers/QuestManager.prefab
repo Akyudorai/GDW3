@@ -64,9 +64,9 @@ MonoBehaviour:
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
     m_ItemsPositions:
-    - {x: 27.210001, y: 1.11, z: 42.720005}
-    - {x: 24.01, y: 1.11, z: 43.070004}
-    - {x: 23.9, y: 1.11, z: 36.9}
+    - {x: 103.56, y: 6.71, z: 84.36}
+    - {x: 92.2, y: 6.71, z: 84.36}
+    - {x: 82, y: 6.71, z: 84.36}
     m_RequirementsMet: 0
   - m_ID: 1
     m_questItemsCollected: 0
@@ -146,4 +146,5 @@ MonoBehaviour:
     m_ItemsPositions:
     - {x: 5.7, y: 3.4414, z: 38.530006}
     m_RequirementsMet: 0
+  activeQuestItems: []
   selectedQuest: {fileID: 0}

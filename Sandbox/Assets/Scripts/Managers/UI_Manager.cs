@@ -33,6 +33,7 @@ public class UI_Manager : MonoBehaviour
     public TMP_Text MoneyDisplay;
     public TMP_Text InteractionDisplay;
     public GameObject notificationIcon;
+    public GameObject NotificationPrefab;
 
     [Header("Screen Panel")]
     public GameObject ScreenPanel;
