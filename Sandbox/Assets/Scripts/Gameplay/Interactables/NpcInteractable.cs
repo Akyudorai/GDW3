@@ -43,6 +43,7 @@ public class NpcInteractable : Interactable
                     GameObject newQuestLogItem = Instantiate(UI_Manager.GetInstance().questLogItem, UI_Manager.GetInstance().contentPanel.transform); //add a new quest to the quest app 
                     newQuestLogItem.GetComponent<QuestDataDisplay>().UpdateQuestData(npcRef.m_QuestID); //add the relevant quest info to the new quest
                     QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected = true;
+                    UI_Manager.GetInstance().SendNotification("New Quest Received", UI_Manager.GetInstance().questSprite);
                 }
 
                 

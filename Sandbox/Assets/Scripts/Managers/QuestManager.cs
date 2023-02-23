@@ -88,7 +88,6 @@ public class QuestManager : MonoBehaviour
         activeQuestID = -1;
 
         //Deactivate all quest item gameobjects
-        GameObject objRef;
         
         foreach (GameObject obj in activeQuestItems)
         {
@@ -179,7 +178,8 @@ public class QuestManager : MonoBehaviour
         UI_Manager.GetInstance().ToggleQuestListPanel(true);
 
         UI_Manager.GetInstance().questStatus.text = "Complete";
-        
+
+        UI_Manager.GetInstance().SendNotification("Quest Complete", UI_Manager.GetInstance().questSprite);
     }
 
     public void QuestItemCollected(QuestItem item)
@@ -198,6 +198,8 @@ public class QuestManager : MonoBehaviour
             QuestItem questObject = questList[activeQuestID].m_RequiredItems[questList[activeQuestID].m_RequiredItems.Count-1];
             questList[activeQuestID].m_RequiredItems.RemoveAt(questList[activeQuestID].m_RequiredItems.Count-1);
             Debug.Log("Items remaining " + questList[activeQuestID].m_RequiredItems.Count);
+
+            UI_Manager.GetInstance().SendNotification("Item Collected", QuestManager.GetInstance().questList[QuestManager.GetInstance().activeQuestID].m_questItemIcon);
         }
         if(questList[activeQuestID].m_RequiredItems.Count == 0)
         {

@@ -21,8 +21,5 @@ public class Notification : MonoBehaviour
         
     }
 
-    public void NewNotification()
-    {
-        notificationAnimator.SetBool("NewNotification", true);
-    }
+   
 }
