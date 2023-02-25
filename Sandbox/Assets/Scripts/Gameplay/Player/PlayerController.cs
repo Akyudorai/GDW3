@@ -92,9 +92,7 @@ public class PlayerController : MonoBehaviour
     public bool b_CanLedgeCancel = true;
 
     public PlayerState e_State = PlayerState.Active;
-    public GameObject anim_RootTracker;
-
-
+    public GameObject anim_RootTracker;    
 
     private void Awake() 
     {        
@@ -526,7 +524,7 @@ public class PlayerController : MonoBehaviour
 
         // If on a spline and jump button is released, detatch from it
         if (splineController.currentSpline != null) {
-            splineController.Detatch();
+            splineController.Detatch();            
             EventManager.OnPlayerJump?.Invoke();
             return;
         } 

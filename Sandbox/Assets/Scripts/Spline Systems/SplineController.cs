@@ -14,6 +14,8 @@ public class SplineController : MonoBehaviour
     public PlayerController pcRef;
     //public bool isActive = false;     
 
+    public GameObject SplineVFX = null;
+
     private void Update() 
     {
         if (currentSpline != null) 
@@ -70,6 +72,11 @@ public class SplineController : MonoBehaviour
         // But keep a separate reference to the spline path so we can call the OnDetatched function
         SplinePath pathRef = currentSpline;
         currentSpline = null;
+
+        if (SplineVFX != null) {
+            Destroy(SplineVFX);
+            SplineVFX = null;
+        }
 
         //if (rigid != null) 
 		//{			

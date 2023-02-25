@@ -42,5 +42,13 @@ public class RailInteractable : Interactable
     
         // Attach the player to the node at the point of interaction (closest point)
         node.Attach(pc.splineController, result, isForward);        
+
+        // Spawn a GrindVFX on the player until detatched
+        GameObject newVFX = Instantiate(Resources.Load<GameObject>("VFX/GrindVFX"));
+        newVFX.transform.SetParent(pc.gameObject.transform);
+        newVFX.transform.localPosition = Vector3.zero;
+        newVFX.transform.Rotate(0, pc.transform.rotation.y, 0);
+        pc.splineController.SplineVFX = newVFX;
+        
     }
 }
