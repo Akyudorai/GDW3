@@ -37,7 +37,8 @@ public static class AssetLoader
     public static void LoadQuestItems()
     {
         Load("Milk Bottle", 3);
-        Load("Shady Package", 4);       
+        Load("BatteryQuestItemTemp", 3);       
+        Load("Shovel", 3);
     }
 
     public static void LoadRaceItems() 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NpcStateManager : MonoBehaviour
 {
-    NpcBaseState currentState;
+    public NpcBaseState currentState;
     public NpcHelpState HelpState = new NpcHelpState();
     public NpcWaitState WaitState = new NpcWaitState();
     public NpcCompleteState CompleteState = new NpcCompleteState();

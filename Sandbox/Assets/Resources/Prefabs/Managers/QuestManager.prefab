@@ -48,12 +48,12 @@ MonoBehaviour:
   questList:
   - m_ID: 0
     m_questItemsCollected: 0
-    m_Name: Milk Run
+    m_Name: Milk Matters
     m_Status: Available
     m_Description: I've really been craving a nice bottle of milk.  I heard the grocer
       over at the mall is handing them out for free!
     m_Objective: Head over to the Mall and collect a bottle of milk for NPC.
-    m_Hint: Look around.
+    m_Hint: Go to the mall.
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
@@ -70,81 +70,47 @@ MonoBehaviour:
     m_RequirementsMet: 0
   - m_ID: 1
     m_questItemsCollected: 0
-    m_Name: Shady Dealings
+    m_Name: Helping a Hippie
     m_Status: Available
-    m_Description: My 'clients' have stashed 4 packages around the city.  Go and
-      get them for me.
-    m_Objective: Collect 4 "packages", found in shady parts of town.
-    m_Hint: 
+    m_Description: Wassup my man? The batteries in my Walkman just died and I need
+      some new batteries. Can you help a brother out? Peace and Love.
+    m_Objective: Collect 3 batteries.
+    m_Hint: Check your remote?
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
-    m_questItemIcon: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 55d4715fd53f5d5478002d4ca91a7f56, type: 3}
     m_Type: 0
     m_RequiredItems:
-    - {fileID: 7538479070952630666, guid: 92fcdba786a78c14d849a23c3bc6ca37, type: 3}
-    - {fileID: 7538479070952630666, guid: 92fcdba786a78c14d849a23c3bc6ca37, type: 3}
-    - {fileID: 7538479070952630666, guid: 92fcdba786a78c14d849a23c3bc6ca37, type: 3}
-    - {fileID: 7538479070952630666, guid: 92fcdba786a78c14d849a23c3bc6ca37, type: 3}
+    - {fileID: 3689122229430511904, guid: efa764b99bfeed14f8f8b587f2981bdc, type: 3}
+    - {fileID: 3689122229430511904, guid: efa764b99bfeed14f8f8b587f2981bdc, type: 3}
+    - {fileID: 3689122229430511904, guid: efa764b99bfeed14f8f8b587f2981bdc, type: 3}
     m_ItemsPositions:
-    - {x: -45.55, y: 5.53, z: -78.68}
-    - {x: -128.52, y: 6.4, z: -12.13}
-    - {x: 38.97, y: 1, z: -148.07}
-    - {x: 38.6, y: 1, z: -63.91}
+    - {x: 105.7, y: 5.8, z: 123.4}
+    - {x: 95, y: 5.8, z: 123.4}
+    - {x: 81.7, y: 5.8, z: 123.4}
     m_RequirementsMet: 0
   - m_ID: 2
     m_questItemsCollected: 0
-    m_Name: I like milk.
+    m_Name: A Green Foot
     m_Status: Available
-    m_Description: Your co-worker likes milk.
-    m_Objective: Find your co-worker some milk. Once you get the milk, go back to
-      him and press E.
-    m_Hint: 
+    m_Description: 'Oh dear, it seems that I forgot to bring the gardening tools
+      to work today. If you could retrieve them for me, I would be mighty grateful. '
+    m_Objective: Collect 3 shovels.
+    m_Hint: Check the garden area.
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
-    m_questItemIcon: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: e760209b9a31be8418afa6e28554ead5, type: 3}
     m_Type: 0
     m_RequiredItems:
-    - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
+    - {fileID: 6475178844656584064, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
+    - {fileID: 6475178844656584064, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
+    - {fileID: 6475178844656584064, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
     m_ItemsPositions:
-    - {x: 17.13, y: 3.4414, z: 34.79}
-    m_RequirementsMet: 0
-  - m_ID: 3
-    m_questItemsCollected: 0
-    m_Name: Milk tastes good.
-    m_Status: Available
-    m_Description: This man also wants milk?
-    m_Objective: Find your co-worker some milk. Once you get the milk, go back to
-      him and press E.
-    m_Hint: 
-    m_Completed: 0
-    m_Collected: 0
-    m_QuestDataDisplay: {fileID: 0}
-    m_questItemIcon: {fileID: 0}
-    m_Type: 0
-    m_RequiredItems:
-    - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
-    m_ItemsPositions:
-    - {x: 10.2, y: 3.4414, z: 38.530003}
-    m_RequirementsMet: 0
-  - m_ID: 4
-    m_questItemsCollected: 0
-    m_Name: Reward?
-    m_Status: Available
-    m_Description: Get milk? Again? -_-
-    m_Objective: Find your co-worker some milk. Once you get the milk, go back to
-      him and press E.
-    m_Hint: 
-    m_Completed: 0
-    m_Collected: 0
-    m_QuestDataDisplay: {fileID: 0}
-    m_questItemIcon: {fileID: 0}
-    m_Type: 0
-    m_RequiredItems:
-    - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
-    m_ItemsPositions:
-    - {x: 5.7, y: 3.4414, z: 38.530006}
+    - {x: -104.06, y: 7.48, z: 148.74}
+    - {x: -99.19, y: 7.48, z: 157.63}
+    - {x: -86.25, y: 7.48, z: 160.76}
     m_RequirementsMet: 0
   activeQuestItems: []
   selectedQuest: {fileID: 0}

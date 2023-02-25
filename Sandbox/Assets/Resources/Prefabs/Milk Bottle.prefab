@@ -144,3 +144,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questItemName: Bottle of Milk
+  itemCollected: 0
+  questIndex: 0
