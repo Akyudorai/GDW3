@@ -14,10 +14,14 @@ public class SplineController : MonoBehaviour
     public PlayerController pcRef;
     //public bool isActive = false;     
 
+    public GameObject SplineVFX = null;
+
     private void Update() 
     {
         if (currentSpline != null) 
         {
+            Debug.Log(currentSpline.splineType);
+
             transform.position = currentSpline.GetNode(nodeIndex).GetCurrentPosition(this);
             Vector3 lookDir = currentSpline.GetNode(nodeIndex).GetDirection();
             lookDir.y = 0;
@@ -68,6 +72,11 @@ public class SplineController : MonoBehaviour
         // But keep a separate reference to the spline path so we can call the OnDetatched function
         SplinePath pathRef = currentSpline;
         currentSpline = null;
+
+        if (SplineVFX != null) {
+            Destroy(SplineVFX);
+            SplineVFX = null;
+        }
 
         //if (rigid != null) 
 		//{			

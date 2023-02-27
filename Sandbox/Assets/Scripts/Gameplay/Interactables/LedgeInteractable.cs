@@ -32,7 +32,11 @@ public class LedgeInteractable : Interactable
         Vector3 grabPosition = pA - (nodeToNode * result);
 
         // Determine look direction for the grab
-        Vector3 lookDirection = Quaternion.Euler(0, 90, 0) * nodeToNode; 
+        Vector3 look_1 = Quaternion.Euler(0, 90, 0) * nodeToNode;
+        float dist_1 = Vector3.Distance(controller.mesh.transform.forward.normalized, look_1);
+        Vector3 look_2 = Quaternion.Euler(0, -90, 0) * nodeToNode;
+        float dist_2 = Vector3.Distance(controller.mesh.transform.forward.normalized, look_2);                
+        Vector3 lookDirection = ((dist_1 < dist_2) ? look_1 : look_2); 
  
         // Set Player Position to the Grab Position
         controller.GrabLedge(grabPosition, lookDirection.normalized);

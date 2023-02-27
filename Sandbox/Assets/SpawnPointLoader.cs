@@ -8,6 +8,8 @@ public class SpawnPointLoader : MonoBehaviour
 
     public void Awake() 
     {
-        SpawnPointManager.GetInstance().SpawnPoints = SpawnPoints;
+        if (GameLoader.IsLoaded) {
+            SpawnPointManager.GetInstance().SpawnPoints = SpawnPoints;
+        }        
     }
 }
