@@ -186,7 +186,7 @@ public class QuestManager : MonoBehaviour
         if(questList[_quest.m_ID].m_RequiredItems.Count == 0)
         {
             questList[_quest.m_ID].m_RequirementsMet = true;
-            QuestComplete(_quest);
+            //QuestComplete(_quest);
         }        
     }
 

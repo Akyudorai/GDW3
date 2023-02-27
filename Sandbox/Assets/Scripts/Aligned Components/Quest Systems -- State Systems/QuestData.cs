@@ -32,5 +32,5 @@ public class QuestData
     public QuestType m_Type;
     public List<QuestItem> m_RequiredItems;
     public List<Vector3> m_ItemsPositions;
-    public bool m_RequirementsMet;
+    public bool m_RequirementsMet; //have the requirements for completing the quest been met?
 }

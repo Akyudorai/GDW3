@@ -46,6 +46,13 @@ public class NpcInteractable : Interactable
                     UI_Manager.GetInstance().SendNotification("New Quest Received", UI_Manager.GetInstance().questSprite);
                     QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[npcRef.m_QuestID], newQuestLogItem.GetComponent<QuestDataDisplay>());
                 }
+                else
+                {
+                    if(QuestManager.GetInstance().questList[npcRef.m_QuestID].m_RequirementsMet == true)
+                    {
+                        QuestManager.GetInstance().QuestComplete(QuestManager.GetInstance().questList[npcRef.m_QuestID]);
+                    }
+                }
 
                 
                 
