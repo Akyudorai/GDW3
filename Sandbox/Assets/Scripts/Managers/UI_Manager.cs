@@ -31,8 +31,7 @@ public class UI_Manager : MonoBehaviour
 
     // References
     public TMP_Text MoneyDisplay;
-    public TMP_Text InteractionDisplay;
-    public GameObject notificationIcon;
+    public TMP_Text InteractionDisplay;    
 
     [Header("Screen Panel")]
     public GameObject ScreenPanel;
@@ -41,6 +40,7 @@ public class UI_Manager : MonoBehaviour
     [Header("Phone Panel")]
     public GameObject PhonePanel;
     public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel, TipPanel;
+    public Animator phoneAnimator;
 
     [Header("Home Panel")]
     public TMP_Text SearchBar;
@@ -56,7 +56,7 @@ public class UI_Manager : MonoBehaviour
     public GameObject questItem1;
     public GameObject questItem2;
     public GameObject questItem3;
-    public GameObject questLogItem;
+    public GameObject questLogItem; //the ui element that stores the quest info on the quest screen.
     public GameObject contentPanel;
     public GameObject[] questItemIcons;
     public GameObject ActivateQuestButton;
@@ -65,6 +65,11 @@ public class UI_Manager : MonoBehaviour
     public Slider bgmSlider;
     public Slider soundEffectSlider;
 
+    [Header("Notification")]
+    public GameObject NotificationObject;
+    public Image notificationIcon;
+    public TextMeshProUGUI notificationText;
+    public Sprite questSprite;
 
     [Header("Other Components")]
     public TMP_Text SpeedTracker;
@@ -104,6 +109,8 @@ public class UI_Manager : MonoBehaviour
 
         EventManager.OnCollectibleFound += UpdateCollectibleImage;
         EventManager.OnCollectibleFound += UpdateCollectibleAnnouncement;
+
+        Debug.Log(NotificationObject.gameObject.name);
     }
 
     // ============ DIALOGUE FUNCTIONS =====================
@@ -255,6 +262,7 @@ public class UI_Manager : MonoBehaviour
     public void TogglePhonePanel(bool state) 
     {
         PhonePanel.SetActive(state);
+        phoneAnimator.SetBool("PhoneOpen", true);
         GameManager.GetInstance().Pause(state);
     }
     
@@ -375,7 +383,12 @@ public class UI_Manager : MonoBehaviour
 
     public void ActivateToggle()
     {
-        QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[QuestManager.GetInstance().selectedQuest.questId]); //get the quest id from the quest data display object
+        //QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[QuestManager.GetInstance().selectedQuest.questId]); //get the quest id from the quest data display object
+    }
+
+    public void QuestActivateToggle() //testing quest activate and deactivate system
+    {
+        QuestManager.GetInstance().ActivateDeactivateQuest(QuestManager.GetInstance().questList[QuestManager.GetInstance().selectedQuest.questId]);
     }
 
     // ============ OTHER COMPONENTS =====================
@@ -436,15 +449,13 @@ public class UI_Manager : MonoBehaviour
         MoneyDisplay.text = "Money: " + value;
     }
 
-    public void FadeInNotification()
+    public void SendNotification(string _text, Sprite _sprite)
     {
-        notificationIcon.GetComponent<Animation>().Play("notificationFadeIn");
-    }
-
-    public void FadeOutNotification()
-    {
-        notificationIcon.SetActive(true);
-        notificationIcon.GetComponent<Animation>().Play("notificationFadeOut");
+        notificationText.text = _text;
+        notificationIcon.sprite = _sprite;
+        //NotificationObject.GetComponent<Notification>().notificationText.text = _text;
+        //NotificationObject.GetComponent<Notification>().notificationImg.sprite = _sprite;
+        NotificationObject.GetComponent<Notification>().notificationAnimator.SetTrigger("PlayNotification");
     }
 
     // ============ SETTINGS PANEL FUNCTIONS =====================

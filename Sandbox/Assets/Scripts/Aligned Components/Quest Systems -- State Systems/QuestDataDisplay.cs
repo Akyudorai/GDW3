@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+/*
+ * This script is related more to the UI side and functions to bring the quest logic to the ui elements in the quest app.
+ * This script is attached to the questLogItem gameobjects.
+ */
 
 public class QuestDataDisplay : MonoBehaviour //attached to a quest button in quest panel.
 {
@@ -24,7 +28,7 @@ public class QuestDataDisplay : MonoBehaviour //attached to a quest button in qu
     {
         questId = newId;
         _questName.text = QuestManager.GetInstance().questList[newId].m_Name;
-        _questStatus.text = "Available";
+        _questStatus.text = "In Progress";
     }
 
     public void QuestSelected() //player clicks on a quest from the quest list
@@ -34,7 +38,5 @@ public class QuestDataDisplay : MonoBehaviour //attached to a quest button in qu
 
         QuestManager.GetInstance().selectedQuest = this;
         QuestManager.GetInstance().DisplayQuestInfo(QuestManager.GetInstance().questList[questId]);
-
-        Debug.Log(questId);
     }
 }

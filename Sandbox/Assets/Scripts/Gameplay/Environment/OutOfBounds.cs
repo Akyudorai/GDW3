@@ -5,6 +5,8 @@ using UnityEngine;
 public class OutOfBounds : MonoBehaviour
 {
     public bool b_RespawnClosest = true;
+    public bool b_RespawnDirect = false;
+    public Transform directSpawnPoint;
 
     private void OnTriggerEnter(Collider other) 
     {
@@ -27,7 +29,18 @@ public class OutOfBounds : MonoBehaviour
 
                 GameManager.GetInstance().RespawnPlayer(index);
             } 
-            else 
+            else if(b_RespawnDirect)
+            {
+                for(int i = 0; i < SpawnPointManager.GetInstance().SpawnPoints.Count; i++)
+                {
+                    if(SpawnPointManager.GetInstance().SpawnPoints[i] == directSpawnPoint)
+                    {
+                        GameManager.GetInstance().RespawnPlayer(i);
+                        return;
+                    }
+                }
+            }
+            else
             {
                 // Respawn at Communal Steps (Default)
                 GameManager.GetInstance().RespawnPlayer(0);
