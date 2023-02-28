@@ -219,7 +219,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsWallrunning", splineController.currentSpline != null && splineController.currentSpline.splineType == SplineType.Wall);
         
         bool isRailGrinding = splineController.currentSpline != null && splineController.currentSpline.splineType == SplineType.Rail;
-        Debug.Log(isRailGrinding);
+        //Debug.Log(isRailGrinding);
         animator.SetBool("IsRailGrinding", isRailGrinding);
 
 
