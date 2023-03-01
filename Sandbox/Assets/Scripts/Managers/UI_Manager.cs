@@ -92,6 +92,10 @@ public class UI_Manager : MonoBehaviour
     public TMP_Text DialogueOutputDisplay;
     public Button YesDialogueButton;
 
+    [Header("Interaction Prompt Panel")]
+    public GameObject PromptPanel;
+    public TMP_Text PromptKeyDisplay;
+
 
     private void Start() 
     {
@@ -111,6 +115,14 @@ public class UI_Manager : MonoBehaviour
         EventManager.OnCollectibleFound += UpdateCollectibleAnnouncement;
 
         Debug.Log(NotificationObject.gameObject.name);
+    }
+
+    // ============ PROMPT FUNCTIONS =====================
+
+    public void TogglePrompt(bool state, string key = "") 
+    {
+        PromptPanel.SetActive(state);
+        PromptKeyDisplay.text = key;
     }
 
     // ============ DIALOGUE FUNCTIONS =====================

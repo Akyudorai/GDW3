@@ -11,9 +11,9 @@ public class ZiplineInteractable : Interactable
         this.node = node;
     }
 
-    public override InteractableType GetInteractableType() 
+    public override InteractionType GetInteractionType() 
     {
-        return InteractableType.Manuever;
+        return InteractionType.Rail;
     }
 
     public override void Interact(PlayerController pc, RaycastHit hit) 
@@ -41,6 +41,6 @@ public class ZiplineInteractable : Interactable
         bool isForward = ((pos_dist >= neg_dist) ? true : false);
     
         // Attach the player to the node at the point of interaction (closest point)
-        node.Attach(pc.splineController, result, isForward);               
+        node.Attach(pc.maneuverHandler.splineController, result, isForward);               
     }    
 }

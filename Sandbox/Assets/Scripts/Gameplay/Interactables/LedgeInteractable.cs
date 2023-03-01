@@ -5,20 +5,25 @@ using UnityEngine;
 public class LedgeInteractable : Interactable
 {
     private SplineNode node;
+    public Transform center;
 
     public void Initialize(SplineNode node) 
     {
         this.node = node;
+        center = node.path.transform;
     }
 
-    public override InteractableType GetInteractableType() 
+    public override InteractionType GetInteractionType() 
     {
-        return InteractableType.Manuever;
+        return InteractionType.Ledge;
     }
 
     // ================ GRAB THE LEDGE ============
     public override void Interact(PlayerController controller, RaycastHit hit)
     {
+        // RULE #1:  Player.position.y must not be greater than Ledge.position.y
+        if (controller.transform.position.y > hit.point.y) return;
+
         // Get reference between two points for easier use
         Vector3 pA = node.position;         
         Vector3 pB = node.next.position;
@@ -33,13 +38,13 @@ public class LedgeInteractable : Interactable
 
         // Determine look direction for the grab
         Vector3 look_1 = Quaternion.Euler(0, 90, 0) * nodeToNode;
-        float dist_1 = Vector3.Distance(controller.mesh.transform.forward.normalized, look_1);
+        float dist_1 = Vector3.Distance(center.position, grabPosition + look_1);
         Vector3 look_2 = Quaternion.Euler(0, -90, 0) * nodeToNode;
-        float dist_2 = Vector3.Distance(controller.mesh.transform.forward.normalized, look_2);                
+        float dist_2 = Vector3.Distance(center.position, grabPosition + look_2);                
         Vector3 lookDirection = ((dist_1 < dist_2) ? look_1 : look_2); 
  
         // Set Player Position to the Grab Position
-        controller.GrabLedge(grabPosition, lookDirection.normalized);
+        controller.maneuverHandler.PerformLedgeGrab(grabPosition, lookDirection.normalized);
     }
 
     

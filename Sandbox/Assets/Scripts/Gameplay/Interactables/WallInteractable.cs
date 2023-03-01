@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class WallInteractable : Interactable
 {      
-    public override InteractableType GetInteractableType() 
+    public override InteractionType GetInteractionType() 
     {
-        return InteractableType.Manuever;
+        return InteractionType.Wall;
     }
 
     public override void Interact(PlayerController pc, RaycastHit hit) 
     {
-
-        if (pc.b_Grounded) { Debug.Log("IsGrounded"); return; }
+        // RULE #1: Player must be airborne to start a wall run
+        
+        if (!pc.maneuverHandler.b_CanWallRun) return;
         if (pc.v_HorizontalVelocity.magnitude < pc.QuickMaxSpeed/3) { Debug.Log("Too Slow"); return; }    
-        if (pc.wallDelays.ContainsKey(this)) { Debug.Log("That Wall Is On Cooldown!"); return; }
+        if (pc.maneuverHandler.wallDelays.ContainsKey(this)) { Debug.Log("That Wall Is On Cooldown!"); return; }
 
         Debug.Log("Wall Run Started");
 
@@ -40,8 +41,8 @@ public class WallInteractable : Interactable
 
         pc.mesh.transform.LookAt(pc.mesh.transform.position - surfaceDir * ((isForward) ? -1 : 1));
         wallRunSpline.isRight = (Physics.Raycast(pc.mesh.transform.position, pc.mesh.transform.right, 1));
-        wallRunSpline.GetNode(0).Attach(pc.splineController, 0.0f, true);  
+        wallRunSpline.GetNode(0).Attach(pc.maneuverHandler.splineController, 0.0f, true);  
                 
-        pc.wallDelays.Add(this, 3f); // Change value to variable for adjustable wall delay time
+        pc.maneuverHandler.wallDelays.Add(this, 3f); // Change value to variable for adjustable wall delay time
     }
 }

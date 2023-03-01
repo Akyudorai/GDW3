@@ -266,6 +266,12 @@ PrefabInstance:
       objectReference: {fileID: 8538333204063954696}
     - target: {fileID: 1375414613535302859, guid: 8c4be76d2ee7c4640892801e2304cb97,
         type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 1375414613535302859, guid: 8c4be76d2ee7c4640892801e2304cb97,
+        type: 3}
       propertyPath: m_Name
       value: LedgePrefab
       objectReference: {fileID: 0}

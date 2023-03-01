@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3741223037037013216}
   - component: {fileID: 4633082898711492927}
   - component: {fileID: 1542965690706574590}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: <>Wall Run Collider
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579629186986254934}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 1e8199fc3584b5641898036ccc1eded7, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 7738742921998460006}
   - component: {fileID: 2978312631598164981}
   - component: {fileID: 459214985925168601}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: <>Wall Run Collider
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7004988659420627083}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 1e8199fc3584b5641898036ccc1eded7, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -246,16 +246,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7262669849540485908}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: 57.500515, y: 1.9830997, z: 27.17314}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 100, y: 100, z: 99.99999}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3583682487587011999}
   - {fileID: 3528100967464203915}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
 --- !u!33 &6354056283996534283
 MeshFilter:
   m_ObjectHideFlags: 0

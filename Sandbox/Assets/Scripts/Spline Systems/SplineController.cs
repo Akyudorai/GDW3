@@ -118,8 +118,8 @@ public class SplineController : MonoBehaviour
 			pcRef.ApplyForce(launchForce * pcRef.JumpForce);	// Apply launch force to the player
             pcRef.StartCoroutine(pcRef.JumpDelay());
 			mesh.transform.rotation = Quaternion.identity;	// Rotate the mesh in the direction of travel
-			pcRef.targetInteractable = null;						
-            pcRef.interactionDelay = 0.5f;
+			//pcRef.interactionHandler.targetInteractable = null;						
+            pcRef.interactionHandler.interactionDelay = 0.5f;
 		} 
 
         // Lastly, call the OnDetatched method from the spline path to allow it to handle itself
