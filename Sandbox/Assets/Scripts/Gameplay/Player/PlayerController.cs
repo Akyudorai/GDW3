@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController LocalPlayer;
 
+    [SerializeField] private PlayerInput playerInput = null;
+    public PlayerInput PlayerInput => playerInput;
+
     [Header("Components")]
     public Camera cam;
     public GameObject camera_pivot;
@@ -93,6 +96,7 @@ public class PlayerController : MonoBehaviour
 
     public PlayerState e_State = PlayerState.Active;
     public GameObject anim_RootTracker;    
+    public ParticleSystem ps_MaxSpeed;
 
     private void Awake() 
     {        
@@ -114,14 +118,7 @@ public class PlayerController : MonoBehaviour
         // Set Position when scene is loaded
         GameManager.GetInstance().RespawnPlayer(SpawnPointManager.currentSpawnIndex);        
 
-        //GameManager.GetInstance().PlayerRef = this;
-        InputManager.GetInput().Player.Move.performed += MoveWithContext;
-        InputManager.GetInput().Player.Move.canceled += MoveCancelWithContext;
-        InputManager.GetInput().Player.Look.performed += LookWithContext;
-        InputManager.GetInput().Player.Look.canceled += LookCancelWithContext;
-        InputManager.GetInput().Player.Jump.performed += JumpWithContext;
-        InputManager.GetInput().Player.Jump.canceled += JumpCancelWithContext;
-        InputManager.GetInput().Player.Interact.performed += InteractWithContext;
+        //GameManager.GetInstance().PlayerRef = this;       
         InputManager.GetInput().Player.Shift.performed += ShiftWithContext;
         InputManager.GetInput().Player.Shift.canceled += ShiftCancelWithContext;
 
@@ -133,52 +130,93 @@ public class PlayerController : MonoBehaviour
     {
         if (InputManager.GetInput() == null) return;
 
-        InputManager.GetInput().Player.Move.performed -= MoveWithContext;
-        InputManager.GetInput().Player.Move.canceled -= MoveCancelWithContext;
-        InputManager.GetInput().Player.Look.performed -= LookWithContext;
-        InputManager.GetInput().Player.Look.canceled -= LookCancelWithContext;
-        InputManager.GetInput().Player.Jump.performed -= JumpWithContext;
-        InputManager.GetInput().Player.Interact.performed -= InteractWithContext;
         InputManager.GetInput().Player.Shift.performed -= ShiftWithContext;
         InputManager.GetInput().Player.Shift.canceled -= ShiftCancelWithContext;
     }
 
-    private void JumpWithContext(InputAction.CallbackContext context)
+    public void MoveCtx(InputAction.CallbackContext ctx) 
     {
-        b_JumpPressed = true;
+        var inputValue = ctx.ReadValue<Vector2>();
+        v_MotionInput = inputValue;
+    }
+
+    public void JumpCtx(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) { return; }
+
         Jump();
     }
 
-    private void JumpCancelWithContext(InputAction.CallbackContext context)
+    public void LookCtx(InputAction.CallbackContext ctx) 
     {
-        b_JumpPressed = false;
+        var inputValue = ctx.ReadValue<Vector2>();
+        v_Rotation = inputValue;
     }
 
-    private void MoveWithContext(InputAction.CallbackContext context) 
+    public void InteractCtx(InputAction.CallbackContext ctx) 
     {
-        v_MotionInput = context.ReadValue<Vector2>();
-    }
+        if (!ctx.performed) { return; }
 
-    private void MoveCancelWithContext(InputAction.CallbackContext context) 
-    {
-        v_MotionInput = Vector2.zero;
-    }
+        Debug.Log("INTERACTING");
 
-    private void LookWithContext(InputAction.CallbackContext context) 
-    {
-        v_Rotation = context.ReadValue<Vector2>();
-    }
-
-    private void LookCancelWithContext(InputAction.CallbackContext context) 
-    {
-        v_Rotation = Vector2.zero;
-    }
-
-    private void InteractWithContext(InputAction.CallbackContext context) 
-    {
         Interact(InteractableType.Social);
     }
 
+    public void WallRunCtx(InputAction.CallbackContext ctx) 
+    {
+        if (!ctx.performed) { return; }
+        Interact(InteractableType.Manuever);
+    }
+
+    public void ZiplineCtx(InputAction.CallbackContext ctx) 
+    {
+        if (!ctx.performed) { return; }
+        Interact(InteractableType.Manuever);
+    }
+
+    public void RailGrindCtx(InputAction.CallbackContext ctx) 
+    {
+        if (!ctx.performed) { return; }
+        Interact(InteractableType.Manuever);
+    }
+
+    public void LedgeGrabCtx(InputAction.CallbackContext ctx) 
+    {
+        if (!ctx.performed) { return; }
+        Interact(InteractableType.Manuever);
+    }
+
+    public void LedgeClimbCtx(InputAction.CallbackContext ctx) 
+    {
+        if (!ctx.performed) { return; }
+
+        if (b_LedgeGrab && b_CanLedgeCancel) 
+        {
+            // Trigger Ledge Climb Animation
+            animator.SetTrigger("LedgeClimb");
+            Debug.Log("Ledge Climb Animation");
+            b_CanLedgeCancel = false;
+            StartCoroutine(LedgeClimb());
+        }
+
+    }
+
+    public void LedgeReleaseCtx(InputAction.CallbackContext ctx) 
+    {
+        if (!ctx.performed) { return; }
+
+        if (b_LedgeGrab && b_CanLedgeCancel) 
+        {
+            Debug.Log("Releasing Ledge Grab");
+            // Release the Ledge Grab and Fall
+            animator.SetTrigger("LedgeDrop");
+            b_LedgeGrab = false;
+            rigid.useGravity = false;
+            animator.ResetTrigger("LedgeGrab");
+        }
+    }
+
+    
     private void ShiftWithContext(InputAction.CallbackContext context) 
     {
         b_ShiftPressed = true;
@@ -223,6 +261,14 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsRailGrinding", isRailGrinding);
 
 
+        bool maxSpeed = rigid.velocity.magnitude > QuickMaxSpeed;
+        if (maxSpeed && !ps_MaxSpeed.isPlaying) {
+            ps_MaxSpeed.Play();
+        } else if (!maxSpeed && ps_MaxSpeed.isPlaying) {
+            ps_MaxSpeed.Stop();
+        }
+        
+
         //animator.SetBool("IsWallrunningRight", IsWallrunningRight);
         //animator.SetBool("IsWallrunningLeft", IsWallrunningLeft);
         
@@ -236,26 +282,27 @@ public class PlayerController : MonoBehaviour
             animator.ResetTrigger("LedgeDrop");
             animator.SetTrigger("LedgeGrab");
             rigid.velocity = Vector3.zero;
-            // If pressing W, pull the player up from ledge 
-            if (v_MotionInput.y > 0.1f && b_CanLedgeCancel) 
-            {
-                // Trigger Ledge Climb Animation
-                animator.SetTrigger("LedgeClimb");
-                Debug.Log("Ledge Climb Animation");
-                b_CanLedgeCancel = false;
-                StartCoroutine(LedgeClimb());
+            
+            // // If pressing W, pull the player up from ledge 
+            // if (v_MotionInput.y > 0.1f && b_CanLedgeCancel) 
+            // {
+            //     // Trigger Ledge Climb Animation
+            //     animator.SetTrigger("LedgeClimb");
+            //     Debug.Log("Ledge Climb Animation");
+            //     b_CanLedgeCancel = false;
+            //     StartCoroutine(LedgeClimb());
                 
-            }
+            // }
 
-            else if (v_MotionInput.y < -0.1f && b_CanLedgeCancel)
-            {
-                Debug.Log("Releasing Ledge Grab");
-                // Release the Ledge Grab and Fall
-                animator.SetTrigger("LedgeDrop");
-                b_LedgeGrab = false;
-                rigid.useGravity = false;
-                animator.ResetTrigger("LedgeGrab");
-            }
+            // else if (v_MotionInput.y < -0.1f && b_CanLedgeCancel)
+            // {
+            //     Debug.Log("Releasing Ledge Grab");
+            //     // Release the Ledge Grab and Fall
+            //     animator.SetTrigger("LedgeDrop");
+            //     b_LedgeGrab = false;
+            //     rigid.useGravity = false;
+            //     animator.ResetTrigger("LedgeGrab");
+            // }
         }
         else if (splineController.currentSpline != null) 
         {

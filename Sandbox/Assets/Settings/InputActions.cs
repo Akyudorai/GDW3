@@ -89,6 +89,60 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""WallRun"",
+                    ""type"": ""Value"",
+                    ""id"": ""7efe638f-db26-49fc-9bb7-861a89285da8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Zipline"",
+                    ""type"": ""Button"",
+                    ""id"": ""3aadf79e-1b9d-4049-aa7c-f3faf344c9d4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RailGrind"",
+                    ""type"": ""Button"",
+                    ""id"": ""d31d58a9-b4a8-428a-8931-1722033b4ecb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ledge Climb"",
+                    ""type"": ""Button"",
+                    ""id"": ""ff55e268-3573-4383-b11f-17d1797eab42"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ledge Release"",
+                    ""type"": ""Button"",
+                    ""id"": ""6c04392c-6f33-423b-bff9-129146aedcde"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ledge Grab"",
+                    ""type"": ""Value"",
+                    ""id"": ""198eb6ef-26b5-4a4e-b150-568439fdffec"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -210,6 +264,72 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Shift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11605c41-9876-4a53-9870-01cc782c90ae"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WallRun"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dc834b48-5e8e-4839-9d5a-dd53ba8d2b21"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zipline"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74274b7f-c566-4591-9650-095bce795004"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RailGrind"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e9bf0c8-881f-44d6-8e0a-6fef1c88b339"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ledge Climb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d4f2019-2f69-400f-b58a-c877a2d79d6e"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ledge Release"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""42a8246e-bcc5-4673-a226-3cf97693c493"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ledge Grab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -483,6 +603,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Player_EnableCheats = m_Player.FindAction("EnableCheats", throwIfNotFound: true);
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
         m_Player_Shift = m_Player.FindAction("Shift", throwIfNotFound: true);
+        m_Player_WallRun = m_Player.FindAction("WallRun", throwIfNotFound: true);
+        m_Player_Zipline = m_Player.FindAction("Zipline", throwIfNotFound: true);
+        m_Player_RailGrind = m_Player.FindAction("RailGrind", throwIfNotFound: true);
+        m_Player_LedgeClimb = m_Player.FindAction("Ledge Climb", throwIfNotFound: true);
+        m_Player_LedgeRelease = m_Player.FindAction("Ledge Release", throwIfNotFound: true);
+        m_Player_LedgeGrab = m_Player.FindAction("Ledge Grab", throwIfNotFound: true);
         // Cheats
         m_Cheats = asset.FindActionMap("Cheats", throwIfNotFound: true);
         m_Cheats_Sunrise = m_Cheats.FindAction("Sunrise", throwIfNotFound: true);
@@ -565,6 +691,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_EnableCheats;
     private readonly InputAction m_Player_Escape;
     private readonly InputAction m_Player_Shift;
+    private readonly InputAction m_Player_WallRun;
+    private readonly InputAction m_Player_Zipline;
+    private readonly InputAction m_Player_RailGrind;
+    private readonly InputAction m_Player_LedgeClimb;
+    private readonly InputAction m_Player_LedgeRelease;
+    private readonly InputAction m_Player_LedgeGrab;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -576,6 +708,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @EnableCheats => m_Wrapper.m_Player_EnableCheats;
         public InputAction @Escape => m_Wrapper.m_Player_Escape;
         public InputAction @Shift => m_Wrapper.m_Player_Shift;
+        public InputAction @WallRun => m_Wrapper.m_Player_WallRun;
+        public InputAction @Zipline => m_Wrapper.m_Player_Zipline;
+        public InputAction @RailGrind => m_Wrapper.m_Player_RailGrind;
+        public InputAction @LedgeClimb => m_Wrapper.m_Player_LedgeClimb;
+        public InputAction @LedgeRelease => m_Wrapper.m_Player_LedgeRelease;
+        public InputAction @LedgeGrab => m_Wrapper.m_Player_LedgeGrab;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -606,6 +744,24 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Shift.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShift;
                 @Shift.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShift;
                 @Shift.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShift;
+                @WallRun.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallRun;
+                @WallRun.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallRun;
+                @WallRun.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWallRun;
+                @Zipline.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZipline;
+                @Zipline.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZipline;
+                @Zipline.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZipline;
+                @RailGrind.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRailGrind;
+                @RailGrind.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRailGrind;
+                @RailGrind.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRailGrind;
+                @LedgeClimb.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLedgeClimb;
+                @LedgeClimb.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLedgeClimb;
+                @LedgeClimb.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLedgeClimb;
+                @LedgeRelease.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLedgeRelease;
+                @LedgeRelease.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLedgeRelease;
+                @LedgeRelease.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLedgeRelease;
+                @LedgeGrab.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLedgeGrab;
+                @LedgeGrab.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLedgeGrab;
+                @LedgeGrab.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLedgeGrab;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -631,6 +787,24 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Shift.started += instance.OnShift;
                 @Shift.performed += instance.OnShift;
                 @Shift.canceled += instance.OnShift;
+                @WallRun.started += instance.OnWallRun;
+                @WallRun.performed += instance.OnWallRun;
+                @WallRun.canceled += instance.OnWallRun;
+                @Zipline.started += instance.OnZipline;
+                @Zipline.performed += instance.OnZipline;
+                @Zipline.canceled += instance.OnZipline;
+                @RailGrind.started += instance.OnRailGrind;
+                @RailGrind.performed += instance.OnRailGrind;
+                @RailGrind.canceled += instance.OnRailGrind;
+                @LedgeClimb.started += instance.OnLedgeClimb;
+                @LedgeClimb.performed += instance.OnLedgeClimb;
+                @LedgeClimb.canceled += instance.OnLedgeClimb;
+                @LedgeRelease.started += instance.OnLedgeRelease;
+                @LedgeRelease.performed += instance.OnLedgeRelease;
+                @LedgeRelease.canceled += instance.OnLedgeRelease;
+                @LedgeGrab.started += instance.OnLedgeGrab;
+                @LedgeGrab.performed += instance.OnLedgeGrab;
+                @LedgeGrab.canceled += instance.OnLedgeGrab;
             }
         }
     }
@@ -790,6 +964,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnEnableCheats(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
         void OnShift(InputAction.CallbackContext context);
+        void OnWallRun(InputAction.CallbackContext context);
+        void OnZipline(InputAction.CallbackContext context);
+        void OnRailGrind(InputAction.CallbackContext context);
+        void OnLedgeClimb(InputAction.CallbackContext context);
+        void OnLedgeRelease(InputAction.CallbackContext context);
+        void OnLedgeGrab(InputAction.CallbackContext context);
     }
     public interface ICheatsActions
     {
