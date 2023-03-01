@@ -29,9 +29,7 @@ public class NpcInteractable : Interactable
 
         switch (npcRef.m_Data.m_Type) 
         {
-            case NpcType.Standard:
-                Debug.Log("This is a standard NPC.");
-
+            case NpcType.Standard:                
                 // Trigger Dialogue UI
                 UI_Manager.GetInstance().LoadNpcDialogue(npcRef);
 
@@ -123,32 +121,6 @@ public class NpcInteractable : Interactable
                     });                  
                 }
 
-                break;
-
-            case NpcType.Challenge_Giver:
-                Debug.Log("Trigger Challenge: [" + npcRef.m_ChallengeID + "]");
-
-                if (RaceManager.GetInstance().m_ChallengeActive == false) 
-                {
-                    // Open Dialogue UI
-                    UI_Manager.GetInstance().LoadNpcDialogue(npcRef);
-
-                    // Set the OK button in dialogue to initialize the race
-                    UI_Manager.GetInstance().YesDialogueButton.onClick.RemoveAllListeners();
-                    UI_Manager.GetInstance().YesDialogueButton.onClick.AddListener(delegate { 
-                        
-                        // Hide the Dialogue Panel
-                        UI_Manager.GetInstance().EndNpcDialogue();
-
-                        // Begin Cinematic Intro
-                        if (npcRef.cinematicIndex != -1) {
-                            GameObject.Find("CinematicsManager").GetComponent<CinematicsManager>().Play(npcRef.cinematicIndex);
-                        }    
-
-                        // Initialize the Challenge while cinematic is playing
-                        RaceManager.GetInstance().InitializeChallenge(controller, npcRef.m_ChallengeID);                       
-                    });                      
-                }
                 break;
         }
     }

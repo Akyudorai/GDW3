@@ -154,7 +154,6 @@ public class PlayerController : MonoBehaviour
     public void InteractCtx(InputAction.CallbackContext ctx) 
     {
         if (!ctx.performed) { return; }
-
         interactionHandler.Interact(this, InteractionType.Social);
     }
 
@@ -565,7 +564,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision col) 
     {       
-        Debug.Log(col.gameObject);
+        //Debug.Log(col.gameObject);
         if (col.gameObject.tag == "Platform")
         {
             // Set Parent if result is of tag "Platform"

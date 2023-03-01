@@ -124,7 +124,7 @@ public class ManeuverHandler : MonoBehaviour
 
     public void ResetWallInteractionTimers() 
     {
-        Debug.Log("Wall Timers Reset");
+        //Debug.Log("Wall Timers Reset");
 
         if (wallDelays.Count > 0) 
         {

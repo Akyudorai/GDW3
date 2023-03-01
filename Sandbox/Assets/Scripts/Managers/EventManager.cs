@@ -12,8 +12,6 @@ public static class EventManager
     // -- GAME EVENTS
     public static OnIntDelegate OnRaceBegin;
     public static OnBoolDelegate OnRaceEnd;
-    public static OnIntDelegate OnChallengeBegin;
-    public static OnBoolDelegate OnChallengeEnd;
     public static OnVoidDelegate OnDayBegin;
     public static OnVoidDelegate OnNightBegin;
     public static OnVoidDelegate OnPlayerJump;

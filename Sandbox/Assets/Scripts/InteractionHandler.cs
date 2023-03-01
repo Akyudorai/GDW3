@@ -61,7 +61,7 @@ public class InteractionHandler : MonoBehaviour
             }
         }
 
-        if (targetInteractable == null) 
+        if (targetInteractable == null || PlayerController.LocalPlayer.e_State != PlayerState.Active) 
         {
             UI_Manager.GetInstance().TogglePrompt(false);
         }
@@ -89,6 +89,7 @@ public class InteractionHandler : MonoBehaviour
 
     public void Interact(PlayerController pc, InteractionType type) 
     {
+        
         Vector3 castPoint = pc.transform.position + pc.transform.up * 1.5f;
         Collider[] hitColliders = Physics.OverlapSphere(castPoint, InteractionDistance, InteractableLayer);
     
@@ -96,7 +97,7 @@ public class InteractionHandler : MonoBehaviour
         Collider closestHit = null;
         foreach (var hit in hitColliders) 
         {
-            Interactable i = hit.gameObject.GetComponent<Interactable>();
+            Interactable i = hit.gameObject.GetComponent<Interactable>();           
 
             if (i.GetInteractionType() == type) 
             {

@@ -9,7 +9,7 @@ public class NpcHelpState : NpcBaseState
     //float targetTime = 3f;
     public override void EnterState (NpcStateManager npc)
     {
-        Debug.Log(npc.gameObject.name);
+        //Debug.Log(npc.gameObject.name);
     }
 
     public override void UpdateState (NpcStateManager npc)

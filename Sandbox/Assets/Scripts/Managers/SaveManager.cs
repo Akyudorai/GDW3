@@ -57,13 +57,6 @@ public class SaveManager : MonoBehaviour
             result += "rc-"+rc+"-"+rc_score.ToString("F2") + "\n";
         }
 
-        // Load Challenge TImes
-        for (int ch = 0; ch < RaceManager.GetInstance().challengeList.Count; ch++) 
-        {
-            float ch_score = RaceManager.GetInstance().challengeList[ch].m_Score;
-            result += "ch-"+ch+"-"+ch_score.ToString("F2")+"\n";
-        }
-
         return result;
     }
     
@@ -93,11 +86,6 @@ public class SaveManager : MonoBehaviour
             if (arr[0] == "rc") {
                 // Update race manager with race times                
                 RaceManager.GetInstance().raceList[int.Parse(arr[1])].m_Score = float.Parse(arr[2]);
-            }
-
-            if (arr[0] == "ch") {
-                // Update the racemanager with challenge times
-                RaceManager.GetInstance().challengeList[int.Parse(arr[1])].m_Score = float.Parse(arr[2]);
             }
 
             if (arr[0] == "b") {

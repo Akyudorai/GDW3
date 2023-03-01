@@ -72,6 +72,13 @@ MonoBehaviour:
     m_Objective: Complete the race!
     m_Score: 0
     WPS_Index: 3
+  - m_ID: 4
+    m_Name: Scaling The Tower
+    m_Description: Get from the Communal Steps to the top of the _NAME_ Tower as
+      fast as possible!
+    m_Objective: Complete the race!
+    m_Score: 0
+    WPS_Index: 4
   activeRaceID: -1
   m_RaceActive: 0
   challengeList:
