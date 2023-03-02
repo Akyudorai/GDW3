@@ -403,12 +403,8 @@ public class PlayerController : MonoBehaviour
         // Get direction based on angle of ground
         Vector3 motion_result = v_HorizontalVelocity + v_VerticalVelocity;
         float ground_angle = GetGroundAngle();
-        Debug.Log(ground_angle);
         Vector3 angled_motion = Quaternion.AngleAxis(ground_angle, mesh.transform.right) * motion_result;    
-        
-        Debug.Log("Motion Result: " + motion_result);
-        Debug.Log("Angled Result: " + angled_motion);
-
+ 
         // Move the players position in the direction of velocity
         rigid.velocity = angled_motion;     
         UI_Manager.GetInstance().UpdateSpeedTracker(v_HorizontalVelocity.magnitude);   

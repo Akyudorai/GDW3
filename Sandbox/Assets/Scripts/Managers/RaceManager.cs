@@ -44,9 +44,16 @@ public class RaceManager : MonoBehaviour
         WaypointSystem wps = wpm.GetRaceWPS(raceList[raceID].WPS_Index);        
         wpm.InitializeRaceWPS(raceList[raceID].WPS_Index);
 
-        // Set player position
+        // Zero out player motion
+        pcRef.v_HorizontalVelocity = Vector3.zero;
+        pcRef.v_VerticalVelocity = Vector3.zero;
+        pcRef.rigid.velocity = Vector3.zero;        
+        
+        // Set player position and orientation
         pcRef.gameObject.transform.position = wps.Beginning.position;
-        pcRef.gameObject.transform.rotation = wps.Beginning.rotation;
+        pcRef.mesh.transform.rotation = wps.Beginning.rotation;
+        pcRef.camera_pivot.transform.rotation = wps.Beginning.rotation;
+
         
         // Queue the Countdown Timer
         m_RaceActive = true;
