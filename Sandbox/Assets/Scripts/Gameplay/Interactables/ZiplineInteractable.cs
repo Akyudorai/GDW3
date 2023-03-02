@@ -13,7 +13,7 @@ public class ZiplineInteractable : Interactable
 
     public override InteractionType GetInteractionType() 
     {
-        return InteractionType.Rail;
+        return InteractionType.Zipline;
     }
 
     public override void Interact(PlayerController pc, RaycastHit hit) 

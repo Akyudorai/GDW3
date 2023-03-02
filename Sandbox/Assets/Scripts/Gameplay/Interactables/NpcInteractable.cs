@@ -45,6 +45,8 @@ public class NpcInteractable : Interactable
                     // Hide the Dialogue Panel
                     UI_Manager.GetInstance().EndNpcDialogue();
 
+                    if (npcRef.m_QuestID == -1) return;
+
                     if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected == false) //only adds the quest to the phone, if it isn't already there.
                     {
                         GameObject newQuestLogItem = Instantiate(UI_Manager.GetInstance().questLogItem, UI_Manager.GetInstance().contentPanel.transform); //add a new quest to the quest app 

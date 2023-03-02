@@ -69,7 +69,9 @@ public class InteractionHandler : MonoBehaviour
         else 
         {
             if (Vector3.Distance(castPoint, closestHit.ClosestPoint(castPoint)) <= InteractionDistance)
-            {
+            {   
+                Debug.Log("Target: " + targetInteractable);
+                Debug.Log("Interactable: " + targetInteractable.GetComponent<Interactable>());
                 InteractionType type = targetInteractable.GetComponent<Interactable>().GetInteractionType();
                 InputAction key = GetInputActionReference(pc, type);
                 
@@ -158,7 +160,7 @@ public class InteractionHandler : MonoBehaviour
                 action = pc.PlayerInput.actions["Ledge Grab"];
                 break;
             case InteractionType.Zipline:
-                action = pc.PlayerInput.actions["Zipeline"];
+                action = pc.PlayerInput.actions["Zipline"];
                 break;
             case InteractionType.Social:
                 action = pc.PlayerInput.actions["Interact"];

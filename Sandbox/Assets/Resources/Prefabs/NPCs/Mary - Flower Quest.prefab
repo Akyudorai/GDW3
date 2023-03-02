@@ -1,0 +1,174 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5007658868265356123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5007658868265356120}
+  - component: {fileID: 5007658868265356124}
+  - component: {fileID: 5007658868265356127}
+  - component: {fileID: 5007658868265356126}
+  - component: {fileID: 5007658868265356121}
+  m_Layer: 10
+  m_Name: Mary - Flower Quest
+  m_TagString: Interactable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5007658868265356120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007658868265356123}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000016093252}
+  m_LocalPosition: {x: 74.18, y: 4.82, z: 64.23}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3820704442472956537}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!65 &5007658868265356124
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007658868265356123}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.419704, y: 1.7315444, z: 0.3241488}
+  m_Center: {x: -0.03628659, y: 1.0145864, z: 0.034430876}
+--- !u!114 &5007658868265356127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007658868265356123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c3882b18badb341a7f2c691cf5ade7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5007658868265356126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007658868265356123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86a88b6aa5a01104cb82b6a5af0fccce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ID: 8
+  m_Data:
+    NpcName: Mary
+    m_Type: 1
+    NpcDialogue:
+    - Oh dear, it seems that I forgot to bring the gardening tools to work today.
+      If you could retrieve them for me, I would be mighty grateful.
+  cinematicIndex: -1
+  DialogueImage: {fileID: 21300000, guid: 868fc28ed6a4cf647bb60bbeea9fd79f, type: 3}
+  DialogueYesImage: {fileID: 21300000, guid: 47eda5b648f6b2944a9a289469b0e41e, type: 3}
+  m_QuestID: 2
+  m_RaceID: -1
+--- !u!114 &5007658868265356121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007658868265356123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207bf6ef0141295419a47fdfec917200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &5007658867492519970
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5007658868265356120}
+    m_Modifications:
+    - target: {fileID: 8105099750814089819, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105099750814089819, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105099750814089819, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105099750814089819, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105099750814089819, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105099750814089819, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105099750814089819, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105099750814089819, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105099750814089819, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105099750814089819, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105099750814089819, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8876816877889902817, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6,
+        type: 3}
+      propertyPath: m_Name
+      value: Quest Box
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6, type: 3}
+--- !u!4 &3820704442472956537 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8105099750814089819, guid: ecfad7e9f4d586f46b5a7dd56a6b40c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 5007658867492519970}
+  m_PrefabAsset: {fileID: 0}
