@@ -1,0 +1,10 @@
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\Client\obj\Debug\Client.csproj.AssemblyReference.cache
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\Client\bin\Debug\SeaDrive_NetTest.exe.config
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\Client\bin\Debug\SeaDrive_NetTest.exe
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\Client\bin\Debug\SeaDrive_NetTest.pdb
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\Client\obj\Debug\SeaDrive_NetTest.exe
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\Client\obj\Debug\SeaDrive_NetTest.pdb
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\Client\obj\Debug\Client.csproj.CopyComplete
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\Client\bin\Debug\NetworkUtilities.dll
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\Client\bin\Debug\NetworkUtilities.pdb

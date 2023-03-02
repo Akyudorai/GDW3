@@ -11,13 +11,16 @@ public class RailInteractable : Interactable
         this.node = node;
     }
 
-    public override InteractableType GetInteractableType() 
+    public override InteractionType GetInteractionType() 
     {
-        return InteractableType.Manuever;
+        return InteractionType.Rail;
     }
 
     public override void Interact(PlayerController pc, RaycastHit hit) 
-    {                       
+    {                      
+        // RULE #1: Player must be above the rail to initiate a rail grind
+        if (pc.transform.position.y + 1.5f < hit.point.y) return;
+
         // Reference variables make it easier to type and read
         Vector3 pA = node.position;         
         Vector3 pB = node.next.position;
@@ -41,14 +44,14 @@ public class RailInteractable : Interactable
         bool isForward = ((pos_dist >= neg_dist) ? true : false);
     
         // Attach the player to the node at the point of interaction (closest point)
-        node.Attach(pc.splineController, result, isForward);        
+        node.Attach(pc.maneuverHandler.splineController, result, isForward);        
 
         // Spawn a GrindVFX on the player until detatched
         GameObject newVFX = Instantiate(Resources.Load<GameObject>("VFX/GrindVFX"));
         newVFX.transform.SetParent(pc.gameObject.transform);
         newVFX.transform.localPosition = Vector3.zero;
         newVFX.transform.Rotate(0, pc.transform.rotation.y, 0);
-        pc.splineController.SplineVFX = newVFX;
+        pc.maneuverHandler.splineController.SplineVFX = newVFX;
         
     }
 }

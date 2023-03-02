@@ -24,13 +24,6 @@ public class RaceManager : MonoBehaviour
     public int activeRaceID = -1;    
     public bool m_RaceActive;
 
-    [Header("Challenge Data")]
-    public List<ChallengeData> challengeList = new List<ChallengeData>();
-
-    [Header("Challenge Variables")]
-    public int activeChallengeID = -1;
-    public bool m_ChallengeActive;
-
     // Initialization
     private void Awake() 
     {
@@ -41,7 +34,6 @@ public class RaceManager : MonoBehaviour
         instance = this;       
 
         EventManager.OnRaceEnd += RaceComplete;
-        EventManager.OnChallengeEnd += ChallengeComplete;
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -95,29 +87,11 @@ public class RaceManager : MonoBehaviour
         b_Pregame = false;  
         pcRef.SetPlayerState(PlayerState.Active);
 
-        if (m_RaceActive) EventManager.OnRaceBegin?.Invoke(ID);
-        else if (m_ChallengeActive) EventManager.OnChallengeBegin?.Invoke(ID);        
+        if (m_RaceActive) EventManager.OnRaceBegin?.Invoke(ID);      
 
         yield return new WaitForSeconds(1.0f);
         UI_Manager.GetInstance().ToggleCountdown(false);
 
-    }
-
-    public void InitializeChallenge(PlayerController pcRef, int challengeID) 
-    {
-        // Initialize the appropriate Waypoint System based on index
-        WaypointManager wpm = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
-        WaypointSystem wps = wpm.GetChallengeWPS(challengeList[challengeID].WPS_Index);
-        wpm.InitializeChallengeWPS(challengeList[challengeID].WPS_Index);
-
-        // Set the player position
-        pcRef.gameObject.transform.position = wps.Beginning.position;
-        pcRef.gameObject.transform.rotation = wps.Beginning.rotation;
-
-        // Queue the Countdown Timer
-        m_ChallengeActive = true;
-        activeChallengeID = challengeID;
-        StartCoroutine(Countdown(pcRef, challengeID));
     }
 
     private void Update() 
@@ -126,18 +100,6 @@ public class RaceManager : MonoBehaviour
         {
             m_Timer += Time.deltaTime;
             UI_Manager.GetInstance().UpdateRaceTimer(m_Timer);
-        }
-
-        if (m_ChallengeActive && !b_Pregame) 
-        {
-            m_Timer += Time.deltaTime;
-            UI_Manager.GetInstance().UpdateRaceTimer(m_Timer);
-
-            // If the timer hits zero
-            if (m_Timer >= challengeList[activeChallengeID].m_TimeLimit) {
-                // Forfeit the challenge
-                EventManager.OnChallengeEnd?.Invoke(true);
-            }
         }
     }
 
@@ -159,24 +121,6 @@ public class RaceManager : MonoBehaviour
         activeRaceID = -1;                
     }
 
-    public void ChallengeComplete(bool isForfeit)
-    {
-        if (!isForfeit) {
-            SaveScore(activeChallengeID, m_Timer);        
-        } else 
-        {
-            Debug.Log("Challenge has been forfeited");
-        }
-
-        StartCoroutine(UI_Manager.GetInstance().TogglePostgamePanel(true, 3));
-        UI_Manager.GetInstance().UpdatePostgameTime(m_Timer);
-        UI_Manager.GetInstance().UpdatePostgameHighscore(raceList[activeRaceID].m_Score);        
-        UI_Manager.GetInstance().UpdatePostgamePosition(((isForfeit) ? "Boo!" : "Yay!"));
-
-        m_ChallengeActive = false;
-        activeChallengeID = -1;
-    }
-
     public void SaveScore(int id, float time) 
     {
         if (m_RaceActive) 
@@ -192,25 +136,9 @@ public class RaceManager : MonoBehaviour
             }
         }
 
-        else if (m_ChallengeActive)
-        {
-            if (time <= challengeList[id].m_TimeLimit)
-            {                
-                if (challengeList[id].m_Score > time || challengeList[id].m_Score <= 0)
-                {
-                    challengeList[activeChallengeID].m_Score = m_Timer;
-                    SaveManager.GetInstance().SaveFile();
-                    Debug.Log("New Top Score: " + time);
-                }                
-            } else 
-            {
-                Debug.Log("Your score: " + time + " | Top Score: " + challengeList[id].m_Score);
-            }
-        }
-
         else 
         {
-            Debug.Log("No active race or challenge!?");
+            Debug.Log("No active race!?");
         }
     }
 }

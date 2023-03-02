@@ -1,0 +1,6 @@
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\NetworkUtilities\obj\Debug\NetworkUtilities.csproj.AssemblyReference.cache
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\NetworkUtilities\obj\Debug\NetworkUtilities.csproj.CoreCompileInputs.cache
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\NetworkUtilities\bin\Debug\NetworkUtilities.dll
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\NetworkUtilities\bin\Debug\NetworkUtilities.pdb
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\NetworkUtilities\obj\Debug\NetworkUtilities.dll
+C:\Users\UF-CJ\source\repos\SeaDrive_NetTest\NetworkUtilities\obj\Debug\NetworkUtilities.pdb

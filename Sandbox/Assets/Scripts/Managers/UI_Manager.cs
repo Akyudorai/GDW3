@@ -88,9 +88,14 @@ public class UI_Manager : MonoBehaviour
 
     [Header("Npc Dialogue Panel")]    
     public GameObject DialoguePanel;
-    public TMP_Text DialogueNameDisplay;
+    public Image DialogueBox;
     public TMP_Text DialogueOutputDisplay;
     public Button YesDialogueButton;
+    public Button NoDialogueButton;
+
+    [Header("Interaction Prompt Panel")]
+    public GameObject PromptPanel;
+    public TMP_Text PromptKeyDisplay;
 
 
     private void Start() 
@@ -103,14 +108,20 @@ public class UI_Manager : MonoBehaviour
         questItemIcons[2] = questItem3;
 
         EventManager.OnRaceBegin += EnableRaceTimer;
-        EventManager.OnChallengeBegin += EnableRaceTimer;
         EventManager.OnRaceEnd += DisableRaceTimer;
-        EventManager.OnChallengeEnd += DisableRaceTimer;
 
         EventManager.OnCollectibleFound += UpdateCollectibleImage;
         EventManager.OnCollectibleFound += UpdateCollectibleAnnouncement;
 
         Debug.Log(NotificationObject.gameObject.name);
+    }
+
+    // ============ PROMPT FUNCTIONS =====================
+
+    public void TogglePrompt(bool state, string key = "") 
+    {
+        PromptPanel.SetActive(state);
+        PromptKeyDisplay.text = key;
     }
 
     // ============ DIALOGUE FUNCTIONS =====================
@@ -128,11 +139,19 @@ public class UI_Manager : MonoBehaviour
         Cursor.visible = true;
 
         // Toggle Dialogue Panel
-        DialoguePanel.SetActive(true);        
+        DialoguePanel.SetActive(true); 
+        DialogueBox.sprite = npcRef.DialogueImage;   
 
+        if (npcRef.m_Data.m_Type == NpcType.Standard) {
+            YesDialogueButton.gameObject.SetActive(false);
+        } else {
+            YesDialogueButton.gameObject.SetActive(true);
+            YesDialogueButton.GetComponent<Image>().sprite = npcRef.DialogueYesImage;
+        }
+                    
         // Create an animated typing effect on the dialogue box
         NpcData data = NpcData.Get(npcRef.m_ID);
-        DialogueNameDisplay.text = data.NpcName;
+        //DialogueNameDisplay.text = data.NpcName;
         DialogueOutputDisplay.text = data.NpcDialogue[0];
 
         // Once the typing is complete, reveal list of interaction options

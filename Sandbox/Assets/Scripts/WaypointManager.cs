@@ -5,12 +5,6 @@ using UnityEngine;
 public class WaypointManager : MonoBehaviour
 {
     public List<WaypointSystem> RaceSystems;
-    public List<WaypointSystem> ChallengeSystems;
-
-    public void InitializeChallengeWPS(int index)
-    {
-        ChallengeSystems[index].Initialize();
-    }
 
     public void InitializeRaceWPS(int index) 
     {
@@ -20,10 +14,5 @@ public class WaypointManager : MonoBehaviour
     public WaypointSystem GetRaceWPS(int index) 
     {
         return RaceSystems[index];
-    }
-
-    public WaypointSystem GetChallengeWPS(int index) 
-    {
-        return ChallengeSystems[index];
     }
 }

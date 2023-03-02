@@ -41,8 +41,7 @@ public class WaypointSystem : MonoBehaviour
         if (WaypointIndex == Waypoints.Count-1) {
             Debug.Log("Waypoint System Complete!");
 
-            if (RaceManager.GetInstance().m_RaceActive) EventManager.OnRaceEnd?.Invoke(false);
-            else if (RaceManager.GetInstance().m_ChallengeActive) EventManager.OnChallengeEnd?.Invoke(false);            
+            if (RaceManager.GetInstance().m_RaceActive) EventManager.OnRaceEnd?.Invoke(false);          
         } else 
         {
             SetIndex(WaypointIndex+1);

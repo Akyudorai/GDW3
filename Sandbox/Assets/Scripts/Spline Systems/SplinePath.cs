@@ -59,7 +59,8 @@ public class SplinePath : MonoBehaviour
         {
             GameObject pathCollider = new GameObject();
             pathCollider.name = "Path Collider";
-            pathCollider.tag = "Interactable";            
+            pathCollider.tag = "Interactable";  
+            pathCollider.layer = LayerMask.NameToLayer("Interactable");          
             pathCollider.transform.position = nodes[i].position - (nodes[i].position - nodes[i].next.position)/2;
             pathCollider.transform.LookAt(nodes[i].next.position);
 
