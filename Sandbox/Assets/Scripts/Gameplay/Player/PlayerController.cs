@@ -211,6 +211,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update() 
     {
+        GetGroundAngle();
+
         animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
         animator.SetBool("IsGrounded", b_Grounded);        
 
@@ -267,7 +269,7 @@ public class PlayerController : MonoBehaviour
                 // Temporarily disabled until scale issue is resolved when parenting
                 //transform.SetParent(hit.collider.gameObject.transform);
             }
-
+    
             else 
             {                
                 //Debug.Log("Applying Gravity!");
@@ -398,9 +400,17 @@ public class PlayerController : MonoBehaviour
             } 
         }
 
+        // Get direction based on angle of ground
+        Vector3 motion_result = v_HorizontalVelocity + v_VerticalVelocity;
+        float ground_angle = GetGroundAngle();
+        Debug.Log(ground_angle);
+        Vector3 angled_motion = Quaternion.AngleAxis(ground_angle, mesh.transform.right) * motion_result;    
+        
+        Debug.Log("Motion Result: " + motion_result);
+        Debug.Log("Angled Result: " + angled_motion);
 
         // Move the players position in the direction of velocity
-        rigid.velocity = v_HorizontalVelocity + v_VerticalVelocity;     
+        rigid.velocity = angled_motion;     
         UI_Manager.GetInstance().UpdateSpeedTracker(v_HorizontalVelocity.magnitude);   
     }
 
@@ -431,6 +441,33 @@ public class PlayerController : MonoBehaviour
         IsOverridingMovement = false;
     }
 
+    private Vector3 GetGroundNormal()
+    {
+        int layerMask = 1 << 6; // Ground Layer
+        if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
+        {
+            return hit.normal;
+        }
+
+        return Vector3.zero;
+    }
+
+    private float GetGroundAngle() 
+    {
+        int layerMask = 1 << 6; // Ground Layer
+        if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
+        {
+            Vector3 normal = hit.normal;
+            Vector3 up = Vector3.up;
+
+            Vector3 forward = mesh.transform.forward;               
+            float angleBetween = 90.0f - Vector3.Angle(forward, normal);
+            return angleBetween;
+        }
+
+        return 0;       
+    }
+
     private void Jump()
     {
         //SoundManager.GetInstance().Play("Alabama");
@@ -454,13 +491,9 @@ public class PlayerController : MonoBehaviour
             // =========================== VERTICAL FORCE COMPONENT ================================
 
             Vector3 surfaceNormal = Vector3.up;            
-
-            // STOOPID THING WAS USED FOR SLIDE MECHANIC.  Instead it created push back on the jump when going up slopes
-            //int layerMask = 1 << 6; // Ground Layer
-            // if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
-            // {                
-            //     //surfaceNormal = hit.normal;                                    
-            // }
+            
+            // used for old slide mechanic
+            //surfaceNormal = GetGroundNormal();
 
             Vector3 result = surfaceNormal;
             v_VerticalVelocity = Vector3.zero;
@@ -470,14 +503,8 @@ public class PlayerController : MonoBehaviour
 
             Vector3 jBoost = v_HorizontalVelocity;
             jBoost.y = 0;
-            
-            // // Apply a boost to jumps to make it feel less slow amd simulate bunny hopping strategies
-            // if (jBoost != Vector3.zero) 
-            // {
-            //     jBoost = v_HorizontalVelocity * f_JumpBoostPercentage;.
-            //     jBoost.y = 0;            
-            // }
 
+            // Apply a boost to jumps to make it feel less slow amd simulate bunny hopping strategies
             ApplyForce(jBoost * f_JumpBoostPercentage);
             
 
@@ -550,6 +577,9 @@ public class PlayerController : MonoBehaviour
         halfExtents.y += groundColliderHeight;
 
         float maxDistance = GetComponent<Collider>().bounds.extents.y;
+
+        // Calculate angle of ground
+
 
         
         bool rayResult = Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.1f, layerMask);        
