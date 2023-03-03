@@ -33,6 +33,11 @@ public class NpcInteractable : Interactable
                 // Trigger Dialogue UI
                 UI_Manager.GetInstance().LoadNpcDialogue(npcRef);
 
+                // No Button Simply Ends Dialogue
+                UI_Manager.GetInstance().NoDialogueButton.onClick.RemoveAllListeners();
+                UI_Manager.GetInstance().NoDialogueButton.onClick.AddListener(delegate {
+                    UI_Manager.GetInstance().EndNpcDialogue();
+                });
                 break;
             case NpcType.Quest_Giver:
                 Debug.Log("Trigger Quest: [" + npcRef.m_QuestID + "]");
@@ -62,7 +67,8 @@ public class NpcInteractable : Interactable
 
                 UI_Manager.GetInstance().NoDialogueButton.onClick.RemoveAllListeners();
                 UI_Manager.GetInstance().NoDialogueButton.onClick.AddListener(delegate {
-                    if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_RequirementsMet == true)
+                    if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_RequirementsMet == true 
+                        && QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Completed == false)
                     {
                         Debug.Log("Quest Complete!!!");
                         QuestManager.GetInstance().QuestComplete(QuestManager.GetInstance().questList[npcRef.m_QuestID]);
@@ -96,6 +102,12 @@ public class NpcInteractable : Interactable
 
                         // Initialize the Race while cinematic is playing
                         RaceManager.GetInstance().InitializeRace(controller, npcRef.m_RaceID);                         
+                    });
+
+                    // No Button Simply Ends Dialogue
+                    UI_Manager.GetInstance().NoDialogueButton.onClick.RemoveAllListeners();
+                    UI_Manager.GetInstance().NoDialogueButton.onClick.AddListener(delegate {
+                        UI_Manager.GetInstance().EndNpcDialogue();
                     });                  
                 }
 

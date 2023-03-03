@@ -141,14 +141,23 @@ public class UI_Manager : MonoBehaviour
         DialoguePanel.SetActive(true); 
         DialogueBox.sprite = npcRef.DialogueImage;   
 
-        if (npcRef.m_Data.m_Type == NpcType.Standard || QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected == true) {
+        if (npcRef.m_Data.m_Type == NpcType.Standard) {
             YesDialogueButton.gameObject.SetActive(false);
-        } else {
-            if(QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected == false)
+        } 
+        else if (npcRef.m_Data.m_Type == NpcType.Quest_Giver) 
+        {
+            if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected == true)
             {
+                YesDialogueButton.gameObject.SetActive(false);
+            } else {
                 YesDialogueButton.gameObject.SetActive(true);
-            }            
-            YesDialogueButton.GetComponent<Image>().sprite = npcRef.DialogueYesImage;
+                YesDialogueButton.GetComponent<Image>().sprite = npcRef.DialogueYesImage;
+            }
+        }
+        else {
+            // ADD AN IF STATEMENT TO CHECK IF RACE IS ACTIVE OR NOT
+            YesDialogueButton.gameObject.SetActive(true);
+            YesDialogueButton.GetComponent<Image>().sprite = npcRef.DialogueYesImage;                     
         }
                     
         // Create an animated typing effect on the dialogue box

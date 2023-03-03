@@ -14158,7 +14158,6 @@ MonoBehaviour:
     type: 3}
   contentPanel: {fileID: 1809494111056693338}
   questItemIcons: []
-  ActivateQuestButton: {fileID: 0}
   bgmSlider: {fileID: 100035143284685090}
   soundEffectSlider: {fileID: 3131565053105736059}
   NotificationObject: {fileID: 6084393495417403930}
@@ -18610,7 +18609,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6914050373616938386
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19826,7 +19825,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7891027417771915671
 RectTransform:
   m_ObjectHideFlags: 0
