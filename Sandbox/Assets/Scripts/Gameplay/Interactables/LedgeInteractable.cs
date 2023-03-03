@@ -22,7 +22,8 @@ public class LedgeInteractable : Interactable
     public override void Interact(PlayerController controller, RaycastHit hit)
     {
         // RULE #1:  Player.position.y must not be greater than Ledge.position.y
-        if (controller.transform.position.y > hit.point.y) return;
+        if (controller.transform.position.y + 1.25f > hit.point.y) return;
+        if (controller.b_Grounded) return;
 
         // Get reference between two points for easier use
         Vector3 pA = node.position;         

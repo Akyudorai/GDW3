@@ -55,17 +55,19 @@ public class SplinePath : MonoBehaviour
         GenerateNodes();
 
         // Generate collider, interaction data, and type-specific interactable scripts
-        for (int i = 0; i < nodes.Count - 1; i++) 
+        for (int i = 0; i < ((IsLooping) ? nodes.Count : nodes.Count - 1); i++) 
         {
+            SplineNode next = ((IsLooping && i == nodes.Count-1) ? nodes[0] : nodes[i].next);
+
             GameObject pathCollider = new GameObject();
             pathCollider.name = "Path Collider";
             pathCollider.tag = "Interactable";  
             pathCollider.layer = LayerMask.NameToLayer("Interactable");          
-            pathCollider.transform.position = nodes[i].position - (nodes[i].position - nodes[i].next.position)/2;
+            pathCollider.transform.position = nodes[i].position - (nodes[i].position - next.position)/2;
             pathCollider.transform.LookAt(nodes[i].next.position);
 
             BoxCollider col = pathCollider.AddComponent<BoxCollider>();
-            col.size = new Vector3(0.1f, 0.1f, (nodes[i].position - nodes[i].next.position).magnitude);
+            col.size = new Vector3(0.1f, 0.1f, (nodes[i].position - next.position).magnitude);
             col.isTrigger = true;
             pathCollider.transform.SetParent(this.transform);
 

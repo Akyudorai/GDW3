@@ -69,14 +69,31 @@ public class InteractionHandler : MonoBehaviour
         else 
         {
             if (Vector3.Distance(castPoint, closestHit.ClosestPoint(castPoint)) <= InteractionDistance)
-            {   
-                Debug.Log("Target: " + targetInteractable);
-                Debug.Log("Interactable: " + targetInteractable.GetComponent<Interactable>());
+            {                   
                 InteractionType type = targetInteractable.GetComponent<Interactable>().GetInteractionType();
                 InputAction key = GetInputActionReference(pc, type);
                 
+                // Apply the same rules that a player undergoes when determining if a maneuver is possible.
+                bool canPerform = true;
+                switch (type) 
+                {
+                    case InteractionType.Rail:
+                        if (pc.transform.position.y + 1.5f < closestHit.ClosestPoint(castPoint).y) canPerform = false;
+                        break;
+                    case InteractionType.Wall:
+                        if (!pc.maneuverHandler.b_CanWallRun) canPerform = false;
+                        if (pc.v_HorizontalVelocity.magnitude < pc.QuickMaxSpeed/3) canPerform = false;    
+                        break;
+                    case InteractionType.Ledge:
+                        if (pc.transform.position.y + 1.25f > closestHit.ClosestPoint(castPoint).y) canPerform = false;
+                        if (pc.b_Grounded) canPerform = false;
+                        break;
+                    case InteractionType.Zipline:
+                        break;
+                }
+
                 // Set the key information as a string for prompt display
-                if (key != null) {
+                if (key != null && canPerform) {
                     string promptText = InputControlPath.ToHumanReadableString(
                         key.bindings[0].effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice);
                     UI_Manager.GetInstance().TogglePrompt(true, promptText);
