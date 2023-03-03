@@ -7,7 +7,7 @@ public class NpcWaitState : NpcBaseState
     
     public override void EnterState(NpcStateManager npc)
     {
-        npc.GetComponentInChildren<Renderer>().material.color = Color.yellow;
+        npc.gameObject.GetComponent<NPC>().m_Data.NpcDialogue[0] = npc.gameObject.GetComponent<NPC>().m_Data.NpcDialogue[1];
     }
 
     public override void UpdateState(NpcStateManager npc)

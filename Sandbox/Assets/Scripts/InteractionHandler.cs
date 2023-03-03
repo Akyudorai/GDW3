@@ -70,8 +70,8 @@ public class InteractionHandler : MonoBehaviour
         {
             if (Vector3.Distance(castPoint, closestHit.ClosestPoint(castPoint)) <= InteractionDistance)
             {   
-                Debug.Log("Target: " + targetInteractable);
-                Debug.Log("Interactable: " + targetInteractable.GetComponent<Interactable>());
+                //Debug.Log("Target: " + targetInteractable);
+                //Debug.Log("Interactable: " + targetInteractable.GetComponent<Interactable>());
                 InteractionType type = targetInteractable.GetComponent<Interactable>().GetInteractionType();
                 InputAction key = GetInputActionReference(pc, type);
                 

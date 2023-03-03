@@ -6,8 +6,7 @@ public class NpcCompleteState : NpcBaseState
 {
     public override void EnterState(NpcStateManager npc)
     {
-        Debug.Log("Entered completion state.");
-        npc.GetComponentInChildren<Renderer>().material.color = Color.green;
+        npc.gameObject.GetComponent<NPC>().m_Data.NpcDialogue[0] = npc.gameObject.GetComponent<NPC>().m_Data.NpcDialogue[2];
     }
 
     public override void UpdateState(NpcStateManager npc)

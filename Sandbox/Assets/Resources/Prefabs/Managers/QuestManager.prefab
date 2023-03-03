@@ -64,9 +64,9 @@ MonoBehaviour:
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
     m_ItemsPositions:
-    - {x: 103.56, y: 6.71, z: 84.36}
-    - {x: 92.2, y: 6.71, z: 84.36}
-    - {x: 82, y: 6.71, z: 84.36}
+    - {x: 81.04, y: 8.75, z: 100.95}
+    - {x: 90.83, y: 8.75, z: 100.95}
+    - {x: 99.41, y: 8.75, z: 100.95}
     m_RequirementsMet: 0
   - m_ID: 1
     m_questItemsCollected: 0
@@ -112,5 +112,98 @@ MonoBehaviour:
     - {x: -99.19, y: 7.48, z: 157.63}
     - {x: -86.25, y: 7.48, z: 160.76}
     m_RequirementsMet: 0
+  - m_ID: 3
+    m_questItemsCollected: 0
+    m_Name: Hard Hat Heroics
+    m_Status: Available
+    m_Description: "Gosh darn it! I can\u2019t seem to catch a break today. Some
+      joker decided to hide all our hard hats. Health and Safety won\u2019t let me
+      enter the construction site to find them, but maybe you can?"
+    m_Objective: Collect 3 hard hats.
+    m_Hint: Check the construction site.
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: f1ed9c0bb28744146b1025ab681eceab, type: 3}
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 7331398461001434515, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
+    - {fileID: 7331398461001434515, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
+    - {fileID: 7331398461001434515, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
+    m_ItemsPositions:
+    - {x: -117.01, y: 16.051, z: -55.64}
+    - {x: -193.87, y: 14.2, z: -143.7}
+    - {x: -132.88, y: 4.9251046, z: -164.69}
+    m_RequirementsMet: 0
+  - m_ID: 4
+    m_questItemsCollected: 0
+    m_Name: Running On Empty
+    m_Status: Available
+    m_Description: Mamma Mia! These sky rats have done it again. They attack my van
+      and steal my pastries. You! Find my pastries while I teach those hooligans
+      a lesson.
+    m_Objective: Collect 3 pastries.
+    m_Hint: Check the roof tops.
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 927ca76d0bbce474dbf4e2e9c0471a2a, type: 3}
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 5941851256237214570, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
+    - {fileID: 5941851256237214570, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
+    - {fileID: 5941851256237214570, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
+    m_ItemsPositions:
+    - {x: 81.04, y: 6.05, z: 88.15}
+    - {x: 89.97, y: 6.05, z: 88.15}
+    - {x: 99.92, y: 6.05, z: 88.15}
+    m_RequirementsMet: 0
+  - m_ID: 5
+    m_questItemsCollected: 0
+    m_Name: Extraterrestrial Aid
+    m_Status: Available
+    m_Description: "Translated from Martian language: Greetings Humans. On our last
+      visit to Earth we seemed to have misplaced our ship\u2019s power cells. We
+      kindly ask that you retrieve them for us."
+    m_Objective: Collect 3 power cells.
+    m_Hint: Check some sketchy alleys.
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 8bdee5d1916cdbf4ab6bfa1c778d4224, type: 3}
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 1244824266667019072, guid: ad07875fdf007fb48a6926c67ad40252, type: 3}
+    - {fileID: 1244824266667019072, guid: ad07875fdf007fb48a6926c67ad40252, type: 3}
+    - {fileID: 1244824266667019072, guid: ad07875fdf007fb48a6926c67ad40252, type: 3}
+    m_ItemsPositions:
+    - {x: 81.04, y: 5.38, z: 108.4}
+    - {x: 88.96, y: 5.38, z: 108.4}
+    - {x: 99.6, y: 5.38, z: 108.4}
+    m_RequirementsMet: 0
+  - m_ID: 6
+    m_questItemsCollected: 0
+    m_Name: Lucky Bottoms
+    m_Status: Available
+    m_Description: "Howdy there partner. I seemed to have misplaced a couple pairs
+      of my lucky boots. I\u2019d be mighty grateful if you could find them for me.
+      Also, don\u2019t tell the missus."
+    m_Objective: Collect 3 pairs of cowboy boots.
+    m_Hint: Maybe we took his boots off to play in the sand?
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 60a0a408501277d4ebef90fc3f0081aa, type: 3}
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 3241583538277307337, guid: 5096cdf66dde08b46b76389442501107, type: 3}
+    - {fileID: 3241583538277307337, guid: 5096cdf66dde08b46b76389442501107, type: 3}
+    - {fileID: 3241583538277307337, guid: 5096cdf66dde08b46b76389442501107, type: 3}
+    m_ItemsPositions:
+    - {x: 48.37, y: 5.38, z: 54.85}
+    - {x: 43.59, y: 5.38, z: 54.85}
+    - {x: 37.65, y: 5.38, z: 54.85}
+    m_RequirementsMet: 0
   activeQuestItems: []
   selectedQuest: {fileID: 0}
+  npcList: []

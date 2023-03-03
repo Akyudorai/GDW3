@@ -39,6 +39,10 @@ public static class AssetLoader
         Load("Milk Bottle", 3);
         Load("BatteryQuestItemTemp", 3);       
         Load("Shovel", 3);
+        Load("HardHat", 3);
+        Load("Cupcake", 3);
+        Load("PowerCell", 3);
+        Load("CowboyBoots", 3);
     }
 
     public static void LoadRaceItems() 
