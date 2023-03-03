@@ -52,6 +52,12 @@ public class RailInteractable : Interactable
         newVFX.transform.localPosition = Vector3.zero;
         newVFX.transform.Rotate(0, pc.transform.rotation.y, 0);
         pc.maneuverHandler.splineController.SplineVFX = newVFX;
+
+        // Play Rail Attach SFX
+        FMOD.Studio.EventInstance railAttachSFX = SoundManager.CreateSoundInstance(SoundFile.RailStart);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(railAttachSFX, pc.transform, pc.rigid);
+        railAttachSFX.start();
+        railAttachSFX.release();    
         
     }
 }

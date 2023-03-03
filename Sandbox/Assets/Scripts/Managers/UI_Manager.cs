@@ -113,7 +113,7 @@ public class UI_Manager : MonoBehaviour
         EventManager.OnCollectibleFound += UpdateCollectibleImage;
         EventManager.OnCollectibleFound += UpdateCollectibleAnnouncement;
 
-        Debug.Log(NotificationObject.gameObject.name);
+        //Debug.Log(NotificationObject.gameObject.name);
     }
 
     // ============ PROMPT FUNCTIONS =====================

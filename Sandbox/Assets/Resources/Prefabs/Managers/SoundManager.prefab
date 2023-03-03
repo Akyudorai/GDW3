@@ -179,6 +179,167 @@ MonoBehaviour:
   MusicSource: {fileID: 8780667562687988447}
   LowPitchRange: 0.95
   HighPitchRange: 1.05
+  amb_city:
+    Guid:
+      Data1: 1345668673
+      Data2: 1339887216
+      Data3: -341137019
+      Data4: 715755481
+    Path: event:/Ambience/CityAmbience
+  amb_vendingMachine:
+    Guid:
+      Data1: 30185580
+      Data2: 1112532879
+      Data3: -1047618121
+      Data4: 936403656
+    Path: event:/Ambience/VendingMachineHum
+  bgm_lofi:
+    Guid:
+      Data1: 348336694
+      Data2: 1087222186
+      Data3: 346412728
+      Data4: 1285102880
+    Path: event:/Music/BGM-lofi
+  int_railStart:
+    Guid:
+      Data1: 2012880532
+      Data2: 1179998897
+      Data3: 780541622
+      Data4: 1006408879
+    Path: event:/Interactions/RailStart
+  int_railLoop:
+    Guid:
+      Data1: -1092361743
+      Data2: 1091427405
+      Data3: 1575168905
+      Data4: -1263439828
+    Path: event:/Interactions/RailGrind
+  int_railRelease:
+    Guid:
+      Data1: 317069984
+      Data2: 1334961001
+      Data3: 1393953938
+      Data4: 19769383
+    Path: event:/Interactions/RailEnd
+  int_zipStart:
+    Guid:
+      Data1: -1041401118
+      Data2: 1285741665
+      Data3: 1333734068
+      Data4: 99080964
+    Path: event:/Interactions/ZiplineStart
+  int_zipLoop:
+    Guid:
+      Data1: -1190257386
+      Data2: 1273593140
+      Data3: -409910103
+      Data4: 577947947
+    Path: event:/Interactions/Zipline
+  int_zipRelease:
+    Guid:
+      Data1: 137032182
+      Data2: 1244281267
+      Data3: 1824597906
+      Data4: -730366728
+    Path: event:/Interactions/ZiplineEnd
+  int_wallRun:
+    Guid:
+      Data1: -418226874
+      Data2: 1095143093
+      Data3: 2057646732
+      Data4: -784231353
+    Path: event:/Interactions/WallRun
+  int_wallRunRelease:
+    Guid:
+      Data1: 1340172009
+      Data2: 1289262846
+      Data3: -1354330962
+      Data4: 82353563
+    Path: event:/Interactions/WallRun_Release
+  int_jumpPad:
+    Guid:
+      Data1: -857977114
+      Data2: 1239327994
+      Data3: -427628110
+      Data4: 1188534507
+    Path: event:/Interactions/JumpPad
+  eve_raceCountdown:
+    Guid:
+      Data1: 15697694
+      Data2: 1130544477
+      Data3: 577903798
+      Data4: 1536953084
+    Path: event:/Events/Race-Countdown
+  eve_raceStart:
+    Guid:
+      Data1: 1064645512
+      Data2: 1102849399
+      Data3: -2008674376
+      Data4: -1608375797
+    Path: event:/Events/Race-Start
+  eve_raceFinish:
+    Guid:
+      Data1: 2076483283
+      Data2: 1093828163
+      Data3: 451359154
+      Data4: -24397883
+    Path: event:/Events/Race-Finish
+  eve_waypoint:
+    Guid:
+      Data1: 1326261767
+      Data2: 1293952772
+      Data3: 663443072
+      Data4: 22466643
+    Path: event:/Events/Race-Waypoint
+  eve_collectiblePickup:
+    Guid:
+      Data1: 1550403074
+      Data2: 1185071784
+      Data3: 478001056
+      Data4: -877052339
+    Path: event:/Events/Collectible-Pickup
+  eve_yay:
+    Guid:
+      Data1: 1933043622
+      Data2: 1226058568
+      Data3: 514612384
+      Data4: -1739396050
+    Path: event:/Events/Funny-Yay
+  pl_jump:
+    Guid:
+      Data1: 1299360679
+      Data2: 1215876250
+      Data3: -1411758441
+      Data4: 229557933
+    Path: event:/Player/Jump
+  pl_running:
+    Guid:
+      Data1: 1810450765
+      Data2: 1326578665
+      Data3: -851509590
+      Data4: 468783628
+    Path: event:/Player/Running
+  pl_landSoft:
+    Guid:
+      Data1: -760342752
+      Data2: 1268095983
+      Data3: 1946101409
+      Data4: -334569400
+    Path: event:/Player/Landing_Soft
+  pl_landMed:
+    Guid:
+      Data1: -323025504
+      Data2: 1204781998
+      Data3: -9058919
+      Data4: -169988974
+    Path: event:/Player/Landing_Medium
+  pl_landHard:
+    Guid:
+      Data1: 1048742329
+      Data2: 1312664419
+      Data3: 1194474165
+      Data4: -1363241811
+    Path: event:/Player/Landing_Hard
 --- !u!1 &8780667562687988441
 GameObject:
   m_ObjectHideFlags: 0

@@ -130,7 +130,7 @@ MonoBehaviour:
       Data2: 1293952772
       Data3: 663443072
       Data4: 22466643
-    Path: event:/Waypoint
+    Path: event:/Events/Race-Waypoint
   Event: 
   PlayEvent: 3
   StopEvent: 0

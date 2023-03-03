@@ -94,6 +94,10 @@ public class PlayerController : MonoBehaviour
     //public GameObject anim_RootTracker;    
     public ParticleSystem ps_MaxSpeed;
 
+    [Header("SFX")]
+    public FMODUnity.EventReference jumpSound;
+    //FMOD.Studio.EventInstance jumpSFXInstance;
+
     private void Awake() 
     {        
         rigid = GetComponent<Rigidbody>();    
@@ -122,6 +126,8 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false; 
+
+        //jumpSFXInstance = FMODUnity.RuntimeManager.CreateInstance(jumpSound);
     }
 
     private void OnDestroy() 
@@ -465,13 +471,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Jump()
-    {
-        //SoundManager.GetInstance().Play("Alabama");
-        FMOD.Studio.EventInstance jumpSfx;
-        jumpSfx = FMODUnity.RuntimeManager.CreateInstance("event:/Jump");
-        jumpSfx.start();
-        jumpSfx.release();        
-
+    {               
         // If on a spline and jump button is released, detatch from it
         if (maneuverHandler.splineController.currentSpline != null) {
             maneuverHandler.splineController.Detatch();            
@@ -509,6 +509,12 @@ public class PlayerController : MonoBehaviour
             transform.SetParent(null);
             StartCoroutine(JumpDelay());
             EventManager.OnPlayerJump?.Invoke();
+
+            // Play Jump SFX
+            FMOD.Studio.EventInstance jumpSFXInstance = SoundManager.CreateSoundInstance(SoundFile.Jump);
+            FMODUnity.RuntimeManager.AttachInstanceToGameObject(jumpSFXInstance, GetComponent<Transform>(), rigid);
+            jumpSFXInstance.start();
+            jumpSFXInstance.release();
         }            
     }
 
@@ -620,6 +626,12 @@ public class PlayerController : MonoBehaviour
         {
             Collectible c = other.GetComponent<Collectible>();
             c.OnCollect();
+
+            // Play Collectible SFX
+            FMOD.Studio.EventInstance collectibleSFX = SoundManager.CreateSoundInstance(SoundFile.CollectiblePickup);
+            FMODUnity.RuntimeManager.AttachInstanceToGameObject(collectibleSFX, gameObject.transform, rigid);
+            collectibleSFX.start();
+            collectibleSFX.release(); 
         }
     }
 

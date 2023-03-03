@@ -42,6 +42,12 @@ public class Launcher : MonoBehaviour
             //StartCoroutine(pc.OverrideMovement(2.0f));
             StartCoroutine(LaunchpadDelay());
             StartCoroutine(pc.JumpDelay());
+
+            // Play JumpPad SFX
+            FMOD.Studio.EventInstance jumpPadSFX = SoundManager.CreateSoundInstance(SoundFile.JumpPad);
+            FMODUnity.RuntimeManager.AttachInstanceToGameObject(jumpPadSFX, other.gameObject.transform, GameManager.GetInstance().pcRef.rigid);
+            jumpPadSFX.start();
+            jumpPadSFX.release(); 
         }
     }
 }

@@ -41,6 +41,12 @@ public class ZiplineInteractable : Interactable
         bool isForward = ((pos_dist >= neg_dist) ? true : false);
     
         // Attach the player to the node at the point of interaction (closest point)
-        node.Attach(pc.maneuverHandler.splineController, result, isForward);               
+        node.Attach(pc.maneuverHandler.splineController, result, isForward);         
+        
+        // Play Zipline Attach SFX
+        FMOD.Studio.EventInstance ziplineAttachSFX = SoundManager.CreateSoundInstance(SoundFile.ZiplineStart);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(ziplineAttachSFX, pc.transform, pc.rigid);
+        ziplineAttachSFX.start();
+        ziplineAttachSFX.release();       
     }    
 }

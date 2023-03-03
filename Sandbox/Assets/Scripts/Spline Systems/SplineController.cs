@@ -16,15 +16,36 @@ public class SplineController : MonoBehaviour
 
     public GameObject SplineVFX = null;
 
+    FMOD.Studio.EventInstance railSFX;
+    FMOD.Studio.EventInstance ziplineSFX;
+
+    private void Start() 
+    {
+        railSFX = SoundManager.CreateSoundInstance(SoundFile.RailLoop);
+        ziplineSFX = SoundManager.CreateSoundInstance(SoundFile.ZiplineLoop);
+        
+        railSFX.start();
+        ziplineSFX.start();
+
+        railSFX.setPaused(true);
+        ziplineSFX.setPaused(true);
+    }
+
+    private void OnDestroy() 
+    {
+        railSFX.release();
+        ziplineSFX.release();
+    }
+
     private void Update() 
     {
         if (currentSpline != null) 
-        {
+        {            
             transform.position = currentSpline.GetNode(nodeIndex).GetCurrentPosition(this);
             Vector3 lookDir = currentSpline.GetNode(nodeIndex).GetDirection();
             lookDir.y = 0;
             mesh.transform.LookAt(mesh.transform.position - lookDir);
-            currentSpline.GetNode(nodeIndex).Traverse(this, traversalSpeed);                       
+            currentSpline.GetNode(nodeIndex).Traverse(this, traversalSpeed);               
             
             // // Check if wall is ahead
             // bool checkWall = (Physics.Raycast(mesh.transform.position, mesh.transform.forward, 1));
@@ -35,13 +56,31 @@ public class SplineController : MonoBehaviour
             //     Detatch();
             // }
 
-
             if (currentSpline == null) return;
+
+            // Play the audio
+            if (currentSpline.splineType == SplineType.Rail) 
+            {
+                railSFX.setPaused(false);   
+                FMODUnity.RuntimeManager.AttachInstanceToGameObject(railSFX, pcRef.transform, pcRef.rigid);
+            } 
+
+            else if (currentSpline.splineType == SplineType.Zipline) 
+            {
+                ziplineSFX.setPaused(false);   
+                FMODUnity.RuntimeManager.AttachInstanceToGameObject(ziplineSFX, pcRef.transform, pcRef.rigid);
+            }
 
             if (currentSpline.splineType == SplineType.Wall)
             {
                 CheckWall();
             } 
+        }
+
+        else 
+        {
+            railSFX.setPaused(true);
+            ziplineSFX.setPaused(true); 
         }
 
         
@@ -90,9 +129,25 @@ public class SplineController : MonoBehaviour
 			switch (pathRef.splineType) {
 				default:
 				// Rail launches player upwards
-				case SplineType.Rail: launchDirection = Vector3.up;	break;
+				case SplineType.Rail: 
+                    launchDirection = Vector3.up;	
+                    
+                    // Play Rail Release SFX
+                    FMOD.Studio.EventInstance railReleaseSFX = SoundManager.CreateSoundInstance(SoundFile.RailRelease);
+                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(railReleaseSFX, pcRef.transform, pcRef.rigid);
+                    railReleaseSFX.start();
+                    railReleaseSFX.release();
+                    break;
 				// Zipline launches has the player drop donwards
-				case SplineType.Zipline: launchDirection = -Vector3.up; break;
+				case SplineType.Zipline: 
+                    launchDirection = -Vector3.up; 
+                    
+                    // Play Zipline Release SFX
+                    FMOD.Studio.EventInstance ziplineReleaseSFX = SoundManager.CreateSoundInstance(SoundFile.ZiplineRelease);
+                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(ziplineReleaseSFX, pcRef.transform, pcRef.rigid);
+                    ziplineReleaseSFX.start();
+                    ziplineReleaseSFX.release();                    
+                    break;
 				// Walls launch the player in the direction of their normal
 				case SplineType.Wall: 				
 					Debug.Log("Is Right (" + pathRef.isRight + ")");				
@@ -101,9 +156,15 @@ public class SplineController : MonoBehaviour
 					//Debug.Log(normalLaunch);
 					Vector3 verticalLaunch = Vector3.up;
 					launchDirection = normalLaunch.normalized * 3.0f + verticalLaunch; 
+
+                    // Play Wallrun Release SFX
+                    FMOD.Studio.EventInstance wallReleaseSFX = SoundManager.CreateSoundInstance(SoundFile.WallRunRelease);
+                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(wallReleaseSFX, pcRef.transform, pcRef.rigid);
+                    wallReleaseSFX.start();
+                    wallReleaseSFX.release();  
 					break;
 			}
-            SoundManager.GetInstance().WallRunDetachSFX();
+            
             // Calculate a launch force based on direction of travel.  The more velocity we have, the further we jump.
             Vector3 launchForce = (pathRef.GetNode(nodeIndex).IsForward) ? 				
 				(pathRef.GetNode(nodeIndex).next.position - pathRef.GetNode(nodeIndex).position).normalized + launchDirection  : 

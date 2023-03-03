@@ -44,5 +44,11 @@ public class WallInteractable : Interactable
         wallRunSpline.GetNode(0).Attach(pc.maneuverHandler.splineController, 0.0f, true);  
                 
         pc.maneuverHandler.wallDelays.Add(this, 3f); // Change value to variable for adjustable wall delay time
+
+        // Play Wallrun SFX
+        FMOD.Studio.EventInstance wallrunSFX = SoundManager.CreateSoundInstance(SoundFile.WallRun);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(wallrunSFX, pc.transform, pc.rigid);
+        wallrunSFX.start();
+        wallrunSFX.release();    
     }
 }

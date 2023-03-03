@@ -20,7 +20,7 @@ public class Footsteps : MonoBehaviour
     private void Start()
     {
         playerController = GameManager.GetInstance().pcRef;
-        footSteps = FMODUnity.RuntimeManager.CreateInstance("event:/Running");
+        footSteps = SoundManager.CreateSoundInstance(SoundFile.Run);
         footSteps.setParameterByName("Terrain", 0);
         footSteps.start();
         footSteps.setPaused(true);
@@ -31,7 +31,7 @@ public class Footsteps : MonoBehaviour
     {
         DetermineTerrain();
 
-        if(playerController.v_HorizontalVelocity.magnitude > 2f && playerController.IsGrounded())
+        if(playerController.v_HorizontalVelocity.magnitude > 2f && playerController.IsGrounded() && playerController.maneuverHandler.splineController.currentSpline == null)
         {
             //if(timer > footstepSpeed)
             //{

@@ -6,6 +6,43 @@ using UnityEngine.UI;
 using System.IO;
 using UnityEditor;
 
+
+public enum SoundFile 
+{   
+    // Ambience
+    CityAmbience,
+    VendingMachineHum,
+    
+    // Music
+    LofiMusic,
+
+    // Interactions
+    RailStart,
+    RailLoop,
+    RailRelease,
+    ZiplineStart,
+    ZiplineLoop,
+    ZiplineRelease,
+    WallRun,
+    WallRunRelease,
+    JumpPad,
+
+    // Events
+    RaceCountdown,
+    RaceStart,
+    RaceFinish,
+    Waypoint,
+    CollectiblePickup,
+    Yay,
+
+    // Player
+    Jump,
+    Run,
+    LandSoft,
+    LandMed,
+    LandHard
+}
+
 public class SoundManager : MonoBehaviour
 {   
     // Audio Library
@@ -22,6 +59,40 @@ public class SoundManager : MonoBehaviour
 
     //Fmod instances
     public FMOD.Studio.EventInstance backgroundMusic;
+    public FMOD.Studio.EventInstance cityAmbience;
+
+    [Header("Ambient Sounds")]
+    [SerializeField] FMODUnity.EventReference amb_city;
+    [SerializeField] FMODUnity.EventReference amb_vendingMachine;
+
+    [Header("Music Sounds")]
+    [SerializeField] FMODUnity.EventReference bgm_lofi;
+
+    [Header("Interaction Sounds")]
+    [SerializeField] FMODUnity.EventReference int_railStart;
+    [SerializeField] FMODUnity.EventReference int_railLoop;
+    [SerializeField] FMODUnity.EventReference int_railRelease;
+    [SerializeField] FMODUnity.EventReference int_zipStart;
+    [SerializeField] FMODUnity.EventReference int_zipLoop;
+    [SerializeField] FMODUnity.EventReference int_zipRelease;
+    [SerializeField] FMODUnity.EventReference int_wallRun;
+    [SerializeField] FMODUnity.EventReference int_wallRunRelease;
+    [SerializeField] FMODUnity.EventReference int_jumpPad;
+
+    [Header("Event Sounds")]
+    [SerializeField] FMODUnity.EventReference eve_raceCountdown;
+    [SerializeField] FMODUnity.EventReference eve_raceStart;
+    [SerializeField] FMODUnity.EventReference eve_raceFinish;
+    [SerializeField] FMODUnity.EventReference eve_waypoint;
+    [SerializeField] FMODUnity.EventReference eve_collectiblePickup;
+    [SerializeField] FMODUnity.EventReference eve_yay;
+
+    [Header("Player Sounds")]
+    [SerializeField] FMODUnity.EventReference pl_jump;
+    [SerializeField] FMODUnity.EventReference pl_running;
+    [SerializeField] FMODUnity.EventReference pl_landSoft;
+    [SerializeField] FMODUnity.EventReference pl_landMed;
+    [SerializeField] FMODUnity.EventReference pl_landHard;
 
     // Singleton Instance
     private static SoundManager instance;
@@ -44,11 +115,61 @@ public class SoundManager : MonoBehaviour
     }
     private void Start()
     {
-        backgroundMusic = FMODUnity.RuntimeManager.CreateInstance("event:/BGM");
+        backgroundMusic = CreateSoundInstance(SoundFile.LofiMusic);
         backgroundMusic.start();
-
         backgroundMusic.setParameterByName("BGMVolume", UI_Manager.GetInstance().bgmSlider.value);
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("SoundEffect", UI_Manager.GetInstance().soundEffectSlider.value);
+    
+        cityAmbience = CreateSoundInstance(SoundFile.CityAmbience);
+        cityAmbience.start();
+    }
+
+    private void OnDestroy() 
+    {
+        backgroundMusic.release();
+        cityAmbience.release();
+    }
+
+    public static FMOD.Studio.EventInstance CreateSoundInstance(SoundFile file) 
+    {
+        switch (file) 
+        {   
+            // Ambience
+            case SoundFile.CityAmbience: return FMODUnity.RuntimeManager.CreateInstance(instance.amb_city);
+            case SoundFile.VendingMachineHum: return FMODUnity.RuntimeManager.CreateInstance(instance.amb_vendingMachine);
+            
+            // Music
+            case SoundFile.LofiMusic: return FMODUnity.RuntimeManager.CreateInstance(instance.bgm_lofi);
+
+            // Interactions
+            case SoundFile.RailStart: return FMODUnity.RuntimeManager.CreateInstance(instance.int_railStart);
+            case SoundFile.RailLoop: return FMODUnity.RuntimeManager.CreateInstance(instance.int_railLoop);
+            case SoundFile.RailRelease: return FMODUnity.RuntimeManager.CreateInstance(instance.int_railRelease);
+            case SoundFile.ZiplineStart: return FMODUnity.RuntimeManager.CreateInstance(instance.int_zipStart);
+            case SoundFile.ZiplineLoop: return FMODUnity.RuntimeManager.CreateInstance(instance.int_zipLoop);
+            case SoundFile.ZiplineRelease: return FMODUnity.RuntimeManager.CreateInstance(instance.int_zipRelease);
+            case SoundFile.WallRun: return FMODUnity.RuntimeManager.CreateInstance(instance.int_wallRun);
+            case SoundFile.WallRunRelease: return FMODUnity.RuntimeManager.CreateInstance(instance.int_wallRunRelease);
+            case SoundFile.JumpPad: return FMODUnity.RuntimeManager.CreateInstance(instance.int_jumpPad);
+
+            // Events
+            case SoundFile.RaceCountdown: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_raceCountdown);
+            case SoundFile.RaceStart: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_raceStart);
+            case SoundFile.RaceFinish: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_raceFinish);
+            case SoundFile.Waypoint: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_waypoint);
+            case SoundFile.CollectiblePickup: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_collectiblePickup);
+            case SoundFile.Yay: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_yay);
+
+            // Player
+            case SoundFile.Jump: return FMODUnity.RuntimeManager.CreateInstance(instance.pl_jump);
+            case SoundFile.Run: return FMODUnity.RuntimeManager.CreateInstance(instance.pl_running);
+            case SoundFile.LandSoft: return FMODUnity.RuntimeManager.CreateInstance(instance.pl_landSoft);
+            case SoundFile.LandMed: return FMODUnity.RuntimeManager.CreateInstance(instance.pl_landMed);
+            case SoundFile.LandHard: return FMODUnity.RuntimeManager.CreateInstance(instance.pl_landHard);
+        }
+
+        Debug.LogError("No sound file [" + file.ToString() + "] found.  Did you set the reference?");
+        return FMODUnity.RuntimeManager.CreateInstance(instance.eve_yay);
     }
 
     private void PopulateAudioLib()
@@ -100,10 +221,5 @@ public class SoundManager : MonoBehaviour
     {
         backgroundMusic.setParameterByName("BGMVolume", _value);
         Debug.Log(_value);
-    }
-
-    public void WallRunDetachSFX()
-    {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/WallRunDetach");
     }
 }

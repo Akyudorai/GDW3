@@ -65,7 +65,7 @@ public class RaceManager : MonoBehaviour
     private void BeginCountdown(int CinematicID)
     {
         StartCoroutine(Countdown(PlayerController.LocalPlayer, activeRaceID));
-        EventManager.OnCinematicEnd -= BeginCountdown;
+        EventManager.OnCinematicEnd -= BeginCountdown;        
     }
 
     public IEnumerator Countdown(PlayerController pcRef, int ID) 
@@ -79,6 +79,12 @@ public class RaceManager : MonoBehaviour
         UI_Manager.GetInstance().ToggleCountdown(true);
         
         yield return new WaitForSeconds(2.0f);
+
+        // Play Countdown SFX
+        FMOD.Studio.EventInstance countdownSFX = SoundManager.CreateSoundInstance(SoundFile.RaceCountdown);
+        countdownSFX.start();
+        countdownSFX.release(); 
+
         // 3
         UI_Manager.GetInstance().UpdateCountdown("3");
         yield return new WaitForSeconds(1.0f);
@@ -93,6 +99,11 @@ public class RaceManager : MonoBehaviour
         // Begin Race    
         b_Pregame = false;  
         pcRef.SetPlayerState(PlayerState.Active);
+
+        // Play Race Start SFX
+        FMOD.Studio.EventInstance startSFX = SoundManager.CreateSoundInstance(SoundFile.RaceStart);
+        startSFX.start();
+        startSFX.release(); 
 
         if (m_RaceActive) EventManager.OnRaceBegin?.Invoke(ID);      
 
@@ -114,6 +125,11 @@ public class RaceManager : MonoBehaviour
     {        
         if (!isForfeit) {            
             SaveScore(activeRaceID, m_Timer);
+        
+            // Play Race Complete SFX
+            FMOD.Studio.EventInstance finishSFX = SoundManager.CreateSoundInstance(SoundFile.RaceFinish);
+            finishSFX.start();
+            finishSFX.release(); 
         } else 
         {
             Debug.Log("Race has been forfeited");

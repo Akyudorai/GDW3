@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="Event" id="{14c33236-b1aa-40cd-b8d6-a514201d994c}">
 		<property name="name">
-			<value>BGM</value>
+			<value>BGM-lofi</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{5c3081a7-8a05-428c-ac4d-b627d7ddc7e0}</destination>
+			<destination>{cbd917a6-e3b8-4d6a-a965-107b88439c5e}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{605e7642-3f32-4453-bf4c-eb106d22250b}</destination>
@@ -35,7 +35,7 @@
 			<destination>{b59123f3-40c5-419a-9a95-ad7f58bb7a2e}</destination>
 		</relationship>
 		<relationship name="banks">
-			<destination>{b5ffc14c-c885-47b9-8b95-d62388ad8078}</destination>
+			<destination>{7fbbda25-3300-4b44-ac5d-e41751db89ab}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{605e7642-3f32-4453-bf4c-eb106d22250b}">
@@ -75,6 +75,9 @@
 	<object class="Timeline" id="{67bd644b-db39-428e-b90f-c0a03ecd6b02}">
 		<relationship name="modules">
 			<destination>{120d70d7-64d4-44ca-aca2-4e1f238b60ab}</destination>
+		</relationship>
+		<relationship name="markers">
+			<destination>{923b9350-92cc-4927-8d80-afdeadd2340b}</destination>
 		</relationship>
 	</object>
 	<object class="ParameterProxy" id="{b59123f3-40c5-419a-9a95-ad7f58bb7a2e}">
@@ -127,6 +130,20 @@
 		</relationship>
 		<relationship name="output">
 			<destination>{3b6ef958-eff9-4418-aad3-adc97846f915}</destination>
+		</relationship>
+	</object>
+	<object class="LoopRegion" id="{923b9350-92cc-4927-8d80-afdeadd2340b}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="length">
+			<value>136</value>
+		</property>
+		<relationship name="timeline">
+			<destination>{67bd644b-db39-428e-b90f-c0a03ecd6b02}</destination>
+		</relationship>
+		<relationship name="markerTrack">
+			<destination>{412f665b-9873-4c3d-b983-03bf7a13e3ec}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{bdc5f8c5-9ead-4385-b005-74fceed0ed61}">
