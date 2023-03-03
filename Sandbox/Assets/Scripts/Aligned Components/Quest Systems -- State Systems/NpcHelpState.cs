@@ -10,6 +10,7 @@ public class NpcHelpState : NpcBaseState
     public override void EnterState (NpcStateManager npc)
     {
         //Debug.Log(npc.gameObject.name);
+        
     }
 
     public override void UpdateState (NpcStateManager npc)

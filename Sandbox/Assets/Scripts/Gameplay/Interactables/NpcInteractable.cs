@@ -47,6 +47,8 @@ public class NpcInteractable : Interactable
 
                     if (npcRef.m_QuestID == -1) return;
 
+                    Debug.Log(QuestManager.GetInstance().questList[npcRef.m_QuestID].m_RequirementsMet);
+
                     if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected == false) //only adds the quest to the phone, if it isn't already there.
                     {
                         GameObject newQuestLogItem = Instantiate(UI_Manager.GetInstance().questLogItem, UI_Manager.GetInstance().contentPanel.transform); //add a new quest to the quest app 
@@ -54,49 +56,23 @@ public class NpcInteractable : Interactable
                         QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected = true;
                         UI_Manager.GetInstance().SendNotification("New Quest Received", UI_Manager.GetInstance().questSprite);
                         QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[npcRef.m_QuestID], newQuestLogItem.GetComponent<QuestDataDisplay>());
-                    }
-                    else
-                    {
-                        if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_RequirementsMet == true)
-                        {
-                            QuestManager.GetInstance().QuestComplete(QuestManager.GetInstance().questList[npcRef.m_QuestID]);
-                        }
+                        this.gameObject.GetComponent<NpcStateManager>().SwitchState(this.gameObject.GetComponent<NpcStateManager>().WaitState);
                     }
                 });
 
+                UI_Manager.GetInstance().NoDialogueButton.onClick.RemoveAllListeners();
+                UI_Manager.GetInstance().NoDialogueButton.onClick.AddListener(delegate {
+                    if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_RequirementsMet == true)
+                    {
+                        Debug.Log("Quest Complete!!!");
+                        QuestManager.GetInstance().QuestComplete(QuestManager.GetInstance().questList[npcRef.m_QuestID]);
+                        this.gameObject.GetComponentInChildren<Animator>().SetBool("Interactive", false);
+                    }
+                    UI_Manager.GetInstance().EndNpcDialogue();
+                });
 
-                
 
-                
-                
-                //if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Completed == false)
-                //{
-                //    NpcStateManager stateManager = this.gameObject.GetComponent<NpcStateManager>();
 
-                //    // Accept the Quest if we don't have one already
-                //    if (QuestManager.GetInstance().activeQuestID == -1) 
-                //    {
-                //        if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Completed == false) 
-                //        {
-                //            QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[npcRef.m_QuestID]);
-                //            stateManager.SwitchState(stateManager.WaitState);
-                //        }                        
-                //    } 
-
-                //    else 
-                //    {
-                //        if (QuestManager.GetInstance().activeQuestID == npcRef.m_QuestID) 
-                //        {
-                //            if (QuestManager.GetInstance().questList[QuestManager.GetInstance().activeQuestID].m_RequirementsMet == true) 
-                //            {
-                //                QuestManager.GetInstance().QuestComplete();
-                //                stateManager.SwitchState(stateManager.CompleteState);
-                //            }
-                //        }
-                        
-                //    }
-                //}
-                
                 break;
             case NpcType.Race_Giver:
                 Debug.Log("Trigger Race: [" + npcRef.m_RaceID + "]");

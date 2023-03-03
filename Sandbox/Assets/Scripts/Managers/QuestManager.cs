@@ -31,6 +31,7 @@ public class QuestManager : MonoBehaviour
     public List<QuestData> questList = new List<QuestData>();
     public List<GameObject> activeQuestItems = new List<GameObject>();
     public QuestDataDisplay selectedQuest;
+    public List<GameObject> npcList = new List<GameObject>();
 
     private void Start() 
     {   
@@ -115,7 +116,6 @@ public class QuestManager : MonoBehaviour
 
         for (int i = 0; i < 3; i++) //displays the an image of the quest items in the quest info panel //NEED TO CHANGE THIS LATER //currently being changed
         {
-            //UI_Manager.GetInstance().questItemIcons[i].SetActive(true);
             UI_Manager.GetInstance().questItemIcons[i].GetComponent<Image>().sprite = _quest.m_questItemIcon;
             Color tempColor = UI_Manager.GetInstance().questItemIcons[i].GetComponent<Image>().color;
             if (i < _quest.m_questItemsCollected) //if item has already been collected set opacity to 1
@@ -129,16 +129,6 @@ public class QuestManager : MonoBehaviour
                 UI_Manager.GetInstance().questItemIcons[i].GetComponent<Image>().color = tempColor;
             }
         }
-
-        //check to see if the selected quest is already complete, if so hide the activation toggle
-        if(_quest.m_Completed == true)
-        {
-            UI_Manager.GetInstance().ToggleActivationButton(false);
-        }
-        else
-        {
-            UI_Manager.GetInstance().ToggleActivationButton(true);
-        }
     }
 
     public void QuestComplete(QuestData _quest)
@@ -150,7 +140,6 @@ public class QuestManager : MonoBehaviour
         // Signal the EventManager that a quest was completed
         EventManager.OnQuestComplete?.Invoke(_quest.m_ID);
         
-        //activeQuestID = -1;
         UI_Manager.GetInstance().UpdateQuestName("Quest Title: -");
         UI_Manager.GetInstance().UpdateQuestDescription("Quest Description: -");
         UI_Manager.GetInstance().UpdateQuestObjective("Quest Objective: -");
@@ -186,7 +175,15 @@ public class QuestManager : MonoBehaviour
         if(questList[_quest.m_ID].m_RequiredItems.Count == 0)
         {
             questList[_quest.m_ID].m_RequirementsMet = true;
-            //QuestComplete(_quest);
+
+            var npcList = Object.FindObjectsOfType<NPC>();
+            for(int i = 0; i < npcList.Length; i++)
+            {
+                if(npcList[i].GetComponent<NPC>().m_QuestID == _quest.m_ID)
+                {
+                    npcList[i].gameObject.GetComponent<NpcStateManager>().SwitchState(npcList[i].gameObject.GetComponent<NpcStateManager>().CompleteState);
+                }
+            }
         }        
     }
 

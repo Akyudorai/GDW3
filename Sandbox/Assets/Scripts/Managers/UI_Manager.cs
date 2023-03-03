@@ -59,7 +59,6 @@ public class UI_Manager : MonoBehaviour
     public GameObject questLogItem; //the ui element that stores the quest info on the quest screen.
     public GameObject contentPanel;
     public GameObject[] questItemIcons;
-    public GameObject ActivateQuestButton;
 
     [Header("Settings Panel")]
     public Slider bgmSlider;
@@ -142,10 +141,13 @@ public class UI_Manager : MonoBehaviour
         DialoguePanel.SetActive(true); 
         DialogueBox.sprite = npcRef.DialogueImage;   
 
-        if (npcRef.m_Data.m_Type == NpcType.Standard) {
+        if (npcRef.m_Data.m_Type == NpcType.Standard || QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected == true) {
             YesDialogueButton.gameObject.SetActive(false);
         } else {
-            YesDialogueButton.gameObject.SetActive(true);
+            if(QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected == false)
+            {
+                YesDialogueButton.gameObject.SetActive(true);
+            }            
             YesDialogueButton.GetComponent<Image>().sprite = npcRef.DialogueYesImage;
         }
                     
@@ -370,11 +372,6 @@ public class UI_Manager : MonoBehaviour
         questListPanel.SetActive(state);
     }
 
-    public void ToggleActivationButton(bool state)
-    {
-        ActivateQuestButton.SetActive(state);
-    }
-
     public void UpdateQuestName(string name) 
     {
         questTitle.text = name;
@@ -472,8 +469,6 @@ public class UI_Manager : MonoBehaviour
     {
         notificationText.text = _text;
         notificationIcon.sprite = _sprite;
-        //NotificationObject.GetComponent<Notification>().notificationText.text = _text;
-        //NotificationObject.GetComponent<Notification>().notificationImg.sprite = _sprite;
         NotificationObject.GetComponent<Notification>().notificationAnimator.SetTrigger("PlayNotification");
     }
 

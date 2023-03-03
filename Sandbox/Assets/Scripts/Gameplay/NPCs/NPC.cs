@@ -26,6 +26,7 @@ public class NPC : MonoBehaviour
     public int m_QuestID = -1;
     
     [Header("Race Data")]
+    [Header("Race Data")]
     public int m_RaceID = -1;
 
     private void Start() 

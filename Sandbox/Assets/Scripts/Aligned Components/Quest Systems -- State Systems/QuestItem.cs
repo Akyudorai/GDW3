@@ -18,7 +18,6 @@ public class QuestItem : MonoBehaviour
         {
             QuestManager.GetInstance().QuestItemCollected(this, QuestManager.GetInstance().questList[questIndex]);
             this.gameObject.SetActive(false);
-            //Destroy(this.gameObject);
         }        
     }
 
