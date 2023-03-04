@@ -193,24 +193,26 @@ public class ManeuverHandler : MonoBehaviour
     private IEnumerator LedgeClimb() 
     {   
         // Give animation full control over motion
-        GetComponent<Collider>().enabled = false;
-        animator.GetComponent<ParentRootMotion>().useRootMotion = true;
+        pc.capsuleCollider.enabled = false;
+        pc.rigid.useGravity = false;
+        animator.applyRootMotion = true;
         animator.SetTrigger("LedgeClimb");
         b_LedgeClimbing = true;
         
-        yield return new WaitForSeconds(1.12f); // approximate length of ledge climb animation
-        Vector3 rootPos = anim_RootTracker.transform.position;
-        yield return new WaitForSeconds(0.02f);
+        yield return new WaitForSeconds(1.45f); // approximate length of ledge climb animation
+        //Vector3 rootPos = anim_RootTracker.transform.position;
+        //yield return new WaitForSeconds(0.02f);
 
         // Return control over motion to the player
-        GetComponent<Collider>().enabled = true;
-        animator.GetComponent<ParentRootMotion>().useRootMotion = false;
+        animator.SetTrigger("DoneClimbing");
+        pc.capsuleCollider.enabled = true;
+        animator.applyRootMotion = false;
         animator.ResetTrigger("LedgeGrab");
 
         // Restore player control
-        transform.position = rootPos;
         b_LedgeClimbing = false;
         pc.rigid.useGravity = true;
-        
+
+        animator.ResetTrigger("DoneClimbing");
     }
 }

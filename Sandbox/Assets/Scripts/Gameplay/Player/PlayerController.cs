@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
     [Header("Components")]
     public Camera cam;
     public GameObject camera_pivot;
-    public Rigidbody rigid;    
+    public Rigidbody rigid;
+    public Collider capsuleCollider;
     public GameObject mesh;
     public Animator animator;
 
