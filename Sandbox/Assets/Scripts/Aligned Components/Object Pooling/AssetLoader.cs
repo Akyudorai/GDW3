@@ -43,6 +43,8 @@ public static class AssetLoader
         Load("Cupcake", 3);
         Load("PowerCell", 3);
         Load("CowboyBoots", 3);
+        Load("Celery", 3);
+        Load("Bone", 3);
     }
 
     public static void LoadRaceItems() 

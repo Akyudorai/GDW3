@@ -204,6 +204,52 @@ MonoBehaviour:
     - {x: 43.59, y: 5.38, z: 54.85}
     - {x: 37.65, y: 5.38, z: 54.85}
     m_RequirementsMet: 0
+  - m_ID: 7
+    m_questItemsCollected: 0
+    m_Name: "Grandpa\u2019s Groceries"
+    m_Status: Available
+    m_Description: "Hello? Is this thing on? I forgot to pick up celery from the
+      grocery store for Martha\u2019s soup. She won\u2019t let me rest till she gets
+      her celery. Be a lad, and help an old timer will ya?"
+    m_Objective: Collect 3 sticks of celery.
+    m_Hint: Check the grocery store.
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 20d277e552e6aa04392becad1c704b49, type: 3}
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 7700755407935074846, guid: e72c557cb04cfd64094c636e183ae4b0, type: 3}
+    - {fileID: 7700755407935074846, guid: e72c557cb04cfd64094c636e183ae4b0, type: 3}
+    - {fileID: 7700755407935074846, guid: e72c557cb04cfd64094c636e183ae4b0, type: 3}
+    m_ItemsPositions:
+    - {x: 129.42, y: 4.82, z: 53.46}
+    - {x: 136.52, y: 4.82, z: 53.46}
+    - {x: 148.3, y: 4.82, z: 53.46}
+    m_RequirementsMet: 0
+  - m_ID: 8
+    m_questItemsCollected: 0
+    m_Name: Skeleton Scavenger
+    m_Status: Available
+    m_Description: "Hello, I am a science professor at the local university. I brought
+      a skeleton to work for today\u2019s lecture, but it seems that some of the
+      pieces are missing. Perhaps I dropped them on my way to work?"
+    m_Objective: Collect 3 bones.
+    m_Hint: Where do you find bones?
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 8f89b13f263ae4c45bf9afca3aa8c5b3, type: 3}
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 5002093220554449489, guid: 007a8e17dbad27b49a3c48d3501b3237, type: 3}
+    - {fileID: 5002093220554449489, guid: 007a8e17dbad27b49a3c48d3501b3237, type: 3}
+    - {fileID: 5002093220554449489, guid: 007a8e17dbad27b49a3c48d3501b3237, type: 3}
+    m_ItemsPositions:
+    - {x: 184.56, y: 4.82, z: 60.79}
+    - {x: 184.56, y: 4.82, z: 66.86}
+    - {x: 184.56, y: 4.82, z: 73.92}
+    m_RequirementsMet: 0
   activeQuestItems: []
   selectedQuest: {fileID: 0}
   npcList: []
