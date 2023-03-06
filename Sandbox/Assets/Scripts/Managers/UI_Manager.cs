@@ -69,6 +69,7 @@ public class UI_Manager : MonoBehaviour
     public Image notificationIcon;
     public TextMeshProUGUI notificationText;
     public Sprite questSprite;
+    public GameObject newQuestNotifactionIcon;
 
     [Header("Other Components")]
     public TMP_Text SpeedTracker;
@@ -479,6 +480,11 @@ public class UI_Manager : MonoBehaviour
         notificationText.text = _text;
         notificationIcon.sprite = _sprite;
         NotificationObject.GetComponent<Notification>().notificationAnimator.SetTrigger("PlayNotification");
+    }
+
+    public void SendNotificationV2()
+    {
+        newQuestNotifactionIcon.GetComponent<Animator>().SetTrigger("PlayNotification");
     }
 
     // ============ SETTINGS PANEL FUNCTIONS =====================
