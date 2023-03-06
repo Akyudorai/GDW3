@@ -19,7 +19,7 @@ public class Footsteps : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        playerController = GameManager.GetInstance().pcRef;
+        playerController = GetComponent<PlayerController>();
         footSteps = SoundManager.CreateSoundInstance(SoundFile.Run);
         footSteps.setParameterByName("Terrain", 0);
         footSteps.start();
