@@ -124,7 +124,7 @@ MonoBehaviour:
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
-    m_questItemIcon: {fileID: 21300000, guid: f1ed9c0bb28744146b1025ab681eceab, type: 3}
+    m_questItemIcon: {fileID: 21300000, guid: 16ce9a077af90384786ade3af8eb21bb, type: 3}
     m_Type: 0
     m_RequiredItems:
     - {fileID: 7331398461001434515, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
@@ -147,7 +147,7 @@ MonoBehaviour:
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
-    m_questItemIcon: {fileID: 21300000, guid: 927ca76d0bbce474dbf4e2e9c0471a2a, type: 3}
+    m_questItemIcon: {fileID: 21300000, guid: f102e5f2f3cad0745a750b5498e51738, type: 3}
     m_Type: 0
     m_RequiredItems:
     - {fileID: 5941851256237214570, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
@@ -170,7 +170,7 @@ MonoBehaviour:
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
-    m_questItemIcon: {fileID: 21300000, guid: 8bdee5d1916cdbf4ab6bfa1c778d4224, type: 3}
+    m_questItemIcon: {fileID: 21300000, guid: 2ffdb4f847478ad4e805de94e196bf13, type: 3}
     m_Type: 0
     m_RequiredItems:
     - {fileID: 1244824266667019072, guid: ad07875fdf007fb48a6926c67ad40252, type: 3}
@@ -193,7 +193,7 @@ MonoBehaviour:
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
-    m_questItemIcon: {fileID: 21300000, guid: 60a0a408501277d4ebef90fc3f0081aa, type: 3}
+    m_questItemIcon: {fileID: 21300000, guid: 03f51ea41244f9a4ead27ba59a7c89af, type: 3}
     m_Type: 0
     m_RequiredItems:
     - {fileID: 3241583538277307337, guid: 5096cdf66dde08b46b76389442501107, type: 3}
@@ -216,7 +216,7 @@ MonoBehaviour:
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
-    m_questItemIcon: {fileID: 21300000, guid: 20d277e552e6aa04392becad1c704b49, type: 3}
+    m_questItemIcon: {fileID: 21300000, guid: 6a101771e81f61d40b905aa5993a031a, type: 3}
     m_Type: 0
     m_RequiredItems:
     - {fileID: 7700755407935074846, guid: e72c557cb04cfd64094c636e183ae4b0, type: 3}
@@ -260,7 +260,7 @@ MonoBehaviour:
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
-    m_questItemIcon: {fileID: 21300000, guid: d1b538decd2ebbb45989e0b72dce3d35, type: 3}
+    m_questItemIcon: {fileID: 21300000, guid: 5fab028d17db97a4cbf4e6f6e1261dcb, type: 3}
     m_Type: 0
     m_RequiredItems:
     - {fileID: 3625548871111232398, guid: b269c96a720a2a4488182b5cd5a1ca3b, type: 3}
@@ -282,7 +282,7 @@ MonoBehaviour:
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
-    m_questItemIcon: {fileID: 21300000, guid: eb2efc8875ff6a8479f7dd06b94abf60, type: 3}
+    m_questItemIcon: {fileID: 21300000, guid: 3e4aacfbdad1a5f4991708c9a12feb2f, type: 3}
     m_Type: 0
     m_RequiredItems:
     - {fileID: 2966109719834194053, guid: 3a12276f0eb49e84e9b9170791b346d7, type: 3}
@@ -304,7 +304,7 @@ MonoBehaviour:
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
-    m_questItemIcon: {fileID: 21300000, guid: 4037d0ea383876c468245934140f815a, type: 3}
+    m_questItemIcon: {fileID: 21300000, guid: 079eabf20537b994da7334f23269f135, type: 3}
     m_Type: 0
     m_RequiredItems:
     - {fileID: 8514433972332331092, guid: 280f7587bf74aec4fac74bd16cc278bc, type: 3}

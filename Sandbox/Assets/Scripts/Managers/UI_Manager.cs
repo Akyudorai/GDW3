@@ -57,7 +57,8 @@ public class UI_Manager : MonoBehaviour
     public GameObject questItem2;
     public GameObject questItem3;
     public GameObject questLogItem; //the ui element that stores the quest info on the quest screen.
-    public GameObject contentPanel;
+    public GameObject questContentPanel;
+    public GameObject raceContentPanel;
     public GameObject[] questItemIcons;
 
     [Header("Settings Panel")]

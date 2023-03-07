@@ -63,7 +63,9 @@ public class QuestManager : MonoBehaviour
             QuestManager.GetInstance().questList[_quest.m_ID].m_Status = "In Progress";
             QuestManager.GetInstance().questList[_quest.m_ID].m_QuestDataDisplay = _qdd;
 
-            _qdd._questStatus.text = "In Progress";
+            //_qdd._questStatus.text = "In Progress";
+            _qdd._statusImg.sprite = _qdd.statusLabels[1];
+
         }        
     }
 
@@ -90,7 +92,7 @@ public class QuestManager : MonoBehaviour
         QuestManager.GetInstance().questList[_quest.m_ID].m_Status = "Available";
         QuestManager.GetInstance().questList[_quest.m_ID].m_QuestDataDisplay = selectedQuest; //?? not sure about this line
 
-        selectedQuest._questStatus.text = "Available";
+        //selectedQuest._questStatus.text = "Available";
         Debug.Log("Quest Deactivated");
     }
 
@@ -135,7 +137,8 @@ public class QuestManager : MonoBehaviour
     {
         questList[_quest.m_ID].m_Completed = true;
         questList[_quest.m_ID].m_Status = "Complete";
-        questList[_quest.m_ID].m_QuestDataDisplay._questStatus.text = "Complete";
+        //questList[_quest.m_ID].m_QuestDataDisplay._questStatus.text = "Complete";
+        questList[_quest.m_ID].m_QuestDataDisplay._statusImg.sprite = questList[_quest.m_ID].m_QuestDataDisplay.statusLabels[2];
 
         // Signal the EventManager that a quest was completed
         EventManager.OnQuestComplete?.Invoke(_quest.m_ID);

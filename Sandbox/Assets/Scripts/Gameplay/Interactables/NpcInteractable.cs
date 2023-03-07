@@ -56,7 +56,7 @@ public class NpcInteractable : Interactable
 
                     if (QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected == false) //only adds the quest to the phone, if it isn't already there.
                     {
-                        GameObject newQuestLogItem = Instantiate(UI_Manager.GetInstance().questLogItem, UI_Manager.GetInstance().contentPanel.transform); //add a new quest to the quest app 
+                        GameObject newQuestLogItem = Instantiate(UI_Manager.GetInstance().questLogItem, UI_Manager.GetInstance().questContentPanel.transform); //add a new quest to the quest app 
                         newQuestLogItem.GetComponent<QuestDataDisplay>().UpdateQuestData(npcRef.m_QuestID); //add the relevant quest info to the new quest
                         QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected = true;
                         //UI_Manager.GetInstance().SendNotification("New Quest Received", UI_Manager.GetInstance().questSprite);
