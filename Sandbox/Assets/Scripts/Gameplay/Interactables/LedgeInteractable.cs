@@ -6,11 +6,13 @@ public class LedgeInteractable : Interactable
 {
     private SplineNode node;
     public Transform center;
+    private bool inverseLookDir;
 
-    public void Initialize(SplineNode node) 
+    public void Initialize(SplineNode node, bool inverseLookDir) 
     {
         this.node = node;
         center = node.path.transform;
+        this.inverseLookDir = inverseLookDir;
     }
 
     public override InteractionType GetInteractionType() 
@@ -38,9 +40,9 @@ public class LedgeInteractable : Interactable
         Vector3 grabPosition = pA - (nodeToNode * result);
 
         // Determine look direction for the grab
-        Vector3 look_1 = Quaternion.Euler(0, 90, 0) * nodeToNode;
+        Vector3 look_1 = Quaternion.Euler(0, ((inverseLookDir) ? -90 : 90), 0) * nodeToNode;
         float dist_1 = Vector3.Distance(center.position, grabPosition + look_1);
-        Vector3 look_2 = Quaternion.Euler(0, -90, 0) * nodeToNode;
+        Vector3 look_2 = Quaternion.Euler(0, ((inverseLookDir) ? 90 : -90), 0) * nodeToNode;
         float dist_2 = Vector3.Distance(center.position, grabPosition + look_2);                
         Vector3 lookDirection = ((dist_1 < dist_2) ? look_1 : look_2); 
  

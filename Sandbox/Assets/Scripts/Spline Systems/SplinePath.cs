@@ -20,8 +20,10 @@ public class SplinePath : MonoBehaviour
 
     [Header("Wall Spline Specific")]
     public bool isRight = false;
-    
 
+    [Header("Ledge Spline Specific")]
+    public bool inverseLedgeGrabDirection = false;
+    
     [Header("Debugging")]
     public bool DebugSplinePath = false;
     private LineRenderer pathLine;
@@ -87,7 +89,7 @@ public class SplinePath : MonoBehaviour
                     break;
                 case SplineType.Ledge:
                     LedgeInteractable ldg_interactable = pathCollider.AddComponent<LedgeInteractable>();
-                    ldg_interactable.Initialize(nodes[i]);
+                    ldg_interactable.Initialize(nodes[i], inverseLedgeGrabDirection);
                     break;
             }                    
         }

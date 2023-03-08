@@ -52,7 +52,7 @@ public class NetTest : MonoBehaviour
 
     private async void Start()
     {       
-        OnClientLoaded += OnClientLoad;
+        OnClientLoaded += OnClientConnected;
 
         bool result = await Task.Factory.StartNew(ConnectToServer);         
         
@@ -128,13 +128,23 @@ public class NetTest : MonoBehaviour
         
     }
 
-    private void OnClientLoad(string id) 
+    private void OnClientConnected(string id) 
     {
-        Vector3 randPos = new Vector3(Random.Range(-10, 10), 2, Random.Range(-10, 10));
-        GameObject newPlayerObj = Instantiate<GameObject>(prefab_NetPlayerObj, randPos, Quaternion.identity);        
-        playerRef = newPlayerObj;
-        netPC = playerRef.GetComponent<NetworkedPlayerController>();                
-        netPC.Initialize(id);
+        if (id == localGuid)
+        {
+            // Instantiate a new game object for the local player
+            Vector3 randPos = new Vector3(Random.Range(-10, 10), 2, Random.Range(-10, 10));
+            GameObject newPlayerObj = Instantiate<GameObject>(prefab_NetPlayerObj, randPos, Quaternion.identity);        
+            playerRef = newPlayerObj;
+            netPC = playerRef.GetComponent<NetworkedPlayerController>();                
+            netPC.Initialize(id);  
+        }
+
+        // Instantiate an object for all clients connected to the server
+
+
+
+              
     }
 
     private void SyncPosition() 

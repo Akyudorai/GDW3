@@ -61,7 +61,7 @@ public class InteractionHandler : MonoBehaviour
             }
         }
 
-        if (targetInteractable == null || PlayerController.LocalPlayer.e_State != PlayerState.Active) 
+        if (targetInteractable == null || pc.e_State != PlayerState.Active || pc.maneuverHandler.splineController.currentSpline != null) 
         {
             UI_Manager.GetInstance().TogglePrompt(false);
         }
