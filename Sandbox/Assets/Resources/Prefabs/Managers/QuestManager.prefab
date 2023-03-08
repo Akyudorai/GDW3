@@ -52,12 +52,15 @@ MonoBehaviour:
     m_Status: Available
     m_Description: I've really been craving a nice bottle of milk.  I heard the grocer
       over at the mall is handing them out for free!
-    m_Objective: Head over to the Mall and collect a bottle of milk for NPC.
+    m_Objective: Find 3 bottles of milk for Miho.
     m_Hint: Go to the mall.
     m_Completed: 0
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
     m_questItemIcon: {fileID: 21300000, guid: ea4902d7104666345a9c48125c069402, type: 3}
+    m_pfp: {fileID: 21300000, guid: 8b659eb55e8650846a40941278de7e0c, type: 3}
+    m_questItemName: Milk Bottle
+    m_npcName: Milk Connoisseur Miho
     m_Type: 0
     m_RequiredItems:
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
@@ -80,6 +83,9 @@ MonoBehaviour:
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
     m_questItemIcon: {fileID: 21300000, guid: 10834845ed176c8418579e4f68a9be65, type: 3}
+    m_pfp: {fileID: 21300000, guid: d93c839da2823d9478460df66b406871, type: 3}
+    m_questItemName: Battery
+    m_npcName: Georgie the Hippie
     m_Type: 0
     m_RequiredItems:
     - {fileID: 3689122229430511904, guid: efa764b99bfeed14f8f8b587f2981bdc, type: 3}
@@ -102,6 +108,9 @@ MonoBehaviour:
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
     m_questItemIcon: {fileID: 21300000, guid: 7c0181a4212c08046a915ca047bb3480, type: 3}
+    m_pfp: {fileID: 21300000, guid: 4208d7e1da71c4f41b606317636cda7f, type: 3}
+    m_questItemName: Shovel
+    m_npcName: Mary the Flower Child
     m_Type: 0
     m_RequiredItems:
     - {fileID: 6475178844656584064, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
@@ -125,6 +134,9 @@ MonoBehaviour:
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
     m_questItemIcon: {fileID: 21300000, guid: 16ce9a077af90384786ade3af8eb21bb, type: 3}
+    m_pfp: {fileID: 21300000, guid: a2e6905a049f0f64b99bb2fc78056617, type: 3}
+    m_questItemName: Hard hat
+    m_npcName: Foreman Cassi
     m_Type: 0
     m_RequiredItems:
     - {fileID: 7331398461001434515, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
@@ -148,6 +160,9 @@ MonoBehaviour:
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
     m_questItemIcon: {fileID: 21300000, guid: f102e5f2f3cad0745a750b5498e51738, type: 3}
+    m_pfp: {fileID: 21300000, guid: 080fea4ae27fb764891769331d0ea8c6, type: 3}
+    m_questItemName: Cupcake
+    m_npcName: Baker Tony
     m_Type: 0
     m_RequiredItems:
     - {fileID: 5941851256237214570, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
@@ -171,6 +186,9 @@ MonoBehaviour:
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
     m_questItemIcon: {fileID: 21300000, guid: 2ffdb4f847478ad4e805de94e196bf13, type: 3}
+    m_pfp: {fileID: 21300000, guid: dd3bce96ac57e544591f158e4a00c659, type: 3}
+    m_questItemName: Power cell
+    m_npcName: The Martians
     m_Type: 0
     m_RequiredItems:
     - {fileID: 1244824266667019072, guid: ad07875fdf007fb48a6926c67ad40252, type: 3}
@@ -194,6 +212,9 @@ MonoBehaviour:
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
     m_questItemIcon: {fileID: 21300000, guid: 03f51ea41244f9a4ead27ba59a7c89af, type: 3}
+    m_pfp: {fileID: 21300000, guid: c6a8916f5491ae64e8c5e1e98a6922f2, type: 3}
+    m_questItemName: Boots
+    m_npcName: Cowboy John
     m_Type: 0
     m_RequiredItems:
     - {fileID: 3241583538277307337, guid: 5096cdf66dde08b46b76389442501107, type: 3}
@@ -217,6 +238,9 @@ MonoBehaviour:
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
     m_questItemIcon: {fileID: 21300000, guid: 6a101771e81f61d40b905aa5993a031a, type: 3}
+    m_pfp: {fileID: 21300000, guid: b2c942002d01f3448aad3aa676eba50e, type: 3}
+    m_questItemName: Celery
+    m_npcName: Grandpa Bodie
     m_Type: 0
     m_RequiredItems:
     - {fileID: 7700755407935074846, guid: e72c557cb04cfd64094c636e183ae4b0, type: 3}
@@ -240,6 +264,9 @@ MonoBehaviour:
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
     m_questItemIcon: {fileID: 21300000, guid: 7a4f04205f7ed4541a88d8b8380ae6db, type: 3}
+    m_pfp: {fileID: 21300000, guid: 2b1aaefc40f8c7f4eb3346d9f6f4a873, type: 3}
+    m_questItemName: Bone
+    m_npcName: Professor Uler
     m_Type: 0
     m_RequiredItems:
     - {fileID: 5002093220554449489, guid: 007a8e17dbad27b49a3c48d3501b3237, type: 3}
@@ -261,6 +288,9 @@ MonoBehaviour:
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
     m_questItemIcon: {fileID: 21300000, guid: 5fab028d17db97a4cbf4e6f6e1261dcb, type: 3}
+    m_pfp: {fileID: 21300000, guid: a23f798fdb4d1944d99e8cd7026b22bb, type: 3}
+    m_questItemName: Mixtape
+    m_npcName: DJ Po
     m_Type: 0
     m_RequiredItems:
     - {fileID: 3625548871111232398, guid: b269c96a720a2a4488182b5cd5a1ca3b, type: 3}
@@ -283,6 +313,9 @@ MonoBehaviour:
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
     m_questItemIcon: {fileID: 21300000, guid: 3e4aacfbdad1a5f4991708c9a12feb2f, type: 3}
+    m_pfp: {fileID: 21300000, guid: 02493887338132645aae3b36e5c193be, type: 3}
+    m_questItemName: Boulder
+    m_npcName: Ulag the Caveman
     m_Type: 0
     m_RequiredItems:
     - {fileID: 2966109719834194053, guid: 3a12276f0eb49e84e9b9170791b346d7, type: 3}
@@ -305,6 +338,9 @@ MonoBehaviour:
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
     m_questItemIcon: {fileID: 21300000, guid: 079eabf20537b994da7334f23269f135, type: 3}
+    m_pfp: {fileID: 21300000, guid: dff4c68f0b906944abbc0204af580b2b, type: 3}
+    m_questItemName: Electronics
+    m_npcName: Malcolm Adler Demins
     m_Type: 0
     m_RequiredItems:
     - {fileID: 8514433972332331092, guid: 280f7587bf74aec4fac74bd16cc278bc, type: 3}
@@ -328,6 +364,9 @@ MonoBehaviour:
     m_Collected: 0
     m_QuestDataDisplay: {fileID: 0}
     m_questItemIcon: {fileID: 21300000, guid: d6966986c965500458b854f3557e001a, type: 3}
+    m_pfp: {fileID: 21300000, guid: 6990299e99c28a84fab2fe87d7bb9be9, type: 3}
+    m_questItemName: Books
+    m_npcName: Librarian Izzy
     m_Type: 0
     m_RequiredItems:
     - {fileID: 1284784122019728424, guid: 182bbdc988b73b247a14c5519c1b378e, type: 3}

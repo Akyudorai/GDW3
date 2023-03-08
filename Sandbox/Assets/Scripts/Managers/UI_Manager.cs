@@ -53,13 +53,17 @@ public class UI_Manager : MonoBehaviour
     public TextMeshProUGUI questDescription;
     public TextMeshProUGUI questObjective;
     public TextMeshProUGUI questHint;
+    public TextMeshProUGUI questNpcName;
     public GameObject questItem1;
     public GameObject questItem2;
     public GameObject questItem3;
     public GameObject questLogItem; //the ui element that stores the quest info on the quest screen.
     public GameObject questContentPanel;
     public GameObject raceContentPanel;
+    public GameObject questPfp;
+    public GameObject questStatusImg;
     public GameObject[] questItemIcons;
+    public List<Sprite> questLabels;
 
     [Header("Settings Panel")]
     public Slider bgmSlider;
@@ -406,6 +410,21 @@ public class UI_Manager : MonoBehaviour
     public void UpdateQuestHint(string hint)
     {
         questHint.text = hint;
+    }
+
+    public void UpdateNpcName(string _name)
+    {
+        questNpcName.text = _name;
+    }
+
+    public void UpdateQuestPfp(Sprite _pfp)
+    {
+        questPfp.GetComponent<Image>().sprite = _pfp;
+    }
+
+    public void UpdateQuestStatusImg(Sprite _img)
+    {
+        questStatusImg.GetComponent<Image>().sprite = _img;
     }
 
     public void ActivateToggle()

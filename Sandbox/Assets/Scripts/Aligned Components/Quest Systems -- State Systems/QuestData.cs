@@ -27,6 +27,9 @@ public class QuestData
     public bool m_Collected;
     public QuestDataDisplay m_QuestDataDisplay;
     public Sprite m_questItemIcon;
+    public Sprite m_pfp;
+    public String m_questItemName;
+    public String m_npcName;
 
     [Header("QuestData Requirements")]
     public QuestType m_Type;
