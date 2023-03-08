@@ -24,6 +24,7 @@ public class NPC : MonoBehaviour
 
     [Header("Quest Data")]
     public int m_QuestID = -1;
+    public GameObject npcIcon;
     
     [Header("Race Data")]
     [Header("Race Data")]

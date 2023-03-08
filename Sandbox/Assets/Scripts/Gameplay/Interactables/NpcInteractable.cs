@@ -16,6 +16,13 @@ public class NpcInteractable : Interactable
         return InteractionType.Social;
     }
 
+    IEnumerator NpcQuestFinish()
+    {        
+        this.gameObject.GetComponent<NPC>().npcIcon.GetComponent<Animator>().SetBool("QuestFinish", true);
+        yield return new WaitForSeconds(1f);
+        this.gameObject.GetComponent<NPC>().npcIcon.SetActive(false);
+    }
+
     public override void Interact(PlayerController controller, RaycastHit hit)
     {
         if (npcRef == null) {
@@ -63,6 +70,9 @@ public class NpcInteractable : Interactable
                         UI_Manager.GetInstance().SendNotificationV2();
                         QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[npcRef.m_QuestID], newQuestLogItem.GetComponent<QuestDataDisplay>());
                         this.gameObject.GetComponent<NpcStateManager>().SwitchState(this.gameObject.GetComponent<NpcStateManager>().WaitState);
+                        this.gameObject.GetComponentInChildren<Animator>().SetBool("Interactive", false); //stop mail box sway animation after accepting the quest
+                        this.gameObject.GetComponent<NPC>().npcIcon.SetActive(true);
+                        this.gameObject.GetComponent<NPC>().npcIcon.GetComponent<Animator>().SetBool("QuestStart", true);
                     }
                 });
 
@@ -73,7 +83,8 @@ public class NpcInteractable : Interactable
                     {
                         Debug.Log("Quest Complete!!!");
                         QuestManager.GetInstance().QuestComplete(QuestManager.GetInstance().questList[npcRef.m_QuestID]);
-                        this.gameObject.GetComponentInChildren<Animator>().SetBool("Interactive", false);
+                        //this.gameObject.GetComponentInChildren<Animator>().SetBool("Interactive", false); //stop mail sway animation after quest complete
+                        StartCoroutine(NpcQuestFinish());
                     }
                     UI_Manager.GetInstance().EndNpcDialogue();
                 });
