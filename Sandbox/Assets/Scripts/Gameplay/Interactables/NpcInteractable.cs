@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+
 public class NpcInteractable : Interactable
 {
     private NPC npcRef;
+
+    public UnityEvent OnInteract;
 
     public void SetNpcReference(NPC reference) 
     {
@@ -20,6 +25,11 @@ public class NpcInteractable : Interactable
     {
         if (npcRef == null) {
             Debug.LogError("NpcInteractable: NPC Reference not set!");
+            return;
+        }
+
+        if (OnInteract != null) {
+            OnInteract.Invoke();
             return;
         }
 
