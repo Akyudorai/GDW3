@@ -65,6 +65,10 @@ public class UI_Manager : MonoBehaviour
     public GameObject[] questItemIcons;
     public List<Sprite> questLabels;
 
+    [Header("Fast Travel Panel")]
+    public int stopIndex;
+    public TextMeshProUGUI destination;
+
     [Header("Settings Panel")]
     public Slider bgmSlider;
     public Slider soundEffectSlider;
@@ -435,6 +439,43 @@ public class UI_Manager : MonoBehaviour
     public void QuestActivateToggle() //testing quest activate and deactivate system
     {
         QuestManager.GetInstance().ActivateDeactivateQuest(QuestManager.GetInstance().questList[QuestManager.GetInstance().selectedQuest.questId]);
+    }
+
+    // ============ FAST TRAVEL PANEL FUNCTIONS =====================
+
+    public void NextStop()
+    {
+        if(RaceManager.GetInstance().m_RaceActive == true)
+        {
+            return;
+        }
+        List<Transform> points = SpawnPointManager.GetInstance().SpawnPoints;
+        stopIndex++;
+        if (stopIndex >= points.Count)
+        {
+            stopIndex = 0;
+        }
+        destination.text = points[stopIndex].gameObject.name;
+    }
+
+    public void PreviousStop()
+    {
+        if (RaceManager.GetInstance().m_RaceActive == true)
+        {
+            return;
+        }
+        List<Transform> points = SpawnPointManager.GetInstance().SpawnPoints;
+        stopIndex--;
+        if (stopIndex < 0)
+        {
+            stopIndex = points.Count - 1;
+        }
+        destination.text = points[stopIndex].gameObject.name;
+    }
+
+    public void CallTaxi()
+    {
+        GameManager.GetInstance().RespawnPlayer(stopIndex);
     }
 
     // ============ OTHER COMPONENTS =====================
