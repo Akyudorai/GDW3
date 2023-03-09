@@ -94,6 +94,7 @@ public class UI_Manager : MonoBehaviour
     public GameObject CollectiblePanel;
     public Image CollectibleImage;
     public TMP_Text CollectibleAnnouncement;
+    public List<GameObject> collectibleBoxUI;
 
     [Header("Npc Dialogue Panel")]    
     public GameObject DialoguePanel;
@@ -121,6 +122,7 @@ public class UI_Manager : MonoBehaviour
 
         EventManager.OnCollectibleFound += UpdateCollectibleImage;
         EventManager.OnCollectibleFound += UpdateCollectibleAnnouncement;
+        EventManager.OnCollectibleFound += UpdateCollectibleUI;
 
         //Debug.Log(NotificationObject.gameObject.name);
     }
@@ -236,12 +238,32 @@ public class UI_Manager : MonoBehaviour
                 break;
             case 0: // Rex
                 
-                totalCollectibles = ct.Rexs.Length;
+                totalCollectibles = ct.Rexs.Length - 1;
                 CollectibleAnnouncement.text = "Tinysaurous Rex!! ("+collectiblesFound+"/"+totalCollectibles+")";
                 break;
             case 1: // Mbear
-                totalCollectibles = ct.Mbears.Length;
+                totalCollectibles = ct.Mbears.Length - 1;
                 CollectibleAnnouncement.text = "Mithunan Bear Plushie!! ("+collectiblesFound+"/"+totalCollectibles+")";
+                break;
+        }
+    }
+
+    public void UpdateCollectibleUI(int ID)
+    {
+        CollectibleTracker ct = GameObject.Find("CollectibleTracker").GetComponent<CollectibleTracker>();
+        int collectiblesFound = ct.TotalFound(ID) + 1; // +1 bc the actually collection code gets called after announcement
+        int totalCollectibles = 0;
+
+        switch (ID)
+        {
+            default: // ERROR
+                CollectibleAnnouncement.text = "UNKNOWN EXCEPTION";
+                break;
+            case 0: // Rex
+                collectibleBoxUI[0].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/2";
+                break;
+            case 1: // Mbear
+                collectibleBoxUI[1].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/2";
                 break;
         }
     }
@@ -477,6 +499,8 @@ public class UI_Manager : MonoBehaviour
     {
         GameManager.GetInstance().RespawnPlayer(stopIndex);
     }
+
+    // ============ Collectibles PANEL FUNCTIONS =====================
 
     // ============ OTHER COMPONENTS =====================
 

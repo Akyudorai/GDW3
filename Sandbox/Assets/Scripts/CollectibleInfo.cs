@@ -6,7 +6,6 @@ using TMPro;
 
 public class CollectibleInfo : MonoBehaviour
 {
-    public Sprite c_icon;
     public TextMeshProUGUI c_name;
     public TextMeshProUGUI c_progress;
     // Start is called before the first frame update
