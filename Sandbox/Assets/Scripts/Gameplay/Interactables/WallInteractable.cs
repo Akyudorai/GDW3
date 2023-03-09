@@ -40,7 +40,14 @@ public class WallInteractable : Interactable
         SplinePath wallRunSpline = SplineUtils.GenerateWallRunPath(hit.point + surfaceNormal * 1f, surfaceDir, splineSpeed, isForward);
 
         pc.mesh.transform.LookAt(pc.mesh.transform.position - surfaceDir * ((isForward) ? -1 : 1));
-        wallRunSpline.isRight = (Physics.Raycast(pc.mesh.transform.position, pc.mesh.transform.right, 1));
+
+        // Determine if the wall is on the right or left
+        Vector3 right = pc.transform.position + pc.mesh.transform.right.normalized;
+        Vector3 left = pc.transform.position - pc.mesh.transform.right.normalized;  
+        float rightCheck = Vector3.Distance(right, hit.point);
+        float leftCheck = Vector3.Distance(left, hit.point);
+        wallRunSpline.isRight = ((rightCheck < leftCheck) ? true : false);
+        //wallRunSpline.isRight = (Physics.Raycast(pc.mesh.transform.position, pc.mesh.transform.right, 1));
         wallRunSpline.GetNode(0).Attach(pc.maneuverHandler.splineController, 0.0f, true);  
                 
         pc.maneuverHandler.wallDelays.Add(this, 3f); // Change value to variable for adjustable wall delay time

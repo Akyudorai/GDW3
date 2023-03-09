@@ -90,8 +90,9 @@ public class SplineController : MonoBehaviour
     {
         if (pcRef != null) 
         {
-            // Check to see if we're still running on the wall or if we've reached the end of it
+            // Check to see if we're still running on the wall or if we've reached the end of it            
             bool checkWall = (Physics.Raycast(mesh.transform.position, mesh.transform.right * ((currentSpline.isRight) ? 1 : -1), 2f));				            
+            
             // If we reached the end of the wall
             if (!checkWall) 
             {
@@ -194,7 +195,11 @@ public class SplineController : MonoBehaviour
     private void OnCollisionEnter(Collision other) 
     {
         if (currentSpline != null) 
-        {
+        {   
+            if (currentSpline.splineType == SplineType.Rail) {
+                return;
+            }
+
             Debug.Log("Collided with " + other.gameObject.name + " while on a spline.");  
             Detatch();
         }          
