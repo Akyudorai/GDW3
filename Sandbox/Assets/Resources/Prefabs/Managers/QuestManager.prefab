@@ -113,9 +113,9 @@ MonoBehaviour:
     m_npcName: Mary the Flower Child
     m_Type: 0
     m_RequiredItems:
-    - {fileID: 6475178844656584064, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
-    - {fileID: 6475178844656584064, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
-    - {fileID: 6475178844656584064, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
+    - {fileID: 2184691639774965781, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
+    - {fileID: 2184691639774965781, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
+    - {fileID: 2184691639774965781, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
     m_ItemsPositions:
     - {x: -104.06, y: 7.48, z: 148.74}
     - {x: -99.19, y: 7.48, z: 157.63}
