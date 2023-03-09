@@ -53,12 +53,21 @@ public class UI_Manager : MonoBehaviour
     public TextMeshProUGUI questDescription;
     public TextMeshProUGUI questObjective;
     public TextMeshProUGUI questHint;
+    public TextMeshProUGUI questNpcName;
     public GameObject questItem1;
     public GameObject questItem2;
     public GameObject questItem3;
     public GameObject questLogItem; //the ui element that stores the quest info on the quest screen.
-    public GameObject contentPanel;
+    public GameObject questContentPanel;
+    public GameObject raceContentPanel;
+    public GameObject questPfp;
+    public GameObject questStatusImg;
     public GameObject[] questItemIcons;
+    public List<Sprite> questLabels;
+
+    [Header("Fast Travel Panel")]
+    public int stopIndex;
+    public TextMeshProUGUI destination;
 
     [Header("Settings Panel")]
     public Slider bgmSlider;
@@ -85,6 +94,7 @@ public class UI_Manager : MonoBehaviour
     public GameObject CollectiblePanel;
     public Image CollectibleImage;
     public TMP_Text CollectibleAnnouncement;
+    public List<GameObject> collectibleBoxUI;
 
     [Header("Npc Dialogue Panel")]    
     public GameObject DialoguePanel;
@@ -112,6 +122,7 @@ public class UI_Manager : MonoBehaviour
 
         EventManager.OnCollectibleFound += UpdateCollectibleImage;
         EventManager.OnCollectibleFound += UpdateCollectibleAnnouncement;
+        EventManager.OnCollectibleFound += UpdateCollectibleUI;
 
         //Debug.Log(NotificationObject.gameObject.name);
     }
@@ -227,12 +238,32 @@ public class UI_Manager : MonoBehaviour
                 break;
             case 0: // Rex
                 
-                totalCollectibles = ct.Rexs.Length;
+                totalCollectibles = ct.Rexs.Length - 1;
                 CollectibleAnnouncement.text = "Tinysaurous Rex!! ("+collectiblesFound+"/"+totalCollectibles+")";
                 break;
             case 1: // Mbear
-                totalCollectibles = ct.Mbears.Length;
+                totalCollectibles = ct.Mbears.Length - 1;
                 CollectibleAnnouncement.text = "Mithunan Bear Plushie!! ("+collectiblesFound+"/"+totalCollectibles+")";
+                break;
+        }
+    }
+
+    public void UpdateCollectibleUI(int ID)
+    {
+        CollectibleTracker ct = GameObject.Find("CollectibleTracker").GetComponent<CollectibleTracker>();
+        int collectiblesFound = ct.TotalFound(ID) + 1; // +1 bc the actually collection code gets called after announcement
+        int totalCollectibles = 0;
+
+        switch (ID)
+        {
+            default: // ERROR
+                CollectibleAnnouncement.text = "UNKNOWN EXCEPTION";
+                break;
+            case 0: // Rex
+                collectibleBoxUI[0].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/2";
+                break;
+            case 1: // Mbear
+                collectibleBoxUI[1].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/2";
                 break;
         }
     }
@@ -407,6 +438,21 @@ public class UI_Manager : MonoBehaviour
         questHint.text = hint;
     }
 
+    public void UpdateNpcName(string _name)
+    {
+        questNpcName.text = _name;
+    }
+
+    public void UpdateQuestPfp(Sprite _pfp)
+    {
+        questPfp.GetComponent<Image>().sprite = _pfp;
+    }
+
+    public void UpdateQuestStatusImg(Sprite _img)
+    {
+        questStatusImg.GetComponent<Image>().sprite = _img;
+    }
+
     public void ActivateToggle()
     {
         //QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[QuestManager.GetInstance().selectedQuest.questId]); //get the quest id from the quest data display object
@@ -416,6 +462,45 @@ public class UI_Manager : MonoBehaviour
     {
         QuestManager.GetInstance().ActivateDeactivateQuest(QuestManager.GetInstance().questList[QuestManager.GetInstance().selectedQuest.questId]);
     }
+
+    // ============ FAST TRAVEL PANEL FUNCTIONS =====================
+
+    public void NextStop()
+    {
+        if(RaceManager.GetInstance().m_RaceActive == true)
+        {
+            return;
+        }
+        List<Transform> points = SpawnPointManager.GetInstance().SpawnPoints;
+        stopIndex++;
+        if (stopIndex >= points.Count)
+        {
+            stopIndex = 0;
+        }
+        destination.text = points[stopIndex].gameObject.name;
+    }
+
+    public void PreviousStop()
+    {
+        if (RaceManager.GetInstance().m_RaceActive == true)
+        {
+            return;
+        }
+        List<Transform> points = SpawnPointManager.GetInstance().SpawnPoints;
+        stopIndex--;
+        if (stopIndex < 0)
+        {
+            stopIndex = points.Count - 1;
+        }
+        destination.text = points[stopIndex].gameObject.name;
+    }
+
+    public void CallTaxi()
+    {
+        GameManager.GetInstance().RespawnPlayer(stopIndex);
+    }
+
+    // ============ Collectibles PANEL FUNCTIONS =====================
 
     // ============ OTHER COMPONENTS =====================
 

@@ -63,7 +63,9 @@ public class QuestManager : MonoBehaviour
             QuestManager.GetInstance().questList[_quest.m_ID].m_Status = "In Progress";
             QuestManager.GetInstance().questList[_quest.m_ID].m_QuestDataDisplay = _qdd;
 
-            _qdd._questStatus.text = "In Progress";
+            //_qdd._questStatus.text = "In Progress";
+            _qdd._statusImg.sprite = _qdd.statusLabels[1];
+
         }        
     }
 
@@ -90,7 +92,7 @@ public class QuestManager : MonoBehaviour
         QuestManager.GetInstance().questList[_quest.m_ID].m_Status = "Available";
         QuestManager.GetInstance().questList[_quest.m_ID].m_QuestDataDisplay = selectedQuest; //?? not sure about this line
 
-        selectedQuest._questStatus.text = "Available";
+        //selectedQuest._questStatus.text = "Available";
         Debug.Log("Quest Deactivated");
     }
 
@@ -109,10 +111,22 @@ public class QuestManager : MonoBehaviour
     public void DisplayQuestInfo(QuestData _quest)
     {
         UI_Manager.GetInstance().UpdateQuestName(_quest.m_Name);
-        UI_Manager.GetInstance().UpdateQuestStatus(_quest.m_Status);
+        //UI_Manager.GetInstance().UpdateQuestStatus(_quest.m_Status);
+        if(_quest.m_Completed == true)
+        {
+            UI_Manager.GetInstance().UpdateQuestStatusImg(UI_Manager.GetInstance().questLabels[2]); //quest completed label
+        }
+        else
+        {
+            UI_Manager.GetInstance().UpdateQuestStatusImg(UI_Manager.GetInstance().questLabels[1]); //quest in progress label
+        }
         UI_Manager.GetInstance().UpdateQuestDescription(_quest.m_Description);
-        UI_Manager.GetInstance().UpdateQuestObjective(_quest.m_Objective);
-        UI_Manager.GetInstance().UpdateQuestHint(_quest.m_Hint);
+        //UI_Manager.GetInstance().UpdateQuestObjective(_quest.m_Objective);
+        string _objective = _quest.m_questItemsCollected + "/3 " + _quest.m_questItemName + " collected";
+        UI_Manager.GetInstance().UpdateQuestObjective(_objective);
+        UI_Manager.GetInstance().UpdateNpcName(_quest.m_npcName);
+        UI_Manager.GetInstance().UpdateQuestPfp(_quest.m_pfp);
+        //UI_Manager.GetInstance().UpdateQuestHint(_quest.m_Hint);
 
         for (int i = 0; i < 3; i++) //displays the an image of the quest items in the quest info panel //NEED TO CHANGE THIS LATER //currently being changed
         {
@@ -135,7 +149,8 @@ public class QuestManager : MonoBehaviour
     {
         questList[_quest.m_ID].m_Completed = true;
         questList[_quest.m_ID].m_Status = "Complete";
-        questList[_quest.m_ID].m_QuestDataDisplay._questStatus.text = "Complete";
+        //questList[_quest.m_ID].m_QuestDataDisplay._questStatus.text = "Complete";
+        questList[_quest.m_ID].m_QuestDataDisplay._statusImg.sprite = questList[_quest.m_ID].m_QuestDataDisplay.statusLabels[2];
 
         // Signal the EventManager that a quest was completed
         EventManager.OnQuestComplete?.Invoke(_quest.m_ID);
@@ -170,6 +185,7 @@ public class QuestManager : MonoBehaviour
             questList[_quest.m_ID].m_RequiredItems.RemoveAt(questList[_quest.m_ID].m_RequiredItems.Count-1);
             Debug.Log("Items remaining " + questList[_quest.m_ID].m_RequiredItems.Count);
 
+            DisplayQuestInfo(_quest);
             UI_Manager.GetInstance().SendNotification("Item Collected", QuestManager.GetInstance().questList[_quest.m_ID].m_questItemIcon);
         }
         if(questList[_quest.m_ID].m_RequiredItems.Count == 0)
