@@ -7,7 +7,8 @@ public enum NpcType
 {
     Standard,
     Quest_Giver,
-    Race_Giver
+    Race_Giver,
+    SceneSwap
 }
 
 [RequireComponent(typeof(NpcInteractable))]
@@ -27,8 +28,10 @@ public class NPC : MonoBehaviour
     public GameObject npcIcon;
     
     [Header("Race Data")]
-    [Header("Race Data")]
     public int m_RaceID = -1;
+
+    [Header("Scene Data")]
+    public int m_SceneIndex = 3;
 
     private void Start() 
     {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5729.0117, g: 13980.469, b: 17542.812, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3576,14 +3576,16 @@ MonoBehaviour:
   m_ID: 99
   m_Data:
     NpcName: Bea
-    m_Type: 0
+    m_Type: 3
     NpcDialogue:
     - Oh!  Hey!    You managed to catch up!  Wanna race?
   cinematicIndex: -1
   DialogueImage: {fileID: 0}
   DialogueYesImage: {fileID: 0}
   m_QuestID: -1
+  npcIcon: {fileID: 0}
   m_RaceID: -1
+  m_SceneIndex: 3
 --- !u!114 &385169398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3596,21 +3598,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207bf6ef0141295419a47fdfec917200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 517409227}
-        m_TargetAssemblyTypeName: TutorialSceneSwap, Assembly-CSharp
-        m_MethodName: SwitchScene
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &385169399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6481,7 +6468,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 674030382}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 1e8199fc3584b5641898036ccc1eded7, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -18103,7 +18090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1531681699
 Transform:
   m_ObjectHideFlags: 0
@@ -22762,22 +22749,22 @@ PrefabInstance:
     - target: {fileID: 6634211306869587542, guid: 1bf5cedfb4a27ae4cb52bb81d109834b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.50029
+      value: -9.64
       objectReference: {fileID: 0}
     - target: {fileID: 6634211306869587542, guid: 1bf5cedfb4a27ae4cb52bb81d109834b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.00058
+      value: 22.48
       objectReference: {fileID: 0}
     - target: {fileID: 6634211306869587542, guid: 1bf5cedfb4a27ae4cb52bb81d109834b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 36.793385
+      value: 81.29
       objectReference: {fileID: 0}
     - target: {fileID: 6634211306869587542, guid: 1bf5cedfb4a27ae4cb52bb81d109834b,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6087627
+      value: -0.3826815
       objectReference: {fileID: 0}
     - target: {fileID: 6634211306869587542, guid: 1bf5cedfb4a27ae4cb52bb81d109834b,
         type: 3}
@@ -22787,7 +22774,7 @@ PrefabInstance:
     - target: {fileID: 6634211306869587542, guid: 1bf5cedfb4a27ae4cb52bb81d109834b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.79335237
+      value: 0.92388034
       objectReference: {fileID: 0}
     - target: {fileID: 6634211306869587542, guid: 1bf5cedfb4a27ae4cb52bb81d109834b,
         type: 3}
@@ -22802,7 +22789,7 @@ PrefabInstance:
     - target: {fileID: 6634211306869587542, guid: 1bf5cedfb4a27ae4cb52bb81d109834b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 105
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 6634211306869587542, guid: 1bf5cedfb4a27ae4cb52bb81d109834b,
         type: 3}

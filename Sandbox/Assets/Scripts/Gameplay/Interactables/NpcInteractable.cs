@@ -9,8 +9,6 @@ public class NpcInteractable : Interactable
 {
     private NPC npcRef;
 
-    public UnityEvent OnInteract;
-
     public void SetNpcReference(NPC reference) 
     {
         npcRef = reference;
@@ -35,17 +33,16 @@ public class NpcInteractable : Interactable
             return;
         }
 
-        if (OnInteract != null) {
-            OnInteract.Invoke();
-            return;
-        }
-
         controller.v_HorizontalVelocity = Vector3.zero; 
         controller.v_VerticalVelocity = Vector3.zero; 
         controller.rigid.velocity = Vector3.zero; 
 
         switch (npcRef.m_Data.m_Type) 
         {
+            case NpcType.SceneSwap:
+                SceneManager.LoadScene(npcRef.m_SceneIndex);
+                return;
+                break;
             case NpcType.Standard:                
                 // Trigger Dialogue UI
                 UI_Manager.GetInstance().LoadNpcDialogue(npcRef);

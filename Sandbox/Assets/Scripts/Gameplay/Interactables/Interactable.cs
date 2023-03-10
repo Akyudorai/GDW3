@@ -8,7 +8,8 @@ public enum InteractionType
     Rail,
     Zipline,
     Ledge,
-    Social
+    Social,
+    SceneSwap
 }
 
 public abstract class Interactable : MonoBehaviour

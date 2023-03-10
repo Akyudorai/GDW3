@@ -1433,7 +1433,7 @@ MonoBehaviour:
   VersionDisplay: {fileID: 1446590}
   LoadingBar: {fileID: 1823924587}
   FadeImage: {fileID: 664128960}
-  SkipLoadingSequence: 0
+  SkipLoadingSequence: 1
 --- !u!4 &2058489952
 Transform:
   m_ObjectHideFlags: 0
