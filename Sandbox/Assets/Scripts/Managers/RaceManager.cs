@@ -151,7 +151,8 @@ public class RaceManager : MonoBehaviour
             if (time <= raceList[id].m_Score || raceList[id].m_Score <= 0) 
             {     
                 raceList[activeRaceID].m_Score = m_Timer;
-                SaveManager.GetInstance().SaveFile();            
+                SaveManager.GetInstance().SavePlayerData();
+                //SaveManager.GetInstance().SaveFile();            
                 Debug.Log("New Top Score: " + time);
             } else 
             {

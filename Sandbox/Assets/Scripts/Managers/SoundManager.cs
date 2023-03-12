@@ -117,9 +117,9 @@ public class SoundManager : MonoBehaviour
     {
         backgroundMusic = CreateSoundInstance(SoundFile.LofiMusic);
         backgroundMusic.start();
-        backgroundMusic.setParameterByName("BGMVolume", UI_Manager.GetInstance().bgmSlider.value);
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("SoundEffect", UI_Manager.GetInstance().soundEffectSlider.value);
-    
+
+        UpdateSoundSettings();
+
         cityAmbience = CreateSoundInstance(SoundFile.CityAmbience);
         cityAmbience.start();
     }
@@ -170,6 +170,17 @@ public class SoundManager : MonoBehaviour
 
         Debug.LogError("No sound file [" + file.ToString() + "] found.  Did you set the reference?");
         return FMODUnity.RuntimeManager.CreateInstance(instance.eve_yay);
+    }
+
+    public void UpdateSoundSettings() 
+    {        
+        SettingsData Settings = SaveManager.Settings;
+
+        float bgmVolume = ((Settings.Mute_Audio) ? 0f :  Mathf.Min(Settings.Master_Volume, Settings.BGM_Volume));
+        backgroundMusic.setParameterByName("BGMVolume", bgmVolume);
+
+        float sfxVolume = ((Settings.Mute_Audio) ? 0f : Mathf.Min(Settings.Master_Volume, Settings.SFX_Volume));
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("SoundEffect", sfxVolume);
     }
 
     private void PopulateAudioLib()

@@ -87,6 +87,7 @@ public class InteractionHandler : MonoBehaviour
                     case InteractionType.Ledge:
                         if (pc.transform.position.y + 1.25f > closestHit.ClosestPoint(castPoint).y) canPerform = false;
                         if (pc.b_Grounded) canPerform = false;
+                        if (pc.maneuverHandler.b_LedgeGrabbing || pc.maneuverHandler.b_LedgeClimbing) canPerform = false;
                         break;
                     case InteractionType.Zipline:
                         break;

@@ -70,8 +70,9 @@ public class UI_Manager : MonoBehaviour
     public TextMeshProUGUI destination;
 
     [Header("Settings Panel")]
-    public Slider bgmSlider;
-    public Slider soundEffectSlider;
+    public Slider masterVolumeSlider;
+    public Slider bgmVolumeSlider;
+    public Slider sfxVolumeSlider;
 
     [Header("Notification")]
     public GameObject NotificationObject;
@@ -574,15 +575,22 @@ public class UI_Manager : MonoBehaviour
 
     // ============ SETTINGS PANEL FUNCTIONS =====================
 
+    public void AdjustMasterVolume() 
+    {
+        SaveManager.Settings.Master_Volume = masterVolumeSlider.value;
+        SoundManager.GetInstance().UpdateSoundSettings();
+    }
+
     public void AdjustBGMVolume()
     {
-        SoundManager.GetInstance().backgroundMusic.setParameterByName("BGMVolume", bgmSlider.value);
-        Debug.Log(bgmSlider.value);
+        SaveManager.Settings.BGM_Volume = bgmVolumeSlider.value;
+        SoundManager.GetInstance().UpdateSoundSettings();
     }
 
     public void AdjustSoundEffectVolume()
     {
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("SoundEffect", soundEffectSlider.value);
+        SaveManager.Settings.SFX_Volume = sfxVolumeSlider.value;
+        SoundManager.GetInstance().UpdateSoundSettings();
     }
 
 
