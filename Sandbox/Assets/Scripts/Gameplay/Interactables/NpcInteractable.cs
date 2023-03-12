@@ -39,8 +39,10 @@ public class NpcInteractable : Interactable
 
         switch (npcRef.m_Data.m_Type) 
         {
+            // FOR TUTORIAL ONLY.  NOT SUITED FOR OTHER SCENE SWAPPING RIGHT NOW
             case NpcType.SceneSwap:
                 SceneManager.LoadScene(npcRef.m_SceneIndex);
+                SaveManager.Save.TutorialComplete = true;
                 return;
                 break;
             case NpcType.Standard:                
