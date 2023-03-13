@@ -593,6 +593,13 @@ public class UI_Manager : MonoBehaviour
         SoundManager.GetInstance().UpdateSoundSettings();
     }
 
+    public void PlayAppHighlight()
+    {
+        FMOD.Studio.EventInstance appHighlightSFX = SoundManager.CreateSoundInstance(SoundFile.AppHighlight);
+        appHighlightSFX.start();
+        appHighlightSFX.release();
+    }
+
 
     
 }

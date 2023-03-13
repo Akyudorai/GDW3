@@ -40,7 +40,11 @@ public enum SoundFile
     Run,
     LandSoft,
     LandMed,
-    LandHard
+    LandHard,
+
+    // UI
+    AppHighlight,
+    AppClick
 }
 
 public class SoundManager : MonoBehaviour
@@ -93,6 +97,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField] FMODUnity.EventReference pl_landSoft;
     [SerializeField] FMODUnity.EventReference pl_landMed;
     [SerializeField] FMODUnity.EventReference pl_landHard;
+
+    [Header("UI Sounds")]
+    [SerializeField] FMODUnity.EventReference ui_appHiglight;
+    [SerializeField] FMODUnity.EventReference ui_appClick;
 
     // Singleton Instance
     private static SoundManager instance;
@@ -166,6 +174,10 @@ public class SoundManager : MonoBehaviour
             case SoundFile.LandSoft: return FMODUnity.RuntimeManager.CreateInstance(instance.pl_landSoft);
             case SoundFile.LandMed: return FMODUnity.RuntimeManager.CreateInstance(instance.pl_landMed);
             case SoundFile.LandHard: return FMODUnity.RuntimeManager.CreateInstance(instance.pl_landHard);
+
+            //UI
+            case SoundFile.AppHighlight: return FMODUnity.RuntimeManager.CreateInstance(instance.ui_appHiglight);
+            case SoundFile.AppClick: return FMODUnity.RuntimeManager.CreateInstance(instance.ui_appClick);
         }
 
         Debug.LogError("No sound file [" + file.ToString() + "] found.  Did you set the reference?");

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{c9eedb89-8e37-4809-86ce-cb888b284fea}">
+		<property name="assetPath">
+			<value>OpenPhone_g.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.32795833333333335</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{69092b73-773d-4de4-86e5-4739ee4120ce}</destination>
+		</relationship>
+	</object>
+</objects>
