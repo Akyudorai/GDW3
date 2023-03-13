@@ -217,9 +217,9 @@ MonoBehaviour:
     m_npcName: Cowboy John
     m_Type: 0
     m_RequiredItems:
-    - {fileID: 3241583538277307337, guid: 5096cdf66dde08b46b76389442501107, type: 3}
-    - {fileID: 3241583538277307337, guid: 5096cdf66dde08b46b76389442501107, type: 3}
-    - {fileID: 3241583538277307337, guid: 5096cdf66dde08b46b76389442501107, type: 3}
+    - {fileID: 1153120956766567600, guid: 5096cdf66dde08b46b76389442501107, type: 3}
+    - {fileID: 1153120956766567600, guid: 5096cdf66dde08b46b76389442501107, type: 3}
+    - {fileID: 1153120956766567600, guid: 5096cdf66dde08b46b76389442501107, type: 3}
     m_ItemsPositions:
     - {x: 48.37, y: 5.38, z: 54.85}
     - {x: 43.59, y: 5.38, z: 54.85}
@@ -293,9 +293,9 @@ MonoBehaviour:
     m_npcName: DJ Po
     m_Type: 0
     m_RequiredItems:
-    - {fileID: 3625548871111232398, guid: b269c96a720a2a4488182b5cd5a1ca3b, type: 3}
-    - {fileID: 3625548871111232398, guid: b269c96a720a2a4488182b5cd5a1ca3b, type: 3}
-    - {fileID: 3625548871111232398, guid: b269c96a720a2a4488182b5cd5a1ca3b, type: 3}
+    - {fileID: 3571997906085087999, guid: b269c96a720a2a4488182b5cd5a1ca3b, type: 3}
+    - {fileID: 3571997906085087999, guid: b269c96a720a2a4488182b5cd5a1ca3b, type: 3}
+    - {fileID: 3571997906085087999, guid: b269c96a720a2a4488182b5cd5a1ca3b, type: 3}
     m_ItemsPositions:
     - {x: 153.85, y: 14.434, z: 93.65}
     - {x: 153.85, y: 14.434, z: 96.13}
@@ -343,9 +343,9 @@ MonoBehaviour:
     m_npcName: Malcolm Adler Demins
     m_Type: 0
     m_RequiredItems:
-    - {fileID: 8514433972332331092, guid: 280f7587bf74aec4fac74bd16cc278bc, type: 3}
-    - {fileID: 8514433972332331092, guid: 280f7587bf74aec4fac74bd16cc278bc, type: 3}
-    - {fileID: 8514433972332331092, guid: 280f7587bf74aec4fac74bd16cc278bc, type: 3}
+    - {fileID: 1864633578052102652, guid: 280f7587bf74aec4fac74bd16cc278bc, type: 3}
+    - {fileID: 1864633578052102652, guid: 280f7587bf74aec4fac74bd16cc278bc, type: 3}
+    - {fileID: 1864633578052102652, guid: 280f7587bf74aec4fac74bd16cc278bc, type: 3}
     m_ItemsPositions:
     - {x: 141.62, y: 14.434, z: 97.93}
     - {x: 141.62, y: 14.434, z: 105.39}
