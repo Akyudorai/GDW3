@@ -139,9 +139,9 @@ MonoBehaviour:
     m_npcName: Foreman Cassi
     m_Type: 0
     m_RequiredItems:
-    - {fileID: 7331398461001434515, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
-    - {fileID: 7331398461001434515, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
-    - {fileID: 7331398461001434515, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
+    - {fileID: 7699358955572214250, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
+    - {fileID: 7699358955572214250, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
+    - {fileID: 7699358955572214250, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
     m_ItemsPositions:
     - {x: -117.01, y: 16.051, z: -55.64}
     - {x: -193.87, y: 14.2, z: -143.7}
@@ -165,9 +165,9 @@ MonoBehaviour:
     m_npcName: Baker Tony
     m_Type: 0
     m_RequiredItems:
-    - {fileID: 5941851256237214570, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
-    - {fileID: 5941851256237214570, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
-    - {fileID: 5941851256237214570, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
+    - {fileID: 8027450358546218079, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
+    - {fileID: 8027450358546218079, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
+    - {fileID: 8027450358546218079, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
     m_ItemsPositions:
     - {x: 81.04, y: 6.05, z: 88.15}
     - {x: 89.97, y: 6.05, z: 88.15}
