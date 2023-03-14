@@ -69,6 +69,9 @@ public class UI_Manager : MonoBehaviour
     public int stopIndex;
     public TextMeshProUGUI destination;
 
+    [Header("Tip Panel")]
+    public List<string> tips;
+
     [Header("Settings Panel")]
     public Slider masterVolumeSlider;
     public Slider bgmVolumeSlider;
@@ -510,6 +513,14 @@ public class UI_Manager : MonoBehaviour
     }
 
     // ============ Collectibles PANEL FUNCTIONS =====================
+
+    // ============ Tip PANEL FUNCTIONS =====================
+    public string CreateNewTip()
+    {
+        int newTipIndex = Random.Range(0, tips.Count);
+        
+        return tips[newTipIndex];
+    }
 
     // ============ OTHER COMPONENTS =====================
 

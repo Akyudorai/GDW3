@@ -28,15 +28,19 @@ public class TipGenerator : MonoBehaviour
 
     public TextMeshProUGUI tip;
 
+    public List<String> freeTips;
+
     public void FreshTip()
     {
-        IntPtr test = createTest();
-        StringBuilder str = new StringBuilder(100);
+        //IntPtr test = createTest();
+        //StringBuilder str = new StringBuilder(100);
 
-        GenerateTip(str, str.Capacity);
-        string myString = str.ToString();
-        tip.text = myString;
+        //GenerateTip(str, str.Capacity);
+        //string myString = str.ToString();
+        //tip.text = myString;
 
-        freeTest(test);
+        //freeTest(test);
+
+        tip.text = UI_Manager.GetInstance().CreateNewTip();
     }
 }
