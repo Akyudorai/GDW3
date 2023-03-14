@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1153120956766567603}
   - component: {fileID: 1153120956766567601}
   - component: {fileID: 1153120956766567600}
+  - component: {fileID: -4447567197432113015}
   m_Layer: 0
   m_Name: CowboyBoots
   m_TagString: Untagged
@@ -129,3 +130,17 @@ MonoBehaviour:
   questItemName: CowboyBoots
   itemCollected: 0
   questIndex: 6
+--- !u!114 &-4447567197432113015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072179983886312450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb396d67b36447c4baf1d8cff6faad22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationRate: 30
+  RotationAxis: {x: 0, y: 1, z: 0}

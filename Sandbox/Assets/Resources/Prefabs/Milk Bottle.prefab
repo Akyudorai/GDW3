@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 3988398094257512415}
   - component: {fileID: 2465118654598775867}
   - component: {fileID: 8975739366616290640}
+  - component: {fileID: 760425969049717408}
   m_Layer: 0
   m_Name: Milk Bottle
   m_TagString: Untagged
@@ -146,3 +147,17 @@ MonoBehaviour:
   questItemName: Bottle of Milk
   itemCollected: 0
   questIndex: 0
+--- !u!114 &760425969049717408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4692961127617214091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb396d67b36447c4baf1d8cff6faad22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationRate: 30
+  RotationAxis: {x: 0, y: 1, z: 0}

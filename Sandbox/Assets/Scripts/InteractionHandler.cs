@@ -90,7 +90,7 @@ public class InteractionHandler : MonoBehaviour
                         if (pc.maneuverHandler.b_LedgeGrabbing || pc.maneuverHandler.b_LedgeClimbing) canPerform = false;
                         break;
                     case InteractionType.Zipline:
-                        break;
+                        break;                   
                 }
 
                 // Set the key information as a string for prompt display
@@ -181,6 +181,9 @@ public class InteractionHandler : MonoBehaviour
                 action = pc.PlayerInput.actions["Zipline"];
                 break;
             case InteractionType.Social:
+                action = pc.PlayerInput.actions["Interact"];
+                break;
+            case InteractionType.VendingMachine:                
                 action = pc.PlayerInput.actions["Interact"];
                 break;
         } 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5351850177530230314}
   - component: {fileID: 8213525627787556579}
   - component: {fileID: 7699358955572214250}
+  - component: {fileID: -1033495624100591460}
   m_Layer: 0
   m_Name: HardHat
   m_TagString: Untagged
@@ -114,3 +115,17 @@ MonoBehaviour:
   questItemName: HardHat
   itemCollected: 0
   questIndex: 3
+--- !u!114 &-1033495624100591460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5856204613981788159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb396d67b36447c4baf1d8cff6faad22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationRate: 30
+  RotationAxis: {x: 0, y: 1, z: 0}

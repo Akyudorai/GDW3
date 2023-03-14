@@ -381,16 +381,24 @@ public class UI_Manager : MonoBehaviour
 
     public void ToggleHomePanel(bool state)
     {
-        MapPanel.SetActive(!state);
-        FastTravelPanel.SetActive(!state);
-        MessengerPanel.SetActive(!state);
-        MinigamePanel.SetActive(!state);
-        MultiplayerPanel.SetActive(!state);
-        SettingsPanel.SetActive(!state);
-        TipPanel.SetActive(!state);
-        QuitPanel.SetActive(!state);
-        HomepagePanel.SetActive(state);
-        SearchBar.gameObject.SetActive(state);
+        if(questInfoPanel.activeSelf == true)
+        {
+            questInfoPanel.SetActive(false);
+            questListPanel.SetActive(true);
+        }
+        else
+        {
+            MapPanel.SetActive(!state);
+            FastTravelPanel.SetActive(!state);
+            MessengerPanel.SetActive(!state);
+            MinigamePanel.SetActive(!state);
+            MultiplayerPanel.SetActive(!state);
+            SettingsPanel.SetActive(!state);
+            TipPanel.SetActive(!state);
+            QuitPanel.SetActive(!state);
+            HomepagePanel.SetActive(state);
+            SearchBar.gameObject.SetActive(state);
+        }        
     }
 
     public void UpdateSearchBar(string _text)

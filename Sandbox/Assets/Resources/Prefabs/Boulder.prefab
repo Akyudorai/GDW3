@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8110362251890290191}
   - component: {fileID: 2686554354973897718}
   - component: {fileID: 2966109719834194053}
+  - component: {fileID: 7278447300245442895}
   m_Layer: 0
   m_Name: Boulder
   m_TagString: Untagged
@@ -113,3 +114,17 @@ MonoBehaviour:
   questItemName: Boulder
   itemCollected: 0
   questIndex: 10
+--- !u!114 &7278447300245442895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7749911073100648410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb396d67b36447c4baf1d8cff6faad22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationRate: 30
+  RotationAxis: {x: 0, y: 0, z: 1}
