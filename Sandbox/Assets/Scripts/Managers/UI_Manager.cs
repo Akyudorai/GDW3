@@ -566,6 +566,7 @@ public class UI_Manager : MonoBehaviour
         notificationText.text = _text;
         notificationIcon.sprite = _sprite;
         NotificationObject.GetComponent<Notification>().notificationAnimator.SetTrigger("PlayNotification");
+        PlayPhoneNotification();
     }
 
     public void SendNotificationV2()
@@ -600,6 +601,18 @@ public class UI_Manager : MonoBehaviour
         appHighlightSFX.release();
     }
 
+    public void PlayAppClick()
+    {
+        FMOD.Studio.EventInstance appClickSFX = SoundManager.CreateSoundInstance(SoundFile.AppClick);
+        appClickSFX.start();
+        appClickSFX.release();
+    }
 
+    public void PlayPhoneNotification()
+    {
+        FMOD.Studio.EventInstance phoneNotiSFX = SoundManager.CreateSoundInstance(SoundFile.PhoneNotification);
+        phoneNotiSFX.start();
+        phoneNotiSFX.release();
+    }
     
 }

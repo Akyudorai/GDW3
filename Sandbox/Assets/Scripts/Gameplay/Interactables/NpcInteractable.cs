@@ -20,7 +20,8 @@ public class NpcInteractable : Interactable
     }
 
     IEnumerator NpcQuestFinish()
-    {        
+    {
+        QuestManager.GetInstance().PlayQuestCompleteSFX();
         this.gameObject.GetComponent<NPC>().npcIcon.GetComponent<Animator>().SetBool("QuestFinish", true);
         yield return new WaitForSeconds(3f);
         this.gameObject.GetComponent<NPC>().npcIcon.SetActive(false);

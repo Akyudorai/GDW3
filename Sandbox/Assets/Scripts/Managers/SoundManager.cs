@@ -34,6 +34,7 @@ public enum SoundFile
     Waypoint,
     CollectiblePickup,
     Yay,
+    QuestComplete,
 
     // Player
     Jump,
@@ -44,7 +45,8 @@ public enum SoundFile
 
     // UI
     AppHighlight,
-    AppClick
+    AppClick,
+    PhoneNotification
 }
 
 public class SoundManager : MonoBehaviour
@@ -90,6 +92,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] FMODUnity.EventReference eve_waypoint;
     [SerializeField] FMODUnity.EventReference eve_collectiblePickup;
     [SerializeField] FMODUnity.EventReference eve_yay;
+    [SerializeField] FMODUnity.EventReference eve_questComplete;
 
     [Header("Player Sounds")]
     [SerializeField] FMODUnity.EventReference pl_jump;
@@ -101,6 +104,7 @@ public class SoundManager : MonoBehaviour
     [Header("UI Sounds")]
     [SerializeField] FMODUnity.EventReference ui_appHiglight;
     [SerializeField] FMODUnity.EventReference ui_appClick;
+    [SerializeField] FMODUnity.EventReference ui_phoneNotification;
 
     // Singleton Instance
     private static SoundManager instance;
@@ -124,7 +128,8 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         backgroundMusic = CreateSoundInstance(SoundFile.LofiMusic);
-        backgroundMusic.start();
+        //backgroundMusic.start();
+        //backgroundMusic.setParameterByName("BGMVolume", 0);
 
         UpdateSoundSettings();
 
@@ -167,6 +172,7 @@ public class SoundManager : MonoBehaviour
             case SoundFile.Waypoint: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_waypoint);
             case SoundFile.CollectiblePickup: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_collectiblePickup);
             case SoundFile.Yay: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_yay);
+            case SoundFile.QuestComplete: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_questComplete); 
 
             // Player
             case SoundFile.Jump: return FMODUnity.RuntimeManager.CreateInstance(instance.pl_jump);
@@ -178,6 +184,7 @@ public class SoundManager : MonoBehaviour
             //UI
             case SoundFile.AppHighlight: return FMODUnity.RuntimeManager.CreateInstance(instance.ui_appHiglight);
             case SoundFile.AppClick: return FMODUnity.RuntimeManager.CreateInstance(instance.ui_appClick);
+            case SoundFile.PhoneNotification: return FMODUnity.RuntimeManager.CreateInstance(instance.ui_phoneNotification);
         }
 
         Debug.LogError("No sound file [" + file.ToString() + "] found.  Did you set the reference?");

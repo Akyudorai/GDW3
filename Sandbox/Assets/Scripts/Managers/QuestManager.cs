@@ -208,4 +208,11 @@ public class QuestManager : MonoBehaviour
         selectedQuest = null;
     }
 
+    public void PlayQuestCompleteSFX()
+    {
+        FMOD.Studio.EventInstance questCompleteSFX = SoundManager.CreateSoundInstance(SoundFile.QuestComplete);
+        questCompleteSFX.start();
+        questCompleteSFX.release();
+    }
+
 }
