@@ -9,7 +9,8 @@ public enum InteractionType
     Zipline,
     Ledge,
     Social,
-    SceneSwap
+    SceneSwap,
+    VendingMachine
 }
 
 public abstract class Interactable : MonoBehaviour

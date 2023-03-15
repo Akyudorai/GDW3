@@ -305,6 +305,13 @@ MonoBehaviour:
       Data3: 514612384
       Data4: -1739396050
     Path: event:/Events/Funny-Yay
+  eve_questComplete:
+    Guid:
+      Data1: 499276430
+      Data2: 1117216200
+      Data3: 25804972
+      Data4: 823826114
+    Path: event:/Events/Quest-Complete
   pl_jump:
     Guid:
       Data1: 1299360679
@@ -340,6 +347,27 @@ MonoBehaviour:
       Data3: 1194474165
       Data4: -1363241811
     Path: event:/Player/Landing_Hard
+  ui_appHiglight:
+    Guid:
+      Data1: 1959996236
+      Data2: 1111563443
+      Data3: -98497865
+      Data4: 1641621569
+    Path: event:/UI/AppHighlight
+  ui_appClick:
+    Guid:
+      Data1: 1392782870
+      Data2: 1235399571
+      Data3: -589298792
+      Data4: -746641661
+    Path: event:/UI/AppClick
+  ui_phoneNotification:
+    Guid:
+      Data1: 1910436256
+      Data2: 1137728037
+      Data3: 621750709
+      Data4: -1975315637
+    Path: event:/UI/PhoneNotification
 --- !u!1 &8780667562687988441
 GameObject:
   m_ObjectHideFlags: 0

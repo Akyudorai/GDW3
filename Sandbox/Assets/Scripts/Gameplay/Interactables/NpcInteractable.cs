@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
+//particle system
+//https://www.youtube.com/watch?v=qkS1ywCwSIc
+
 public class NpcInteractable : Interactable
 {
     private NPC npcRef;
@@ -20,9 +23,12 @@ public class NpcInteractable : Interactable
     }
 
     IEnumerator NpcQuestFinish()
-    {        
+    {
+        QuestManager.GetInstance().PlayQuestCompleteSFX();
         this.gameObject.GetComponent<NPC>().npcIcon.GetComponent<Animator>().SetBool("QuestFinish", true);
+        this.gameObject.GetComponentInChildren<ParticleSystem>().Play();
         yield return new WaitForSeconds(3f);
+        this.gameObject.GetComponentInChildren<ParticleSystem>().Stop();
         this.gameObject.GetComponent<NPC>().npcIcon.SetActive(false);
     }
 

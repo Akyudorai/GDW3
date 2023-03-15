@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1863131274724331069}
   - component: {fileID: 2184691639774965782}
   - component: {fileID: 2184691639774965781}
+  - component: {fileID: 4872621326559192299}
   m_Layer: 0
   m_Name: Shovel
   m_TagString: Untagged
@@ -65,6 +66,20 @@ MonoBehaviour:
   questItemName: Shovel
   itemCollected: 0
   questIndex: 2
+--- !u!114 &4872621326559192299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337846894213010567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb396d67b36447c4baf1d8cff6faad22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationRate: 30
+  RotationAxis: {x: 0, y: 0, z: 1}
 --- !u!1 &3922663159147823851
 GameObject:
   m_ObjectHideFlags: 0

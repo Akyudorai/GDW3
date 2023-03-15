@@ -1746,7 +1746,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 17.850952, y: 254.36584}
+  m_AnchoredPosition: {x: 17.85083, y: 254.36584}
   m_SizeDelta: {x: -377.485, y: 369.605}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6018992813174379161
@@ -8084,6 +8084,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 6123965535056485423}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+        m_MethodName: PlayAppClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &6618566287205433508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8097,6 +8109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tip: {fileID: 6123965534352334738}
+  freeTips: []
 --- !u!114 &5165375258005973072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8124,6 +8137,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Tips
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6123965535056485423}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: PlayAppHighlight
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -13393,7 +13418,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 6123965535056485423}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: FadeOutNotification
+        m_MethodName: PlayAppClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13401,7 +13426,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &5891563137726358932
 MonoBehaviour:
@@ -13429,7 +13454,19 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Quest
+            m_StringArgument: Quests
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6123965535056485423}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: PlayAppHighlight
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -14723,6 +14760,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6123965534714391167}
   - component: {fileID: 218500487445913949}
+  - component: {fileID: 5850728915514221825}
   m_Layer: 5
   m_Name: Phone Panel
   m_TagString: Untagged
@@ -14778,6 +14816,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5850728915514221825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6123965534714391160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -2107034870
+      Data2: 1170304459
+      Data3: -320384602
+      Data4: 275085888
+    Path: event:/UI/PhoneOpen
+  Event: 
+  PlayEvent: 11
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &6123965534727052618
 GameObject:
   m_ObjectHideFlags: 0
@@ -14913,6 +14981,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 6123965535056485423}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+        m_MethodName: PlayAppClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &847811271849961254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14940,6 +15020,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Collectibles
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6123965535056485423}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: PlayAppHighlight
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -15330,6 +15422,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 6123965535056485423}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+        m_MethodName: PlayAppClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &7309390666952998048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15357,6 +15461,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Settings
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6123965535056485423}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: PlayAppHighlight
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -15508,6 +15624,7 @@ GameObject:
   - component: {fileID: 6123965535027797427}
   - component: {fileID: 5517765377471444488}
   - component: {fileID: 5965964939295905472}
+  - component: {fileID: 3785328184899096043}
   m_Layer: 5
   m_Name: Maps Button
   m_TagString: Untagged
@@ -15629,6 +15746,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 6123965535056485423}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+        m_MethodName: PlayAppClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &5517765377471444488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15656,6 +15785,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Maps
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6123965535056485423}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: PlayAppHighlight
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -15694,6 +15835,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3785328184899096043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6123965535027797437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1392782870
+      Data2: 1235399571
+      Data3: -589298792
+      Data4: -746641661
+    Path: event:/UI/AppClick
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &6123965535056485417
 GameObject:
   m_ObjectHideFlags: 0
@@ -15779,8 +15950,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7a269d8627d5b8743a57820679c19697, type: 3}
   stopIndex: 0
   destination: {fileID: 6572057559811659120}
-  bgmSlider: {fileID: 100035143284685090}
-  soundEffectSlider: {fileID: 3131565053105736059}
+  tips:
+  - You can press the esc key to open your phone.
+  - You can use your phone to trach your progress and travel across the city.
+  - Have you found the bear?
+  - If you see a dancing mailbox, they generally have a quest waiting for you.
+  masterVolumeSlider: {fileID: 0}
+  bgmVolumeSlider: {fileID: 0}
+  sfxVolumeSlider: {fileID: 0}
   NotificationObject: {fileID: 6084393495417403930}
   notificationIcon: {fileID: 14976089586902828}
   notificationText: {fileID: 6500376099212780919}
@@ -16423,6 +16600,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 6123965535056485423}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+        m_MethodName: PlayAppClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &9127531779805559398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16450,6 +16639,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Fast Travel
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6123965535056485423}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: PlayAppHighlight
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -17154,6 +17355,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 6123965535056485423}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+        m_MethodName: PlayAppClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &3306048443861177423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17181,6 +17394,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Help
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6123965535056485423}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: PlayAppHighlight
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 1
@@ -19924,6 +20149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tip: {fileID: 6123965534352334738}
+  freeTips: []
 --- !u!1 &6455793238943240475
 GameObject:
   m_ObjectHideFlags: 0
@@ -23927,6 +24153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tip: {fileID: 6123965534352334738}
+  freeTips: []
 --- !u!1 &8458623242484883189
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2708374436865077115
+--- !u!1 &5856204613981788159
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3377071487048955329}
-  - component: {fileID: 1833562129201379940}
-  - component: {fileID: 4510047452706426542}
-  - component: {fileID: 6887047695885804332}
-  - component: {fileID: 7331398461001434515}
+  - component: {fileID: 6489330534564695365}
+  - component: {fileID: 7899700948327203552}
+  - component: {fileID: 5351850177530230314}
+  - component: {fileID: 8213525627787556579}
+  - component: {fileID: 7699358955572214250}
+  - component: {fileID: -1033495624100591460}
   m_Layer: 0
   m_Name: HardHat
   m_TagString: Untagged
@@ -20,36 +21,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3377071487048955329
+--- !u!4 &6489330534564695365
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2708374436865077115}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -158.22467, y: 3.8240356, z: -93.62801}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_GameObject: {fileID: 5856204613981788159}
+  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalPosition: {x: 52.98307, y: 6.650093, z: 40.875206}
+  m_LocalScale: {x: 87.02373, y: 100, z: 89.607445}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1833562129201379940
+--- !u!33 &7899700948327203552
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2708374436865077115}
-  m_Mesh: {fileID: -2124705421725058983, guid: 605edcd0cac40b14fb74ab2616ba3f26, type: 3}
---- !u!23 &4510047452706426542
+  m_GameObject: {fileID: 5856204613981788159}
+  m_Mesh: {fileID: 70948873267775455, guid: 3bb38b290638512449f32af2e258ba90, type: 3}
+--- !u!23 &5351850177530230314
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2708374436865077115}
+  m_GameObject: {fileID: 5856204613981788159}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,7 +64,8 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2653651044934150266, guid: 605edcd0cac40b14fb74ab2616ba3f26, type: 3}
+  - {fileID: -2653651044934150266, guid: 3bb38b290638512449f32af2e258ba90, type: 3}
+  - {fileID: 8422367954147787412, guid: 3bb38b290638512449f32af2e258ba90, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,26 +87,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6887047695885804332
+--- !u!65 &8213525627787556579
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2708374436865077115}
+  m_GameObject: {fileID: 5856204613981788159}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.02321657, y: 0.019615702, z: 0.0088212285}
-  m_Center: {x: -0.0010039015, y: -4.656612e-10, z: 0.0044106143}
---- !u!114 &7331398461001434515
+  m_Size: {x: 0.0246644, y: 0.010264302, z: 0.020000001}
+  m_Center: {x: -0.0020693615, y: 0.005132149, z: -1.8233056e-17}
+--- !u!114 &7699358955572214250
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2708374436865077115}
+  m_GameObject: {fileID: 5856204613981788159}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e81fc4a9860019842b3c99e4fc3174f6, type: 3}
@@ -113,3 +115,17 @@ MonoBehaviour:
   questItemName: HardHat
   itemCollected: 0
   questIndex: 3
+--- !u!114 &-1033495624100591460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5856204613981788159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb396d67b36447c4baf1d8cff6faad22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationRate: 30
+  RotationAxis: {x: 0, y: 1, z: 0}

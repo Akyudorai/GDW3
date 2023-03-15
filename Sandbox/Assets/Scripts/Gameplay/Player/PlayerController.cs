@@ -161,6 +161,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!ctx.performed) { return; }
         interactionHandler.Interact(this, InteractionType.Social);
+        interactionHandler.Interact(this, InteractionType.VendingMachine);
     }
 
     public void WallRunCtx(InputAction.CallbackContext ctx) 

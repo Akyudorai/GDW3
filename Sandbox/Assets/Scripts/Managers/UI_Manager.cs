@@ -69,6 +69,9 @@ public class UI_Manager : MonoBehaviour
     public int stopIndex;
     public TextMeshProUGUI destination;
 
+    [Header("Tip Panel")]
+    public List<string> tips;
+
     [Header("Settings Panel")]
     public Slider masterVolumeSlider;
     public Slider bgmVolumeSlider;
@@ -381,16 +384,24 @@ public class UI_Manager : MonoBehaviour
 
     public void ToggleHomePanel(bool state)
     {
-        MapPanel.SetActive(!state);
-        FastTravelPanel.SetActive(!state);
-        MessengerPanel.SetActive(!state);
-        MinigamePanel.SetActive(!state);
-        MultiplayerPanel.SetActive(!state);
-        SettingsPanel.SetActive(!state);
-        TipPanel.SetActive(!state);
-        QuitPanel.SetActive(!state);
-        HomepagePanel.SetActive(state);
-        SearchBar.gameObject.SetActive(state);
+        if(questInfoPanel.activeSelf == true)
+        {
+            questInfoPanel.SetActive(false);
+            questListPanel.SetActive(true);
+        }
+        else
+        {
+            MapPanel.SetActive(!state);
+            FastTravelPanel.SetActive(!state);
+            MessengerPanel.SetActive(!state);
+            MinigamePanel.SetActive(!state);
+            MultiplayerPanel.SetActive(!state);
+            SettingsPanel.SetActive(!state);
+            TipPanel.SetActive(!state);
+            QuitPanel.SetActive(!state);
+            HomepagePanel.SetActive(state);
+            SearchBar.gameObject.SetActive(state);
+        }        
     }
 
     public void UpdateSearchBar(string _text)
@@ -503,6 +514,14 @@ public class UI_Manager : MonoBehaviour
 
     // ============ Collectibles PANEL FUNCTIONS =====================
 
+    // ============ Tip PANEL FUNCTIONS =====================
+    public string CreateNewTip()
+    {
+        int newTipIndex = Random.Range(0, tips.Count);
+        
+        return tips[newTipIndex];
+    }
+
     // ============ OTHER COMPONENTS =====================
 
     public void UpdateSpeedTracker(float speed) 
@@ -566,6 +585,7 @@ public class UI_Manager : MonoBehaviour
         notificationText.text = _text;
         notificationIcon.sprite = _sprite;
         NotificationObject.GetComponent<Notification>().notificationAnimator.SetTrigger("PlayNotification");
+        PlayPhoneNotification();
     }
 
     public void SendNotificationV2()
@@ -593,6 +613,25 @@ public class UI_Manager : MonoBehaviour
         SoundManager.GetInstance().UpdateSoundSettings();
     }
 
+    public void PlayAppHighlight()
+    {
+        FMOD.Studio.EventInstance appHighlightSFX = SoundManager.CreateSoundInstance(SoundFile.AppHighlight);
+        appHighlightSFX.start();
+        appHighlightSFX.release();
+    }
 
+    public void PlayAppClick()
+    {
+        FMOD.Studio.EventInstance appClickSFX = SoundManager.CreateSoundInstance(SoundFile.AppClick);
+        appClickSFX.start();
+        appClickSFX.release();
+    }
+
+    public void PlayPhoneNotification()
+    {
+        FMOD.Studio.EventInstance phoneNotiSFX = SoundManager.CreateSoundInstance(SoundFile.PhoneNotification);
+        phoneNotiSFX.start();
+        phoneNotiSFX.release();
+    }
     
 }
