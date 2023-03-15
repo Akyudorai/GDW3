@@ -203,12 +203,12 @@ public class PlayerController : MonoBehaviour
     
     private void ShiftWithContext(InputAction.CallbackContext context) 
     {
-        b_ShiftPressed = true;
+        //b_ShiftPressed = true;
     }
 
     private void ShiftCancelWithContext(InputAction.CallbackContext context) 
     {
-        b_ShiftPressed = false;
+        //b_ShiftPressed = false;
     }    
 
     public void SetPlayerState(PlayerState state)
@@ -219,6 +219,10 @@ public class PlayerController : MonoBehaviour
     private void Update() 
     {
         GetGroundAngle();
+
+        if (v_HorizontalVelocity.magnitude > TopMaxSpeed) {
+            v_HorizontalVelocity = Vector3.ClampMagnitude(v_HorizontalVelocity, TopMaxSpeed);
+        }
 
         animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
         animator.SetBool("IsGrounded", b_Grounded);        
@@ -302,7 +306,7 @@ public class PlayerController : MonoBehaviour
         if (IsSliding) return;   
         if (IsOverridingMovement) return;
 
-        // rigid.velocity = v_DirectionalVelocity;
+        // rigid.velocity = v_DirectionalVelocity;        
 
         // Prepare a motion vector to used to modify the velocity
         Vector3 motionVector = Vector3.zero;        

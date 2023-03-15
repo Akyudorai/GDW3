@@ -43,6 +43,9 @@ public class ZiplineInteractable : Interactable
         // Attach the player to the node at the point of interaction (closest point)
         node.Attach(pc.maneuverHandler.splineController, result, isForward);         
         
+        // Apply a spline boost force to the player
+        pc.v_HorizontalVelocity *= 1.2f; // 20%  
+
         // Play Zipline Attach SFX
         FMOD.Studio.EventInstance ziplineAttachSFX = SoundManager.CreateSoundInstance(SoundFile.ZiplineStart);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(ziplineAttachSFX, pc.transform, pc.rigid);

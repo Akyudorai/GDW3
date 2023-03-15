@@ -79,7 +79,8 @@ public class ManeuverHandler : MonoBehaviour
                 animator.SetBool("IsWallrunningRight", splineController.currentSpline.isRight);
             }
 
-            float splineSpeed = (pc.v_HorizontalVelocity.magnitude / pc.TopMaxSpeed) * 15f;
+            float speed = Mathf.Max(pc.v_HorizontalVelocity.magnitude, pc.v_VerticalVelocity.magnitude);
+            float splineSpeed = (Mathf.Max(speed, pc.TopMaxSpeed) / pc.TopMaxSpeed) * pc.TopMaxSpeed;
             float minSpeed = 8f;
             float resultSpeed = Mathf.Max(splineSpeed, minSpeed);
             splineController.SetTraversalSpeed(resultSpeed);
@@ -186,8 +187,11 @@ public class ManeuverHandler : MonoBehaviour
     private IEnumerator DelayLedgeCancel() 
     {
         b_CanLedgeCancel = false;
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.1f);
         b_CanLedgeCancel = true;
+
+        // Automatic Ledge Climb (removal of ledge cancel)
+        PerformLedgeClimb();
     }
 
     private IEnumerator LedgeClimb() 
