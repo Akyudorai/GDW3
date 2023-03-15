@@ -86,11 +86,11 @@ public class SaveManager : MonoBehaviour
 
         //LoadFile();
         SaveFilePath = Application.persistentDataPath + "/sp_SaveData.json";
-        Save = LoadFromJson<SaveData>(SaveFilePath);
+        Save = LoadSaveDataFromJson(SaveFilePath);
         if (Save == null) Save = new SaveData();
 
         SettingsFilePath = Application.persistentDataPath + "/Settings.json";
-        Settings = LoadFromJson<SettingsData>(SettingsFilePath);
+        Settings = LoadSettingsFromJson(SettingsFilePath);
         if (Settings == null) Settings = new SettingsData(); 
 
         DontDestroyOnLoad(this.gameObject);
@@ -107,7 +107,7 @@ public class SaveManager : MonoBehaviour
     {
         // Try to save our client's SaveData to it.
         try {
-            System.IO.File.WriteAllText(SaveFilePath, JsonUtility.ToJson(Save));
+            System.IO.File.WriteAllText(SaveFilePath, JsonUtility.ToJson(Save, true));
             Debug.Log("SaveManager: PlayerData successfully saved.");
         }
 
@@ -119,8 +119,8 @@ public class SaveManager : MonoBehaviour
     public void SaveSettingsData() 
     {
         // Try to save our client's SettingsData
-        try {
-            System.IO.File.WriteAllText(SettingsFilePath, JsonUtility.ToJson(Settings));
+        try {            
+            System.IO.File.WriteAllText(SettingsFilePath, JsonUtility.ToJson(Settings, true));
             Debug.Log("SaveManager: Settings successfully saved.");
         }
 
@@ -129,22 +129,62 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    private T LoadFromJson<T>(string path)
+    // private T LoadFromJson<T>(string path)
+    // {
+    //     // If the filePath exists, try to load it into our JSON parser into a native class.
+    //     if (System.IO.File.Exists(path)) 
+    //     {
+    //         try {
+    //             return JsonUtility.FromJson<T>(path);
+    //         } catch {
+    //             Debug.LogError("SaveManager: Failed to load JSON file: " + path);
+    //             return default(T);
+    //         }
+    //     }
+
+    //     // Otherwise, return null;
+    //     Debug.LogWarning("SaveManager: FilePath not found: " + path);
+    //     return default(T);
+    // }
+
+    private SaveData LoadSaveDataFromJson(string path) 
     {
         // If the filePath exists, try to load it into our JSON parser into a native class.
         if (System.IO.File.Exists(path)) 
         {
             try {
-                return JsonUtility.FromJson<T>(path);
+                string loadedData = System.IO.File.ReadAllText(path);
+                SaveData result = JsonUtility.FromJson<SaveData>(loadedData);
+                return result;
             } catch {
                 Debug.LogError("SaveManager: Failed to load JSON file: " + path);
-                return default(T);
+                return null;
             }
         }
 
         // Otherwise, return null;
         Debug.LogWarning("SaveManager: FilePath not found: " + path);
-        return default(T);
+        return null;
+    }
+
+    private SettingsData LoadSettingsFromJson(string path) 
+    {
+        // If the filePath exists, try to load it into our JSON parser into a native class.
+        if (System.IO.File.Exists(path)) 
+        {
+            try {
+                string loadedData = System.IO.File.ReadAllText(path);
+                SettingsData result = JsonUtility.FromJson<SettingsData>(loadedData); 
+                return result;
+            } catch {
+                Debug.LogError("SaveManager: Failed to load JSON file: " + path);
+                return null;
+            }
+        }
+
+        // Otherwise, return null;
+        Debug.LogWarning("SaveManager: FilePath not found: " + path);
+        return null;
     }
 
     // private string GenerateSaveStr() 
