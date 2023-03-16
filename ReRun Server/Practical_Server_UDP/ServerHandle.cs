@@ -51,5 +51,14 @@ namespace Practical_Server_UDP
                 ServerSend.ChatMessage(Server.clients[_id].player, _msg);
             }            
         }
+
+        public static void SubmitScore(int _fromClient, Packet _packet)
+        {
+            int _clientID = _packet.ReadInt();
+            int _raceID = _packet.ReadInt();
+            float _score = _packet.ReadFloat();
+
+            GameLogic.CheckScore(_raceID, _score, _clientID);
+        }
     }
 }

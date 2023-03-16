@@ -29,11 +29,13 @@ namespace Practical_Server_UDP
         private static void MainThread()
         {
             Console.WriteLine($"Main thread started.  Running at { Constants.TICKS_PER_SECOND } ticks per second.");
-            DateTime _nextLoop = DateTime.Now;
+            DateTime _nextLoop = DateTime.Now;            
 
             while (isRunning)
             {
-                while(_nextLoop < DateTime.Now)
+                GameLogic.Start();
+
+                while (_nextLoop < DateTime.Now)
                 {
                     GameLogic.Update();
                     _nextLoop = _nextLoop.AddMilliseconds(Constants.MS_PER_TICK);
