@@ -52,7 +52,12 @@ public class NetworkedPlayerController : MonoBehaviour
     public bool b_IsJumping = false;
     public float f_JumpForce = 1.0f;
     public float f_JumpBoostPercentage = 0.2f;
-    
+
+    [Header("Networked Variables")]
+    public Vector3 currentPos;
+    public Vector3 prevPos;
+    public int interpolationFrameCount = 1;
+    public int elapsedFrames = 0;    
 
     [Header("States")]
     bool b_CheckForGround = true;
@@ -100,8 +105,14 @@ public class NetworkedPlayerController : MonoBehaviour
         // Broadcast the networked position and rotation to the server
         if (Client.IsLocalPlayer(identity))
         {
-            ClientSend.PlayerMovement(transform.position);
+            ClientSend.PlayerMovement(transform.position, mesh.transform.rotation);
         }
+
+        else 
+        {
+            LerpPosition();
+        }
+        
 
         interactionHandler.Tick();
         maneuverHandler.Tick();
@@ -127,6 +138,21 @@ public class NetworkedPlayerController : MonoBehaviour
     // ----------------------------------------------------------------------------
     // PLAYER CONTROLLER
     // ----------------------------------------------------------------------------
+
+    public void SetPosition(Vector3 newPos) 
+    {
+        prevPos = transform.position;
+        currentPos = newPos;                
+    }
+
+    private void LerpPosition() 
+    {
+        float interpolationRatio = (float)elapsedFrames / interpolationFrameCount;
+        Vector3 interpolatedPosition = Vector3.Lerp(prevPos, currentPos, interpolationRatio);
+        elapsedFrames = (elapsedFrames + 1) % (interpolationFrameCount + 1);
+
+        transform.position = interpolatedPosition;
+    }
 
     private void HandleCamera()
     {

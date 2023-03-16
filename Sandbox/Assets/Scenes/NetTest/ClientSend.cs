@@ -35,12 +35,12 @@ public class ClientSend : MonoBehaviour
         }
     }
 
-    public static void PlayerMovement(Vector3 _position) 
+    public static void PlayerMovement(Vector3 _position, Quaternion _rotation) 
     {
         using (Packet _packet = new Packet((int)ClientPackets.playerMovement))
         {
             _packet.Write(_position);
-            _packet.Write(NetworkedGameManager.players[Client.instance.localClientID].transform.rotation);
+            _packet.Write(_rotation);
             SendUDPData(_packet);
         }
     }

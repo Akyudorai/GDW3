@@ -38,7 +38,8 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
 
-        NetworkedGameManager.players[_id].transform.position = _position;        
+        NetworkedGameManager.players[_id].GetComponent<NetworkedPlayerController>().SetPosition(_position);        
+        //NetworkedGameManager.players[_id].transform.position = _position;        
     }
 
     public static void PlayerRotation(Packet _packet) 
@@ -55,5 +56,15 @@ public class ClientHandle : MonoBehaviour
         string _msg = _packet.ReadString();
 
         NetworkUI.instance.ReceiveMessage($"{NetworkedGameManager.players[_id].username}: {_msg}");
+    }
+
+    public static void PlayerDisconnection(Packet _packet) 
+    {
+        int _id = _packet.ReadInt();
+
+        //TODO: Handle the destruction of all objects belonging to the ID;
+        Debug.Log($"Player with ID [{_id}] has disconnected from the server.");
+        Destroy(NetworkedGameManager.players[_id].gameObject);
+        NetworkedGameManager.players.Remove(_id);
     }
 }
