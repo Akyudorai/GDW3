@@ -1,0 +1,20 @@
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.exe.config
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.exe
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.pdb
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.AssemblyReference.cache
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.CoreCompileInputs.cache
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.exe
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.pdb
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\System.Numerics.Vectors.dll
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\System.Numerics.Vectors.xml
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.CopyComplete
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.exe.config
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.exe
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.pdb
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.AssemblyReference.cache
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.CoreCompileInputs.cache
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.CopyComplete
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.exe
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.pdb
