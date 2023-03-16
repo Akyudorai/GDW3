@@ -19,7 +19,7 @@ public class NetTest : MonoBehaviour
 {
     public static NetTest instance;
     public GameObject playerRef;
-    public NetworkedPlayerController netPC;    
+    public NetworkedPlayerController_old netPC;    
 
     public static string localGuid = "";
 
@@ -136,7 +136,7 @@ public class NetTest : MonoBehaviour
             Vector3 randPos = new Vector3(Random.Range(-10, 10), 2, Random.Range(-10, 10));
             GameObject newPlayerObj = Instantiate<GameObject>(prefab_NetPlayerObj, randPos, Quaternion.identity);        
             playerRef = newPlayerObj;
-            netPC = playerRef.GetComponent<NetworkedPlayerController>();                
+            netPC = playerRef.GetComponent<NetworkedPlayerController_old>();                
             netPC.Initialize(id);  
         }
 

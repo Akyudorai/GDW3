@@ -26,6 +26,7 @@ public class UI_Manager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(this.gameObject);
     }
+    
 
     // ============ SINGLETON ============
 
@@ -110,6 +111,18 @@ public class UI_Manager : MonoBehaviour
     [Header("Interaction Prompt Panel")]
     public GameObject PromptPanel;
     public TMP_Text PromptKeyDisplay;
+
+    [Header("Menu")]
+    public GameObject startMenu;
+    public TMP_InputField usernameInputField; 
+    public TMP_InputField ipInputField;
+
+    [Header("Chat")]
+    public GameObject chatPanel;
+    public Transform chatBoxContent;
+    public Scrollbar verticalScroll;
+    public TMP_InputField chatInputField;
+    public GameObject chatMessagePrefab;
 
 
     private void Start() 

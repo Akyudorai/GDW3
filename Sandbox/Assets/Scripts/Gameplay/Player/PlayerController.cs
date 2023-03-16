@@ -101,9 +101,10 @@ public class PlayerController : MonoBehaviour
     private void Awake() 
     {        
         rigid = GetComponent<Rigidbody>();    
-        interactionHandler = GetComponent<InteractionHandler>();  
-        maneuverHandler = GetComponent<ManeuverHandler>();  
-        
+        interactionHandler = GetComponent<InteractionHandler>();
+        interactionHandler.Initialize(this);
+
+        maneuverHandler = GetComponent<ManeuverHandler>();          
         maneuverHandler.Initialize(this, animator);
 
         //splineController.pcRef = this;
@@ -234,7 +235,7 @@ public class PlayerController : MonoBehaviour
             ps_MaxSpeed.Stop();
         }
 
-        interactionHandler.Tick(this);
+        interactionHandler.Tick();
         maneuverHandler.Tick();
 
         if (GameManager.GetInstance().IsPaused) return;
