@@ -37,6 +37,19 @@ public class RaceManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    public static string GetRaceNameByID(int id) 
+    {
+        for (int i = 0; i < instance.raceList.Count; i++) 
+        {
+            if (instance.raceList[i].m_ID == id) {
+                return instance.raceList[i].m_Name;
+            }
+        }
+
+        Debug.LogError("No such race with that ID exists.");
+        return "#[ERROR]";
+    }
+
     public void InitializeRace(PlayerController pcRef, int raceID)
     {
         // Initialize the appropriate Waypoint System based on index

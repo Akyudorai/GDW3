@@ -54,11 +54,16 @@ namespace Practical_Server_UDP
 
         public static void SubmitScore(int _fromClient, Packet _packet)
         {
-            int _clientID = _packet.ReadInt();
+            string _username = _packet.ReadString();
             int _raceID = _packet.ReadInt();
             float _score = _packet.ReadFloat();
 
-            GameLogic.CheckScore(_raceID, _score, _clientID);
+            int result = GameLogic.CheckScore(_raceID, _score, _username);
+
+            if (result != -1)
+            {
+                ServerSend.NewHighScore(_username, result, _raceID, _score);
+            }
         }
     }
 }

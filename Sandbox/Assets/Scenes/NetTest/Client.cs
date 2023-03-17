@@ -43,7 +43,7 @@ public class Client : MonoBehaviour
 
     private void Start()
     {
-        tcp = new TCP();        
+               
     }
 
     private void OnApplicationQuit() 
@@ -65,6 +65,7 @@ public class Client : MonoBehaviour
         InitializeClientData();
 
         isConnected = true;
+        tcp = new TCP(); 
         tcp.Connect();
     }
 
@@ -77,7 +78,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerPosition, ClientHandle.PlayerPosition },
             { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation },
             { (int)ServerPackets.chatMessage, ClientHandle.ChatMessage },
-            { (int)ServerPackets.playerDisconnection, ClientHandle.PlayerDisconnection }
+            { (int)ServerPackets.playerDisconnection, ClientHandle.PlayerDisconnection },
+            { (int)ServerPackets.newHighScore, ClientHandle.NewHighScore }
         };
         Debug.Log("Initialized packets.");
     }
@@ -116,7 +118,7 @@ public class Client : MonoBehaviour
 
             receiveBuffer = new byte[dataBufferSize];
             
-            instance.ip = IPAddress.Parse(NetworkUI.instance.ipInputField.text);        
+            instance.ip = IPAddress.Parse("127.0.0.1");        
             socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
 
             instance.udp = new UDP();

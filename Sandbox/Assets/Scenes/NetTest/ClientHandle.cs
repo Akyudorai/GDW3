@@ -67,4 +67,15 @@ public class ClientHandle : MonoBehaviour
         Destroy(NetworkedGameManager.players[_id].gameObject);
         NetworkedGameManager.players.Remove(_id);
     }
+
+    public static void NewHighScore(Packet _packet) 
+    {
+        string _username = _packet.ReadString();
+        int _position = _packet.ReadInt();
+        int _raceID = _packet.ReadInt();
+        float _time = _packet.ReadFloat();
+
+        // Make an announcement
+        NetworkUI.instance.ReceiveMessage($"{_username} has claimed #{_position+1} highscore in {_raceID} with a time of {_time}!");
+    }
 }

@@ -5,23 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Practical_Server_UDP
-{
+{ 
     [System.Serializable]
     public class Leaderboard
     {
-        public float[] Scores = new float[10];       
+        public class Entry
+        {
+            public string Name;
+            public float Time;            
+        }
+
+        public Entry[] Entries = new Entry[10];       
 
         public static Leaderboard Default()
         {
             Leaderboard result = new Leaderboard();
 
-            result.Scores = new float[10];
-            for (int i = 0; i < result.Scores.Length; i++)
+            result.Entries = new Entry[10];
+            for (int i = 0; i < result.Entries.Length; i++)
             {
-                result.Scores[i] = 0.0f;
+                result.Entries[i].Name = "----";
+                result.Entries[i].Time = 0.0f;
             }
 
             return result;
         }
+          
     }
 }

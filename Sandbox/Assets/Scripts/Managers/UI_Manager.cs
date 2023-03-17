@@ -112,11 +112,6 @@ public class UI_Manager : MonoBehaviour
     public GameObject PromptPanel;
     public TMP_Text PromptKeyDisplay;
 
-    [Header("Menu")]
-    public GameObject startMenu;
-    public TMP_InputField usernameInputField; 
-    public TMP_InputField ipInputField;
-
     [Header("Chat")]
     public GameObject chatPanel;
     public Transform chatBoxContent;

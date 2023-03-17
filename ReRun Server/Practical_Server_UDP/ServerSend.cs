@@ -129,6 +129,19 @@ namespace Practical_Server_UDP
             }
         }
 
+        public static void NewHighScore(string _playerName, int _position, int _raceID, float _time)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.newHighScore))
+            {
+                _packet.Write(_playerName);
+                _packet.Write(_position);
+                _packet.Write(_raceID);
+                _packet.Write(_time);
+
+                SendTCPDataToAll(_packet);
+            }
+        }
+
 
     }
 }

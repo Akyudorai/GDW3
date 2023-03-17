@@ -56,12 +56,25 @@ namespace Practical_Server_UDP
             }
         }
 
-        public static bool CheckScore(int _raceID, float _score, int _clientID)
+        public static int CheckScore(int _raceID, float _time, string _name)
         {
-            bool result = false;
+            int result = -1;
+            bool canSetPosition = true;
 
-            // TODO: Loop through leaderboard and check if the score beats any in the array.  Begin from first element
+            string prevName = _name;
+            float prevTime = _time;
+            for (int i = 0 ; i < Leaderboards[_raceID].Entries.Length; i++)
+            {                
+                if (prevTime < Leaderboards[_raceID].Entries[i].Time)
+                {
+                    if (canSetPosition) result = i;
 
+                    float temp = Leaderboards[_raceID].Entries[i].Time;
+                    Leaderboards[_raceID].Entries[i].Name = prevName;
+                    Leaderboards[_raceID].Entries[i].Time = prevTime;
+                    prevTime = temp;
+                }
+            }
 
             return result;
         }

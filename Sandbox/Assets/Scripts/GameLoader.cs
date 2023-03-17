@@ -26,8 +26,12 @@ public class GameLoader : MonoBehaviour
     {
         LoadingBar.fillAmount = 0.0f;
         FadeImage.color = new Color(0, 0, 0, 0);
+ 
+        GenerateManagers();
 
-        GenerateManagers();                                
+        // Initialize Player
+        PlayerIdentity.NetID = null;
+        PlayerIdentity.Username = "";
     }
 
     private void Update() 
@@ -61,13 +65,13 @@ public class GameLoader : MonoBehaviour
         }
 
         // == UI Manager
-        GameObject umObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/UI Manager"), Vector3.zero, Quaternion.identity);
+        //GameObject umObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/UI Manager"), Vector3.zero, Quaternion.identity);
 
-        if (umObj == null) 
-        {
-            Debug.Log("UI Manager failed to load.");
-            return;
-        }
+        //if (umObj == null) 
+        //{
+        //    Debug.Log("UI Manager failed to load.");
+        //    return;
+        //}
 
         // == ASSET MANAGER
         GameObject amObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/AssetManager"), Vector3.zero, Quaternion.identity);
@@ -88,32 +92,32 @@ public class GameLoader : MonoBehaviour
         }
 
         // == GAME MANAGER
-        GameObject gmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/GameManager"), Vector3.zero, Quaternion.identity);
+        //GameObject gmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/GameManager"), Vector3.zero, Quaternion.identity);
 
-        if (gmObj == null) 
-        {
-            Debug.LogError("GameManager failed to load.");
-            return;
-        }
+        //if (gmObj == null) 
+        //{
+        //    Debug.LogError("GameManager failed to load.");
+        //    return;
+        //}
 
 
         // == QUEST MANAGER
-        GameObject qmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/QuestManager"), Vector3.zero, Quaternion.identity);
+        //GameObject qmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/QuestManager"), Vector3.zero, Quaternion.identity);
 
-        if (qmObj == null) 
-        {
-            Debug.LogError("QuestManager failed to load.");
-            return;
-        }
+        //if (qmObj == null) 
+        //{
+        //    Debug.LogError("QuestManager failed to load.");
+        //    return;
+        //}
 
-        // == RACE MANAGER
-        GameObject rmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/RaceManager"), Vector3.zero, Quaternion.identity);
+        //// == RACE MANAGER
+        //GameObject rmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/RaceManager"), Vector3.zero, Quaternion.identity);
 
-        if (rmObj == null) 
-        {
-            Debug.LogError("RaceManager failed to load.");
-            return;
-        }
+        //if (rmObj == null) 
+        //{
+        //    Debug.LogError("RaceManager failed to load.");
+        //    return;
+        //}
 
         // == SAVE AND LOAD MANAGER
         GameObject slm = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/SaveLoadManager"), Vector3.zero, Quaternion.identity);
@@ -123,6 +127,15 @@ public class GameLoader : MonoBehaviour
             Debug.LogError("SaveLoadManager failed to load.");
             return;
         }
+
+        // == NETWORK MANGER 
+        GameObject nmObj = Instantiate(Resources.Load<GameObject>("Prefabs/Managers/NetworkManager"), Vector3.zero, Quaternion.identity);
+
+        if (nmObj == null)
+        {
+            Debug.LogError("NetworkManager failed to load.");
+        }
+
 
         isLoaded = true;        
     }

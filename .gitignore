@@ -11,6 +11,8 @@ Sandbox/[Ll]ogs/
 Sandbox/[Mm]emoryCaptures/
 Sandbox/[Uu]serSettings/
 
+ReRun Server/*
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !Sandbox/[Aa]ssets/**/*.meta
 
@@ -31,7 +33,7 @@ ExportedObj/
 .consulo/
 *.csproj
 *.unityproj
-*.sln
+# *.sln
 *.suo
 *.tmp
 *.user

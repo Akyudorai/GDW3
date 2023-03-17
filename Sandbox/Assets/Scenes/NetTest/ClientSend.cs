@@ -63,6 +63,15 @@ public class ClientSend : MonoBehaviour
                 Application.Quit();
             #endif
         }
+    }
 
+    public static void SubmitScore(int raceID, float time) 
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.submitScore))
+        {
+            _packet.Write(NetworkedGameManager.players[Client.instance.localClientID].username);
+            _packet.Write(raceID);
+            _packet.Write(time);
+        }
     }
 }
