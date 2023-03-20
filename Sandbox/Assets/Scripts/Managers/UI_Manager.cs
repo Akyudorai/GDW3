@@ -226,6 +226,9 @@ public class UI_Manager : MonoBehaviour
             case 1: // Mbear
                 CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/mbear");
                 break;
+            case 2: // Can
+                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/can");
+                break;
         }
     }
 
@@ -249,6 +252,10 @@ public class UI_Manager : MonoBehaviour
                 totalCollectibles = ct.Mbears.Length - 1;
                 CollectibleAnnouncement.text = "Mithunan Bear Plushie!! ("+collectiblesFound+"/"+totalCollectibles+")";
                 break;
+            case 2: // Can
+                totalCollectibles = ct.Cans.Length - 1;
+                CollectibleAnnouncement.text = "Energy Drink!! (" + collectiblesFound + "/" + totalCollectibles + ")";
+                break;
         }
     }
 
@@ -268,6 +275,9 @@ public class UI_Manager : MonoBehaviour
                 break;
             case 1: // Mbear
                 collectibleBoxUI[1].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/2";
+                break;
+            case 2: // Can
+                collectibleBoxUI[2].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/5";
                 break;
         }
     }

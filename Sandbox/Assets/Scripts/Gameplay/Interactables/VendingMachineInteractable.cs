@@ -7,6 +7,8 @@ using UnityEngine.Events;
 
 public class VendingMachineInteractable : Interactable
 {
+    public Animator canAnimator;
+    public bool canPickUp = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +28,15 @@ public class VendingMachineInteractable : Interactable
         controller.rigid.velocity = Vector3.zero;
 
         this.gameObject.GetComponentInParent<Animator>().SetBool("Interact", true);
+        canAnimator.SetBool("CanThrow", true);
         Debug.Log("Vending Machine");
+    }
+
+    public IEnumerator CanPickUpDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        canPickUp = true;
+
     }
 
 }
