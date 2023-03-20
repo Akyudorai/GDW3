@@ -24,8 +24,9 @@ public class LedgeInteractable : Interactable
     public override void Interact(PlayerController controller, RaycastHit hit)
     {
         // RULE #1:  Player.position.y must not be greater than Ledge.position.y
-        if (controller.transform.position.y + 1.25f > hit.point.y) return;
-        if (controller.b_Grounded) return;
+        if (controller.transform.position.y + 1.25f > hit.point.y) return; // Must be below the ledge to grab it
+        if (controller.b_Grounded) return; // Cannot ledge grab while grounded
+        if (controller.maneuverHandler.b_LedgeGrabbing || controller.maneuverHandler.b_LedgeClimbing) return;  // Cannot ledge grab while ledge grabbed 
 
         // Get reference between two points for easier use
         Vector3 pA = node.position;         

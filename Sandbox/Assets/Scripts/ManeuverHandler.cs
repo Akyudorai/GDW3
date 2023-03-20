@@ -177,10 +177,19 @@ public class ManeuverHandler : MonoBehaviour
     {
         // Trigger the Ledge Climb Animation
         if (b_LedgeGrabbing && b_CanLedgeCancel) 
-        {       
-            b_LedgeGrabbing = false;                
-            b_CanLedgeCancel = false;           
-            StartCoroutine(LedgeClimb());
+        {   
+            animator.SetTrigger("LedgeClimb");  
+
+            b_LedgeClimbing = false;
+            b_LedgeGrabbing = false;
+            b_CanLedgeCancel = false;
+            pc.rigid.useGravity = true;
+            pc.ApplyForce(Vector3.up * (pc.JumpForce*2));            
+
+            animator.ResetTrigger("LedgeGrab");
+            //b_LedgeGrabbing = false;                
+            //b_CanLedgeCancel = false;           
+            //StartCoroutine(LedgeClimb());
         }               
     }
 
