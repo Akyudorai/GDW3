@@ -1,0 +1,1028 @@
+fileFormatVersion: 2
+guid: e397f15c5f700cb46a4d137489f61c90
+ModelImporter:
+  serializedVersion: 21202
+  internalIDToNameTable:
+  - first:
+      74: 4417326790717543178
+    second: Armature|Air
+  - first:
+      74: 9116978828397133383
+    second: Armature|BasePose
+  - first:
+      74: -8945691123924629249
+    second: Armature|Idle
+  - first:
+      74: 961241293841848303
+    second: Armature|LedgeClimb
+  - first:
+      74: -28408511032103225
+    second: Armature|LedgeHang
+  - first:
+      74: 2549403610318957308
+    second: Armature|LedgeHang.001
+  - first:
+      74: -5969583882390561732
+    second: Armature|LedgeJump
+  - first:
+      74: -6455092883309246605
+    second: Armature|RailGrind
+  - first:
+      74: -7551964380084998518
+    second: Armature|Run
+  - first:
+      74: 8349542763059015795
+    second: Armature|Walk
+  - first:
+      74: -7295128397714425955
+    second: Armature|WallRunLeft
+  - first:
+      74: -5255646195225097968
+    second: Armature|WallRunRight
+  - first:
+      74: -3662190730967149763
+    second: Armature|WallRunRight.001
+  - first:
+      74: 4874873376800704871
+    second: Armature|Zipline
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|Air
+      takeName: Armature|Air
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|BasePose
+      takeName: Armature|BasePose
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Idle
+      takeName: Armature|Idle
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 144
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|LedgeClimb
+      takeName: Armature|LedgeClimb
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/CoreIK
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Index1.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Index1.L/Index2.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Index1.L/Index2.L/Index3.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Index1.L/Index2.L/Index3.L/Index3.L_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Middle1.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Middle1.L/Middle2.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Middle1.L/Middle2.L/Middle3.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Middle1.L/Middle2.L/Middle3.L/Middle3.L_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Pinky1.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Pinky1.L/Pinky2.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Pinky1.L/Pinky2.L/Pinky3.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Pinky1.L/Pinky2.L/Pinky3.L/Pinky3.L_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Ring1.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Ring1.L/Ring2.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Ring1.L/Ring2.L/Ring3.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Ring1.L/Ring2.L/Ring3.L/Ring3.L_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Thumb1.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Thumb1.L/Thumb2.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.L/Humerus.L/Ulna.L/Hand.L/Thumb1.L/Thumb2.L/Thumb3.L/Thumb3.L_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Index1.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Index1.R/Index2.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Index1.R/Index2.R/Index3.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Index1.R/Index2.R/Index3.R/Index3.R_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Middle1.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Middle1.R/Middle2.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Middle1.R/Middle2.R/Middle3.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Middle1.R/Middle2.R/Middle3.R/Middle3.R_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Pinky1.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Pinky1.R/Pinky2.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Pinky1.R/Pinky2.R/Pinky3.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Pinky1.R/Pinky2.R/Pinky3.R/Pinky3.R_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Ring1.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Ring1.R/Ring2.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Ring1.R/Ring2.R/Ring3.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Ring1.R/Ring2.R/Ring3.R/Ring3.R_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Thumb1.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Thumb1.R/Thumb2.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Clavicle.R/Humerus.R/Ulna.R/Hand.R/Thumb1.R/Thumb2.R/Thumb3.R/Thumb3.R_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/Ahoge 1
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/Ahoge 1/Ahoge 2
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/Ahoge 1/Ahoge 2/Ahoge 3
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/Ahoge 1/Ahoge 2/Ahoge 3/Ahoge
+          3_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/CTL_lipLowerCenter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/CTL_lipLowerCenter/CTL_lipLowerCenter_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/CTL_noseTip
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/CTL_noseTip/CTL_noseTip_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/CTL_upperLipCenter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/CTL_upperLipCenter/CTL_upperLipCenter_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_Jaw
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_Jaw/L.DEF_mouthCornerDown
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_Jaw/L.DEF_mouthCornerDown/L.DEF_mouthCornerDown_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_Jaw/L.DEF_mouthMidDown
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_Jaw/L.DEF_mouthMidDown/L.DEF_mouthMidDown_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_Jaw/R.DEF_mouthCornerDown
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_Jaw/R.DEF_mouthCornerDown/R.DEF_mouthCornerDown_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_Jaw/R.DEF_mouthMidDown
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_Jaw/R.DEF_mouthMidDown/R.DEF_mouthMidDown_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_noseBridgeLower
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_noseBridgeLower/DEF_noseBridgeLower_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_noseBridgeUpper
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_noseBridgeUpper/DEF_noseBridgeUpper_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_nostril
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/DEF_nostril/DEF_nostril_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/Earring.L
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/Earring.L/Earring.L_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/Earring.R
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/Earring.R/Earring.R_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/Hair
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/Hair/Hair.001
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/Hair/Hair.001/Hair.001_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_browInner
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_browInner/L.CTL_browInner_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_browMidInner
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_browMidInner/L.DEF_browUpper.004
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_browMidInner/L.DEF_browUpper.004/L.DEF_browUpper.004_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_browMidOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_browMidOuter/L.DEF_browUpper.003
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_browMidOuter/L.DEF_browUpper.003/L.DEF_browUpper.003_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_browOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_browOuter/L.DEF_browUpper.002
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_browOuter/L.DEF_browUpper.002/L.DEF_browUpper.002_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_cheekInner
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_cheekInner/L.CTL_cheekInner_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_cheekMidInner
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_cheekMidInner/L.DEF_cheek.004
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_cheekMidInner/L.DEF_cheek.004/L.DEF_cheek.004_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_cheekMidInner/L.DEF_snarl
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_cheekMidInner/L.DEF_snarl/L.DEF_snarl_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_cheekMidOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_cheekMidOuter/L.DEF_cheek.003
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_cheekMidOuter/L.DEF_cheek.003/L.DEF_cheek.003_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_cheekOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_cheekOuter/L.DEF_cheek.002
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_cheekOuter/L.DEF_cheek.002/L.DEF_cheek.002_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_lipLowerOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_lipLowerOuter/L.DEF_mouthBottom.002
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_lipLowerOuter/L.DEF_mouthBottom.002/L.DEF_mouthBottom.002_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_mouthCorner
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_mouthCorner/L.DEF_mouthBottom.001
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_mouthCorner/L.DEF_mouthBottom.001/L.DEF_mouthBottom.001_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_mouthCorner/L.DEF_mouthTop;001
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_mouthCorner/L.DEF_mouthTop;001/L.DEF_mouthTop;001_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_upperLipOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_upperLipOuter/L.DEF_mouthTop;002
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.CTL_upperLipOuter/L.DEF_mouthTop;002/L.DEF_mouthTop;002_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_browInner
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_browInner/L.DEF_browInner_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_browMid
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_browMid/L.DEF_browMid_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_browOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_browOuter/L.DEF_browOuter_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_browUpper.001
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_browUpper.001/L.DEF_browUpper.001_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_cheek.001
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_cheek.001/L.DEF_cheek.001_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_eyeBall
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_eyeBall/L.DEF_eyeBall_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_eyelidLower
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_eyelidLower/L.DEF_eyelidLower_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_eyelidUpper
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_eyelidUpper/L.DEF_eyelidUpper_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_mouthCornerOut
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_mouthCornerOut/L.DEF_mouthCornerOut_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_mouthCornerRaise
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/L.DEF_mouthCornerRaise/L.DEF_mouthCornerRaise_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/Ponytail
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/Ponytail/Ponytail_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_browInner
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_browInner/R.CTL_browInner_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_browMidInner
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_browMidInner/R.DEF_browUpper.004
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_browMidInner/R.DEF_browUpper.004/R.DEF_browUpper.004_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_browMidOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_browMidOuter/R.DEF_browUpper.003
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_browMidOuter/R.DEF_browUpper.003/R.DEF_browUpper.003_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_browOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_browOuter/R.DEF_browUpper.002
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_browOuter/R.DEF_browUpper.002/R.DEF_browUpper.002_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_cheekInner
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_cheekInner/R.CTL_cheekInner_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_cheekMidInner
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_cheekMidInner/R.DEF_cheek.004
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_cheekMidInner/R.DEF_cheek.004/R.DEF_cheek.004_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_cheekMidInner/R.DEF_snarl
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_cheekMidInner/R.DEF_snarl/R.DEF_snarl_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_cheekMidOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_cheekMidOuter/R.DEF_cheek.003
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_cheekMidOuter/R.DEF_cheek.003/R.DEF_cheek.003_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_cheekOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_cheekOuter/R.DEF_cheek.002
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_cheekOuter/R.DEF_cheek.002/R.DEF_cheek.002_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_lipLowerOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_lipLowerOuter/R.DEF_mouthBottom.002
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_lipLowerOuter/R.DEF_mouthBottom.002/R.DEF_mouthBottom.002_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_mouthCorner
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_mouthCorner/R.DEF_mouthBottom.001
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_mouthCorner/R.DEF_mouthBottom.001/R.DEF_mouthBottom.001_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_mouthCorner/R.DEF_mouthTop;001
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_mouthCorner/R.DEF_mouthTop;001/R.DEF_mouthTop;001_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_upperLipOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_upperLipOuter/R.DEF_mouthTop;002
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.CTL_upperLipOuter/R.DEF_mouthTop;002/R.DEF_mouthTop;002_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_browInner
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_browInner/R.DEF_browInner_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_browMid
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_browMid/R.DEF_browMid_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_browOuter
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_browOuter/R.DEF_browOuter_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_browUpper.001
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_browUpper.001/R.DEF_browUpper.001_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_cheek.001
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_cheek.001/R.DEF_cheek.001_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_eyeBall
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_eyeBall/R.DEF_eyeBall_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_eyelidLower
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_eyelidLower/R.DEF_eyelidLower_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_eyelidUpper
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_eyelidUpper/R.DEF_eyelidUpper_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_mouthCornerOut
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_mouthCornerOut/R.DEF_mouthCornerOut_end
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_mouthCornerRaise
+        weight: 1
+      - path: Armature/Root/CoreIK/Spine2/Neck/Head/R.DEF_mouthCornerRaise/R.DEF_mouthCornerRaise_end
+        weight: 1
+      - path: Armature/Root/ElbowIK.L
+        weight: 1
+      - path: Armature/Root/ElbowIK.L/ElbowIK.L_end
+        weight: 1
+      - path: Armature/Root/ElbowIK.R
+        weight: 1
+      - path: Armature/Root/ElbowIK.R/ElbowIK.R_end
+        weight: 1
+      - path: Armature/Root/HandIK.L
+        weight: 1
+      - path: Armature/Root/HandIK.L/HandIK.L_end
+        weight: 1
+      - path: Armature/Root/HandIK.R
+        weight: 1
+      - path: Armature/Root/HandIK.R/HandIK.R_end
+        weight: 1
+      - path: Armature/Root/HeadTarget
+        weight: 1
+      - path: Armature/Root/HeadTarget/EyeTarget
+        weight: 1
+      - path: Armature/Root/HeadTarget/EyeTarget/EyeTarget_end
+        weight: 1
+      - path: Armature/Root/Pelvis
+        weight: 1
+      - path: Armature/Root/Pelvis/Spine1
+        weight: 1
+      - path: Armature/Root/Pelvis/Spine1/Spine1_end
+        weight: 1
+      - path: Armature/Root/Pelvis/Thigh.L
+        weight: 1
+      - path: Armature/Root/Pelvis/Thigh.L/Knee.L
+        weight: 1
+      - path: Armature/Root/Pelvis/Thigh.L/Knee.L/Shin.L
+        weight: 1
+      - path: Armature/Root/Pelvis/Thigh.L/Knee.L/Shin.L/Foot.L
+        weight: 1
+      - path: Armature/Root/Pelvis/Thigh.L/Knee.L/Shin.L/Foot.L/Foot.L_end
+        weight: 1
+      - path: Armature/Root/Pelvis/Thigh.R
+        weight: 1
+      - path: Armature/Root/Pelvis/Thigh.R/Knee.R
+        weight: 1
+      - path: Armature/Root/Pelvis/Thigh.R/Knee.R/Shin.R
+        weight: 1
+      - path: Armature/Root/Pelvis/Thigh.R/Knee.R/Shin.R/Foot.R
+        weight: 1
+      - path: Armature/Root/Pelvis/Thigh.R/Knee.R/Shin.R/Foot.R/Foot.R_end
+        weight: 1
+      - path: Armature/Root/Toe.L
+        weight: 1
+      - path: Armature/Root/Toe.L/Bone
+        weight: 1
+      - path: Armature/Root/Toe.L/Bone/FootIK.L
+        weight: 1
+      - path: Armature/Root/Toe.L/Bone/FootIK.L/FootIK.L_end
+        weight: 1
+      - path: Armature/Root/Toe.L/KneeIK.L
+        weight: 1
+      - path: Armature/Root/Toe.L/KneeIK.L/KneeIK.L_end
+        weight: 1
+      - path: Armature/Root/Toe.R
+        weight: 1
+      - path: Armature/Root/Toe.R/KneeIK.R
+        weight: 1
+      - path: Armature/Root/Toe.R/KneeIK.R/KneeIK.R_end
+        weight: 1
+      - path: Armature/Root/Toe.R/ToePivot.R
+        weight: 1
+      - path: Armature/Root/Toe.R/ToePivot.R/FootIK.R
+        weight: 1
+      - path: Armature/Root/Toe.R/ToePivot.R/FootIK.R/FootIK.R_end
+        weight: 1
+      - path: Belts
+        weight: 1
+      - path: Body
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|LedgeHang
+      takeName: Armature|LedgeHang
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|LedgeHang.001
+      takeName: Armature|LedgeHang.001
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|LedgeJump
+      takeName: Armature|LedgeJump
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 22
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|RailGrind
+      takeName: Armature|RailGrind
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Run
+      takeName: Armature|Run
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Walk
+      takeName: Armature|Walk
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|WallRunLeft
+      takeName: Armature|WallRunLeft
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|WallRunRight
+      takeName: Armature|WallRunRight
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|WallRunRight.001
+      takeName: Armature|WallRunRight.001
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Zipline
+      takeName: Armature|Zipline
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: Root
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

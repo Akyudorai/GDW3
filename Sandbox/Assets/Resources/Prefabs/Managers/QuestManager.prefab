@@ -195,9 +195,9 @@ MonoBehaviour:
     - {fileID: 1244824266667019072, guid: ad07875fdf007fb48a6926c67ad40252, type: 3}
     - {fileID: 1244824266667019072, guid: ad07875fdf007fb48a6926c67ad40252, type: 3}
     m_ItemsPositions:
-    - {x: 81.04, y: 5.38, z: 108.4}
-    - {x: 88.96, y: 5.38, z: 108.4}
-    - {x: 99.6, y: 5.38, z: 108.4}
+    - {x: 22.33, y: 11.65, z: 59.08}
+    - {x: 70.96, y: 7.16, z: 102.97}
+    - {x: 18.16, y: 6.19, z: 118.1}
     m_RequirementsMet: 0
   - m_ID: 6
     m_questItemsCollected: 0

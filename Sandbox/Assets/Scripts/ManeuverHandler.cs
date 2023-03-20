@@ -225,10 +225,19 @@ public class ManeuverHandler : MonoBehaviour
     {
         // Trigger the Ledge Climb Animation
         if (b_LedgeGrabbing && b_CanLedgeCancel) 
-        {       
-            b_LedgeGrabbing = false;                
-            b_CanLedgeCancel = false;           
-            StartCoroutine(LedgeClimb());
+        {   
+            animator.SetTrigger("LedgeClimb");  
+
+            b_LedgeClimbing = false;
+            b_LedgeGrabbing = false;
+            b_CanLedgeCancel = false;
+            pc.rigid.useGravity = true;
+            pc.ApplyForce(Vector3.up * (pc.JumpForce*2));            
+
+            animator.ResetTrigger("LedgeGrab");
+            //b_LedgeGrabbing = false;                
+            //b_CanLedgeCancel = false;           
+            //StartCoroutine(LedgeClimb());
         }               
     }
 
@@ -245,27 +254,28 @@ public class ManeuverHandler : MonoBehaviour
     private IEnumerator LedgeClimb() 
     {   
         // Give animation full control over motion
-        GetComponent<Collider>().enabled = false;
-        animator.GetComponent<ParentRootMotion>().useRootMotion = true;
+        pc.capsuleCollider.enabled = false;
+        pc.rigid.useGravity = false;
+        animator.applyRootMotion = true;
         animator.SetTrigger("LedgeClimb");
         b_LedgeClimbing = true;
         
-        yield return new WaitForSeconds(1.12f); // approximate length of ledge climb animation
-        Vector3 rootPos = anim_RootTracker.transform.position;
-        yield return new WaitForSeconds(0.02f);
+        yield return new WaitForSeconds(1.45f); // approximate length of ledge climb animation
+        //Vector3 rootPos = anim_RootTracker.transform.position;
+        //yield return new WaitForSeconds(0.02f);
 
         // Return control over motion to the player
-        GetComponent<Collider>().enabled = true;
-        animator.GetComponent<ParentRootMotion>().useRootMotion = false;
+        animator.SetTrigger("DoneClimbing");
+        pc.capsuleCollider.enabled = true;
+        animator.applyRootMotion = false;
         animator.ResetTrigger("LedgeGrab");
 
         // Restore player control
-        transform.position = rootPos;
         b_LedgeClimbing = false;
 
         if (b_IsNetworked) netPC.rigid.useGravity = true;
         else pc.rigid.useGravity = true;
 
-
+        animator.ResetTrigger("DoneClimbing");
     }
 }
