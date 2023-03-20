@@ -6,6 +6,10 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+using System.Threading;
+using System.Threading.Tasks;
+
+
 public class GameLoader : MonoBehaviour
 {
     private static bool isLoaded = false;
@@ -29,9 +33,6 @@ public class GameLoader : MonoBehaviour
  
         GenerateManagers();
 
-        // Initialize Player
-        PlayerIdentity.NetID = null;
-        PlayerIdentity.Username = "";
     }
 
     private void Update() 
@@ -48,95 +49,47 @@ public class GameLoader : MonoBehaviour
 
     private void GenerateManagers() 
     {
-        // == INPUT MANAGER
-        GameObject imObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/InputManager"), Vector3.zero, Quaternion.identity);
+        Debug.Log("Beginning to generate managers");
 
+        GameObject imObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/InputManager"), Vector3.zero, Quaternion.identity);
         if (imObj == null) {
             Debug.LogError("InputManager failed to load.");
             return;
         }
 
-        // == SOUND MANAGER
         GameObject smObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/SoundManager"), Vector3.zero, Quaternion.identity);
-
         if (smObj == null) {
             Debug.LogError("SoundManager failed to load.");
             return;
         }
 
-        // == UI Manager
-        //GameObject umObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/UI Manager"), Vector3.zero, Quaternion.identity);
-
-        //if (umObj == null) 
-        //{
-        //    Debug.Log("UI Manager failed to load.");
-        //    return;
-        //}
-
-        // == ASSET MANAGER
         GameObject amObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/AssetManager"), Vector3.zero, Quaternion.identity);
-
         if (amObj == null) 
         {
             Debug.LogError("AssetManager failed to load.");
             return;
         }
-
-        // == SPAWN POINT MANAGER
+        
         GameObject spmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/SpawnPointManager"), Vector3.zero, Quaternion.identity);
-
         if (spmObj == null) 
         {
             Debug.LogError("SpawnPointManager failed to load.");
             return;
         }
 
-        // == GAME MANAGER
-        //GameObject gmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/GameManager"), Vector3.zero, Quaternion.identity);
-
-        //if (gmObj == null) 
-        //{
-        //    Debug.LogError("GameManager failed to load.");
-        //    return;
-        //}
-
-
-        // == QUEST MANAGER
-        //GameObject qmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/QuestManager"), Vector3.zero, Quaternion.identity);
-
-        //if (qmObj == null) 
-        //{
-        //    Debug.LogError("QuestManager failed to load.");
-        //    return;
-        //}
-
-        //// == RACE MANAGER
-        //GameObject rmObj = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/RaceManager"), Vector3.zero, Quaternion.identity);
-
-        //if (rmObj == null) 
-        //{
-        //    Debug.LogError("RaceManager failed to load.");
-        //    return;
-        //}
-
-        // == SAVE AND LOAD MANAGER
-        GameObject slm = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/SaveLoadManager"), Vector3.zero, Quaternion.identity);
-
-        if (slm == null) 
-        {
-            Debug.LogError("SaveLoadManager failed to load.");
-            return;
-        }
-
-        // == NETWORK MANGER 
         GameObject nmObj = Instantiate(Resources.Load<GameObject>("Prefabs/Managers/NetworkManager"), Vector3.zero, Quaternion.identity);
-
         if (nmObj == null)
         {
             Debug.LogError("NetworkManager failed to load.");
+            return;
+        }                       
+        
+        GameObject slm = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Managers/SaveLoadManager"), Vector3.zero, Quaternion.identity);
+        if (slm == null) 
+        {
+            Debug.LogError("SaveLoadManager failed to load.");                
         }
-
-
+        
         isLoaded = true;        
     }
 

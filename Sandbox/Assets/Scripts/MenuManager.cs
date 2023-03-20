@@ -45,9 +45,13 @@ public class MenuManager : MonoBehaviour
         loginPanel.SetActive(state);
     }
 
-    public void SubmitName()
+    public void ConnectToServer()
     {
+        // Initialize Player
+        PlayerIdentity.NetID = null;
         PlayerIdentity.Username = usernameInput.text;
+
+        Client.instance.ConnectToServer();
     }
 
     public void MenuPanel(bool state)

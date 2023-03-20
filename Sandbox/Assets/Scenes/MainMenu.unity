@@ -303,7 +303,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 232021443}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: SubmitName
+        m_MethodName: ConnectToServer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

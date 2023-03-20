@@ -39,7 +39,7 @@ namespace Practical_Server_UDP
         {   
             int _id = _packet.ReadInt();
             string _msg = _packet.ReadString();
-
+            
             
             if (_msg.Equals("quit", StringComparison.InvariantCultureIgnoreCase))
             {
@@ -58,10 +58,12 @@ namespace Practical_Server_UDP
             int _raceID = _packet.ReadInt();
             float _score = _packet.ReadFloat();
 
+            Console.WriteLine($"Submit Score Received");
             int result = GameLogic.CheckScore(_raceID, _score, _username);
 
             if (result != -1)
             {
+                Console.WriteLine($"Sending new highscore notification to clients");
                 ServerSend.NewHighScore(_username, result, _raceID, _score);
             }
         }

@@ -11,8 +11,8 @@ namespace Practical_Server_UDP
     {
         public class Entry
         {
-            public string Name;
-            public float Time;            
+            public string Name = "[NONE]";
+            public float Time = 3600;            
         }
 
         public Entry[] Entries = new Entry[10];       
@@ -24,8 +24,9 @@ namespace Practical_Server_UDP
             result.Entries = new Entry[10];
             for (int i = 0; i < result.Entries.Length; i++)
             {
-                result.Entries[i].Name = "----";
-                result.Entries[i].Time = 0.0f;
+                result.Entries[i] = new Entry();
+                result.Entries[i].Name = "[NONE]";
+                result.Entries[i].Time = 3600.0f;
             }
 
             return result;

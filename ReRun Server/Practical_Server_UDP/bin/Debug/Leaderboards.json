@@ -1,72 +1,222 @@
 {
   "0": {
-    "Scores": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0
+    "Entries": [
+      {
+        "Name": "test",
+        "Time": 100.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      }
     ]
   },
   "1": {
-    "Scores": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0
+    "Entries": [
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      }
     ]
   },
   "2": {
-    "Scores": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0
+    "Entries": [
+      {
+        "Name": "test",
+        "Time": 37.8451576
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      }
     ]
   },
   "3": {
-    "Scores": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0
+    "Entries": [
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      }
     ]
   },
   "4": {
-    "Scores": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0
+    "Entries": [
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      },
+      {
+        "Name": "[NONE]",
+        "Time": 3600.0
+      }
     ]
   }
 }

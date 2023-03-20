@@ -2397,7 +2397,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1201864499098928726}
-  - component: {fileID: 6814348322975451675}
   - component: {fileID: 2901666083039713224}
   - component: {fileID: 7375158576126092896}
   - component: {fileID: 7375158576126092921}
@@ -2430,20 +2429,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6814348322975451675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1201864499098928745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2d41e0322ce65448ac2912f0fd8919e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  localClientID: 0
-  username: 
 --- !u!114 &2901666083039713224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2456,7 +2441,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef9be786f8b1022489d55e09fd0d3e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  identity: {fileID: 6814348322975451675}
   cam: {fileID: 7375158576126092708}
   camera_pivot: {fileID: 7375158576126092667}
   rigid: {fileID: 1201864499098928724}
@@ -2487,6 +2471,10 @@ MonoBehaviour:
   b_IsJumping: 0
   f_JumpForce: 7
   f_JumpBoostPercentage: 0.25
+  currentPos: {x: 0, y: 0, z: 0}
+  prevPos: {x: 0, y: 0, z: 0}
+  interpolationFrameCount: 1
+  elapsedFrames: 0
 --- !u!114 &7375158576126092896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3670,7 +3658,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d49580896f16f47afa2cb6e3595970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6814348322975451675}
   t_camera: {fileID: 7375158576126092674}
   cameraSmoothingFactor: 1
   lookUpMax: 60

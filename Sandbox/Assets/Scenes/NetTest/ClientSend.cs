@@ -29,7 +29,7 @@ public class ClientSend : MonoBehaviour
         using (Packet _packet = new Packet((int)ClientPackets.welcomeReceived))
         {
             _packet.Write(Client.instance.localClientID);
-            _packet.Write(NetworkUI.instance.usernameInputField.text);
+            _packet.Write(PlayerIdentity.Username);
 
             SendTCPData(_packet);
         }
@@ -69,9 +69,10 @@ public class ClientSend : MonoBehaviour
     {
         using (Packet _packet = new Packet((int)ClientPackets.submitScore))
         {
-            _packet.Write(NetworkedGameManager.players[Client.instance.localClientID].username);
+            _packet.Write(NetworkManager.players[Client.instance.localClientID].username);
             _packet.Write(raceID);
             _packet.Write(time);
+            SendTCPData(_packet);
         }
     }
 }

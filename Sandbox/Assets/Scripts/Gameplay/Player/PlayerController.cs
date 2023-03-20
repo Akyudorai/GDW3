@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour
         //GameManager.GetInstance().PlayerRef = this;       
         InputManager.GetInput().Player.Shift.performed += ShiftWithContext;
         InputManager.GetInput().Player.Shift.canceled += ShiftCancelWithContext;
+        InputManager.GetInput().Player.Escape.performed += cntxt => UI_Manager.GetInstance().TogglePhonePanel(!UI_Manager.GetInstance().PhonePanel.activeInHierarchy);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false; 

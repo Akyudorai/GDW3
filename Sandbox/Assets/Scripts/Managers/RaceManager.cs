@@ -143,6 +143,13 @@ public class RaceManager : MonoBehaviour
             FMOD.Studio.EventInstance finishSFX = SoundManager.CreateSoundInstance(SoundFile.RaceFinish);
             finishSFX.start();
             finishSFX.release(); 
+
+            // If connected to the server, submit score
+            if (Client.isConnected)
+            {
+                Debug.Log("submitting score to server");
+                ClientSend.SubmitScore(activeRaceID, m_Timer);
+            }           
         } else 
         {
             Debug.Log("Race has been forfeited");

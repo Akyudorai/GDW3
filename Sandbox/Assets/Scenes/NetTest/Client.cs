@@ -14,6 +14,7 @@ public class Client : MonoBehaviour
 
     public static Client instance;
     public static int dataBufferSize = 4096;
+    public static bool isConnected = false;
 
     public IPAddress ip;
     public int port = 8888;
@@ -21,7 +22,6 @@ public class Client : MonoBehaviour
     public TCP tcp;
     public UDP udp;
 
-    private bool isConnected = false;
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
 
@@ -41,11 +41,6 @@ public class Client : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-               
-    }
-
     private void OnApplicationQuit() 
     {
         Disconnect();
@@ -63,8 +58,8 @@ public class Client : MonoBehaviour
     public void ConnectToServer()
     {
         InitializeClientData();
-
-        isConnected = true;
+        
+        //isConnected = true;
         tcp = new TCP(); 
         tcp.Connect();
     }
@@ -126,17 +121,16 @@ public class Client : MonoBehaviour
 
         private void ConnectCallback(IAsyncResult _result)
         {
-            socket.EndConnect(_result);
+            socket.EndConnect(_result);            
 
             if (!socket.Connected)
             {
                 return;
-            }
-
+            }            
+            
+            isConnected = true;
             stream = socket.GetStream();
-
             receivedData = new Packet();
-
             stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
         }
 

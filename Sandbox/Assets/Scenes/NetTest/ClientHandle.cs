@@ -30,7 +30,8 @@ public class ClientHandle : MonoBehaviour
         Vector3 _position = _packet.ReadVector3();
         Quaternion _quaternion = _packet.ReadQuaternion();
 
-        NetworkedGameManager.instance.SpawnPlayer(_id, _username, _position, _quaternion);
+        //TODO: Only spawn if in a networked scene
+        NetworkManager.instance.SpawnPlayer(_id, _username, _position, _quaternion);
     }
 
     public static void PlayerPosition(Packet _packet) 
@@ -38,7 +39,7 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
 
-        NetworkedGameManager.players[_id].GetComponent<NetworkedPlayerController>().SetPosition(_position);        
+        NetworkManager.players[_id].netPC.SetPosition(_position);        
         //NetworkedGameManager.players[_id].transform.position = _position;        
     }
 
@@ -47,7 +48,7 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         Quaternion _rotation = _packet.ReadQuaternion();
 
-        NetworkedGameManager.players[_id].GetComponent<NetworkedPlayerController>().mesh.transform.rotation = _rotation;        
+        NetworkManager.players[_id].netPC.mesh.transform.rotation = _rotation;        
     }
 
     public static void ChatMessage(Packet _packet) 
@@ -55,7 +56,10 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         string _msg = _packet.ReadString();
 
-        NetworkUI.instance.ReceiveMessage($"{NetworkedGameManager.players[_id].username}: {_msg}");
+        Debug.Log($"{NetworkManager.players[_id].username}: {_msg}");
+
+        /// ONLY POST THIS ON MULTIPLAYER SCENE
+        //NetworkUI.instance.ReceiveMessage($"{NetworkManager.players[_id].username}: {_msg}");
     }
 
     public static void PlayerDisconnection(Packet _packet) 
@@ -64,8 +68,8 @@ public class ClientHandle : MonoBehaviour
 
         //TODO: Handle the destruction of all objects belonging to the ID;
         Debug.Log($"Player with ID [{_id}] has disconnected from the server.");
-        Destroy(NetworkedGameManager.players[_id].gameObject);
-        NetworkedGameManager.players.Remove(_id);
+        Destroy(NetworkManager.players[_id].netPC.gameObject);
+        NetworkManager.players.Remove(_id);
     }
 
     public static void NewHighScore(Packet _packet) 
@@ -76,6 +80,11 @@ public class ClientHandle : MonoBehaviour
         float _time = _packet.ReadFloat();
 
         // Make an announcement
-        NetworkUI.instance.ReceiveMessage($"{_username} has claimed #{_position+1} highscore in {_raceID} with a time of {_time}!");
+        string announcement = $"{_username} has claimed #{_position + 1} highscore in {_raceID} with a time of {_time}!";
+
+        Debug.Log(announcement);
+
+        /// ONLY POST THIS ON MULTIPLAYER SCENE
+        //NetworkUI.instance.ReceiveMessage($"{_username} has claimed #{_position+1} highscore in {_raceID} with a time of {_time}!");
     }
 }

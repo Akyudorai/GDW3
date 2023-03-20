@@ -14,7 +14,7 @@ namespace Practical_Server_UDP
 
         public static void Start()
         {
-            LoadLeaderboards();
+            LoadLeaderboards();            
         }
 
         public static void Update()
@@ -47,17 +47,19 @@ namespace Practical_Server_UDP
             if (System.IO.File.Exists(path))
             {
                 string json = System.IO.File.ReadAllText(path);
-                Leaderboards = JsonConvert.DeserializeObject<Dictionary<int, Leaderboard>>(json);
+                Leaderboards = JsonConvert.DeserializeObject<Dictionary<int, Leaderboard>>(json);                
             }
 
             else
             {
                 Console.WriteLine($"Failed to load file at path {path}");
-            }
+            }            
         }
 
         public static int CheckScore(int _raceID, float _time, string _name)
         {
+            Console.WriteLine($"DEBUG: Checking score of {_time} for race with ID of {_raceID}");
+
             int result = -1;
             bool canSetPosition = true;
 
@@ -65,9 +67,13 @@ namespace Practical_Server_UDP
             float prevTime = _time;
             for (int i = 0 ; i < Leaderboards[_raceID].Entries.Length; i++)
             {                
+                Console.WriteLine($"Comparing time of {_time} to {Leaderboards[_raceID].Entries[i].Time}");
                 if (prevTime < Leaderboards[_raceID].Entries[i].Time)
                 {
-                    if (canSetPosition) result = i;
+                    if (canSetPosition) {
+                        result = i;
+                        canSetPosition = false;                        
+                    }
 
                     float temp = Leaderboards[_raceID].Entries[i].Time;
                     Leaderboards[_raceID].Entries[i].Name = prevName;
@@ -75,6 +81,8 @@ namespace Practical_Server_UDP
                     prevTime = temp;
                 }
             }
+
+            if (result != -1) SaveLeaderboards();
 
             return result;
         }
