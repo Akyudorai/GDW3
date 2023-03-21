@@ -143,63 +143,75 @@ public class PlayerController : MonoBehaviour
 
     public void MoveCtx(InputAction.CallbackContext ctx) 
     {
+        if (GameManager.GetInstance().IsPaused) 
+        {
+            v_MotionInput = Vector2.zero;
+            return;
+        }
+
         var inputValue = ctx.ReadValue<Vector2>();
         v_MotionInput = inputValue;
     }
 
     public void JumpCtx(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
 
         Jump();
     }
 
     public void LookCtx(InputAction.CallbackContext ctx) 
     {
+        if (GameManager.GetInstance().IsPaused) 
+        {
+            v_Rotation = Vector2.zero;
+            return;
+        }
+
         var inputValue = ctx.ReadValue<Vector2>();
         v_Rotation = inputValue;
     }
 
     public void InteractCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         interactionHandler.Interact(this, InteractionType.Social);
         interactionHandler.Interact(this, InteractionType.VendingMachine);
     }
 
     public void WallRunCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         interactionHandler.Interact(this, InteractionType.Wall);
     }
 
     public void ZiplineCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         interactionHandler.Interact(this, InteractionType.Zipline);
     }
 
     public void RailGrindCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         interactionHandler.Interact(this, InteractionType.Rail);
     }
 
     public void LedgeGrabCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         interactionHandler.Interact(this, InteractionType.Ledge);
     }
 
     public void LedgeClimbCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         maneuverHandler.PerformLedgeClimb();
     }
 
     public void LedgeReleaseCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         maneuverHandler.PerformLedgeDrop();
     }
 
@@ -240,12 +252,12 @@ public class PlayerController : MonoBehaviour
         interactionHandler.Tick();
         maneuverHandler.Tick();
 
-        if (GameManager.GetInstance().IsPaused) return;
-        if (e_State == PlayerState.Locked) return;
-
         if (!maneuverHandler.b_IsSplineControlled && !maneuverHandler.b_IsLedgeHandling) {
             Movement();
         }
+
+        if (GameManager.GetInstance().IsPaused) return;
+        if (e_State == PlayerState.Locked) return;        
 
         Camera();
         
