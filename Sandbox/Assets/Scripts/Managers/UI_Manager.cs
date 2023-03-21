@@ -41,6 +41,7 @@ public class UI_Manager : MonoBehaviour
     public GameObject PhonePanel;
     public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel, TipPanel;
     public Animator phoneAnimator;
+    public TextMeshProUGUI cashTracker; //temporary cash ui element
 
     [Header("Home Panel")]
     public TMP_Text SearchBar;

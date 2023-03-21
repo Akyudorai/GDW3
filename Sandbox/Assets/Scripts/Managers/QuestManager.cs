@@ -27,6 +27,7 @@ public class QuestManager : MonoBehaviour
     // -- END OF SINGLETON --
 
     [Header("Quest Components")]
+    public int questCompleteReward = 50;
     public int activeQuestID = -1;
     public List<QuestData> questList = new List<QuestData>();
     public List<GameObject> activeQuestItems = new List<GameObject>();
@@ -166,6 +167,8 @@ public class QuestManager : MonoBehaviour
         UI_Manager.GetInstance().questStatus.text = "Complete";
 
         UI_Manager.GetInstance().SendNotification("Quest Complete", UI_Manager.GetInstance().questSprite);
+
+        GameManager.GetInstance().pcRef.AddMoney(questCompleteReward); //adding money to player wallet as a reward
     }
 
     public void QuestItemCollected(QuestItem item, QuestData _quest)

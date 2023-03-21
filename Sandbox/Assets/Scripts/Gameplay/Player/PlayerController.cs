@@ -644,4 +644,21 @@ public class PlayerController : MonoBehaviour
             Gizmos.DrawLine(transform.position + Vector3.up*0.1f, transform.position - Vector3.up * 0.5f);
         }
     }
+
+    //Money stuff that will be moved to the player identity script later
+    private int money;
+    public void AddMoney(int amount)
+    {
+        money += amount;
+        UI_Manager.GetInstance().cashTracker.text = "$" + money.ToString();
+    }
+    public void RemoveMoney(int amount)
+    {
+        money -= amount;
+        UI_Manager.GetInstance().cashTracker.text = "$" + money.ToString();
+    }
+    public int GetMoney()
+    {
+        return money;
+    }
 }
