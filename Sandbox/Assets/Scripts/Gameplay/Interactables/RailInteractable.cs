@@ -47,7 +47,7 @@ public class RailInteractable : Interactable
         node.Attach(pc.maneuverHandler.splineController, result, isForward);        
 
         // Apply a spline boost force to the player
-        pc.v_HorizontalVelocity *= 1.2f; // 20%  
+        //pc.v_HorizontalVelocity *= 1.2f; // 20%  
 
         // Spawn a GrindVFX on the player until detatched
         GameObject newVFX = Instantiate(Resources.Load<GameObject>("VFX/GrindVFX"));
