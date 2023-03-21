@@ -49,6 +49,7 @@ namespace Practical_Server_UDP
                 }                
             }
         }
+        
 
         private static void SendUDPDataToAll(int _clientException, Packet _packet)
         {
@@ -58,6 +59,48 @@ namespace Practical_Server_UDP
                 if (i != _clientException)
                 {
                     Server.clients[i].udp.SendData(_packet);
+                }
+            }
+        }
+
+        private static void SendTCPDataToAllConnected(Packet _packet)
+        {
+            _packet.WriteLength();
+            for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            {
+                GameLogic.ActiveClients[i].tcp.SendData(_packet);
+            }
+        }
+
+        private static void SendUDPDataToAllConnected(Packet _packet)
+        {
+            _packet.WriteLength();
+            for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            {
+                GameLogic.ActiveClients[i].udp.SendData(_packet);
+            }
+        }
+
+        private static void SendTCPDataToAllConnected(int _clientException, Packet _packet)
+        {
+            _packet.WriteLength();
+            for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            {
+                if (i != _clientException)
+                {
+                    GameLogic.ActiveClients[i].tcp.SendData(_packet);
+                }
+            }
+        }
+
+        private static void SendUDPDataToAllConnected(int _clientException, Packet _packet)
+        {
+            _packet.WriteLength();
+            for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            {
+                if (i != _clientException)
+                {
+                    GameLogic.ActiveClients[i].udp.SendData(_packet);
                 }
             }
         }
@@ -103,7 +146,7 @@ namespace Practical_Server_UDP
                 _packet.Write(_player.id);
                 _packet.Write(_player.position);
 
-                SendUDPDataToAll(_packet);
+                SendUDPDataToAllConnected(_packet);
             }
         }
 
@@ -114,7 +157,7 @@ namespace Practical_Server_UDP
                 _packet.Write(_player.id);
                 _packet.Write(_player.rotation);
 
-                SendUDPDataToAll(_player.id, _packet);
+                SendUDPDataToAllConnected(_player.id, _packet);
             }
         }
 
@@ -138,6 +181,16 @@ namespace Practical_Server_UDP
                 _packet.Write(_raceID);
                 _packet.Write(_time);
 
+                SendTCPDataToAll(_packet);
+            }
+        }
+
+        public static void JoinMultiplayer(int _clientID)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.joinMultiplayer))
+            {
+                _packet.Write(_clientID);
+                
                 SendTCPDataToAll(_packet);
             }
         }

@@ -18,7 +18,8 @@ namespace Practical_Server_UDP
         playerRotation,
         chatMessage,
         playerDisconnection,
-        newHighScore
+        newHighScore,
+        joinMultiplayer
     }
 
     /// <summary>Sent from client to server.</summary>
@@ -27,7 +28,8 @@ namespace Practical_Server_UDP
         welcomeReceived = 1,
         playerMovement,
         chatMessage,
-        submitScore
+        submitScore,
+        joinMultiplayer
     }
 
     public class Packet : IDisposable

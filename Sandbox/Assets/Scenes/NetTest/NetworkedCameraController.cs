@@ -27,11 +27,7 @@ public class NetworkedCameraController : MonoBehaviour
 
     private void Start()
     {
-        netPC = player.netPC;
-
-        camRotation = transform.localRotation;
-        camera_offset = t_camera.localPosition;
-
+        
         
     }
 

@@ -51,7 +51,7 @@ public class Client : MonoBehaviour
     // ----------------------------------------------------------------------------
 
     public static bool IsLocalPlayer(NetworkIdentity identity)
-    { 
+    {         
         return ((instance.localClientID == identity.localClientID) ? true : false);
     }
 
@@ -74,7 +74,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation },
             { (int)ServerPackets.chatMessage, ClientHandle.ChatMessage },
             { (int)ServerPackets.playerDisconnection, ClientHandle.PlayerDisconnection },
-            { (int)ServerPackets.newHighScore, ClientHandle.NewHighScore }
+            { (int)ServerPackets.newHighScore, ClientHandle.NewHighScore },
+            { (int)ServerPackets.joinMultiplayer, ClientHandle.JoinMultiplayer }
         };
         Debug.Log("Initialized packets.");
     }

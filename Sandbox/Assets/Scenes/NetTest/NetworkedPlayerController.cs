@@ -69,7 +69,7 @@ public class NetworkedPlayerController : MonoBehaviour
 
     private void Awake()
     {        
-        identity = GetComponent<NetworkIdentity>();
+        //identity = GetComponent<NetworkIdentity>();
         rigid = GetComponent<Rigidbody>();
 
         inputHandler.JumpCallback += Jump;
@@ -142,7 +142,9 @@ public class NetworkedPlayerController : MonoBehaviour
     public void SetPosition(Vector3 newPos) 
     {
         prevPos = transform.position;
-        currentPos = newPos;                
+        currentPos = newPos;   
+        
+        //transform.position = newPos;
     }
 
     private void LerpPosition() 

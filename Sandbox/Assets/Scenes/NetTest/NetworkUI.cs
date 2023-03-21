@@ -9,12 +9,6 @@ public class NetworkUI : MonoBehaviour
 {
     public static NetworkUI instance;
 
-    [Header("Menu")]
-    public GameObject startMenu;
-    public TMP_InputField usernameInputField; 
-    public TMP_InputField ipInputField;
-    public GameObject menuCamera;
-
     [Header("Chat")]
     public GameObject chatPanel;
     public Transform chatBoxContent;
@@ -31,17 +25,6 @@ public class NetworkUI : MonoBehaviour
             Debug.LogWarning("Instance already exists, destrying objects!");
             Destroy(this);
         }
-    }
-
-    public void ConnectToServer() 
-    {
-        startMenu.SetActive(false);
-        menuCamera.SetActive(false);
-        usernameInputField.interactable = false;
-        ipInputField.interactable = false;
-        Client.instance.ConnectToServer();
-
-        chatPanel.SetActive(true);        
     }
 
     public void ReceiveMessage(string _msg) 

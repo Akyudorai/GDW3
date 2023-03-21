@@ -123,7 +123,8 @@ namespace Practical_Server_UDP
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
                 { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
                 { (int)ClientPackets.chatMessage, ServerHandle.ChatMessage },
-                { (int)ClientPackets.submitScore, ServerHandle.SubmitScore }
+                { (int)ClientPackets.submitScore, ServerHandle.SubmitScore },
+                { (int)ClientPackets.joinMultiplayer, ServerHandle.JoinMultiplayer }
             };
             Console.WriteLine("Initialized packets.");
         }

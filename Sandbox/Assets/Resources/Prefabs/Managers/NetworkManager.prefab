@@ -72,3 +72,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85880d0ff65c0e44dbf69af0e0b0155e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localPlayerPrefab: {fileID: 3309982343749085962, guid: 418cc737d37f9754fa1530bd33174636,
+    type: 3}
+  playerPrefab: {fileID: 1201864499098928745, guid: 7b29dccdcfaa2f44b88d1ec3087b3af3,
+    type: 3}
+  debug_isConnected: 0

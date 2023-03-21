@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class NetworkedGameManager : MonoBehaviour
 {
-    
+    private void Awake()
+    {
+        ClientSend.JoinMultiplayer(Client.instance.localClientID);
 
-    
-
-    
-
+    }
 }

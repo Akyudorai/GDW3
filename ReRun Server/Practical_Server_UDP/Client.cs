@@ -79,6 +79,7 @@ namespace Practical_Server_UDP
                     int _byteLength = stream.EndRead(_result);
                     if (_byteLength <= 0)
                     {
+                        GameLogic.Disconnect(id);
                         Server.clients[id].Disconnect();
                         return;
                     }
@@ -92,6 +93,7 @@ namespace Practical_Server_UDP
                 catch (Exception _ex)
                 {
                     Console.WriteLine($"Error receiving TCP data: {_ex}");
+                    GameLogic.Disconnect(id);
                     Server.clients[id].Disconnect();
                 }
             }
@@ -194,30 +196,7 @@ namespace Practical_Server_UDP
             }
         }
 
-        public void SendIntoGame(string _playerName)
-        {
-            player = new Player(id, _playerName, new Vector3(0, 0, 0));
-
-            foreach(Client _client in Server.clients.Values)
-            {   
-                // Spawn a player for each existing player on the server (not including self)
-                if (_client.player != null)
-                {
-                    if (_client.id != id)
-                    {
-                        ServerSend.SpawnPlayer(id, _client.player);
-                    }
-                }
-            }
-
-            foreach (Client _client in Server.clients.Values)
-            {
-                if (_client.player != null)
-                {
-                    ServerSend.SpawnPlayer(_client.id, player);
-                }
-            }
-        } 
+        
         
         public void Disconnect()
         {

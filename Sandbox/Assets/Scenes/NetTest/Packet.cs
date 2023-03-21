@@ -16,7 +16,8 @@ public enum ServerPackets
     playerRotation,
     chatMessage,
     playerDisconnection,
-    newHighScore
+    newHighScore,
+    joinMultiplayer
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -25,7 +26,8 @@ public enum ClientPackets
     welcomeReceived = 1,
     playerMovement,
     chatMessage,
-    submitScore
+    submitScore,
+    joinMultiplayer
 }
 
 public class Packet : IDisposable

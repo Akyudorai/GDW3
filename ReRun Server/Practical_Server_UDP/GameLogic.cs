@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
+using System.Numerics;
 
 namespace Practical_Server_UDP
 {
     class GameLogic
     {
         public static Dictionary<int, Leaderboard> Leaderboards = new Dictionary<int, Leaderboard>();
+        public static Dictionary<int, Client> ActiveClients = new Dictionary<int, Client>();
 
         public static void Start()
         {
@@ -19,7 +21,7 @@ namespace Practical_Server_UDP
 
         public static void Update()
         {
-            foreach (Client _client in Server.clients.Values)
+            foreach (Client _client in ActiveClients.Values)
             {
                 if (_client.player != null)
                 {
@@ -28,6 +30,37 @@ namespace Practical_Server_UDP
             }
 
             ThreadManager.UpdateMain();
+        }
+
+        public static void SendIntoGame(Client _client, string _playerName)
+        {
+            _client.player = new Player(_client.id, _playerName, new Vector3(0, 0, 0));
+            ActiveClients.Add(_client.id, _client);
+
+            foreach (Client _c in ActiveClients.Values)
+            {
+                // Spawn a player for each existing player on the server (not including self)
+                if (_c.player != null)
+                {
+                    if (_c.id != _client.id)
+                    {
+                        ServerSend.SpawnPlayer(_client.id, _c.player);
+                    }
+                }
+            }
+
+            foreach (Client _c in ActiveClients.Values)
+            {
+                if (_c.player != null)
+                {
+                    ServerSend.SpawnPlayer(_c.id, _client.player);
+                }
+            }
+        }
+
+        public static void Disconnect(int _clientID)
+        {
+            ActiveClients.Remove(_clientID);
         }
 
         private static void SaveLeaderboards()
@@ -57,9 +90,7 @@ namespace Practical_Server_UDP
         }
 
         public static int CheckScore(int _raceID, float _time, string _name)
-        {
-            Console.WriteLine($"DEBUG: Checking score of {_time} for race with ID of {_raceID}");
-
+        {           
             int result = -1;
             bool canSetPosition = true;
 
@@ -67,7 +98,6 @@ namespace Practical_Server_UDP
             float prevTime = _time;
             for (int i = 0 ; i < Leaderboards[_raceID].Entries.Length; i++)
             {                
-                Console.WriteLine($"Comparing time of {_time} to {Leaderboards[_raceID].Entries[i].Time}");
                 if (prevTime < Leaderboards[_raceID].Entries[i].Time)
                 {
                     if (canSetPosition) {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using System.Net;
+using UnityEngine.SceneManagement;
 
 public class ClientHandle : MonoBehaviour
 {
@@ -27,11 +28,17 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         string _username = _packet.ReadString();
-        Vector3 _position = _packet.ReadVector3();
-        Quaternion _quaternion = _packet.ReadQuaternion();
+        Vector3 _position_packet = _packet.ReadVector3();
+        Quaternion _quaternion_packet = _packet.ReadQuaternion();
+
+        Vector3 _position = SpawnPointManager.GetInstance().SpawnPoints[0].position;
+        Quaternion _quaternion = SpawnPointManager.GetInstance().SpawnPoints[0].rotation;
 
         //TODO: Only spawn if in a networked scene
-        NetworkManager.instance.SpawnPlayer(_id, _username, _position, _quaternion);
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4))
+        {
+            NetworkManager.instance.SpawnPlayer(_id, _username, _position, _quaternion);
+        }        
     }
 
     public static void PlayerPosition(Packet _packet) 
@@ -39,7 +46,7 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
 
-        NetworkManager.players[_id].netPC.SetPosition(_position);        
+        NetworkManager.players[_id].netPC.SetPosition(_position);           
         //NetworkedGameManager.players[_id].transform.position = _position;        
     }
 
@@ -86,5 +93,12 @@ public class ClientHandle : MonoBehaviour
 
         /// ONLY POST THIS ON MULTIPLAYER SCENE
         //NetworkUI.instance.ReceiveMessage($"{_username} has claimed #{_position+1} highscore in {_raceID} with a time of {_time}!");
+    }
+
+    public static void JoinMultiplayer(Packet _packet)
+    {
+        int _clientID = _packet.ReadInt();
+
+        // Do whatever else we need when a player joins the server
     }
 }

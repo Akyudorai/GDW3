@@ -19,9 +19,7 @@ namespace Practical_Server_UDP
             if (_fromClient != _clientIdCheck)
             {
                 Console.WriteLine($"Player \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!");
-            }
-
-            Server.clients[_fromClient].SendIntoGame(_username);
+            }            
         }
 
         public static void PlayerMovement(int _fromClient, Packet _packet)
@@ -57,15 +55,23 @@ namespace Practical_Server_UDP
             string _username = _packet.ReadString();
             int _raceID = _packet.ReadInt();
             float _score = _packet.ReadFloat();
-
-            Console.WriteLine($"Submit Score Received");
+            
             int result = GameLogic.CheckScore(_raceID, _score, _username);
 
             if (result != -1)
             {
-                Console.WriteLine($"Sending new highscore notification to clients");
+                Console.WriteLine($"New Highscore Achieved by {_username} in race {_raceID}, earning the position {result} with a time of {_score}");
                 ServerSend.NewHighScore(_username, result, _raceID, _score);
             }
+        }
+
+        public static void JoinMultiplayer(int _fromClient, Packet _packet)
+        {
+            int _clientID = _packet.ReadInt();
+            string _username = _packet.ReadString();
+
+            //GameLogic.ActiveClients.Add(_clientID, Server.clients[_clientID]);
+            GameLogic.SendIntoGame(Server.clients[_clientID], _username);
         }
     }
 }

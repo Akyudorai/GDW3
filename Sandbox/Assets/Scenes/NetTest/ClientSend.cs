@@ -75,4 +75,14 @@ public class ClientSend : MonoBehaviour
             SendTCPData(_packet);
         }
     }
+
+    public static void JoinMultiplayer(int _clientID)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.joinMultiplayer))
+        {
+            _packet.Write(_clientID);
+            _packet.Write(PlayerIdentity.Username);
+            SendTCPData(_packet);
+        }
+    }
 }
