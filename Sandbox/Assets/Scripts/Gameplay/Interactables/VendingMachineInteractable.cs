@@ -8,7 +8,7 @@ using UnityEngine.Events;
 public class VendingMachineInteractable : Interactable
 {
     public Animator canAnimator;
-    public bool canPickUp = false;
+    public bool vendingIsInteractable = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +22,11 @@ public class VendingMachineInteractable : Interactable
 
     public override void Interact(PlayerController controller, RaycastHit hit)
     {
+        if(vendingIsInteractable == true)
+        {
+            Debug.Log("Vending Machine already used.");
+            return;
+        }
         Debug.Log("Vending Machine");
         controller.v_HorizontalVelocity = Vector3.zero;
         controller.v_VerticalVelocity = Vector3.zero;
@@ -29,14 +34,8 @@ public class VendingMachineInteractable : Interactable
 
         this.gameObject.GetComponentInParent<Animator>().SetBool("Interact", true);
         canAnimator.SetBool("CanThrow", true);
-        Debug.Log("Vending Machine");
+        vendingIsInteractable = true;
     }
 
-    public IEnumerator CanPickUpDelay()
-    {
-        yield return new WaitForSeconds(2f);
-        canPickUp = true;
-
-    }
 
 }
