@@ -37,6 +37,11 @@ public class RaceManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    private void OnDestroy() 
+    {
+        EventManager.OnRaceEnd -= RaceComplete;
+    }
+
     public static string GetRaceNameByID(int id) 
     {
         for (int i = 0; i < instance.raceList.Count; i++) 
@@ -66,7 +71,7 @@ public class RaceManager : MonoBehaviour
         pcRef.gameObject.transform.position = wps.Beginning.position;
         pcRef.mesh.transform.rotation = wps.Beginning.rotation;
         pcRef.camera_pivot.transform.rotation = wps.Beginning.rotation;
-
+        pcRef.SetPlayerState(PlayerState.Locked);
         
         // Queue the Countdown Timer
         m_RaceActive = true;
@@ -82,8 +87,7 @@ public class RaceManager : MonoBehaviour
     }
 
     public IEnumerator Countdown(PlayerController pcRef, int ID) 
-    {        
-        pcRef.SetPlayerState(PlayerState.Locked);
+    {                
         b_Pregame = true;
         m_Timer = 0.0f;        
 

@@ -133,6 +133,7 @@ public class SplineController : MonoBehaviour
         // But keep a separate reference to the spline path so we can call the OnDetatched function
         SplinePath pathRef = currentSpline;
         currentSpline = null;
+        pcRef.rigid.useGravity = true;
 
         if (SplineVFX != null) {
             Destroy(SplineVFX);

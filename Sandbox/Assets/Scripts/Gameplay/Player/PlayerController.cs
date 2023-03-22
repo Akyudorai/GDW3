@@ -252,12 +252,13 @@ public class PlayerController : MonoBehaviour
         interactionHandler.Tick();
         maneuverHandler.Tick();
 
+        if (e_State == PlayerState.Locked) return; 
+
         if (!maneuverHandler.b_IsSplineControlled && !maneuverHandler.b_IsLedgeHandling) {
             Movement();
         }
 
-        if (GameManager.GetInstance().IsPaused) return;
-        if (e_State == PlayerState.Locked) return;        
+        if (GameManager.GetInstance().IsPaused) return;               
 
         Camera();
         
