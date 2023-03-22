@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5729.0117, g: 13980.469, b: 17542.812, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16382,6 +16382,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 83.787
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177240803172263711, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.043314
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177240803172263711, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.7315445
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177240803172263711, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.9045677
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177240803172263711, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.02007556
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177240803172263711, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.018528998
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177240803172263711, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6134265895866166950, guid: 68780bfcf7a5bd5499b18462945f1f48, type: 3}
