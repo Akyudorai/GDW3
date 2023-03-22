@@ -8,6 +8,8 @@ TagManager:
   - Slide
   - Interactable
   - End
+  - Platform
+  - Collectible
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - StreetMap
   - RoofMap
   - MapTracker
-  - 
+  - Interactable
   - 
   - 
   - 

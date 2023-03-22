@@ -22,6 +22,9 @@ public static class EventManager
     public static OnIntDelegate OnQuestBegin;
     public static OnIntDelegate OnQuestComplete;
     public static OnIntDelegate OnQuestForfeit; 
+    public static OnIntDelegate OnCollectibleFound;
+    public static OnIntDelegate OnCinematicBegin;
+    public static OnIntDelegate OnCinematicEnd;
 
 
     // -- TRANSITION EVENTS

@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class WallInteractable : Interactable
 {      
+    public override InteractionType GetInteractionType() 
+    {
+        return InteractionType.Wall;
+    }
+
     public override void Interact(PlayerController pc, RaycastHit hit) 
     {
+        // RULE #1: Player must be airborne to start a wall run
         
-
-        if (pc.IsGrounded) { Debug.Log("IsGrounded"); return; }
+        if (!pc.maneuverHandler.b_CanWallRun) return;
         if (pc.v_HorizontalVelocity.magnitude < pc.QuickMaxSpeed/3) { Debug.Log("Too Slow"); return; }    
-        if (pc.wallDelays.ContainsKey(this)) { Debug.Log("That Wall Is On Cooldown!"); return; }
+        if (pc.maneuverHandler.wallDelays.ContainsKey(this)) { Debug.Log("That Wall Is On Cooldown!"); return; }
 
         Debug.Log("Wall Run Started");
 
@@ -35,9 +40,27 @@ public class WallInteractable : Interactable
         SplinePath wallRunSpline = SplineUtils.GenerateWallRunPath(hit.point + surfaceNormal * 1f, surfaceDir, splineSpeed, isForward);
 
         pc.mesh.transform.LookAt(pc.mesh.transform.position - surfaceDir * ((isForward) ? -1 : 1));
-        wallRunSpline.isRight = (Physics.Raycast(pc.mesh.transform.position, pc.mesh.transform.right, 1));
-        wallRunSpline.GetNode(0).Attach(pc.splineController, 0.0f, true);  
-                
-        pc.wallDelays.Add(this, 3f); // Change value to variable for adjustable wall delay time
+
+        // Determine if the wall is on the right or left
+        Vector3 right = pc.transform.position + pc.mesh.transform.right.normalized;
+        Vector3 left = pc.transform.position - pc.mesh.transform.right.normalized;  
+        float rightCheck = Vector3.Distance(right, hit.point);
+        float leftCheck = Vector3.Distance(left, hit.point);
+        wallRunSpline.isRight = ((rightCheck < leftCheck) ? true : false);
+        //wallRunSpline.isRight = (Physics.Raycast(pc.mesh.transform.position, pc.mesh.transform.right, 1));
+
+        // Attach the player to the spline
+        wallRunSpline.GetNode(0).Attach(pc.maneuverHandler.splineController, 0.0f, true);                  
+        pc.maneuverHandler.wallDelays.Add(this, 3f); // Change value to variable for adjustable wall delay time
+
+        // Apply a spline boost force to the player
+        pc.v_HorizontalVelocity *= 1.2f; // 20%  
+        pc.rigid.useGravity = false;
+
+        // Play Wallrun SFX
+        FMOD.Studio.EventInstance wallrunSFX = SoundManager.CreateSoundInstance(SoundFile.WallRun);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(wallrunSFX, pc.transform, pc.rigid);
+        wallrunSFX.start();
+        wallrunSFX.release();    
     }
 }

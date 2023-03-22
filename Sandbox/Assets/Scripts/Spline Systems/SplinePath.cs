@@ -6,7 +6,8 @@ public enum SplineType
 {
     Rail,
     Wall,
-    Zipline
+    Zipline,
+    Ledge
 }
 
 public class SplinePath : MonoBehaviour
@@ -19,8 +20,10 @@ public class SplinePath : MonoBehaviour
 
     [Header("Wall Spline Specific")]
     public bool isRight = false;
-    
 
+    [Header("Ledge Spline Specific")]
+    public bool inverseLedgeGrabDirection = false;
+    
     [Header("Debugging")]
     public bool DebugSplinePath = false;
     private LineRenderer pathLine;
@@ -33,7 +36,7 @@ public class SplinePath : MonoBehaviour
         if (isGenerated) return;
 
         // We only want to initialize for manually created splines, not generated spline paths (like wall running)
-        if (splineType == SplineType.Rail || splineType == SplineType.Zipline) {
+        if (splineType == SplineType.Rail || splineType == SplineType.Zipline || splineType == SplineType.Ledge) {
             Initialize();
         }
 
@@ -54,16 +57,19 @@ public class SplinePath : MonoBehaviour
         GenerateNodes();
 
         // Generate collider, interaction data, and type-specific interactable scripts
-        for (int i = 0; i < nodes.Count - 1; i++) 
+        for (int i = 0; i < ((IsLooping) ? nodes.Count : nodes.Count - 1); i++) 
         {
+            SplineNode next = ((IsLooping && i == nodes.Count-1) ? nodes[0] : nodes[i].next);
+
             GameObject pathCollider = new GameObject();
             pathCollider.name = "Path Collider";
-            pathCollider.tag = "Interactable";            
-            pathCollider.transform.position = nodes[i].position - (nodes[i].position - nodes[i].next.position)/2;
+            pathCollider.tag = "Interactable";  
+            pathCollider.layer = LayerMask.NameToLayer("Interactable");          
+            pathCollider.transform.position = nodes[i].position - (nodes[i].position - next.position)/2;
             pathCollider.transform.LookAt(nodes[i].next.position);
 
             BoxCollider col = pathCollider.AddComponent<BoxCollider>();
-            col.size = new Vector3(0.1f, 0.1f, (nodes[i].position - nodes[i].next.position).magnitude);
+            col.size = new Vector3(0.1f, 0.1f, (nodes[i].position - next.position).magnitude);
             col.isTrigger = true;
             pathCollider.transform.SetParent(this.transform);
 
@@ -80,6 +86,10 @@ public class SplinePath : MonoBehaviour
                 case SplineType.Zipline:
                     ZiplineInteractable zl_interactable = pathCollider.AddComponent<ZiplineInteractable>();
                     zl_interactable.Initialize(nodes[i]);
+                    break;
+                case SplineType.Ledge:
+                    LedgeInteractable ldg_interactable = pathCollider.AddComponent<LedgeInteractable>();
+                    ldg_interactable.Initialize(nodes[i], inverseLedgeGrabDirection);
                     break;
             }                    
         }
@@ -127,9 +137,14 @@ public class SplinePath : MonoBehaviour
         // As long as there is at least 2 objects acting as nodes, draw a line between them to visualize the path
         if (DebugSplinePath && points.Count >= 2) 
         {
+            Color c = Color.white;
+            if (splineType == SplineType.Rail) c = Color.yellow;
+            if (splineType == SplineType.Zipline) c = Color.blue;
+            if (splineType == SplineType.Ledge) c = Color.green;
+
             for (int i = 0; i < points.Count - 1; i++)
-            {
-                Gizmos.DrawLine(points[i].transform.position, points[i+1].transform.position);
+            {                   
+                Gizmos.DrawLine(points[i].transform.position, points[i+1].transform.position);                
             }
 
             if (IsLooping == true) 

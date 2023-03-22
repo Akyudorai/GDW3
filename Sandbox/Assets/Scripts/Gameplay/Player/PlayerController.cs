@@ -3,13 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum PlayerState 
+{
+    Active,
+    Locked,
+    Paused
+}
+
 public class PlayerController : MonoBehaviour
 {
-   
+    public static PlayerController LocalPlayer;
+
+    [SerializeField] private PlayerInput playerInput = null;
+    public PlayerInput PlayerInput => playerInput;
+
     [Header("Components")]
     public Camera cam;
     public GameObject camera_pivot;
-    public Rigidbody rigid;    
+    public Rigidbody rigid;
+    public Collider capsuleCollider;
     public GameObject mesh;
     public Animator animator;
 
@@ -29,8 +41,7 @@ public class PlayerController : MonoBehaviour
     public float BrakeSpeed = 0.1f;
     public float JumpForce = 1.0f;
     public float MaxFallSpeed = 20.0f;
-    public bool IsJumping = false;
-    public bool IsGrounded = false;
+    public bool IsJumping = false;    
     public bool GroundCheck = true;
     public float f_AirTime = 0.0f;  // Track how long the player remains airborne.
     public bool b_LimitVelocity = true;
@@ -40,13 +51,9 @@ public class PlayerController : MonoBehaviour
     public bool IsOverridingMovement = false;
 
     [Header("Interactions")]
-    public float InteractionDistance = 5.0f;
-    public Interactable targetInteractable;
-    public Interactable lastInteractable = null;   
-    public float interactionDelay = 0f;
-     
-    [Header("Splines")]
-    public SplineController splineController;
+    public InteractionHandler interactionHandler;
+    public ManeuverHandler maneuverHandler;
+    //public SplineController splineController;
 
     // NOTE TO SELF: 
     /// Current tracks every wall that has been ran on and counts down a timer. Until it can be ran on again 
@@ -56,14 +63,14 @@ public class PlayerController : MonoBehaviour
     /// Alternatively, could keep it as it is now, and add a function where everytime we run on a new wall, we reduce the timer of 
     /// all other timers by X seconds.  Would still encourage chaining jumps between walls, but also still allow us to restrict how 
     /// quickly they can do so. 
-    public Dictionary<WallInteractable, float> wallDelays = new Dictionary<WallInteractable, float>();
+    //public Dictionary<WallInteractable, float> wallDelays = new Dictionary<WallInteractable, float>();
 
     [Header("Debugging")]
     public bool DebugInteractionRadius = false;
     //public Vector3 Velocity;    
     public float VelocityMagnitude;
     public float CurrentSpeedRatio;
-    public Vector3 targetInteractableHitPoint;
+    //public Vector3 targetInteractableHitPoint;
     public Vector3 targetDirection = Vector3.zero;    
 
     [Header("New Velocity System")]
@@ -77,208 +84,236 @@ public class PlayerController : MonoBehaviour
     public float f_AirResistance = 1.0f;
     [Range(0.0f, 1.0f)] public float f_AirControlAmount = 0.5f;
     public bool b_ShiftPressed = false;
+    public bool b_JumpPressed = false;
+    public bool b_Grounded = false;
+    //public bool b_LedgeGrab = false;
+    public float f_JumpBoostPercentage = 0.2f;
+    public float f_RailBoostPercentage = 0.2f;
+    //public bool b_CanLedgeCancel = true;
 
+    public PlayerState e_State = PlayerState.Active;
+    //public GameObject anim_RootTracker;    
+    public ParticleSystem ps_MaxSpeed;
+
+    [Header("SFX")]
+    public FMODUnity.EventReference jumpSound;
+    //FMOD.Studio.EventInstance jumpSFXInstance;
 
     private void Awake() 
     {        
-        rigid = GetComponent<Rigidbody>();        
+        rigid = GetComponent<Rigidbody>();    
+        interactionHandler = GetComponent<InteractionHandler>();
+        interactionHandler.Initialize(this);
 
-        splineController.pcRef = this;
+        maneuverHandler = GetComponent<ManeuverHandler>();          
+        maneuverHandler.Initialize(this, animator);
+
+        //splineController.pcRef = this;
         //splineController.rigid = rigid;
-        splineController.mesh = mesh;        
+        //splineController.mesh = mesh;        
     }
-
-    
 
     private void Start() 
     {
         // Set Reference when scene is loaded
         GameManager.GetInstance().pcRef = this;
+        LocalPlayer = this;
 
         // Set Position when scene is loaded
         GameManager.GetInstance().RespawnPlayer(SpawnPointManager.currentSpawnIndex);        
 
-        //GameManager.GetInstance().PlayerRef = this;
-        InputManager.GetInput().Player.Move.performed += MoveWithContext;
-        InputManager.GetInput().Player.Move.canceled += MoveCancelWithContext;
-        InputManager.GetInput().Player.Look.performed += LookWithContext;
-        InputManager.GetInput().Player.Look.canceled += LookCancelWithContext;
-        InputManager.GetInput().Player.Jump.performed += JumpWithContext;
-        InputManager.GetInput().Player.Interact.performed += InteractWithContext;
+        //GameManager.GetInstance().PlayerRef = this;       
         InputManager.GetInput().Player.Shift.performed += ShiftWithContext;
         InputManager.GetInput().Player.Shift.canceled += ShiftCancelWithContext;
+        InputManager.GetInput().Player.Escape.performed += cntxt => UI_Manager.GetInstance().TogglePhonePanel(!UI_Manager.GetInstance().PhonePanel.activeInHierarchy);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false; 
+
+        //jumpSFXInstance = FMODUnity.RuntimeManager.CreateInstance(jumpSound);
     }
 
     private void OnDestroy() 
     {
         if (InputManager.GetInput() == null) return;
 
-        InputManager.GetInput().Player.Move.performed -= MoveWithContext;
-        InputManager.GetInput().Player.Move.canceled -= MoveCancelWithContext;
-        InputManager.GetInput().Player.Look.performed -= LookWithContext;
-        InputManager.GetInput().Player.Look.canceled -= LookCancelWithContext;
-        InputManager.GetInput().Player.Jump.performed -= JumpWithContext;
-        InputManager.GetInput().Player.Interact.performed -= InteractWithContext;
         InputManager.GetInput().Player.Shift.performed -= ShiftWithContext;
         InputManager.GetInput().Player.Shift.canceled -= ShiftCancelWithContext;
     }
 
-    private void JumpWithContext(InputAction.CallbackContext context)
+    public void MoveCtx(InputAction.CallbackContext ctx) 
     {
+        if (GameManager.GetInstance().IsPaused) 
+        {
+            v_MotionInput = Vector2.zero;
+            return;
+        }
+
+        var inputValue = ctx.ReadValue<Vector2>();
+        v_MotionInput = inputValue;
+    }
+
+    public void JumpCtx(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
+
         Jump();
     }
 
-    private void MoveWithContext(InputAction.CallbackContext context) 
+    public void LookCtx(InputAction.CallbackContext ctx) 
     {
-        v_MotionInput = context.ReadValue<Vector2>();
+        if (GameManager.GetInstance().IsPaused) 
+        {
+            v_Rotation = Vector2.zero;
+            return;
+        }
+
+        var inputValue = ctx.ReadValue<Vector2>();
+        v_Rotation = inputValue;
     }
 
-    private void MoveCancelWithContext(InputAction.CallbackContext context) 
+    public void InteractCtx(InputAction.CallbackContext ctx) 
     {
-        v_MotionInput = Vector2.zero;
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
+        interactionHandler.Interact(this, InteractionType.Social);
+        interactionHandler.Interact(this, InteractionType.VendingMachine);
     }
 
-    private void LookWithContext(InputAction.CallbackContext context) 
+    public void WallRunCtx(InputAction.CallbackContext ctx) 
     {
-        v_Rotation = context.ReadValue<Vector2>();
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
+        interactionHandler.Interact(this, InteractionType.Wall);
     }
 
-    private void LookCancelWithContext(InputAction.CallbackContext context) 
+    public void ZiplineCtx(InputAction.CallbackContext ctx) 
     {
-        v_Rotation = Vector2.zero;
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
+        interactionHandler.Interact(this, InteractionType.Zipline);
     }
 
-    private void InteractWithContext(InputAction.CallbackContext context) 
+    public void RailGrindCtx(InputAction.CallbackContext ctx) 
     {
-        Interact();
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
+        interactionHandler.Interact(this, InteractionType.Rail);
     }
 
+    public void LedgeGrabCtx(InputAction.CallbackContext ctx) 
+    {
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
+        interactionHandler.Interact(this, InteractionType.Ledge);
+    }
+
+    public void LedgeClimbCtx(InputAction.CallbackContext ctx) 
+    {
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
+        maneuverHandler.PerformLedgeClimb();
+    }
+
+    public void LedgeReleaseCtx(InputAction.CallbackContext ctx) 
+    {
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
+        maneuverHandler.PerformLedgeDrop();
+    }
+
+    
     private void ShiftWithContext(InputAction.CallbackContext context) 
     {
-        b_ShiftPressed = true;
+        //b_ShiftPressed = true;
     }
 
     private void ShiftCancelWithContext(InputAction.CallbackContext context) 
     {
-        b_ShiftPressed = false;
+        //b_ShiftPressed = false;
+    }    
+
+    public void SetPlayerState(PlayerState state)
+    {
+        e_State = state;
     }
 
     private void Update() 
     {
-        if (GameManager.GetInstance().IsPaused) return;
-        
-        if (splineController.currentSpline != null) 
-        {
-            float splineSpeed = (v_HorizontalVelocity.magnitude / TopMaxSpeed) * 15f;
-            float minSpeed = 8f;
-            float resultSpeed = Mathf.Max(splineSpeed, minSpeed);
-            splineController.SetTraversalSpeed(resultSpeed);      
-        } 
-        else 
-        {
-            Movement();            
-        }
+        GetGroundAngle();
 
-        // Count down wall delay timers while airborne
-        if (wallDelays.Count > 0) 
-        {   
-            var keyList = new List<WallInteractable>();
-            foreach (var key in wallDelays.Keys) 
-            {
-                keyList.Add(key);
-            }
-
-            foreach (var key in keyList)
-            {
-                wallDelays[key] -= Time.deltaTime;
-                if (wallDelays[key] <= 0) 
-                {
-                    wallDelays.Remove(key);
-                }
-            }
-        }
-
-        Camera();
-        
-        if (!IsGrounded) {
-            f_AirTime += Time.fixedDeltaTime;
-        }         
-
-        if (interactionDelay > 0f && splineController.currentSpline == null) 
-        {
-            interactionDelay -= Time.deltaTime;
-            interactionDelay = Mathf.Clamp(interactionDelay, 0, 100);
+        if (v_HorizontalVelocity.magnitude > TopMaxSpeed) {
+            v_HorizontalVelocity = Vector3.ClampMagnitude(v_HorizontalVelocity, TopMaxSpeed);
         }
 
         animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
-        animator.SetBool("IsGrounded", IsGrounded);
-        animator.SetBool("IsWallrunning", splineController.currentSpline != null);
-        //Debug.Log($"Movement: {v_HorizontalVelocity.magnitude}");
+        animator.SetBool("IsGrounded", b_Grounded);        
+
+        bool maxSpeed = rigid.velocity.magnitude > QuickMaxSpeed;
+        if (maxSpeed && !ps_MaxSpeed.isPlaying) {
+            ps_MaxSpeed.Play();
+        } else if (!maxSpeed && ps_MaxSpeed.isPlaying) {
+            ps_MaxSpeed.Stop();
+        }
+
+        interactionHandler.Tick();
+        maneuverHandler.Tick();
+
+        if (e_State == PlayerState.Locked) return; 
+
+        if (!maneuverHandler.b_IsSplineControlled && !maneuverHandler.b_IsLedgeHandling) {
+            Movement();
+        }
+
+        if (GameManager.GetInstance().IsPaused) return;               
+
+        Camera();
+        
+        if (!b_Grounded) {
+            f_AirTime += Time.fixedDeltaTime;
+        }         
     }
 
     private void FixedUpdate() 
     {
+        //Debug.Log(IsSliding);
+        if (maneuverHandler.b_IsLedgeHandling)
+        {
+            return;
+        } 
+
         // Ground Check
         if (GroundCheck) 
-        {
-            int layerMask = 1 << 6; // Ground Layer
-           
-            // Switch to box cast in future to prevent getting stuck on edges
-            if (Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
-            {
-                //Debug.Log(hit.collider.name);
+        {     
+            bool checkResult = IsGrounded();
+            
+            if (!b_Grounded && checkResult) {
+                EventManager.OnPlayerLanding?.Invoke();            
+            } 
 
-                IsGrounded = true;                                            
-                f_AirTime = 0.0f; 
-                v_VerticalVelocity = Vector3.zero;
-                
-                Vector3 normalDir = hit.normal;
-                Vector3 upDir = Vector3.up;
+            b_Grounded = checkResult;
 
-                float angleBetween = Vector3.Angle(upDir, normalDir);
+            if (b_Grounded) {                
+                f_AirTime = 0.0f;
+                v_VerticalVelocity = Vector3.zero;                
 
-                if (angleBetween > 30.0f) {
-                    //IsSliding = true;                    
-                } else {
-                    //IsSliding = false;
-                }
-
-                // Reset Wall Run Delay Timers if Grounded               
-                if (wallDelays.Count > 0) 
-                {   
-                    var keyList = new List<WallInteractable>();
-                    foreach (var key in wallDelays.Keys) 
-                    {
-                        keyList.Add(key);
-                    }
-
-                    foreach (var key in keyList)
-                    {
-                        wallDelays.Remove(key);
-                    }
-                }
+                // Handle Sliding Maneuver
+                // SlideCheck();
 
                 // Temporarily disabled until scale issue is resolved when parenting
                 //transform.SetParent(hit.collider.gameObject.transform);
-
-            } else {
-                IsGrounded = false;
+            }
+    
+            else 
+            {                
+                //Debug.Log("Applying Gravity!");
                 //IsSliding = false;  
                 v_VerticalVelocity -= Vector3.up * f_Gravity * Time.fixedDeltaTime;
-                v_VerticalVelocity = Vector3.ClampMagnitude(v_VerticalVelocity, MaxFallSpeed);
+                v_VerticalVelocity = Vector3.ClampMagnitude(v_VerticalVelocity, MaxFallSpeed);                
 
+                if (transform.parent != null)
+                {
+                    transform.SetParent(null);
+                }
                 // Temporarily disabled until scale issue is resolved when parenting
                 //if (transform.parent != null) {
                 //    transform.parent = null;
-                //}           
+                //}  
             }
         }
-    }
-
-    private void Slide(Vector3 direction) 
-    {   
-        float slideSpeed = Mathf.Min(QuickMaxSpeed, f_Speed);
-        rigid.velocity = direction * slideSpeed;
     }
 
     private void Movement() 
@@ -287,7 +322,7 @@ public class PlayerController : MonoBehaviour
         if (IsSliding) return;   
         if (IsOverridingMovement) return;
 
-        // rigid.velocity = v_DirectionalVelocity;
+        // rigid.velocity = v_DirectionalVelocity;        
 
         // Prepare a motion vector to used to modify the velocity
         Vector3 motionVector = Vector3.zero;        
@@ -308,7 +343,7 @@ public class PlayerController : MonoBehaviour
             motionVector = forwardMotion + rightMotion;
             motionVector.y = 0;
 
-            motionVector *= ((IsGrounded) ? 1.0f : f_AirControlAmount);
+            motionVector *= ((b_Grounded) ? 1.0f : f_AirControlAmount);
 
             // Apply Velocity Change
             v_HorizontalVelocity += motionVector * acceleration * Time.fixedDeltaTime;
@@ -316,7 +351,7 @@ public class PlayerController : MonoBehaviour
             //CurrentSpeed = v_HorizontalVelocity.magnitude;
 
             // Slow midair
-            if (!IsGrounded) {
+            if (!b_Grounded) {
                 v_HorizontalVelocity += -v_HorizontalVelocity * f_AirResistance * Time.fixedDeltaTime;
             }
             
@@ -330,7 +365,7 @@ public class PlayerController : MonoBehaviour
             float angle = Vector3.Angle(motionVector.normalized, v_HorizontalVelocity.normalized);
 
             // If the angle between current velocity vector and the intended direciton is greater than 90 degrees
-            if (angle > 90 && v_HorizontalVelocity != Vector3.zero && IsGrounded) 
+            if (angle > 90 && v_HorizontalVelocity != Vector3.zero && b_Grounded) 
             {
                 // Apply a brake force to the character
                 // Intended to simulate sharp turns (character needs to stop themselves before moving around a sharp corner)
@@ -392,9 +427,14 @@ public class PlayerController : MonoBehaviour
             } 
         }
 
-
+        // Get direction based on angle of ground
+        Vector3 motion_result = v_HorizontalVelocity + v_VerticalVelocity;
+        float ground_angle = GetGroundAngle();
+        Vector3 angled_motion = Quaternion.AngleAxis(ground_angle, mesh.transform.right) * motion_result;    
+ 
         // Move the players position in the direction of velocity
-        rigid.velocity = v_HorizontalVelocity + v_VerticalVelocity;        
+        rigid.velocity = angled_motion;     
+        UI_Manager.GetInstance().UpdateSpeedTracker(v_HorizontalVelocity.magnitude);   
     }
 
     private void Camera()
@@ -424,47 +464,79 @@ public class PlayerController : MonoBehaviour
         IsOverridingMovement = false;
     }
 
-    private void Jump()
+    private Vector3 GetGroundNormal()
     {
-        SoundManager.GetInstance().Play("Alabama");
+        int layerMask = 1 << 6; // Ground Layer
+        if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
+        {
+            return hit.normal;
+        }
 
-        // If on a spline, detatch from it
-        if (splineController.currentSpline != null) {
-            splineController.Detatch();
+        return Vector3.zero;
+    }
+
+    private float GetGroundAngle() 
+    {
+        int layerMask = 1 << 6; // Ground Layer
+        if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
+        {
+            Vector3 normal = hit.normal;
+            Vector3 up = Vector3.up;
+
+            Vector3 forward = mesh.transform.forward;               
+            float angleBetween = 90.0f - Vector3.Angle(forward, normal);
+            return angleBetween;
+        }
+
+        return 0;       
+    }
+
+    private void Jump()
+    {               
+        // If on a spline and jump button is released, detatch from it
+        if (maneuverHandler.splineController.currentSpline != null) {
+            maneuverHandler.splineController.Detatch();            
             EventManager.OnPlayerJump?.Invoke();
             return;
-        }        
+        } 
 
         // If grounded and not in the middle of a jump, then perform a jump.
-        if (!IsJumping && IsGrounded) 
+        if (!IsJumping && b_Grounded) 
         {
-            Vector3 surfaceNormal = Vector3.up;
-            int layerMask = 1 << 6; // Ground Layer
-            //Debug.Log(transform.position);
-            if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.5f, layerMask))
-            {
-                surfaceNormal = hit.normal;                                
-            }
+            StartCoroutine(maneuverHandler.DelayWallRunAllowance());
+
+            // =========================== VERTICAL FORCE COMPONENT ================================
+
+            Vector3 surfaceNormal = Vector3.up;            
+            
+            // used for old slide mechanic
+            //surfaceNormal = GetGroundNormal();
 
             Vector3 result = surfaceNormal;
-            if (IsSliding) result += Vector3.up;
-            
-            if (v_HorizontalVelocity != Vector3.zero) 
-            {
-                Vector3 horizontal_boost = v_HorizontalVelocity;
-                horizontal_boost.y = 0;
-                horizontal_boost *= f_HorizontalJumpBoost;           
-                result += horizontal_boost;
-            }
+            v_VerticalVelocity = Vector3.zero;
+            ApplyForce(result * JumpForce);
+
+            // =========================== HORIZONTAL FORCE COMPONENT ================================
+
+            Vector3 jBoost = v_HorizontalVelocity;
+            jBoost.y = 0;
+
+            // Apply a boost to jumps to make it feel less slow amd simulate bunny hopping strategies
+            ApplyForce(jBoost * f_JumpBoostPercentage);
             
 
-            ApplyForce(result * ((IsSliding) ? JumpForce * 2.0f : JumpForce));
-            IsGrounded = false;
-
+            // =========================== INVOKE JUMP EVENT ================================
+            b_Grounded = false;
+            transform.SetParent(null);
             StartCoroutine(JumpDelay());
-
             EventManager.OnPlayerJump?.Invoke();
-        }       
+
+            // Play Jump SFX
+            FMOD.Studio.EventInstance jumpSFXInstance = SoundManager.CreateSoundInstance(SoundFile.Jump);
+            FMODUnity.RuntimeManager.AttachInstanceToGameObject(jumpSFXInstance, GetComponent<Transform>(), rigid);
+            jumpSFXInstance.start();
+            jumpSFXInstance.release();
+        }            
     }
 
     public void ApplyForce(Vector3 force, ForceMode mode = ForceMode.Impulse)
@@ -493,57 +565,6 @@ public class PlayerController : MonoBehaviour
         IsJumping = false;
     }
 
-    private void Interact()
-    {        
-        // Run a spherical scan for all interactables within the players vicinity                
-        /// Can move this to update if we want to scan constantly, not just when interact button is pressed
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.up * 1.5f, InteractionDistance);
-        foreach (var hit in hitColliders) {
-            if (hit.gameObject.tag == "Interactable") 
-            {   
-                // If no interactable has been set yet, set the first one we find
-                if (targetInteractable == null) targetInteractable = hit.gameObject.GetComponent<Interactable>();
-                else 
-                {
-                    // Get distance from player to interactable and compare with current target interactable
-                    float dist_target = Vector3.Distance(transform.position, targetInteractable.gameObject.transform.position);
-                    float dist_compare = Vector3.Distance(transform.position, hit.gameObject.transform.position);
-
-                    // If the new target is closer than the old, replace it
-                    if (dist_compare < dist_target) {
-                        targetInteractable = hit.gameObject.GetComponent<Interactable>();                                                
-                    }                    
-                }
-
-                // Get the closest interactable point                
-                if (targetInteractable != null) 
-                {
-                    if (lastInteractable == targetInteractable && interactionDelay > 0) 
-                    {
-                        Debug.Log("Cannot use interactable that frequently!");
-                        return;
-                    }
-
-                    if (targetInteractable.gameObject == hit.gameObject) 
-                    {
-                        targetInteractableHitPoint = hit.ClosestPoint(transform.position);    
-                        if (Physics.Raycast(transform.position, targetInteractableHitPoint - transform.position, out RaycastHit hitResult))
-                        {
-                            targetInteractable.Interact(this, hitResult);
-                            lastInteractable = targetInteractable;
-                            interactionDelay = 0.5f;
-                        }                
-                    }
-                }
-                
-            }
-        }  
-
-        if (Vector3.Distance(transform.position, targetInteractableHitPoint) > InteractionDistance) {
-            targetInteractable = null;
-        }
-    }
-
     public IEnumerator WallJump() 
     {
         IsJumping = true;
@@ -568,8 +589,40 @@ public class PlayerController : MonoBehaviour
         return Mathf.Min(angle, to);
     }
 
-    private void OnCollisionEnter(Collision col) 
+    public bool IsGrounded()
     {
+        int layerMask = 1 << 6; // Ground Layer
+           
+        Vector3 boxCenter = rigid.GetComponent<Collider>().bounds.center;
+        Vector3 halfExtents = rigid.GetComponent<Collider>().bounds.extents;
+
+        float groundColliderHeight = 0.025f;
+        halfExtents.y += groundColliderHeight;
+
+        float maxDistance = GetComponent<Collider>().bounds.extents.y;
+
+        // Calculate angle of ground
+
+
+        
+        bool rayResult = Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.1f, layerMask);        
+        if (rayResult) return rayResult;
+        
+        // // if the raycast returns false, attempt a box cast for ledge cases.
+        /// BOX CAST SEEMS TO CAUSE THE SINKING EFFECT BUG, NEED AN ALTERNATIVE FOR GROUND CHECKS
+        /// DOESNT EVEN FIX THE LEDGE DETECTION, JUST DELAYS IT
+        bool boxResult = Physics.BoxCast(boxCenter, halfExtents/2, Vector3.down, transform.rotation, maxDistance, layerMask);        
+        return boxResult;        
+    }
+
+    private void OnCollisionEnter(Collision col) 
+    {       
+        //Debug.Log(col.gameObject);
+        if (col.gameObject.tag == "Platform")
+        {
+            // Set Parent if result is of tag "Platform"
+            transform.SetParent(col.gameObject.transform);  
+        }
         // if (col.gameObject.tag == "Interactable" && col.gameObject.GetComponent<WallInteractable>() != null && currentSpline == null) 
         // {   
         //     targetInteractable = col.gameObject.GetComponent<Interactable>();                 
@@ -588,19 +641,27 @@ public class PlayerController : MonoBehaviour
         // }
     }
 
+    private void OnTriggerEnter(Collider other) 
+    {
+        if (other.tag == "Collectible") 
+        {
+            Collectible c = other.GetComponent<Collectible>();
+            c.OnCollect();
+
+            // Play Collectible SFX
+            FMOD.Studio.EventInstance collectibleSFX = SoundManager.CreateSoundInstance(SoundFile.CollectiblePickup);
+            FMODUnity.RuntimeManager.AttachInstanceToGameObject(collectibleSFX, gameObject.transform, rigid);
+            collectibleSFX.start();
+            collectibleSFX.release(); 
+        }
+    }
+
     private void OnDrawGizmos() 
     {
         Gizmos.color = Color.white;
 
-        if (DebugInteractionRadius) Gizmos.DrawWireSphere(transform.position + transform.up * 1.5f, InteractionDistance);             
-    
-        if (!IsGrounded) {
+        if (!b_Grounded) {
             Gizmos.DrawLine(transform.position + Vector3.up*0.1f, transform.position - Vector3.up * 0.5f);
-        }
-
-        if (targetInteractable != null) 
-        {
-            Gizmos.DrawLine(transform.position + transform.up * 1.5f, targetInteractableHitPoint);
         }
     }
 }

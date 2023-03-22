@@ -2979,7 +2979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62649cd1561f2e34ab9ff9c370183135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 1
+  sceneIndex: 2
   spawnIndex: 1
 --- !u!65 &417490919
 BoxCollider:
@@ -9799,7 +9799,7 @@ PrefabInstance:
     - target: {fileID: 509516606932925854, guid: 9ba8962c8be3e7045a1dae61822afb4c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18.149672
+      value: -18.36
       objectReference: {fileID: 0}
     - target: {fileID: 509516606932925854, guid: 9ba8962c8be3e7045a1dae61822afb4c,
         type: 3}
@@ -11130,7 +11130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62649cd1561f2e34ab9ff9c370183135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 1
+  sceneIndex: 2
   spawnIndex: 3
 --- !u!65 &1442976250
 BoxCollider:
@@ -14675,7 +14675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62649cd1561f2e34ab9ff9c370183135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 1
+  sceneIndex: 2
   spawnIndex: 2
 --- !u!65 &1830426960
 BoxCollider:

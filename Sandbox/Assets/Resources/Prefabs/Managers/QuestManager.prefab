@@ -47,71 +47,336 @@ MonoBehaviour:
   activeQuestID: -1
   questList:
   - m_ID: 0
-    m_Name: Milk Run
+    m_questItemsCollected: 0
+    m_Name: Milk Matters
+    m_Status: Available
     m_Description: I've really been craving a nice bottle of milk.  I heard the grocer
       over at the mall is handing them out for free!
-    m_Objective: Head over to the Mall and collect a bottle of milk for NPC.
+    m_Objective: Find 3 bottles of milk for Miho.
+    m_Hint: Go to the mall.
     m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: ea4902d7104666345a9c48125c069402, type: 3}
+    m_pfp: {fileID: 21300000, guid: 8b659eb55e8650846a40941278de7e0c, type: 3}
+    m_questItemName: Milk Bottle
+    m_npcName: Milk Connoisseur Miho
     m_Type: 0
     m_RequiredItems:
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
+    - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
+    - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
     m_ItemsPositions:
-    - {x: -108.47, y: 11.21, z: 93.33}
+    - {x: 81.04, y: 8.75, z: 100.95}
+    - {x: 90.83, y: 8.75, z: 100.95}
+    - {x: 99.41, y: 8.75, z: 100.95}
     m_RequirementsMet: 0
   - m_ID: 1
-    m_Name: Shady Dealings
-    m_Description: My 'clients' have stashed 4 packages around the city.  Go and
-      get them for me.
-    m_Objective: Collect 4 "packages", found in shady parts of town.
+    m_questItemsCollected: 0
+    m_Name: Helping a Hippie
+    m_Status: Available
+    m_Description: Wassup my man? The batteries in my Walkman just died and I need
+      some new batteries. Can you help a brother out? Peace and Love.
+    m_Objective: Collect 3 batteries.
+    m_Hint: Check your remote?
     m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 10834845ed176c8418579e4f68a9be65, type: 3}
+    m_pfp: {fileID: 21300000, guid: d93c839da2823d9478460df66b406871, type: 3}
+    m_questItemName: Battery
+    m_npcName: Georgie the Hippie
     m_Type: 0
     m_RequiredItems:
-    - {fileID: 7538479070952630666, guid: 92fcdba786a78c14d849a23c3bc6ca37, type: 3}
-    - {fileID: 7538479070952630666, guid: 92fcdba786a78c14d849a23c3bc6ca37, type: 3}
-    - {fileID: 7538479070952630666, guid: 92fcdba786a78c14d849a23c3bc6ca37, type: 3}
-    - {fileID: 7538479070952630666, guid: 92fcdba786a78c14d849a23c3bc6ca37, type: 3}
+    - {fileID: 3689122229430511904, guid: efa764b99bfeed14f8f8b587f2981bdc, type: 3}
+    - {fileID: 3689122229430511904, guid: efa764b99bfeed14f8f8b587f2981bdc, type: 3}
+    - {fileID: 3689122229430511904, guid: efa764b99bfeed14f8f8b587f2981bdc, type: 3}
     m_ItemsPositions:
-    - {x: -45.55, y: 5.53, z: -78.68}
-    - {x: -128.52, y: 6.4, z: -12.13}
-    - {x: 38.97, y: 1, z: -148.07}
-    - {x: 38.6, y: 1, z: -63.91}
+    - {x: 105.7, y: 5.8, z: 123.4}
+    - {x: 95, y: 5.8, z: 123.4}
+    - {x: 81.7, y: 5.8, z: 123.4}
     m_RequirementsMet: 0
   - m_ID: 2
-    m_Name: 'Tutorial: Wall Running'
-    m_Description: You can run along the sides of walls by pressing the 'E' key while
-      mid-air and moving fast enough.  You can perform a wall jump while in the middle
-      of a wall run to launch yourself off the wall.
-    m_Objective: Use wall running to reach the target destination.
+    m_questItemsCollected: 0
+    m_Name: A Green Foot
+    m_Status: Available
+    m_Description: 'Oh dear, it seems that I forgot to bring the gardening tools
+      to work today. If you could retrieve them for me, I would be mighty grateful. '
+    m_Objective: Collect 3 shovels.
+    m_Hint: Check the garden area.
     m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 7c0181a4212c08046a915ca047bb3480, type: 3}
+    m_pfp: {fileID: 21300000, guid: 4208d7e1da71c4f41b606317636cda7f, type: 3}
+    m_questItemName: Shovel
+    m_npcName: Mary the Flower Child
     m_Type: 0
     m_RequiredItems:
-    - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
+    - {fileID: 2184691639774965781, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
+    - {fileID: 2184691639774965781, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
+    - {fileID: 2184691639774965781, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
     m_ItemsPositions:
-    - {x: 17.13, y: 3.4414, z: 34.79}
+    - {x: -104.06, y: 7.48, z: 148.74}
+    - {x: -99.19, y: 7.48, z: 157.63}
+    - {x: -86.25, y: 7.48, z: 160.76}
     m_RequirementsMet: 0
   - m_ID: 3
-    m_Name: 'Tutorial: Grinding'
-    m_Description: You can grind across certain edges by pressing the 'E' key while
-      one.  The faster you are moving at the time of interaction, the faster you
-      will grind along the surface.   You can perform a jump while grinding to detatch
-      from the spline and launch yourself in a direction.
-    m_Objective: Use grinding to reach the target destination.
+    m_questItemsCollected: 0
+    m_Name: Hard Hat Heroics
+    m_Status: Available
+    m_Description: "Gosh darn it! I can\u2019t seem to catch a break today. Some
+      joker decided to hide all our hard hats. Health and Safety won\u2019t let me
+      enter the construction site to find them, but maybe you can?"
+    m_Objective: Collect 3 hard hats.
+    m_Hint: Check the construction site.
     m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 16ce9a077af90384786ade3af8eb21bb, type: 3}
+    m_pfp: {fileID: 21300000, guid: a2e6905a049f0f64b99bb2fc78056617, type: 3}
+    m_questItemName: Hard hat
+    m_npcName: Foreman Cassi
     m_Type: 0
     m_RequiredItems:
-    - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
+    - {fileID: 7699358955572214250, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
+    - {fileID: 7699358955572214250, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
+    - {fileID: 7699358955572214250, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
     m_ItemsPositions:
-    - {x: 10.2, y: 3.4414, z: 38.530003}
+    - {x: -117.01, y: 16.051, z: -55.64}
+    - {x: -193.87, y: 14.2, z: -143.7}
+    - {x: -132.88, y: 4.9251046, z: -164.69}
     m_RequirementsMet: 0
   - m_ID: 4
-    m_Name: 'Tutorial: Elevation'
-    m_Description: 'Scattered around the world, you can find jump pads to help you
-      get up high in the world.  Touching one will launch you high up into the air. '
-    m_Objective: Use launch pads and the zipline to reach the target destination.
+    m_questItemsCollected: 0
+    m_Name: Running On Empty
+    m_Status: Available
+    m_Description: Mamma Mia! These sky rats have done it again. They attack my van
+      and steal my pastries. You! Find my pastries while I teach those hooligans
+      a lesson.
+    m_Objective: Collect 3 pastries.
+    m_Hint: Check the roof tops.
     m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: f102e5f2f3cad0745a750b5498e51738, type: 3}
+    m_pfp: {fileID: 21300000, guid: 080fea4ae27fb764891769331d0ea8c6, type: 3}
+    m_questItemName: Cupcake
+    m_npcName: Baker Tony
     m_Type: 0
     m_RequiredItems:
-    - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
+    - {fileID: 8027450358546218079, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
+    - {fileID: 8027450358546218079, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
+    - {fileID: 8027450358546218079, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
     m_ItemsPositions:
-    - {x: 5.7, y: 3.4414, z: 38.530006}
+    - {x: 81.04, y: 6.05, z: 88.15}
+    - {x: 89.97, y: 6.05, z: 88.15}
+    - {x: 99.92, y: 6.05, z: 88.15}
     m_RequirementsMet: 0
+  - m_ID: 5
+    m_questItemsCollected: 0
+    m_Name: Extraterrestrial Aid
+    m_Status: Available
+    m_Description: "Translated from Martian language: Greetings Humans. On our last
+      visit to Earth we seemed to have misplaced our ship\u2019s power cells. We
+      kindly ask that you retrieve them for us."
+    m_Objective: Collect 3 power cells.
+    m_Hint: Check some sketchy alleys.
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 2ffdb4f847478ad4e805de94e196bf13, type: 3}
+    m_pfp: {fileID: 21300000, guid: dd3bce96ac57e544591f158e4a00c659, type: 3}
+    m_questItemName: Power cell
+    m_npcName: The Martians
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 1244824266667019072, guid: ad07875fdf007fb48a6926c67ad40252, type: 3}
+    - {fileID: 1244824266667019072, guid: ad07875fdf007fb48a6926c67ad40252, type: 3}
+    - {fileID: 1244824266667019072, guid: ad07875fdf007fb48a6926c67ad40252, type: 3}
+    m_ItemsPositions:
+    - {x: 22.33, y: 11.65, z: 59.08}
+    - {x: 70.96, y: 7.16, z: 102.97}
+    - {x: 18.16, y: 6.19, z: 118.1}
+    m_RequirementsMet: 0
+  - m_ID: 6
+    m_questItemsCollected: 0
+    m_Name: Lucky Bottoms
+    m_Status: Available
+    m_Description: "Howdy there partner. I seemed to have misplaced a couple pairs
+      of my lucky boots. I\u2019d be mighty grateful if you could find them for me.
+      Also, don\u2019t tell the missus."
+    m_Objective: Collect 3 pairs of cowboy boots.
+    m_Hint: Maybe we took his boots off to play in the sand?
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 03f51ea41244f9a4ead27ba59a7c89af, type: 3}
+    m_pfp: {fileID: 21300000, guid: c6a8916f5491ae64e8c5e1e98a6922f2, type: 3}
+    m_questItemName: Boots
+    m_npcName: Cowboy John
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 1153120956766567600, guid: 5096cdf66dde08b46b76389442501107, type: 3}
+    - {fileID: 1153120956766567600, guid: 5096cdf66dde08b46b76389442501107, type: 3}
+    - {fileID: 1153120956766567600, guid: 5096cdf66dde08b46b76389442501107, type: 3}
+    m_ItemsPositions:
+    - {x: 48.37, y: 5.38, z: 54.85}
+    - {x: 43.59, y: 5.38, z: 54.85}
+    - {x: 37.65, y: 5.38, z: 54.85}
+    m_RequirementsMet: 0
+  - m_ID: 7
+    m_questItemsCollected: 0
+    m_Name: "Grandpa\u2019s Groceries"
+    m_Status: Available
+    m_Description: "Hello? Is this thing on? I forgot to pick up celery from the
+      grocery store for Martha\u2019s soup. She won\u2019t let me rest till she gets
+      her celery. Be a lad, and help an old timer will ya?"
+    m_Objective: Collect 3 sticks of celery.
+    m_Hint: Check the grocery store.
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 6a101771e81f61d40b905aa5993a031a, type: 3}
+    m_pfp: {fileID: 21300000, guid: b2c942002d01f3448aad3aa676eba50e, type: 3}
+    m_questItemName: Celery
+    m_npcName: Grandpa Bodie
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 7700755407935074846, guid: e72c557cb04cfd64094c636e183ae4b0, type: 3}
+    - {fileID: 7700755407935074846, guid: e72c557cb04cfd64094c636e183ae4b0, type: 3}
+    - {fileID: 7700755407935074846, guid: e72c557cb04cfd64094c636e183ae4b0, type: 3}
+    m_ItemsPositions:
+    - {x: 129.42, y: 4.82, z: 53.46}
+    - {x: 136.52, y: 4.82, z: 53.46}
+    - {x: 148.3, y: 4.82, z: 53.46}
+    m_RequirementsMet: 0
+  - m_ID: 8
+    m_questItemsCollected: 0
+    m_Name: Skeleton Scavenger
+    m_Status: Available
+    m_Description: "Hello, I am a science professor at the local university. I brought
+      a skeleton to work for today\u2019s lecture, but it seems that some of the
+      pieces are missing. Perhaps I dropped them on my way to work?"
+    m_Objective: Collect 3 bones.
+    m_Hint: Where do you find bones?
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 7a4f04205f7ed4541a88d8b8380ae6db, type: 3}
+    m_pfp: {fileID: 21300000, guid: 2b1aaefc40f8c7f4eb3346d9f6f4a873, type: 3}
+    m_questItemName: Bone
+    m_npcName: Professor Uler
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 5002093220554449489, guid: 007a8e17dbad27b49a3c48d3501b3237, type: 3}
+    - {fileID: 5002093220554449489, guid: 007a8e17dbad27b49a3c48d3501b3237, type: 3}
+    - {fileID: 5002093220554449489, guid: 007a8e17dbad27b49a3c48d3501b3237, type: 3}
+    m_ItemsPositions:
+    - {x: 184.56, y: 4.82, z: 60.79}
+    - {x: 184.56, y: 4.82, z: 66.86}
+    - {x: 184.56, y: 4.82, z: 73.92}
+    m_RequirementsMet: 0
+  - m_ID: 9
+    m_questItemsCollected: 0
+    m_Name: Mixtape Mashup
+    m_Status: Available
+    m_Description: "Yo yo yo. You gotta go go go. And find my mixtapes \u2026 yo!"
+    m_Objective: Collect 3 mixtapes.
+    m_Hint: Follow the music.
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 5fab028d17db97a4cbf4e6f6e1261dcb, type: 3}
+    m_pfp: {fileID: 21300000, guid: a23f798fdb4d1944d99e8cd7026b22bb, type: 3}
+    m_questItemName: Mixtape
+    m_npcName: DJ Po
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 3571997906085087999, guid: b269c96a720a2a4488182b5cd5a1ca3b, type: 3}
+    - {fileID: 3571997906085087999, guid: b269c96a720a2a4488182b5cd5a1ca3b, type: 3}
+    - {fileID: 3571997906085087999, guid: b269c96a720a2a4488182b5cd5a1ca3b, type: 3}
+    m_ItemsPositions:
+    - {x: 153.85, y: 14.434, z: 93.65}
+    - {x: 153.85, y: 14.434, z: 96.13}
+    - {x: 153.85, y: 14.434, z: 100.44}
+    m_RequirementsMet: 0
+  - m_ID: 10
+    m_questItemsCollected: 0
+    m_Name: Confused Caveman
+    m_Status: Available
+    m_Description: "Translated from Caveman Gibberish: Grrr\u2026 Where is Ulag?
+      Where is Ulag\u2019s boulders?"
+    m_Objective: Find three boulders.
+    m_Hint: 'Boulder(<i>boul-der</i>): a large rock.'
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 3e4aacfbdad1a5f4991708c9a12feb2f, type: 3}
+    m_pfp: {fileID: 21300000, guid: 02493887338132645aae3b36e5c193be, type: 3}
+    m_questItemName: Boulder
+    m_npcName: Ulag the Caveman
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 2966109719834194053, guid: 3a12276f0eb49e84e9b9170791b346d7, type: 3}
+    - {fileID: 2966109719834194053, guid: 3a12276f0eb49e84e9b9170791b346d7, type: 3}
+    - {fileID: 2966109719834194053, guid: 3a12276f0eb49e84e9b9170791b346d7, type: 3}
+    m_ItemsPositions:
+    - {x: 143, y: 14.434, z: 118.2}
+    - {x: 151.5, y: 14.434, z: 118.2}
+    - {x: 161.4, y: 14.434, z: 118.2}
+    m_RequirementsMet: 0
+  - m_ID: 11
+    m_questItemsCollected: 0
+    m_Name: Suspicious Scientist
+    m_Status: Available
+    m_Description: "I require a lackey to fetch these electronics parts for my new
+      time-travel ARGH\u2026 I mean\u2026 coffee machine. Make haste."
+    m_Objective: Find three electronic parts.
+    m_Hint: Check the giant billboards.
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: 079eabf20537b994da7334f23269f135, type: 3}
+    m_pfp: {fileID: 21300000, guid: dff4c68f0b906944abbc0204af580b2b, type: 3}
+    m_questItemName: Electronics
+    m_npcName: Malcolm Adler Demins
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 1864633578052102652, guid: 280f7587bf74aec4fac74bd16cc278bc, type: 3}
+    - {fileID: 1864633578052102652, guid: 280f7587bf74aec4fac74bd16cc278bc, type: 3}
+    - {fileID: 1864633578052102652, guid: 280f7587bf74aec4fac74bd16cc278bc, type: 3}
+    m_ItemsPositions:
+    - {x: 141.62, y: 14.434, z: 97.93}
+    - {x: 141.62, y: 14.434, z: 105.39}
+    - {x: 141.62, y: 14.434, z: 111.08}
+    m_RequirementsMet: 0
+  - m_ID: 12
+    m_questItemsCollected: 0
+    m_Name: Library Assistant
+    m_Status: Available
+    m_Description: "Hi there, the Vertigo Heights library ordered some new books,
+      but they haven\u2019t arrived yet. Could you check to make sure they are on
+      their way?"
+    m_Objective: Find 3 books.
+    m_Hint: Knowledge can be found at the highest and lowest levels.
+    m_Completed: 0
+    m_Collected: 0
+    m_QuestDataDisplay: {fileID: 0}
+    m_questItemIcon: {fileID: 21300000, guid: d6966986c965500458b854f3557e001a, type: 3}
+    m_pfp: {fileID: 21300000, guid: 6990299e99c28a84fab2fe87d7bb9be9, type: 3}
+    m_questItemName: Books
+    m_npcName: Librarian Izzy
+    m_Type: 0
+    m_RequiredItems:
+    - {fileID: 1284784122019728424, guid: 182bbdc988b73b247a14c5519c1b378e, type: 3}
+    - {fileID: 1284784122019728424, guid: 182bbdc988b73b247a14c5519c1b378e, type: 3}
+    - {fileID: 1284784122019728424, guid: 182bbdc988b73b247a14c5519c1b378e, type: 3}
+    m_ItemsPositions:
+    - {x: 129.28, y: 4.82, z: 66.24}
+    - {x: 136.3, y: 4.82, z: 66.24}
+    - {x: 142.39, y: 4.82, z: 66.24}
+    m_RequirementsMet: 0
+  activeQuestItems: []
+  selectedQuest: {fileID: 0}
+  npcList: []

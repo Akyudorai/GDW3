@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class WaypointManager : MonoBehaviour
 {
-    public List<WaypointSystem> Systems;
+    public List<WaypointSystem> RaceSystems;
 
-    public void Initialize(int index) 
+    public void InitializeRaceWPS(int index) 
     {
-        Systems[index].Initialize();
+        RaceSystems[index].Initialize();
     }    
+
+    public WaypointSystem GetRaceWPS(int index) 
+    {
+        return RaceSystems[index];
+    }
 }

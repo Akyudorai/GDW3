@@ -36,8 +36,19 @@ public static class AssetLoader
 
     public static void LoadQuestItems()
     {
-        Load("Milk Bottle", 1);
-        Load("Shady Package", 4);       
+        Load("Milk Bottle", 3);
+        Load("BatteryQuestItemTemp", 3);       
+        Load("Shovel", 3);
+        Load("HardHat", 3);
+        Load("Cupcake", 3);
+        Load("PowerCell", 3);
+        Load("CowboyBoots", 3);
+        Load("Celery", 3);
+        Load("Bone", 3);
+        Load("Mixtape", 3);
+        Load("Boulder", 3);
+        Load("ElectronicPart", 3);
+        Load("Books", 3);
     }
 
     public static void LoadRaceItems() 

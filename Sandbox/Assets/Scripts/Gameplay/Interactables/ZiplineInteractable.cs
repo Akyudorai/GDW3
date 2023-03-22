@@ -11,6 +11,11 @@ public class ZiplineInteractable : Interactable
         this.node = node;
     }
 
+    public override InteractionType GetInteractionType() 
+    {
+        return InteractionType.Zipline;
+    }
+
     public override void Interact(PlayerController pc, RaycastHit hit) 
     {
          // Reference variables make it easier to type and read
@@ -36,6 +41,16 @@ public class ZiplineInteractable : Interactable
         bool isForward = ((pos_dist >= neg_dist) ? true : false);
     
         // Attach the player to the node at the point of interaction (closest point)
-        node.Attach(pc.splineController, result, isForward);               
+        node.Attach(pc.maneuverHandler.splineController, result, isForward);         
+        
+        // Apply a spline boost force to the player
+        pc.v_HorizontalVelocity *= 1.2f; // 20%  
+        pc.rigid.useGravity = false;
+
+        // Play Zipline Attach SFX
+        FMOD.Studio.EventInstance ziplineAttachSFX = SoundManager.CreateSoundInstance(SoundFile.ZiplineStart);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(ziplineAttachSFX, pc.transform, pc.rigid);
+        ziplineAttachSFX.start();
+        ziplineAttachSFX.release();       
     }    
 }
