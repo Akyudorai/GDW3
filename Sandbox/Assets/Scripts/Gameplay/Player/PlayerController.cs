@@ -591,8 +591,8 @@ public class PlayerController : MonoBehaviour
 
     public bool IsGrounded()
     {
-        int layerMask = 1 << 6; // Ground Layer
-           
+        var layerMasks = LayerMask.GetMask("Ground", "Interactable");
+
         Vector3 boxCenter = rigid.GetComponent<Collider>().bounds.center;
         Vector3 halfExtents = rigid.GetComponent<Collider>().bounds.extents;
 
@@ -605,13 +605,13 @@ public class PlayerController : MonoBehaviour
 
 
         
-        bool rayResult = Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.1f, layerMask);        
+        bool rayResult = Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.1f, layerMasks);        
         if (rayResult) return rayResult;
         
         // // if the raycast returns false, attempt a box cast for ledge cases.
         /// BOX CAST SEEMS TO CAUSE THE SINKING EFFECT BUG, NEED AN ALTERNATIVE FOR GROUND CHECKS
         /// DOESNT EVEN FIX THE LEDGE DETECTION, JUST DELAYS IT
-        bool boxResult = Physics.BoxCast(boxCenter, halfExtents/2, Vector3.down, transform.rotation, maxDistance, layerMask);        
+        bool boxResult = Physics.BoxCast(boxCenter, halfExtents/2, Vector3.down, transform.rotation, maxDistance, layerMasks);        
         return boxResult;        
     }
 

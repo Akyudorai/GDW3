@@ -104,10 +104,12 @@ public class InteractionHandler : MonoBehaviour
                         if (b_IsNetworked)
                         {
                             if (netPC.transform.position.y + 1.5f < closestHit.ClosestPoint(castPoint).y) canPerform = false;
+                            if (netPC.maneuverHandler.splineController.currentSpline != null) canPerform = false;
                         }
                         else
                         {
-                            if (pc.transform.position.y + 1.5f < closestHit.ClosestPoint(castPoint).y) canPerform = false;
+                            if (pc.transform.position.y + 1.5f < closestHit.ClosestPoint(castPoint).y) canPerform = false;                            
+                            if (pc.maneuverHandler.splineController.currentSpline != null) canPerform = false;
                         }
                         
                         break;
