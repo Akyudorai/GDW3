@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
     [Header("Components")]
     public Camera cam;
     public GameObject camera_pivot;
-    public Rigidbody rigid;    
+    public Rigidbody rigid;
+    public Collider capsuleCollider;
     public GameObject mesh;
     public Animator animator;
 
@@ -101,9 +102,10 @@ public class PlayerController : MonoBehaviour
     private void Awake() 
     {        
         rigid = GetComponent<Rigidbody>();    
-        interactionHandler = GetComponent<InteractionHandler>();  
-        maneuverHandler = GetComponent<ManeuverHandler>();  
-        
+        interactionHandler = GetComponent<InteractionHandler>();
+        interactionHandler.Initialize(this);
+
+        maneuverHandler = GetComponent<ManeuverHandler>();          
         maneuverHandler.Initialize(this, animator);
 
         //splineController.pcRef = this;
@@ -123,6 +125,7 @@ public class PlayerController : MonoBehaviour
         //GameManager.GetInstance().PlayerRef = this;       
         InputManager.GetInput().Player.Shift.performed += ShiftWithContext;
         InputManager.GetInput().Player.Shift.canceled += ShiftCancelWithContext;
+        InputManager.GetInput().Player.Escape.performed += cntxt => UI_Manager.GetInstance().TogglePhonePanel(!UI_Manager.GetInstance().PhonePanel.activeInHierarchy);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false; 
@@ -140,75 +143,87 @@ public class PlayerController : MonoBehaviour
 
     public void MoveCtx(InputAction.CallbackContext ctx) 
     {
+        if (GameManager.GetInstance().IsPaused) 
+        {
+            v_MotionInput = Vector2.zero;
+            return;
+        }
+
         var inputValue = ctx.ReadValue<Vector2>();
         v_MotionInput = inputValue;
     }
 
     public void JumpCtx(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
 
         Jump();
     }
 
     public void LookCtx(InputAction.CallbackContext ctx) 
     {
+        if (GameManager.GetInstance().IsPaused) 
+        {
+            v_Rotation = Vector2.zero;
+            return;
+        }
+
         var inputValue = ctx.ReadValue<Vector2>();
         v_Rotation = inputValue;
     }
 
     public void InteractCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         interactionHandler.Interact(this, InteractionType.Social);
         interactionHandler.Interact(this, InteractionType.VendingMachine);
     }
 
     public void WallRunCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         interactionHandler.Interact(this, InteractionType.Wall);
     }
 
     public void ZiplineCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         interactionHandler.Interact(this, InteractionType.Zipline);
     }
 
     public void RailGrindCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         interactionHandler.Interact(this, InteractionType.Rail);
     }
 
     public void LedgeGrabCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         interactionHandler.Interact(this, InteractionType.Ledge);
     }
 
     public void LedgeClimbCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         maneuverHandler.PerformLedgeClimb();
     }
 
     public void LedgeReleaseCtx(InputAction.CallbackContext ctx) 
     {
-        if (!ctx.performed) { return; }
+        if (!ctx.performed || GameManager.GetInstance().IsPaused) { return; }
         maneuverHandler.PerformLedgeDrop();
     }
 
     
     private void ShiftWithContext(InputAction.CallbackContext context) 
     {
-        b_ShiftPressed = true;
+        //b_ShiftPressed = true;
     }
 
     private void ShiftCancelWithContext(InputAction.CallbackContext context) 
     {
-        b_ShiftPressed = false;
+        //b_ShiftPressed = false;
     }    
 
     public void SetPlayerState(PlayerState state)
@@ -220,6 +235,10 @@ public class PlayerController : MonoBehaviour
     {
         GetGroundAngle();
 
+        if (v_HorizontalVelocity.magnitude > TopMaxSpeed) {
+            v_HorizontalVelocity = Vector3.ClampMagnitude(v_HorizontalVelocity, TopMaxSpeed);
+        }
+
         animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
         animator.SetBool("IsGrounded", b_Grounded);        
 
@@ -230,15 +249,16 @@ public class PlayerController : MonoBehaviour
             ps_MaxSpeed.Stop();
         }
 
-        interactionHandler.Tick(this);
+        interactionHandler.Tick();
         maneuverHandler.Tick();
 
-        if (GameManager.GetInstance().IsPaused) return;
-        if (e_State == PlayerState.Locked) return;
+        if (e_State == PlayerState.Locked) return; 
 
         if (!maneuverHandler.b_IsSplineControlled && !maneuverHandler.b_IsLedgeHandling) {
             Movement();
         }
+
+        if (GameManager.GetInstance().IsPaused) return;               
 
         Camera();
         
@@ -302,7 +322,7 @@ public class PlayerController : MonoBehaviour
         if (IsSliding) return;   
         if (IsOverridingMovement) return;
 
-        // rigid.velocity = v_DirectionalVelocity;
+        // rigid.velocity = v_DirectionalVelocity;        
 
         // Prepare a motion vector to used to modify the velocity
         Vector3 motionVector = Vector3.zero;        
@@ -571,8 +591,8 @@ public class PlayerController : MonoBehaviour
 
     public bool IsGrounded()
     {
-        int layerMask = 1 << 6; // Ground Layer
-           
+        var layerMasks = LayerMask.GetMask("Ground", "Interactable");
+
         Vector3 boxCenter = rigid.GetComponent<Collider>().bounds.center;
         Vector3 halfExtents = rigid.GetComponent<Collider>().bounds.extents;
 
@@ -585,13 +605,13 @@ public class PlayerController : MonoBehaviour
 
 
         
-        bool rayResult = Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.1f, layerMask);        
+        bool rayResult = Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out RaycastHit hit, 0.1f, layerMasks);        
         if (rayResult) return rayResult;
         
         // // if the raycast returns false, attempt a box cast for ledge cases.
         /// BOX CAST SEEMS TO CAUSE THE SINKING EFFECT BUG, NEED AN ALTERNATIVE FOR GROUND CHECKS
         /// DOESNT EVEN FIX THE LEDGE DETECTION, JUST DELAYS IT
-        bool boxResult = Physics.BoxCast(boxCenter, halfExtents/2, Vector3.down, transform.rotation, maxDistance, layerMask);        
+        bool boxResult = Physics.BoxCast(boxCenter, halfExtents/2, Vector3.down, transform.rotation, maxDistance, layerMasks);        
         return boxResult;        
     }
 

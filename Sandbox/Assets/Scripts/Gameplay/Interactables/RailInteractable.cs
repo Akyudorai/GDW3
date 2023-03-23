@@ -21,6 +21,9 @@ public class RailInteractable : Interactable
         // RULE #1: Player must be above the rail to initiate a rail grind
         if (pc.transform.position.y + 1.5f < hit.point.y) return;
 
+        // RULE #2: player cannot railgrind if already on a spline
+        if (pc.maneuverHandler.splineController.currentSpline != null) return;
+
         // Reference variables make it easier to type and read
         Vector3 pA = node.position;         
         Vector3 pB = node.next.position;
@@ -45,6 +48,10 @@ public class RailInteractable : Interactable
     
         // Attach the player to the node at the point of interaction (closest point)
         node.Attach(pc.maneuverHandler.splineController, result, isForward);        
+
+        // Apply a spline boost force to the player
+        pc.v_HorizontalVelocity *= 1.2f; // 20%  
+        pc.rigid.useGravity = false;
 
         // Spawn a GrindVFX on the player until detatched
         GameObject newVFX = Instantiate(Resources.Load<GameObject>("VFX/GrindVFX"));

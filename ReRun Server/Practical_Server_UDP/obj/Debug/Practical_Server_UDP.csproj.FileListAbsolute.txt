@@ -1,0 +1,44 @@
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.exe.config
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.exe
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.pdb
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.AssemblyReference.cache
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.CoreCompileInputs.cache
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.exe
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.pdb
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\System.Numerics.Vectors.dll
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\System.Numerics.Vectors.xml
+D:\Profile\Ontario Tech University\Distributed Systems\Practical\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.CopyComplete
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.exe.config
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.exe
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.pdb
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.AssemblyReference.cache
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.CoreCompileInputs.cache
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.CopyComplete
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.exe
+C:\Users\UF-CJ\OneDrive\Desktop\Practical_Server_UDP\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.pdb
+C:\Profile\Ontario Tech University\GDW3\Repo\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.exe.config
+C:\Profile\Ontario Tech University\GDW3\Repo\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.exe
+C:\Profile\Ontario Tech University\GDW3\Repo\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.pdb
+C:\Profile\Ontario Tech University\GDW3\Repo\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\Newtonsoft.Json.dll
+C:\Profile\Ontario Tech University\GDW3\Repo\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\System.Numerics.Vectors.dll
+C:\Profile\Ontario Tech University\GDW3\Repo\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\Newtonsoft.Json.xml
+C:\Profile\Ontario Tech University\GDW3\Repo\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\System.Numerics.Vectors.xml
+C:\Profile\Ontario Tech University\GDW3\Repo\GDW3\ReRun Server\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.AssemblyReference.cache
+C:\Profile\Ontario Tech University\GDW3\Repo\GDW3\ReRun Server\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.CoreCompileInputs.cache
+C:\Profile\Ontario Tech University\GDW3\Repo\GDW3\ReRun Server\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.CopyComplete
+C:\Profile\Ontario Tech University\GDW3\Repo\GDW3\ReRun Server\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.exe
+C:\Profile\Ontario Tech University\GDW3\Repo\GDW3\ReRun Server\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.pdb
+D:\Profile\Ontario Tech University\GDW 3\ReRun\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.exe.config
+D:\Profile\Ontario Tech University\GDW 3\ReRun\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.exe
+D:\Profile\Ontario Tech University\GDW 3\ReRun\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\Practical_Server_UDP.pdb
+D:\Profile\Ontario Tech University\GDW 3\ReRun\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\Newtonsoft.Json.dll
+D:\Profile\Ontario Tech University\GDW 3\ReRun\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\System.Numerics.Vectors.dll
+D:\Profile\Ontario Tech University\GDW 3\ReRun\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\Newtonsoft.Json.xml
+D:\Profile\Ontario Tech University\GDW 3\ReRun\GDW3\ReRun Server\Practical_Server_UDP\bin\Debug\System.Numerics.Vectors.xml
+D:\Profile\Ontario Tech University\GDW 3\ReRun\GDW3\ReRun Server\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.AssemblyReference.cache
+D:\Profile\Ontario Tech University\GDW 3\ReRun\GDW3\ReRun Server\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.CoreCompileInputs.cache
+D:\Profile\Ontario Tech University\GDW 3\ReRun\GDW3\ReRun Server\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.csproj.CopyComplete
+D:\Profile\Ontario Tech University\GDW 3\ReRun\GDW3\ReRun Server\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.exe
+D:\Profile\Ontario Tech University\GDW 3\ReRun\GDW3\ReRun Server\Practical_Server_UDP\obj\Debug\Practical_Server_UDP.pdb

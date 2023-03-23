@@ -5,7 +5,10 @@ using UnityEngine;
 // 767 -> 678 (LEDGE) -> 607 (SPLINES)
 public class ManeuverHandler : MonoBehaviour
 {   
+    private bool b_IsNetworked = false;
+
     public PlayerController pc;
+    public NetworkedPlayerController netPC;
     public Animator animator;    
     public SplineController splineController;
 
@@ -37,14 +40,27 @@ public class ManeuverHandler : MonoBehaviour
     {
         this.pc = pc;
         this.animator = animator;
+        b_IsNetworked = false;
 
         splineController = GetComponent<SplineController>();
-        splineController.pcRef = pc;
-        splineController.mesh = pc.mesh;
+        splineController.Initialize(pc, pc.mesh);
 
         EventManager.OnPlayerLanding += ResetWallInteractionTimers;
         EventManager.OnPlayerLanding += delegate { b_CanWallRun = false; };
     }    
+
+    public void Initialize(NetworkedPlayerController netPC, Animator animator)
+    {
+        this.netPC = netPC;
+        this.animator = animator;
+        b_IsNetworked = true;
+
+        splineController = GetComponent<SplineController>();
+        splineController.Initialize(netPC, netPC.mesh);
+
+        EventManager.OnPlayerLanding += ResetWallInteractionTimers;
+        EventManager.OnPlayerLanding += delegate {  b_CanWallRun = false; };
+    }
 
     public void Tick() 
     {   
@@ -69,7 +85,9 @@ public class ManeuverHandler : MonoBehaviour
                 animator.ResetTrigger("LedgeClimb");
                 animator.ResetTrigger("LedgeDrop");
                 animator.SetTrigger("LedgeGrab");
-                pc.rigid.velocity = Vector3.zero;
+
+                if (b_IsNetworked) netPC.rigid.velocity = Vector3.zero;
+                else pc.rigid.velocity = Vector3.zero;                
             }
         }
 
@@ -79,7 +97,22 @@ public class ManeuverHandler : MonoBehaviour
                 animator.SetBool("IsWallrunningRight", splineController.currentSpline.isRight);
             }
 
-            float splineSpeed = (pc.v_HorizontalVelocity.magnitude / pc.TopMaxSpeed) * 15f;
+            float speed = 0f;
+            float splineSpeed = 0f;
+
+            if (b_IsNetworked)
+            {
+                speed = Mathf.Max(netPC.v_HorizontalVelocity.magnitude, netPC.v_VerticalVelocity.magnitude);
+                splineSpeed = (Mathf.Max(speed, netPC.f_TopSpeed) / netPC.f_TopSpeed) * netPC.f_TopSpeed;
+            }
+
+            else
+            {
+                speed = Mathf.Max(pc.v_HorizontalVelocity.magnitude, pc.v_VerticalVelocity.magnitude);
+                splineSpeed = (Mathf.Max(speed, pc.TopMaxSpeed) / pc.TopMaxSpeed) * pc.TopMaxSpeed;
+            }
+
+            
             float minSpeed = 8f;
             float resultSpeed = Mathf.Max(splineSpeed, minSpeed);
             splineController.SetTraversalSpeed(resultSpeed);
@@ -148,13 +181,26 @@ public class ManeuverHandler : MonoBehaviour
     public void PerformLedgeGrab(Vector3 position, Vector3 direction) 
     {
         transform.position = position - (Vector3.up * transform.localScale.y * 1.25f);
-        pc.mesh.transform.LookAt(pc.mesh.transform.position + direction);
         b_LedgeGrabbing = true;
-        
-        pc.v_HorizontalVelocity = Vector3.zero;
-        pc.v_VerticalVelocity = Vector3.zero;
-        pc.rigid.velocity = Vector3.zero;
-        pc.rigid.useGravity = false;
+
+        if (b_IsNetworked)
+        {
+            netPC.mesh.transform.LookAt(netPC.mesh.transform.position + direction);
+            netPC.v_HorizontalVelocity = Vector3.zero;
+            netPC.v_VerticalVelocity = Vector3.zero;
+            netPC.rigid.velocity = Vector3.zero;
+            netPC.rigid.useGravity = false;
+        }
+
+        else
+        {
+            pc.mesh.transform.LookAt(pc.mesh.transform.position + direction);
+            pc.v_HorizontalVelocity = Vector3.zero;
+            pc.v_VerticalVelocity = Vector3.zero;
+            pc.rigid.velocity = Vector3.zero;
+            pc.rigid.useGravity = false;
+        }
+       
 
         StartCoroutine(DelayLedgeCancel()); 
     }
@@ -165,7 +211,10 @@ public class ManeuverHandler : MonoBehaviour
         if (b_LedgeGrabbing && b_CanLedgeCancel) 
         {   
             b_LedgeGrabbing = false;
-            pc.rigid.useGravity = false;
+
+            if (b_IsNetworked) netPC.rigid.useGravity = false;
+            else pc.rigid.useGravity = false;
+
 
             animator.SetTrigger("LedgeDrop");
             animator.ResetTrigger("LedgeGrab");
@@ -176,41 +225,57 @@ public class ManeuverHandler : MonoBehaviour
     {
         // Trigger the Ledge Climb Animation
         if (b_LedgeGrabbing && b_CanLedgeCancel) 
-        {       
-            b_LedgeGrabbing = false;                
-            b_CanLedgeCancel = false;           
-            StartCoroutine(LedgeClimb());
+        {   
+            animator.SetTrigger("LedgeClimb");  
+
+            b_LedgeClimbing = false;
+            b_LedgeGrabbing = false;
+            b_CanLedgeCancel = false;
+            pc.rigid.useGravity = true;
+            pc.ApplyForce(Vector3.up * (pc.JumpForce*2));            
+
+            animator.ResetTrigger("LedgeGrab");
+            //b_LedgeGrabbing = false;                
+            //b_CanLedgeCancel = false;           
+            //StartCoroutine(LedgeClimb());
         }               
     }
 
     private IEnumerator DelayLedgeCancel() 
     {
         b_CanLedgeCancel = false;
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.1f);
         b_CanLedgeCancel = true;
+
+        // Automatic Ledge Climb (removal of ledge cancel)
+        PerformLedgeClimb();
     }
 
     private IEnumerator LedgeClimb() 
     {   
         // Give animation full control over motion
-        GetComponent<Collider>().enabled = false;
-        animator.GetComponent<ParentRootMotion>().useRootMotion = true;
+        pc.capsuleCollider.enabled = false;
+        pc.rigid.useGravity = false;
+        animator.applyRootMotion = true;
         animator.SetTrigger("LedgeClimb");
         b_LedgeClimbing = true;
         
-        yield return new WaitForSeconds(1.12f); // approximate length of ledge climb animation
-        Vector3 rootPos = anim_RootTracker.transform.position;
-        yield return new WaitForSeconds(0.02f);
+        yield return new WaitForSeconds(1.45f); // approximate length of ledge climb animation
+        //Vector3 rootPos = anim_RootTracker.transform.position;
+        //yield return new WaitForSeconds(0.02f);
 
         // Return control over motion to the player
-        GetComponent<Collider>().enabled = true;
-        animator.GetComponent<ParentRootMotion>().useRootMotion = false;
+        animator.SetTrigger("DoneClimbing");
+        pc.capsuleCollider.enabled = true;
+        animator.applyRootMotion = false;
         animator.ResetTrigger("LedgeGrab");
 
         // Restore player control
-        transform.position = rootPos;
         b_LedgeClimbing = false;
-        pc.rigid.useGravity = true;
-        
+
+        if (b_IsNetworked) netPC.rigid.useGravity = true;
+        else pc.rigid.useGravity = true;
+
+        animator.ResetTrigger("DoneClimbing");
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SplineController : MonoBehaviour
 {
+    private bool b_IsNetworked = false;
+
     [Header("Splines")]
     public SplinePath currentSpline = null;
     public int nodeIndex = 0;
@@ -12,12 +14,27 @@ public class SplineController : MonoBehaviour
 
     float traversalSpeed = 1f;
     public PlayerController pcRef;
+    public NetworkedPlayerController netPC;
     //public bool isActive = false;     
 
     public GameObject SplineVFX = null;
 
     FMOD.Studio.EventInstance railSFX;
     FMOD.Studio.EventInstance ziplineSFX;
+
+    public void Initialize(PlayerController pc, GameObject mesh)
+    {
+        pcRef = pc;
+        this.mesh = mesh;
+        b_IsNetworked = false;
+    }
+
+    public void Initialize(NetworkedPlayerController netPC, GameObject mesh)
+    {
+        this.netPC = netPC;
+        this.mesh = mesh;
+        b_IsNetworked = true;
+    }
 
     private void Start() 
     {
@@ -62,13 +79,19 @@ public class SplineController : MonoBehaviour
             if (currentSpline.splineType == SplineType.Rail) 
             {
                 railSFX.setPaused(false);   
-                FMODUnity.RuntimeManager.AttachInstanceToGameObject(railSFX, pcRef.transform, pcRef.rigid);
+
+                if (b_IsNetworked) FMODUnity.RuntimeManager.AttachInstanceToGameObject(railSFX, netPC.transform, netPC.rigid);
+                else FMODUnity.RuntimeManager.AttachInstanceToGameObject(railSFX, pcRef.transform, pcRef.rigid);
+
             } 
 
             else if (currentSpline.splineType == SplineType.Zipline) 
             {
                 ziplineSFX.setPaused(false);   
-                FMODUnity.RuntimeManager.AttachInstanceToGameObject(ziplineSFX, pcRef.transform, pcRef.rigid);
+
+                if (b_IsNetworked) FMODUnity.RuntimeManager.AttachInstanceToGameObject(ziplineSFX, netPC.transform, netPC.rigid);
+                else FMODUnity.RuntimeManager.AttachInstanceToGameObject(ziplineSFX, pcRef.transform, pcRef.rigid);
+
             }
 
             if (currentSpline.splineType == SplineType.Wall)
@@ -88,7 +111,7 @@ public class SplineController : MonoBehaviour
 
     public void CheckWall() 
     {
-        if (pcRef != null) 
+        if (pcRef != null || netPC != null) 
         {
             // Check to see if we're still running on the wall or if we've reached the end of it            
             bool checkWall = (Physics.Raycast(mesh.transform.position, mesh.transform.right * ((currentSpline.isRight) ? 1 : -1), 2f));				            
@@ -110,6 +133,7 @@ public class SplineController : MonoBehaviour
         // But keep a separate reference to the spline path so we can call the OnDetatched function
         SplinePath pathRef = currentSpline;
         currentSpline = null;
+        pcRef.rigid.useGravity = true;
 
         if (SplineVFX != null) {
             Destroy(SplineVFX);
@@ -123,7 +147,7 @@ public class SplineController : MonoBehaviour
 		//}	
 
         // Only want to add a launch force if it's the player
-		if (pcRef != null) 
+		if (pcRef != null || netPC != null) 
 		{
 			// Calculate a launch direction based on spline type
 			Vector3 launchDirection = Vector3.zero;
@@ -135,7 +159,8 @@ public class SplineController : MonoBehaviour
                     
                     // Play Rail Release SFX
                     FMOD.Studio.EventInstance railReleaseSFX = SoundManager.CreateSoundInstance(SoundFile.RailRelease);
-                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(railReleaseSFX, pcRef.transform, pcRef.rigid);
+                    if (b_IsNetworked) FMODUnity.RuntimeManager.AttachInstanceToGameObject(railReleaseSFX, netPC.transform, netPC.rigid);
+                    else FMODUnity.RuntimeManager.AttachInstanceToGameObject(railReleaseSFX, pcRef.transform, pcRef.rigid);
                     railReleaseSFX.start();
                     railReleaseSFX.release();
                     break;
@@ -145,7 +170,8 @@ public class SplineController : MonoBehaviour
                     
                     // Play Zipline Release SFX
                     FMOD.Studio.EventInstance ziplineReleaseSFX = SoundManager.CreateSoundInstance(SoundFile.ZiplineRelease);
-                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(ziplineReleaseSFX, pcRef.transform, pcRef.rigid);
+                    if (b_IsNetworked) FMODUnity.RuntimeManager.AttachInstanceToGameObject(ziplineReleaseSFX, netPC.transform, netPC.rigid);
+                    else FMODUnity.RuntimeManager.AttachInstanceToGameObject(ziplineReleaseSFX, pcRef.transform, pcRef.rigid);
                     ziplineReleaseSFX.start();
                     ziplineReleaseSFX.release();                    
                     break;
@@ -160,7 +186,8 @@ public class SplineController : MonoBehaviour
 
                     // Play Wallrun Release SFX
                     FMOD.Studio.EventInstance wallReleaseSFX = SoundManager.CreateSoundInstance(SoundFile.WallRunRelease);
-                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(wallReleaseSFX, pcRef.transform, pcRef.rigid);
+                    if (b_IsNetworked) FMODUnity.RuntimeManager.AttachInstanceToGameObject(wallReleaseSFX, netPC.transform, netPC.rigid);
+                    else FMODUnity.RuntimeManager.AttachInstanceToGameObject(wallReleaseSFX, pcRef.transform, pcRef.rigid);
                     wallReleaseSFX.start();
                     wallReleaseSFX.release();  
 					break;
@@ -174,12 +201,26 @@ public class SplineController : MonoBehaviour
             //Debug.Log(launchForce);
 
 			// Modify player velocity and direction
-			pcRef.v_VerticalVelocity = Vector3.zero;					// Zero-out velocity so our launch force takes over
-			pcRef.ApplyForce(launchForce * pcRef.JumpForce);	// Apply launch force to the player
-            pcRef.StartCoroutine(pcRef.JumpDelay());
-			mesh.transform.rotation = Quaternion.identity;	// Rotate the mesh in the direction of travel
-			//pcRef.interactionHandler.targetInteractable = null;						
-            pcRef.interactionHandler.interactionDelay = 0.5f;
+            if (b_IsNetworked)
+            {
+                netPC.v_VerticalVelocity = Vector3.zero;                    // Zero-out velocity so our launch force takes over
+                netPC.ApplyForce(launchForce * netPC.f_JumpForce);	// Apply launch force to the player
+                netPC.StartCoroutine(netPC.JumpDelay(0.5f));
+			    mesh.transform.rotation = Quaternion.identity;  // Rotate the mesh in the direction of travel
+                //netPC.interactionHandler.targetInteractable = null;						
+                netPC.interactionHandler.interactionDelay = 0.5f;
+            }
+
+            else
+            {
+                pcRef.v_VerticalVelocity = Vector3.zero;					// Zero-out velocity so our launch force takes over
+			    pcRef.ApplyForce(launchForce * pcRef.JumpForce);	// Apply launch force to the player
+                pcRef.StartCoroutine(pcRef.JumpDelay());
+			    mesh.transform.rotation = Quaternion.identity;	// Rotate the mesh in the direction of travel
+			    //pcRef.interactionHandler.targetInteractable = null;						
+                pcRef.interactionHandler.interactionDelay = 0.5f;
+            }
+			
 		} 
 
         // Lastly, call the OnDetatched method from the spline path to allow it to handle itself

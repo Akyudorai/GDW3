@@ -37,6 +37,24 @@ public class RaceManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    private void OnDestroy() 
+    {
+        EventManager.OnRaceEnd -= RaceComplete;
+    }
+
+    public static string GetRaceNameByID(int id) 
+    {
+        for (int i = 0; i < instance.raceList.Count; i++) 
+        {
+            if (instance.raceList[i].m_ID == id) {
+                return instance.raceList[i].m_Name;
+            }
+        }
+
+        Debug.LogError("No such race with that ID exists.");
+        return "#[ERROR]";
+    }
+
     public void InitializeRace(PlayerController pcRef, int raceID)
     {
         // Initialize the appropriate Waypoint System based on index
@@ -53,7 +71,7 @@ public class RaceManager : MonoBehaviour
         pcRef.gameObject.transform.position = wps.Beginning.position;
         pcRef.mesh.transform.rotation = wps.Beginning.rotation;
         pcRef.camera_pivot.transform.rotation = wps.Beginning.rotation;
-
+        pcRef.SetPlayerState(PlayerState.Locked);
         
         // Queue the Countdown Timer
         m_RaceActive = true;
@@ -69,8 +87,7 @@ public class RaceManager : MonoBehaviour
     }
 
     public IEnumerator Countdown(PlayerController pcRef, int ID) 
-    {        
-        pcRef.SetPlayerState(PlayerState.Locked);
+    {                
         b_Pregame = true;
         m_Timer = 0.0f;        
 
@@ -130,6 +147,13 @@ public class RaceManager : MonoBehaviour
             FMOD.Studio.EventInstance finishSFX = SoundManager.CreateSoundInstance(SoundFile.RaceFinish);
             finishSFX.start();
             finishSFX.release(); 
+
+            // If connected to the server, submit score
+            if (Client.isConnected)
+            {
+                Debug.Log("submitting score to server");
+                ClientSend.SubmitScore(activeRaceID, m_Timer);
+            }           
         } else 
         {
             Debug.Log("Race has been forfeited");

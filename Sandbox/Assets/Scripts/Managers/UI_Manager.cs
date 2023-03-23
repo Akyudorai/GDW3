@@ -26,6 +26,7 @@ public class UI_Manager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(this.gameObject);
     }
+    
 
     // ============ SINGLETON ============
 
@@ -112,10 +113,17 @@ public class UI_Manager : MonoBehaviour
     public GameObject PromptPanel;
     public TMP_Text PromptKeyDisplay;
 
+    [Header("Chat")]
+    public GameObject chatPanel;
+    public Transform chatBoxContent;
+    public Scrollbar verticalScroll;
+    public TMP_InputField chatInputField;
+    public GameObject chatMessagePrefab;
+
 
     private void Start() 
     {
-        InputManager.GetInput().Player.Escape.performed += cntxt => TogglePhonePanel(!PhonePanel.activeInHierarchy);
+        //InputManager.GetInput().Player.Escape.performed += cntxt => TogglePhonePanel(!PhonePanel.activeInHierarchy);
     
         questItemIcons = new GameObject[3];
         questItemIcons[0] = questItem1;

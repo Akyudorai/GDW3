@@ -48,9 +48,14 @@ public class WallInteractable : Interactable
         float leftCheck = Vector3.Distance(left, hit.point);
         wallRunSpline.isRight = ((rightCheck < leftCheck) ? true : false);
         //wallRunSpline.isRight = (Physics.Raycast(pc.mesh.transform.position, pc.mesh.transform.right, 1));
-        wallRunSpline.GetNode(0).Attach(pc.maneuverHandler.splineController, 0.0f, true);  
-                
+
+        // Attach the player to the spline
+        wallRunSpline.GetNode(0).Attach(pc.maneuverHandler.splineController, 0.0f, true);                  
         pc.maneuverHandler.wallDelays.Add(this, 3f); // Change value to variable for adjustable wall delay time
+
+        // Apply a spline boost force to the player
+        pc.v_HorizontalVelocity *= 1.2f; // 20%  
+        pc.rigid.useGravity = false;
 
         // Play Wallrun SFX
         FMOD.Studio.EventInstance wallrunSFX = SoundManager.CreateSoundInstance(SoundFile.WallRun);
