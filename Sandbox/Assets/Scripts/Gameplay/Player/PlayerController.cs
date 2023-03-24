@@ -250,9 +250,7 @@ public class PlayerController : MonoBehaviour
         }
 
         interactionHandler.Tick();
-        maneuverHandler.Tick();
-
-        if (e_State == PlayerState.Locked) return; 
+        maneuverHandler.Tick();        
 
         if (!maneuverHandler.b_IsSplineControlled && !maneuverHandler.b_IsLedgeHandling) {
             Movement();
@@ -347,7 +345,7 @@ public class PlayerController : MonoBehaviour
 
             // Apply Velocity Change
             v_HorizontalVelocity += motionVector * acceleration * Time.fixedDeltaTime;
-            v_HorizontalVelocity = Vector3.ClampMagnitude(v_HorizontalVelocity, (b_ShiftPressed) ? TopMaxSpeed / 4: TopMaxSpeed);
+            v_HorizontalVelocity =  (e_State == PlayerState.Locked) ? Vector3.zero : Vector3.ClampMagnitude(v_HorizontalVelocity, (b_ShiftPressed) ? TopMaxSpeed / 4: TopMaxSpeed);
             //CurrentSpeed = v_HorizontalVelocity.magnitude;
 
             // Slow midair
@@ -415,7 +413,7 @@ public class PlayerController : MonoBehaviour
         else 
         {   
             // Set the motion vector to a brake force to that will slow down the velocity
-            if (v_HorizontalVelocity.magnitude > 0.1f) {
+            if (v_HorizontalVelocity.magnitude > 0.1f || e_State == PlayerState.Locked) {
                 Vector3 brakeVector = -v_HorizontalVelocity * BrakeSpeed;
                 v_HorizontalVelocity += brakeVector * Time.fixedDeltaTime;            
             } else {
@@ -433,8 +431,8 @@ public class PlayerController : MonoBehaviour
         Vector3 angled_motion = Quaternion.AngleAxis(ground_angle, mesh.transform.right) * motion_result;    
  
         // Move the players position in the direction of velocity
-        rigid.velocity = angled_motion;     
-        UI_Manager.GetInstance().UpdateSpeedTracker(v_HorizontalVelocity.magnitude);   
+        rigid.velocity = (e_State == PlayerState.Locked) ? Vector3.zero : angled_motion;     
+        //UI_Manager.GetInstance().UpdateSpeedTracker(v_HorizontalVelocity.magnitude);   
     }
 
     private void Camera()
