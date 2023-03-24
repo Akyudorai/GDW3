@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
     public void MoveCtx(InputAction.CallbackContext ctx) 
     {
-        if (GameManager.GetInstance().IsPaused) 
+        if (GameManager.GetInstance().IsPaused || e_State == PlayerState.Locked) 
         {
             v_MotionInput = Vector2.zero;
             return;
@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
     public void LookCtx(InputAction.CallbackContext ctx) 
     {
-        if (GameManager.GetInstance().IsPaused) 
+        if (GameManager.GetInstance().IsPaused || e_State == PlayerState.Locked) 
         {
             v_Rotation = Vector2.zero;
             return;
@@ -326,7 +326,8 @@ public class PlayerController : MonoBehaviour
         Vector3 motionVector = Vector3.zero;        
 
         // If there is input along the X or Z axis in either direction
-        if (v_MotionInput.y > 0.1f || v_MotionInput.x > 0.1f || v_MotionInput.y < -0.1f || v_MotionInput.x < -0.1f) 
+        bool inputDetected = (v_MotionInput.y > 0.1f || v_MotionInput.x > 0.1f || v_MotionInput.y < -0.1f || v_MotionInput.x < -0.1f); 
+        if (inputDetected && e_State != PlayerState.Locked && !GameManager.GetInstance().IsPaused) 
         {                              
             //======================================================
             // Handles the horizontal motion of the player.
@@ -342,10 +343,10 @@ public class PlayerController : MonoBehaviour
             motionVector.y = 0;
 
             motionVector *= ((b_Grounded) ? 1.0f : f_AirControlAmount);
-
-            // Apply Velocity Change
+            
             v_HorizontalVelocity += motionVector * acceleration * Time.fixedDeltaTime;
-            v_HorizontalVelocity =  (e_State == PlayerState.Locked) ? Vector3.zero : Vector3.ClampMagnitude(v_HorizontalVelocity, (b_ShiftPressed) ? TopMaxSpeed / 4: TopMaxSpeed);
+            v_HorizontalVelocity = Vector3.ClampMagnitude(v_HorizontalVelocity, (b_ShiftPressed) ? TopMaxSpeed / 4 : TopMaxSpeed);
+            
             //CurrentSpeed = v_HorizontalVelocity.magnitude;
 
             // Slow midair
@@ -413,7 +414,7 @@ public class PlayerController : MonoBehaviour
         else 
         {   
             // Set the motion vector to a brake force to that will slow down the velocity
-            if (v_HorizontalVelocity.magnitude > 0.1f || e_State == PlayerState.Locked) {
+            if (v_HorizontalVelocity.magnitude > 0.1f) {
                 Vector3 brakeVector = -v_HorizontalVelocity * BrakeSpeed;
                 v_HorizontalVelocity += brakeVector * Time.fixedDeltaTime;            
             } else {
@@ -431,7 +432,7 @@ public class PlayerController : MonoBehaviour
         Vector3 angled_motion = Quaternion.AngleAxis(ground_angle, mesh.transform.right) * motion_result;    
  
         // Move the players position in the direction of velocity
-        rigid.velocity = (e_State == PlayerState.Locked) ? Vector3.zero : angled_motion;     
+        rigid.velocity = angled_motion;     
         //UI_Manager.GetInstance().UpdateSpeedTracker(v_HorizontalVelocity.magnitude);   
     }
 
