@@ -12,7 +12,7 @@ namespace Practical_Server_UDP
     {
         public int id;
         public string username;
-        
+
         public Vector3 position;
         public Quaternion rotation;
 

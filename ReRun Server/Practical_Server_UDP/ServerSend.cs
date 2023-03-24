@@ -66,43 +66,72 @@ namespace Practical_Server_UDP
         private static void SendTCPDataToAllConnected(Packet _packet)
         {
             _packet.WriteLength();
-            for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            foreach (Client c in GameLogic.ActiveClients.Values)
             {
-                GameLogic.ActiveClients[i].tcp.SendData(_packet);
+                c.tcp.SendData(_packet);
             }
+            
+            //for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            //{
+            //    GameLogic.ActiveClients[i].tcp.SendData(_packet);
+            //}
         }
 
         private static void SendUDPDataToAllConnected(Packet _packet)
         {
             _packet.WriteLength();
-            for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+
+            foreach (Client c in GameLogic.ActiveClients.Values)
             {
-                GameLogic.ActiveClients[i].udp.SendData(_packet);
+                c.udp.SendData(_packet);
             }
+
+            //for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            //{
+            //    GameLogic.ActiveClients[i].udp.SendData(_packet);
+            //}
         }
 
         private static void SendTCPDataToAllConnected(int _clientException, Packet _packet)
         {
             _packet.WriteLength();
-            for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+
+            foreach (Client c in GameLogic.ActiveClients.Values)
             {
-                if (i != _clientException)
+                if (c.id != _clientException)
                 {
-                    GameLogic.ActiveClients[i].tcp.SendData(_packet);
+                    c.tcp.SendData(_packet);
                 }
             }
+
+            //for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            //{
+            //    if (i != _clientException)
+            //    {
+            //        GameLogic.ActiveClients[i].tcp.SendData(_packet);
+            //    }
+            //}
         }
 
         private static void SendUDPDataToAllConnected(int _clientException, Packet _packet)
         {
             _packet.WriteLength();
-            for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+
+            foreach (Client c in GameLogic.ActiveClients.Values)
             {
-                if (i != _clientException)
+                if (c.id != _clientException)
                 {
-                    GameLogic.ActiveClients[i].udp.SendData(_packet);
+                    c.udp.SendData(_packet);
                 }
             }
+
+            //for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            //{
+            //    if (i != _clientException)
+            //    {
+            //        GameLogic.ActiveClients[i].udp.SendData(_packet);
+            //    }
+            //}
         }
 
 
