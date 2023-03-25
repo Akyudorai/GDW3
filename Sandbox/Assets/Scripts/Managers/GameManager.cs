@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     }
 
     public Player playerRef;
-    public PlayerController pcRef;
+    public Controller pcRef;
 
     public int RespawnIndex = 0;
 

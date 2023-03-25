@@ -16,7 +16,7 @@ public class ZiplineInteractable : Interactable
         return InteractionType.Zipline;
     }
 
-    public override void Interact(PlayerController pc, RaycastHit hit) 
+    public override void Interact(Controller pc, RaycastHit hit) 
     {
          // Reference variables make it easier to type and read
         Vector3 pA = node.position;         
@@ -52,5 +52,5 @@ public class ZiplineInteractable : Interactable
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(ziplineAttachSFX, pc.transform, pc.rigid);
         ziplineAttachSFX.start();
         ziplineAttachSFX.release();       
-    }    
+    }
 }

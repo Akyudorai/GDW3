@@ -9,18 +9,14 @@ public class WallInteractable : Interactable
         return InteractionType.Wall;
     }
 
-    public override void Interact(PlayerController pc, RaycastHit hit) 
-    {
-        // RULE #1: Player must be airborne to start a wall run
-        
+    public override void Interact(Controller pc, RaycastHit hit) 
+    {              
         if (!pc.maneuverHandler.b_CanWallRun) return;
-        if (pc.v_HorizontalVelocity.magnitude < pc.QuickMaxSpeed/3) { Debug.Log("Too Slow"); return; }    
+        if (pc.v_HorizontalVelocity.magnitude < pc.f_AccelerationSpeed/3) { Debug.Log("Too Slow"); return; }    
         if (pc.maneuverHandler.wallDelays.ContainsKey(this)) { Debug.Log("That Wall Is On Cooldown!"); return; }
 
-        Debug.Log("Wall Run Started");
-
         // Calculate Direction of spline
-        Vector3 playerRelativeDir = (hit.point + pc.v_HorizontalVelocity);                      // Player's current direction of travel
+        Vector3 playerRelativeDir = (hit.point + pc.v_HorizontalVelocity);          // Player's current direction of travel
         Vector3 surfaceNormal = hit.normal;                                         // The normal for the surface of the wall
         Vector3 surfaceDir = Quaternion.Euler(0, 90, 0) * surfaceNormal;            // The direction the spline will be traveling        
         
@@ -34,11 +30,10 @@ public class WallInteractable : Interactable
         bool isForward = ((pos_dist >= neg_dist) ? true : false);        
 
         // Generate a spline path along the wall to follow and attach the player to it
-        float splineSpeed = (pc.v_HorizontalVelocity.magnitude / pc.TopMaxSpeed) * 10;
+        float splineSpeed = (pc.v_HorizontalVelocity.magnitude / pc.f_TopSpeed) * pc.f_TopSpeed;
         
         //float splineSpeed = pc.CurrentSpeed;
         SplinePath wallRunSpline = SplineUtils.GenerateWallRunPath(hit.point + surfaceNormal * 1f, surfaceDir, splineSpeed, isForward);
-
         pc.mesh.transform.LookAt(pc.mesh.transform.position - surfaceDir * ((isForward) ? -1 : 1));
 
         // Determine if the wall is on the right or left

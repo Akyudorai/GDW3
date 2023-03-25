@@ -30,18 +30,19 @@ public class NpcInteractable : Interactable
         yield return new WaitForSeconds(3f);
         this.gameObject.GetComponentInChildren<ParticleSystem>().Stop();
         this.gameObject.GetComponent<NPC>().npcIcon.SetActive(false);
-    }
+    }    
 
-    public override void Interact(PlayerController controller, RaycastHit hit)
+    public override void Interact(Controller pc, RaycastHit hit)
     {
         if (npcRef == null) {
             Debug.LogError("NpcInteractable: NPC Reference not set!");
             return;
         }
 
-        controller.v_HorizontalVelocity = Vector3.zero; 
-        controller.v_VerticalVelocity = Vector3.zero; 
-        controller.rigid.velocity = Vector3.zero; 
+        // Zero out velocity when talking to an NPC
+        pc.v_HorizontalVelocity = Vector3.zero; 
+        pc.v_VerticalVelocity = Vector3.zero; 
+        pc.rigid.velocity = Vector3.zero; 
 
         switch (npcRef.m_Data.m_Type) 
         {
@@ -128,7 +129,8 @@ public class NpcInteractable : Interactable
                         }    
 
                         // Initialize the Race while cinematic is playing
-                        RaceManager.GetInstance().InitializeRace(controller, npcRef.m_RaceID);                         
+                        /// TODO: Differentiate between networked races and single player race
+                        RaceManager.GetInstance().InitializeRace(pc, npcRef.m_RaceID);                         
                     });
 
                     // No Button Simply Ends Dialogue
@@ -140,5 +142,5 @@ public class NpcInteractable : Interactable
 
                 break;
         }
-    }
+    }    
 }

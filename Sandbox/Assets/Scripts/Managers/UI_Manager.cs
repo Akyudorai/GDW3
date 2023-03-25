@@ -152,7 +152,7 @@ public class UI_Manager : MonoBehaviour
     public void LoadNpcDialogue(NPC npcRef) 
     {
         // Lock the players controls        
-        PlayerController.LocalPlayer.e_State = PlayerState.Locked;
+        Controller.Local.e_State = PlayerState.Locked;
 
         // Move Camera to better position and look at NPC
         // CameraController.LocalCamera.LookAt(npc.gameObject);
@@ -195,7 +195,7 @@ public class UI_Manager : MonoBehaviour
     public void EndNpcDialogue() 
     {
         // Unlock Player Controls
-        PlayerController.LocalPlayer.e_State = PlayerState.Active;
+        Controller.Local.e_State = PlayerState.Active;
 
         // Switch Cursor Mode
         Cursor.lockState = CursorLockMode.Locked;

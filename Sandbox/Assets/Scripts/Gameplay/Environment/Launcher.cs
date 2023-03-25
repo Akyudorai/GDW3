@@ -25,7 +25,7 @@ public class Launcher : MonoBehaviour
     {
         if (other.tag == "Player" && CanLaunch) 
         {
-            PlayerController pc = other.GetComponent<PlayerController>();
+            Controller pc = other.GetComponent<Controller>();
             pc.v_VerticalVelocity = Vector3.zero;
             
             Vector3 direction = Vector3.zero;
@@ -41,11 +41,11 @@ public class Launcher : MonoBehaviour
             pc.ApplyForce(launchVector, ForceMode.Impulse);            
             //StartCoroutine(pc.OverrideMovement(2.0f));
             StartCoroutine(LaunchpadDelay());
-            StartCoroutine(pc.JumpDelay());
+            StartCoroutine(pc.JumpDelay(0.5f));
 
             // Play JumpPad SFX
             FMOD.Studio.EventInstance jumpPadSFX = SoundManager.CreateSoundInstance(SoundFile.JumpPad);
-            FMODUnity.RuntimeManager.AttachInstanceToGameObject(jumpPadSFX, other.gameObject.transform, GameManager.GetInstance().pcRef.rigid);
+            FMODUnity.RuntimeManager.AttachInstanceToGameObject(jumpPadSFX, other.gameObject.transform, Controller.Local.rigid);
             jumpPadSFX.start();
             jumpPadSFX.release(); 
         }
