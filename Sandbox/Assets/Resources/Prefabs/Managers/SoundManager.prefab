@@ -215,6 +215,34 @@ MonoBehaviour:
       Data3: 25804972
       Data4: 823826114
     Path: event:/Events/Quest-Complete
+  eve_npcInteract:
+    Guid:
+      Data1: 1042635648
+      Data2: 1254589429
+      Data3: 75895741
+      Data4: 1279680430
+    Path: event:/Events/Npc-Interact
+  eve_endNpcInteract:
+    Guid:
+      Data1: -757576822
+      Data2: 1166278943
+      Data3: 254474431
+      Data4: 1520246540
+    Path: event:/Events/End-Npc_Interact
+  eve_fastTravel:
+    Guid:
+      Data1: -1422183731
+      Data2: 1160528401
+      Data3: -1658074447
+      Data4: -1565090962
+    Path: event:/Events/Fast-Travel
+  eve_vendingMachine:
+    Guid:
+      Data1: -1175337280
+      Data2: 1285085145
+      Data3: -1962156118
+      Data4: 715762190
+    Path: event:/Events/Vending-Machine
   pl_jump:
     Guid:
       Data1: 1299360679

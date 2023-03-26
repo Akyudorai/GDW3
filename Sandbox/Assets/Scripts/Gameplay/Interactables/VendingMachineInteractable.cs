@@ -42,6 +42,12 @@ public class VendingMachineInteractable : Interactable
         canAnimator.SetBool("CanThrow", true);
         vendingIsInteractable = true;
 
+        //Play Vending machine interact sound
+        FMOD.Studio.EventInstance vendingMachineInteractSfx = SoundManager.CreateSoundInstance(SoundFile.VendingMachine);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(vendingMachineInteractSfx, this.gameObject.transform, GameManager.GetInstance().pcRef.rigid);
+        vendingMachineInteractSfx.start();
+        vendingMachineInteractSfx.release();
+
         GameManager.GetInstance().pcRef.RemoveMoney(cost); //updating player wallet.
 
         int groundLayer = LayerMask.NameToLayer("Ground"); //changing vending machine to non-interactble

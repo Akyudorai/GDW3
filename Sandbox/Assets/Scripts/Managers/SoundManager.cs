@@ -35,6 +35,10 @@ public enum SoundFile
     CollectiblePickup,
     Yay,
     QuestComplete,
+    NpcInteract,
+    EndNpcInteract,
+    FastTravel,
+    VendingMachine,
 
     // Player
     Jump,
@@ -93,6 +97,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField] FMODUnity.EventReference eve_collectiblePickup;
     [SerializeField] FMODUnity.EventReference eve_yay;
     [SerializeField] FMODUnity.EventReference eve_questComplete;
+    [SerializeField] FMODUnity.EventReference eve_npcInteract;
+    [SerializeField] FMODUnity.EventReference eve_endNpcInteract;
+    [SerializeField] FMODUnity.EventReference eve_fastTravel;
+    [SerializeField] FMODUnity.EventReference eve_vendingMachine;
 
     [Header("Player Sounds")]
     [SerializeField] FMODUnity.EventReference pl_jump;
@@ -173,6 +181,10 @@ public class SoundManager : MonoBehaviour
             case SoundFile.CollectiblePickup: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_collectiblePickup);
             case SoundFile.Yay: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_yay);
             case SoundFile.QuestComplete: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_questComplete); 
+            case SoundFile.NpcInteract: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_npcInteract);
+            case SoundFile.EndNpcInteract: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_endNpcInteract);
+            case SoundFile.FastTravel: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_fastTravel);
+            case SoundFile.VendingMachine: return FMODUnity.RuntimeManager.CreateInstance(instance.eve_vendingMachine);
 
             // Player
             case SoundFile.Jump: return FMODUnity.RuntimeManager.CreateInstance(instance.pl_jump);

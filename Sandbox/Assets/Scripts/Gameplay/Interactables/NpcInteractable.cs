@@ -65,12 +65,24 @@ public class NpcInteractable : Interactable
                 Debug.Log("Trigger Quest: [" + npcRef.m_QuestID + "]");
                 UI_Manager.GetInstance().LoadNpcDialogue(npcRef);
 
+                //Play Npc interaction sound effect
+                FMOD.Studio.EventInstance npcInteractSFX = SoundManager.CreateSoundInstance(SoundFile.NpcInteract);
+                FMODUnity.RuntimeManager.AttachInstanceToGameObject(npcInteractSFX, this.gameObject.transform, GameManager.GetInstance().pcRef.rigid);
+                npcInteractSFX.start();
+                npcInteractSFX.release();
+
                 // Set the OK button in dialogue to initialize the race
                 UI_Manager.GetInstance().YesDialogueButton.onClick.RemoveAllListeners();
                 UI_Manager.GetInstance().YesDialogueButton.onClick.AddListener(delegate {
 
                     // Hide the Dialogue Panel
                     UI_Manager.GetInstance().EndNpcDialogue();
+
+                    //Play the End Npc Interaction sound effect
+                    FMOD.Studio.EventInstance endNpcInteractSFX = SoundManager.CreateSoundInstance(SoundFile.EndNpcInteract);
+                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(endNpcInteractSFX, this.gameObject.transform, GameManager.GetInstance().pcRef.rigid);
+                    endNpcInteractSFX.start();
+                    endNpcInteractSFX.release();
 
                     if (npcRef.m_QuestID == -1) return;
 
@@ -102,6 +114,12 @@ public class NpcInteractable : Interactable
                         StartCoroutine(NpcQuestFinish());
                     }
                     UI_Manager.GetInstance().EndNpcDialogue();
+
+                    //Play the End Npc Interaction sound effect
+                    FMOD.Studio.EventInstance endNpcInteractSFX = SoundManager.CreateSoundInstance(SoundFile.EndNpcInteract);
+                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(endNpcInteractSFX, this.gameObject.transform, GameManager.GetInstance().pcRef.rigid);
+                    endNpcInteractSFX.start();
+                    endNpcInteractSFX.release();
                 });
 
 

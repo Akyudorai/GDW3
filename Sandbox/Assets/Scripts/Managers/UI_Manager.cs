@@ -529,6 +529,11 @@ public class UI_Manager : MonoBehaviour
     public void CallTaxi()
     {
         GameManager.GetInstance().RespawnPlayer(stopIndex);
+
+        //Play the Fast Travel Sound Effect
+        FMOD.Studio.EventInstance fastTravelSfx = SoundManager.CreateSoundInstance(SoundFile.FastTravel);
+        fastTravelSfx.start();
+        fastTravelSfx.release();
     }
 
     // ============ Collectibles PANEL FUNCTIONS =====================
