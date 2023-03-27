@@ -7,6 +7,7 @@ public class CollectibleTracker : MonoBehaviour
     [Header("Collectible Arrays")]
     public bool[] Mbears = new bool[3];
     public bool[] Rexs = new bool[3];
+    public bool[] Cans = new bool[7];
 
     public void Start() 
     {
@@ -31,6 +32,12 @@ public class CollectibleTracker : MonoBehaviour
             case 1: // MBEAR
                 for (int i = 0; i < Mbears.Length; i++) {
                     if (Mbears[i] == true) count++;                     
+                }
+                break;
+            case 2: // Can
+                for (int i = 0; i < Cans.Length; i++)
+                {
+                    if (Cans[i] == true) count++;
                 }
                 break;
         }
@@ -59,6 +66,16 @@ public class CollectibleTracker : MonoBehaviour
                         break;
                     }
                 }   
+                break;
+            case 2: // Can
+                for (int i = 0; i < Cans.Length; i++)
+                {
+                    if (Cans[i] == false)
+                    {
+                        Cans[i] = true;
+                        break;
+                    }
+                }
                 break;
         }
     }

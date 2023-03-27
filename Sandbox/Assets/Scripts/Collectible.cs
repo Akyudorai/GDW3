@@ -6,7 +6,7 @@ public enum CollectibleType
 {
     TRex,
     MBear,
-
+    Can
 }
 
 public class Collectible : MonoBehaviour
