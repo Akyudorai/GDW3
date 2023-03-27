@@ -99,7 +99,17 @@ public class InputHandler : MonoBehaviour
     public void ToggleMenu(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) { return; }
-        UI_Manager.GetInstance().TogglePhonePanel(!UI_Manager.GetInstance().PhonePanel.activeInHierarchy);
+
+        if (isNetworked)
+        {
+            if (Client.IsLocalPlayer(pc.identity))
+            {
+                UI_Manager.GetInstance().TogglePhonePanel(!UI_Manager.GetInstance().PhonePanel.activeInHierarchy);
+            }
+        } else
+        {
+            UI_Manager.GetInstance().TogglePhonePanel(!UI_Manager.GetInstance().PhonePanel.activeInHierarchy);
+        }
     }
 
     //public void LedgeClimbCtx(InputAction.CallbackContext ctx)

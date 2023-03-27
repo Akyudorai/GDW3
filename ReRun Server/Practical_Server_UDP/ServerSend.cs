@@ -224,7 +224,7 @@ namespace Practical_Server_UDP
             }
         }
 
-        public static void SendAnimationState(int _clientID, float _movement, bool _isGrounded, bool _splineControlled, bool _isWallRunning, bool _isWallRunRight, bool _isRailGrinding, bool _isZiplining)
+        public static void SendAnimationState(int _clientID, float _movement, bool _isGrounded, bool _splineControlled, bool _isWallRunning, bool _isWallRunRight, bool _isRailGrinding, bool _isZiplining, bool _isLedgeGrabbing)
         {
             using (Packet _packet = new Packet((int)ServerPackets.receiveAnimationState))
             {
@@ -236,6 +236,7 @@ namespace Practical_Server_UDP
                 _packet.Write(_isWallRunRight);
                 _packet.Write(_isRailGrinding);
                 _packet.Write(_isZiplining);
+                _packet.Write(_isLedgeGrabbing);
                 SendUDPDataToAllConnected(_clientID, _packet);
             }
         }

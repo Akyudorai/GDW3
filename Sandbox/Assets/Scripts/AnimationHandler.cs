@@ -12,8 +12,7 @@ public class AnimationState
     public bool IsWallRunningRight = false;
     public bool IsRailGrinding = false;
     public bool IsZiplining = false;
-    // trigger ledge grabs
-    // trigger ledge climb    
+    public bool IsLedgeGrabbing = false;
 
     public void Set(AnimationState state)
     {
@@ -22,7 +21,9 @@ public class AnimationState
         SplineControl = state.SplineControl;
         IsWallRunning = state.IsWallRunning;
         IsWallRunningRight = state.IsWallRunningRight;
+        IsRailGrinding = state.IsRailGrinding;
         IsZiplining = state.IsZiplining;
+        IsLedgeGrabbing = state.IsLedgeGrabbing;
     }
 }
 
@@ -44,7 +45,7 @@ public class AnimationHandler : MonoBehaviour
     }
 
     public void Update()
-    {
+    {        
         animator.SetFloat("Movement", currentState.Movement);
         animator.SetBool("IsGrounded", currentState.IsGrounded);
         animator.SetBool("SplineControl", currentState.SplineControl);
@@ -52,6 +53,7 @@ public class AnimationHandler : MonoBehaviour
         animator.SetBool("IsWallrunningRight", currentState.IsWallRunningRight);
         animator.SetBool("IsRailGrinding", currentState.IsRailGrinding);
         animator.SetBool("IsZiplining", currentState.IsZiplining);
+        animator.SetBool("IsLedgeGrabbing", currentState.IsLedgeGrabbing);
                 
         if (IsNetworked)
         {

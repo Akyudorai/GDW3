@@ -86,16 +86,16 @@ public class NetworkedPlayerController : Controller
     }
 
     private void HandleUpdate()
-    {
+    {                 
+        // Prevent other clients from calling this code.
+        if (!Client.IsLocalPlayer(identity)) return;
+
         // Update Manager Code
         interactionHandler.Tick();
         maneuverHandler.Tick();
 
         // Process Controller Animations
-        HandleAnimations();        
-
-        // Prevent other clients from calling this code.
-        if (!Client.IsLocalPlayer(identity)) return;
+        HandleAnimations();
 
         // Prevent input when paused
         if (e_State == PlayerState.Locked || GameManager.GetInstance().IsPaused) return;

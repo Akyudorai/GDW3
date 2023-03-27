@@ -66,6 +66,7 @@ public class ManeuverHandler : MonoBehaviour
                 pc.animationHandler.currentState.IsRailGrinding = b_RailGrinding;
                 pc.animationHandler.currentState.IsZiplining = b_Ziplining;
                 pc.animationHandler.currentState.IsWallRunning = b_WallRunning;
+                pc.animationHandler.currentState.IsLedgeGrabbing = b_LedgeGrabbing;
             }
         } else
         {
@@ -73,6 +74,7 @@ public class ManeuverHandler : MonoBehaviour
             pc.animationHandler.currentState.IsRailGrinding = b_RailGrinding;
             pc.animationHandler.currentState.IsZiplining = b_Ziplining;
             pc.animationHandler.currentState.IsWallRunning = b_WallRunning;
+            pc.animationHandler.currentState.IsLedgeGrabbing = b_LedgeGrabbing;
         }
         
         if (b_IsLedgeHandling) 
@@ -198,13 +200,12 @@ public class ManeuverHandler : MonoBehaviour
         if (b_LedgeGrabbing && b_CanLedgeCancel) 
         {   
             animator.SetTrigger("LedgeClimb");  
-
-            b_LedgeClimbing = false;
+            
             b_LedgeGrabbing = false;
             b_CanLedgeCancel = false;
             pc.rigid.useGravity = true;
-            pc.ApplyForce(Vector3.up * (pc.f_JumpForce*2));            
-
+            pc.ApplyForce(Vector3.up * (pc.f_JumpForce*2));
+            
             animator.ResetTrigger("LedgeGrab");
             //b_LedgeGrabbing = false;                
             //b_CanLedgeCancel = false;           
@@ -228,7 +229,7 @@ public class ManeuverHandler : MonoBehaviour
         pc.col.enabled = false;
         pc.rigid.useGravity = false;
         animator.applyRootMotion = true;
-        animator.SetTrigger("LedgeClimb");
+        animator.SetTrigger("LedgeClimb");        
         b_LedgeClimbing = true;
         
         yield return new WaitForSeconds(1.45f); // approximate length of ledge climb animation

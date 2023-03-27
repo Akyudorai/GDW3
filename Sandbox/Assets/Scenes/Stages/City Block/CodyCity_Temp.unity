@@ -12670,7 +12670,19 @@ MonoBehaviour:
     m_ActionId: 3d154865-715c-47f9-9025-bf141d85dd3e
     m_ActionName: Player/EnableCheats[/Keyboard/backquote]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 979772626}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: ToggleMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ad291901-7022-4363-9d91-50924ecabf72
     m_ActionName: Player/Escape[/Keyboard/escape]
   - m_PersistentCalls:
@@ -12882,6 +12894,15 @@ MonoBehaviour:
   IsNetworked: 0
   pc: {fileID: 0}
   animator: {fileID: 979772614}
+  currentState:
+    Movement: 0
+    IsGrounded: 0
+    SplineControl: 0
+    IsWallRunning: 0
+    IsWallRunningRight: 0
+    IsRailGrinding: 0
+    IsZiplining: 0
+    IsLedgeGrabbing: 0
 --- !u!1 &981953878
 GameObject:
   m_ObjectHideFlags: 0

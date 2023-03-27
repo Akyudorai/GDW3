@@ -84,8 +84,9 @@ namespace Practical_Server_UDP
             bool _isWallRunningRight = _packet.ReadBool();
             bool _isRailGrinding = _packet.ReadBool();
             bool _isZiplining = _packet.ReadBool();
+            bool _isLedgeGrabbing = _packet.ReadBool();
 
-            ServerSend.SendAnimationState(_clientID, _movement, _isGrounded, _splineControlled, _isWallRunning, _isWallRunningRight, _isRailGrinding, _isZiplining);
+            ServerSend.SendAnimationState(_clientID, _movement, _isGrounded, _splineControlled, _isWallRunning, _isWallRunningRight, _isRailGrinding, _isZiplining, _isLedgeGrabbing);
         }
     }
 }

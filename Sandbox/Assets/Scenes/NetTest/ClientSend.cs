@@ -98,8 +98,7 @@ public class ClientSend : MonoBehaviour
             _packet.Write(_state.IsWallRunningRight);
             _packet.Write(_state.IsRailGrinding);
             _packet.Write(_state.IsZiplining);
-            // write ledge grab
-            // write ledge climb
+            _packet.Write(_state.IsLedgeGrabbing);
             SendTCPData(_packet);
         }
     }

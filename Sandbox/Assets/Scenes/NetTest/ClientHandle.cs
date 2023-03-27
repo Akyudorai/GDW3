@@ -112,6 +112,7 @@ public class ClientHandle : MonoBehaviour
         bool _isWallRunningRight = _packet.ReadBool();
         bool _isRailGrinding = _packet.ReadBool();
         bool _isZiplining = _packet.ReadBool();
+        bool _isLedgeGrabbing = _packet.ReadBool();
 
         // Update the Animation State of Specified Character
         NetworkManager.players[_clientID].netPC.animationHandler.SetAnimationState(new AnimationState()
@@ -122,9 +123,8 @@ public class ClientHandle : MonoBehaviour
             IsWallRunning = _isWallRunning,
             IsWallRunningRight = _isWallRunningRight,
             IsRailGrinding = _isRailGrinding,
-            IsZiplining = _isZiplining
+            IsZiplining = _isZiplining,
+            IsLedgeGrabbing = _isLedgeGrabbing
         });
-
-        Debug.Log("Animation State Received");
     }
 }
