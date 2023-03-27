@@ -154,6 +154,7 @@ public class UI_Manager : MonoBehaviour
     {
         // Lock the players controls        
         Controller.Local.e_State = PlayerState.Locked;
+        Controller.Local.b_IsDialogue = true;
 
         // Move Camera to better position and look at NPC
         // CameraController.LocalCamera.LookAt(npc.gameObject);
@@ -197,6 +198,7 @@ public class UI_Manager : MonoBehaviour
     {
         // Unlock Player Controls
         Controller.Local.e_State = PlayerState.Active;
+        Controller.Local.b_IsDialogue = false;
 
         // Switch Cursor Mode
         Cursor.lockState = CursorLockMode.Locked;
@@ -346,6 +348,9 @@ public class UI_Manager : MonoBehaviour
 
     public void TogglePhonePanel(bool state) 
     {
+        if (Controller.Local.b_IsDialogue && state == true) return;        
+
+        Controller.Local.e_State = (state) ? PlayerState.Locked : PlayerState.Active;
         PhonePanel.SetActive(state);
         phoneAnimator.SetBool("PhoneOpen", true);
         GameManager.GetInstance().Pause(state);

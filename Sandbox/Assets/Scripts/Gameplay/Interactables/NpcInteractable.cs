@@ -39,6 +39,8 @@ public class NpcInteractable : Interactable
             return;
         }
 
+        if (!pc.b_IsDialogue && pc.e_State == PlayerState.Locked) return;
+
         // Zero out velocity when talking to an NPC
         pc.v_HorizontalVelocity = Vector3.zero; 
         pc.v_VerticalVelocity = Vector3.zero; 

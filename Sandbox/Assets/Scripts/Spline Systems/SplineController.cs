@@ -187,6 +187,7 @@ public class SplineController : MonoBehaviour
             pc.v_VerticalVelocity = Vector3.zero;                    // Zero-out velocity so our launch force takes over
             pc.ApplyForce(launchForce * pc.f_JumpForce);  // Apply launch force to the player
             pc.StartCoroutine(pc.JumpDelay(0.5f));
+            pc.StartCoroutine(pc.maneuverHandler.DelayWallRunAllowance());
             mesh.transform.rotation = Quaternion.identity;  // Rotate the mesh in the direction of travel
             //netPC.interactionHandler.targetInteractable = null;						
             pc.interactionHandler.interactionDelay = 0.5f;

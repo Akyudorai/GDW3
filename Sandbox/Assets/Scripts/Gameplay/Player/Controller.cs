@@ -20,6 +20,7 @@ public class Controller : MonoBehaviour
     public InteractionHandler interactionHandler;
     public AnimationHandler animationHandler;
     public PlayerState e_State = PlayerState.Active;
+    public bool b_IsDialogue = false;
 
     [Header("Camera")]
     public float f_MouseSensitivity = 1.0f;
