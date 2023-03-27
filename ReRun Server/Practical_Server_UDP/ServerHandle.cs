@@ -69,9 +69,10 @@ namespace Practical_Server_UDP
         {
             int _clientID = _packet.ReadInt();
             string _username = _packet.ReadString();
+            int _character = _packet.ReadInt();
 
             //GameLogic.ActiveClients.Add(_clientID, Server.clients[_clientID]);
-            GameLogic.SendIntoGame(Server.clients[_clientID], _username);
+            GameLogic.SendIntoGame(Server.clients[_clientID], _username, _character);
         }
 
         public static void ReceiveAnimationState(int _fromClient, Packet _packet)

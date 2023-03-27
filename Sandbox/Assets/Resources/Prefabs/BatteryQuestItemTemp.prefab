@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3689122229430511904}
   - component: {fileID: 3494362844976235305}
   - component: {fileID: 2751816026508022262}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BatteryQuestItemTemp
   m_TagString: Untagged
   m_Icon: {fileID: 0}

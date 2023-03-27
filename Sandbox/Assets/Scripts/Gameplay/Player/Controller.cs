@@ -397,6 +397,23 @@ public class Controller : MonoBehaviour
         e_State = state;
     }
 
+    //Money stuff that will be moved to the player identity script later
+    private int money;
+    public void AddMoney(int amount)
+    {
+        money += amount;
+        UI_Manager.GetInstance().cashTracker.text = "$" + money.ToString();
+    }
+    public void RemoveMoney(int amount)
+    {
+        money -= amount;
+        UI_Manager.GetInstance().cashTracker.text = "$" + money.ToString();
+    }
+    public int GetMoney()
+    {
+        return money;
+    }
+
     private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Platform")
@@ -404,14 +421,14 @@ public class Controller : MonoBehaviour
             // Set parent if stepping on a platform
             transform.SetParent(col.gameObject.transform);
         }
-    }
+    }    
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Collectible")
         {
             Collectible c = other.GetComponent<Collectible>();
-            c.OnCollect();
+            c.OnCollect(this);
 
             // Play Collectible SFX
             FMOD.Studio.EventInstance collectibleSFX = SoundManager.CreateSoundInstance(SoundFile.CollectiblePickup);

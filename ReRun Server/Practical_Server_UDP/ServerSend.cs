@@ -155,14 +155,16 @@ namespace Practical_Server_UDP
             }
         }
 
-        public static void SpawnPlayer(int _toClient, Player _player)
+        public static void SpawnPlayer(int _toClient, Player _player, int _character)
         {
             using (Packet _packet = new Packet((int)ServerPackets.spawnPlayer))
             {
                 _packet.Write(_player.id);
                 _packet.Write(_player.username);
+                _packet.Write(_character);
                 _packet.Write(_player.position);
                 _packet.Write(_player.rotation);
+                
 
                 SendTCPData(_toClient, _packet);
             }

@@ -28,16 +28,17 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         string _username = _packet.ReadString();
+        int _character = _packet.ReadInt();
         Vector3 _position_packet = _packet.ReadVector3();
         Quaternion _quaternion_packet = _packet.ReadQuaternion();
 
         Vector3 _position = SpawnPointManager.GetInstance().SpawnPoints[0].position;
         Quaternion _quaternion = SpawnPointManager.GetInstance().SpawnPoints[0].rotation;
 
-        //TODO: Only spawn if in a networked scene
+        // Only spawn if in a networked scene
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4))
         {
-            NetworkManager.instance.SpawnPlayer(_id, _username, _position, _quaternion);
+            NetworkManager.instance.SpawnPlayer(_id, _character, _username, _position, _quaternion);
         }        
     }
 

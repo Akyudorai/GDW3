@@ -70,6 +70,11 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(index);
     }    
 
+    public void SelectCharacter(int id)
+    {
+        PlayerIdentity.Settings.Character = id;
+    }
+
     public void MultiplayerPanel(bool state)
     {
         multiplayerPanel.SetActive(state);
@@ -79,7 +84,6 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene(netCityIndex);
     }
-
 
     public void SettingsPanel(bool state)
     {

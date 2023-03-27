@@ -82,6 +82,7 @@ public class ClientSend : MonoBehaviour
         {
             _packet.Write(_clientID);
             _packet.Write(PlayerIdentity.Username);
+            _packet.Write(PlayerIdentity.Settings.Character);
             SendTCPData(_packet);
         }
     }

@@ -22,9 +22,9 @@ TagManager:
   - RoofMap
   - MapTracker
   - Interactable
-  - Player
-  - 
-  - 
+  - LocalPlayer
+  - RemotePlayer
+  - Collectible
   - 
   - 
   - 

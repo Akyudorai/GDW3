@@ -32,9 +32,10 @@ namespace Practical_Server_UDP
             ThreadManager.UpdateMain();
         }
 
-        public static void SendIntoGame(Client _client, string _playerName)
+        public static void SendIntoGame(Client _client, string _playerName, int _character)
         {
             _client.player = new Player(_client.id, _playerName, new Vector3(0, 0, 0));
+            _client.player.character = _character;
             ActiveClients.Add(_client.id, _client);
 
             foreach (Client _c in ActiveClients.Values)
@@ -44,7 +45,7 @@ namespace Practical_Server_UDP
                 {
                     if (_c.id != _client.id)
                     {
-                        ServerSend.SpawnPlayer(_client.id, _c.player);
+                        ServerSend.SpawnPlayer(_client.id, _c.player, _c.player.character);
                     }
                 }
             }
@@ -53,7 +54,7 @@ namespace Practical_Server_UDP
             {
                 if (_c.player != null)
                 {
-                    ServerSend.SpawnPlayer(_c.id, _client.player);
+                    ServerSend.SpawnPlayer(_c.id, _client.player, _client.player.character);
                 }
             }
         }

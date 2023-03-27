@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8213525627787556579}
   - component: {fileID: 7699358955572214250}
   - component: {fileID: -1033495624100591460}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: HardHat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
