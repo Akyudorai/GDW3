@@ -66,7 +66,7 @@ public class InteractionHandler : MonoBehaviour
             {
                 float dist_target = Vector3.Distance(castPoint, closestHit.ClosestPoint(castPoint));
                 float dist_compare = Vector3.Distance(castPoint, hit.ClosestPoint(castPoint));
-
+                
                 // If the compared distance is closer than current target, replace it
                 if (dist_compare < dist_target) {
                     targetInteractable = hit.gameObject;
