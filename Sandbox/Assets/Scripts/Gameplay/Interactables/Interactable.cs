@@ -15,6 +15,8 @@ public enum InteractionType
 
 public abstract class Interactable : MonoBehaviour
 {
-    public abstract void Interact(PlayerController controller, RaycastHit hit);
+    public abstract void Interact(Controller pc, RaycastHit hit);
+    //public abstract void Interact(PlayerController controller, RaycastHit hit);
+    //public abstract void Interact(NetworkedPlayerController netPC, RaycastHit hit);
     public abstract InteractionType GetInteractionType();    
 }

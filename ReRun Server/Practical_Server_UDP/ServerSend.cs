@@ -66,43 +66,72 @@ namespace Practical_Server_UDP
         private static void SendTCPDataToAllConnected(Packet _packet)
         {
             _packet.WriteLength();
-            for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            foreach (Client c in GameLogic.ActiveClients.Values)
             {
-                GameLogic.ActiveClients[i].tcp.SendData(_packet);
+                c.tcp.SendData(_packet);
             }
+            
+            //for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            //{
+            //    GameLogic.ActiveClients[i].tcp.SendData(_packet);
+            //}
         }
 
         private static void SendUDPDataToAllConnected(Packet _packet)
         {
             _packet.WriteLength();
-            for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+
+            foreach (Client c in GameLogic.ActiveClients.Values)
             {
-                GameLogic.ActiveClients[i].udp.SendData(_packet);
+                c.udp.SendData(_packet);
             }
+
+            //for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            //{
+            //    GameLogic.ActiveClients[i].udp.SendData(_packet);
+            //}
         }
 
         private static void SendTCPDataToAllConnected(int _clientException, Packet _packet)
         {
             _packet.WriteLength();
-            for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+
+            foreach (Client c in GameLogic.ActiveClients.Values)
             {
-                if (i != _clientException)
+                if (c.id != _clientException)
                 {
-                    GameLogic.ActiveClients[i].tcp.SendData(_packet);
+                    c.tcp.SendData(_packet);
                 }
             }
+
+            //for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            //{
+            //    if (i != _clientException)
+            //    {
+            //        GameLogic.ActiveClients[i].tcp.SendData(_packet);
+            //    }
+            //}
         }
 
         private static void SendUDPDataToAllConnected(int _clientException, Packet _packet)
         {
             _packet.WriteLength();
-            for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+
+            foreach (Client c in GameLogic.ActiveClients.Values)
             {
-                if (i != _clientException)
+                if (c.id != _clientException)
                 {
-                    GameLogic.ActiveClients[i].udp.SendData(_packet);
+                    c.udp.SendData(_packet);
                 }
             }
+
+            //for (int i = 1; i <= GameLogic.ActiveClients.Values.Count; i++)
+            //{
+            //    if (i != _clientException)
+            //    {
+            //        GameLogic.ActiveClients[i].udp.SendData(_packet);
+            //    }
+            //}
         }
 
 
@@ -126,14 +155,16 @@ namespace Practical_Server_UDP
             }
         }
 
-        public static void SpawnPlayer(int _toClient, Player _player)
+        public static void SpawnPlayer(int _toClient, Player _player, int _character)
         {
             using (Packet _packet = new Packet((int)ServerPackets.spawnPlayer))
             {
                 _packet.Write(_player.id);
                 _packet.Write(_player.username);
+                _packet.Write(_character);
                 _packet.Write(_player.position);
                 _packet.Write(_player.rotation);
+                
 
                 SendTCPData(_toClient, _packet);
             }
@@ -192,6 +223,23 @@ namespace Practical_Server_UDP
                 _packet.Write(_clientID);
                 
                 SendTCPDataToAll(_packet);
+            }
+        }
+
+        public static void SendAnimationState(int _clientID, float _movement, bool _isGrounded, bool _splineControlled, bool _isWallRunning, bool _isWallRunRight, bool _isRailGrinding, bool _isZiplining, bool _isLedgeGrabbing)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.receiveAnimationState))
+            {
+                _packet.Write(_clientID);
+                _packet.Write(_movement);
+                _packet.Write(_isGrounded);
+                _packet.Write(_splineControlled);
+                _packet.Write(_isWallRunning);
+                _packet.Write(_isWallRunRight);
+                _packet.Write(_isRailGrinding);
+                _packet.Write(_isZiplining);
+                _packet.Write(_isLedgeGrabbing);
+                SendUDPDataToAllConnected(_clientID, _packet);
             }
         }
 

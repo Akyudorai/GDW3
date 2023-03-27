@@ -21,12 +21,12 @@ public class LedgeInteractable : Interactable
     }
 
     // ================ GRAB THE LEDGE ============
-    public override void Interact(PlayerController controller, RaycastHit hit)
+    public override void Interact(Controller pc, RaycastHit hit)
     {
         // RULE #1:  Player.position.y must not be greater than Ledge.position.y
-        if (controller.transform.position.y + 1.25f > hit.point.y) return; // Must be below the ledge to grab it
-        if (controller.b_Grounded) return; // Cannot ledge grab while grounded
-        if (controller.maneuverHandler.b_LedgeGrabbing || controller.maneuverHandler.b_LedgeClimbing) return;  // Cannot ledge grab while ledge grabbed 
+        if (pc.transform.position.y + 1.25f > hit.point.y) return; // Must be below the ledge to grab it
+        if (pc.b_IsGrounded) return; // Cannot ledge grab while grounded
+        if (pc.maneuverHandler.b_LedgeGrabbing || pc.maneuverHandler.b_LedgeClimbing) return;  // Cannot ledge grab while ledge grabbed 
 
         // Get reference between two points for easier use
         Vector3 pA = node.position;         
@@ -45,11 +45,9 @@ public class LedgeInteractable : Interactable
         float dist_1 = Vector3.Distance(center.position, grabPosition + look_1);
         Vector3 look_2 = Quaternion.Euler(0, ((inverseLookDir) ? 90 : -90), 0) * nodeToNode;
         float dist_2 = Vector3.Distance(center.position, grabPosition + look_2);                
-        Vector3 lookDirection = ((dist_1 < dist_2) ? look_1 : look_2); 
- 
-        // Set Player Position to the Grab Position
-        controller.maneuverHandler.PerformLedgeGrab(grabPosition, lookDirection.normalized);
-    }
+        Vector3 lookDirection = ((dist_1 < dist_2) ? look_1 : look_2);
 
-    
+        // Set Player Position to the Grab Position
+        pc.maneuverHandler.PerformLedgeGrab(grabPosition, lookDirection.normalized);
+    }
 }

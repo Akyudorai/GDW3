@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8325037141289877773}
   - component: {fileID: 1397752608109193817}
   - component: {fileID: 6590118926834879863}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2465118654598775867}
   - component: {fileID: 8975739366616290640}
   - component: {fileID: 760425969049717408}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Milk Bottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

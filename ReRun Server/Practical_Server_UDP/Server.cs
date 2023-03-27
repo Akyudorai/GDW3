@@ -29,6 +29,7 @@ namespace Practical_Server_UDP
             InitializeServerData();
 
             tcpListener = new TcpListener(IPAddress.Any, Port);
+            //tcpListener = new TcpListener(IPAddress.Parse("172.31.95.179"), Port);
             tcpListener.Start();
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
 
@@ -124,7 +125,8 @@ namespace Practical_Server_UDP
                 { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
                 { (int)ClientPackets.chatMessage, ServerHandle.ChatMessage },
                 { (int)ClientPackets.submitScore, ServerHandle.SubmitScore },
-                { (int)ClientPackets.joinMultiplayer, ServerHandle.JoinMultiplayer }
+                { (int)ClientPackets.joinMultiplayer, ServerHandle.JoinMultiplayer },
+                { (int)ClientPackets.sendAnimationState, ServerHandle.ReceiveAnimationState }
             };
             Console.WriteLine("Initialized packets.");
         }

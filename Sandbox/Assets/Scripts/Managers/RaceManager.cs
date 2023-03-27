@@ -55,7 +55,7 @@ public class RaceManager : MonoBehaviour
         return "#[ERROR]";
     }
 
-    public void InitializeRace(PlayerController pcRef, int raceID)
+    public void InitializeRace(Controller pc, int raceID)
     {
         // Initialize the appropriate Waypoint System based on index
         WaypointManager wpm = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
@@ -63,15 +63,15 @@ public class RaceManager : MonoBehaviour
         wpm.InitializeRaceWPS(raceList[raceID].WPS_Index);
 
         // Zero out player motion
-        pcRef.v_HorizontalVelocity = Vector3.zero;
-        pcRef.v_VerticalVelocity = Vector3.zero;
-        pcRef.rigid.velocity = Vector3.zero;        
-        
+        pc.v_HorizontalVelocity = Vector3.zero;
+        pc.v_VerticalVelocity = Vector3.zero;
+        pc.rigid.velocity = Vector3.zero;
+
         // Set player position and orientation
-        pcRef.gameObject.transform.position = wps.Beginning.position;
-        pcRef.mesh.transform.rotation = wps.Beginning.rotation;
-        pcRef.camera_pivot.transform.rotation = wps.Beginning.rotation;
-        pcRef.SetPlayerState(PlayerState.Locked);
+        pc.gameObject.transform.position = wps.Beginning.position;
+        pc.mesh.transform.rotation = wps.Beginning.rotation;
+        pc.camera_pivot.transform.rotation = wps.Beginning.rotation;
+        pc.SetPlayerState(PlayerState.Locked);
         
         // Queue the Countdown Timer
         m_RaceActive = true;
@@ -82,11 +82,11 @@ public class RaceManager : MonoBehaviour
     // For OnCinematicEnd Event
     private void BeginCountdown(int CinematicID)
     {
-        StartCoroutine(Countdown(PlayerController.LocalPlayer, activeRaceID));
+        StartCoroutine(Countdown(Controller.Local, activeRaceID));
         EventManager.OnCinematicEnd -= BeginCountdown;        
     }
 
-    public IEnumerator Countdown(PlayerController pcRef, int ID) 
+    public IEnumerator Countdown(Controller pc, int ID) 
     {                
         b_Pregame = true;
         m_Timer = 0.0f;        
@@ -115,7 +115,7 @@ public class RaceManager : MonoBehaviour
         
         // Begin Race    
         b_Pregame = false;  
-        pcRef.SetPlayerState(PlayerState.Active);
+        pc.SetPlayerState(PlayerState.Active);
 
         // Play Race Start SFX
         FMOD.Studio.EventInstance startSFX = SoundManager.CreateSoundInstance(SoundFile.RaceStart);

@@ -69,9 +69,25 @@ namespace Practical_Server_UDP
         {
             int _clientID = _packet.ReadInt();
             string _username = _packet.ReadString();
+            int _character = _packet.ReadInt();
 
             //GameLogic.ActiveClients.Add(_clientID, Server.clients[_clientID]);
-            GameLogic.SendIntoGame(Server.clients[_clientID], _username);
+            GameLogic.SendIntoGame(Server.clients[_clientID], _username, _character);
+        }
+
+        public static void ReceiveAnimationState(int _fromClient, Packet _packet)
+        {
+            int _clientID = _packet.ReadInt();
+            float _movement = _packet.ReadFloat();
+            bool _isGrounded = _packet.ReadBool();
+            bool _splineControlled = _packet.ReadBool();
+            bool _isWallRunning = _packet.ReadBool();
+            bool _isWallRunningRight = _packet.ReadBool();
+            bool _isRailGrinding = _packet.ReadBool();
+            bool _isZiplining = _packet.ReadBool();
+            bool _isLedgeGrabbing = _packet.ReadBool();
+
+            ServerSend.SendAnimationState(_clientID, _movement, _isGrounded, _splineControlled, _isWallRunning, _isWallRunningRight, _isRailGrinding, _isZiplining, _isLedgeGrabbing);
         }
     }
 }

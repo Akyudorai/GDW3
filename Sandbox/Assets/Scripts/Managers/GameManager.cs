@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     }
 
     public Player playerRef;
-    public PlayerController pcRef;
+    public Controller pcRef;
 
     public int RespawnIndex = 0;
 
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         DontDestroyOnLoad(this.gameObject);
-    }
+    } 
  
     public void RespawnPlayer(int overrideIndex = -1)
     {

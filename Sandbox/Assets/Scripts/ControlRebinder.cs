@@ -25,7 +25,7 @@ public class ControlRebinder : MonoBehaviour
     public void StartRebinding() 
     {
         bindingDisplayText.text = "<Press Any Key>";     
-        GameManager.GetInstance().pcRef.PlayerInput.SwitchCurrentActionMap("Menu");
+        Controller.Local.inputHandler.PlayerInput.SwitchCurrentActionMap("Menu");
 
         rebindingOperation = key.action.PerformInteractiveRebinding()
             .WithControlsExcluding("Mouse")
@@ -36,7 +36,7 @@ public class ControlRebinder : MonoBehaviour
 
     private void RebindComplete() 
     {
-        GameManager.GetInstance().pcRef.PlayerInput.SwitchCurrentActionMap("Player");
+        Controller.Local.inputHandler.PlayerInput.SwitchCurrentActionMap("Player");
         
         int bindingIndex = key.action.GetBindingIndexForControl(key.action.controls[0]);
 

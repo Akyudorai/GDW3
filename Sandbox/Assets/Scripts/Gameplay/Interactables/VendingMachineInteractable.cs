@@ -21,7 +21,7 @@ public class VendingMachineInteractable : Interactable
         return InteractionType.VendingMachine;
     }
 
-    public override void Interact(PlayerController controller, RaycastHit hit)
+    public override void Interact(Controller pc, RaycastHit hit)
     {
         if(vendingIsInteractable == true)
         {
@@ -34,9 +34,9 @@ public class VendingMachineInteractable : Interactable
             return;
         }
         Debug.Log("Vending Machine");
-        controller.v_HorizontalVelocity = Vector3.zero;
-        controller.v_VerticalVelocity = Vector3.zero;
-        controller.rigid.velocity = Vector3.zero;
+        pc.v_HorizontalVelocity = Vector3.zero;
+        pc.v_VerticalVelocity = Vector3.zero;
+        pc.rigid.velocity = Vector3.zero;
 
         this.gameObject.GetComponentInParent<Animator>().SetBool("Interact", true);
         canAnimator.SetBool("CanThrow", true);
@@ -53,6 +53,4 @@ public class VendingMachineInteractable : Interactable
         int groundLayer = LayerMask.NameToLayer("Ground"); //changing vending machine to non-interactble
         this.gameObject.layer = groundLayer; 
     }
-
-
 }

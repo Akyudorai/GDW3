@@ -75,7 +75,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.chatMessage, ClientHandle.ChatMessage },
             { (int)ServerPackets.playerDisconnection, ClientHandle.PlayerDisconnection },
             { (int)ServerPackets.newHighScore, ClientHandle.NewHighScore },
-            { (int)ServerPackets.joinMultiplayer, ClientHandle.JoinMultiplayer }
+            { (int)ServerPackets.joinMultiplayer, ClientHandle.JoinMultiplayer },
+            { (int)ServerPackets.receiveAnimationState, ClientHandle.ReceiveAnimationState }
         };
         Debug.Log("Initialized packets.");
     }
@@ -114,7 +115,8 @@ public class Client : MonoBehaviour
 
             receiveBuffer = new byte[dataBufferSize];
             
-            instance.ip = IPAddress.Parse("127.0.0.1");        
+            instance.ip = IPAddress.Parse("127.0.0.1");
+            //instance.ip = IPAddress.Parse("3.216.13.20");        
             socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
 
             instance.udp = new UDP();
@@ -122,13 +124,14 @@ public class Client : MonoBehaviour
 
         private void ConnectCallback(IAsyncResult _result)
         {
-            socket.EndConnect(_result);            
-
+            socket.EndConnect(_result);
+            Debug.Log(_result);
             if (!socket.Connected)
-            {
+            {                            
                 return;
             }            
             
+            Debug.Log("Connected to server!");
             isConnected = true;
             stream = socket.GetStream();
             receivedData = new Packet();

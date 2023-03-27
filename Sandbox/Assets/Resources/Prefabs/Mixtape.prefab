@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3571997906085087996}
   - component: {fileID: 3571997906085087999}
   - component: {fileID: 3571997906085087998}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Mixtape
   m_TagString: Untagged
   m_Icon: {fileID: 0}

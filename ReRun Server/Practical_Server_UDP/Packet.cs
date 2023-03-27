@@ -19,7 +19,8 @@ namespace Practical_Server_UDP
         chatMessage,
         playerDisconnection,
         newHighScore,
-        joinMultiplayer
+        joinMultiplayer,
+        receiveAnimationState
     }
 
     /// <summary>Sent from client to server.</summary>
@@ -29,7 +30,8 @@ namespace Practical_Server_UDP
         playerMovement,
         chatMessage,
         submitScore,
-        joinMultiplayer
+        joinMultiplayer,
+        sendAnimationState
     }
 
     public class Packet : IDisposable

@@ -137,8 +137,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         backgroundMusic = CreateSoundInstance(SoundFile.LofiMusic);
-        //backgroundMusic.start();
-        //backgroundMusic.setParameterByName("BGMVolume", 0);
+        backgroundMusic.start();        
 
         UpdateSoundSettings();
 

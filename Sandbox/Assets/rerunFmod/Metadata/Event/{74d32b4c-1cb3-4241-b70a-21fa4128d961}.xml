@@ -72,6 +72,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{f47b5cd9-5a1b-4fdd-8684-c04a59d08a14}">
+		<relationship name="automators">
+			<destination>{0f4bd743-28fa-457f-9d71-66abd4d2076b}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{a225a998-b827-4b0b-90d4-2d34ea72089b}</destination>
 		</relationship>
@@ -110,6 +113,14 @@
 			<destination>{f47b5cd9-5a1b-4fdd-8684-c04a59d08a14}</destination>
 		</relationship>
 	</object>
+	<object class="Automator" id="{0f4bd743-28fa-457f-9d71-66abd4d2076b}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>volume</value>
+		</property>
+		<relationship name="automationCurves">
+			<destination>{ceee9314-a37d-4b21-afc0-8e935ae6d579}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusEffectChain" id="{a225a998-b827-4b0b-90d4-2d34ea72089b}">
 		<relationship name="effects">
 			<destination>{a3bbf14a-30d2-4fcb-b457-895b84483f1f}</destination>
@@ -123,6 +134,34 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{895152a1-204a-40f2-b0af-a6d8d3135325}" />
+	<object class="AutomationCurve" id="{ceee9314-a37d-4b21-afc0-8e935ae6d579}">
+		<relationship name="parameter">
+			<destination>{3cd97c0c-11ee-4548-be95-9d393a61d7de}</destination>
+		</relationship>
+		<relationship name="automationPoints">
+			<destination>{a760993c-e7f6-47f6-9233-8cb5057d164d}</destination>
+			<destination>{c20213c5-85c0-4116-98d3-4759ff3aa2ff}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{a3bbf14a-30d2-4fcb-b457-895b84483f1f}" />
 	<object class="MixerBusFader" id="{ba42fd83-d39c-4649-b218-1ce22ace93c2}" />
+	<object class="AutomationPoint" id="{a760993c-e7f6-47f6-9233-8cb5057d164d}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="value">
+			<value>-80</value>
+		</property>
+		<property name="curveShape">
+			<value>-0.236752898</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{c20213c5-85c0-4116-98d3-4759ff3aa2ff}">
+		<property name="position">
+			<value>1</value>
+		</property>
+		<property name="value">
+			<value>0</value>
+		</property>
+	</object>
 </objects>

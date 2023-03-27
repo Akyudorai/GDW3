@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7873292510274219209}
   - component: {fileID: 1244824266667019072}
   - component: {fileID: 5580748029697828442}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PowerCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}

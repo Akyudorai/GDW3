@@ -16,7 +16,7 @@ public class RailInteractable : Interactable
         return InteractionType.Rail;
     }
 
-    public override void Interact(PlayerController pc, RaycastHit hit) 
+    public override void Interact(Controller pc, RaycastHit hit) 
     {                      
         // RULE #1: Player must be above the rail to initiate a rail grind
         if (pc.transform.position.y + 1.5f < hit.point.y) return;
@@ -64,7 +64,6 @@ public class RailInteractable : Interactable
         FMOD.Studio.EventInstance railAttachSFX = SoundManager.CreateSoundInstance(SoundFile.RailStart);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(railAttachSFX, pc.transform, pc.rigid);
         railAttachSFX.start();
-        railAttachSFX.release();    
-        
+        railAttachSFX.release();            
     }
 }

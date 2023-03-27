@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1153120956766567601}
   - component: {fileID: 1153120956766567600}
   - component: {fileID: -4447567197432113015}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CowboyBoots
   m_TagString: Untagged
   m_Icon: {fileID: 0}

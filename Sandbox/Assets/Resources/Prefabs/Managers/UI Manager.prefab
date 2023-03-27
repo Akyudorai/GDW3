@@ -583,7 +583,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8011757588213237997
 RectTransform:
   m_ObjectHideFlags: 0
@@ -946,7 +946,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6123965535056485423}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: AdjustBGMVolume
+        m_MethodName: AdjustMasterVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7852,7 +7852,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6123965535056485423}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: AdjustBGMVolume
+        m_MethodName: AdjustSoundEffectVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15434,7 +15434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6123965534753378513
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16303,9 +16303,9 @@ MonoBehaviour:
   - You can use your phone to trach your progress and travel across the city.
   - Have you found the bear?
   - If you see a dancing mailbox, they generally have a quest waiting for you.
-  masterVolumeSlider: {fileID: 0}
-  bgmVolumeSlider: {fileID: 0}
-  sfxVolumeSlider: {fileID: 0}
+  masterVolumeSlider: {fileID: 9143559855634363400}
+  bgmVolumeSlider: {fileID: 100035143284685090}
+  sfxVolumeSlider: {fileID: 3131565053105736059}
   NotificationObject: {fileID: 6084393495417403930}
   notificationIcon: {fileID: 14976089586902828}
   notificationText: {fileID: 6500376099212780919}
@@ -22389,19 +22389,7 @@ MonoBehaviour:
   m_Value: 0.156
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6123965535056485423}
-        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: AdjustBGMVolume
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &7509366335966279011
 GameObject:
   m_ObjectHideFlags: 0
