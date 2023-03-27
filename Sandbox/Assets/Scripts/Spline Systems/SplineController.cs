@@ -182,7 +182,11 @@ public class SplineController : MonoBehaviour
 					normalLaunch.y = 0;
 					//Debug.Log(normalLaunch);
 					Vector3 verticalLaunch = Vector3.up;
-					launchDirection = normalLaunch.normalized * 3.0f + verticalLaunch; 
+					launchDirection = normalLaunch.normalized * 3.0f + verticalLaunch;
+
+                    //Muting the wall run sfx
+                    SoundManager.GetInstance().activeWallRunSfx.setParameterByName("WallRunVolume", 0f);
+                    SoundManager.GetInstance().activeWallRunSfx.release();
 
                     // Play Wallrun Release SFX
                     FMOD.Studio.EventInstance wallReleaseSFX = SoundManager.CreateSoundInstance(SoundFile.WallRunRelease);

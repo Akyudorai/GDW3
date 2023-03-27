@@ -70,6 +70,7 @@ public class SoundManager : MonoBehaviour
     //Fmod instances
     public FMOD.Studio.EventInstance backgroundMusic;
     public FMOD.Studio.EventInstance cityAmbience;
+    public FMOD.Studio.EventInstance activeWallRunSfx;
 
     [Header("Ambient Sounds")]
     [SerializeField] FMODUnity.EventReference amb_city;
