@@ -101,4 +101,30 @@ public class ClientHandle : MonoBehaviour
 
         // Do whatever else we need when a player joins the server
     }
+
+    public static void ReceiveAnimationState(Packet _packet)
+    {
+        int _clientID = _packet.ReadInt();
+        float _movement = _packet.ReadFloat();
+        bool _isGrounded = _packet.ReadBool();
+        bool _splineControlled = _packet.ReadBool();
+        bool _isWallRunning = _packet.ReadBool();
+        bool _isWallRunningRight = _packet.ReadBool();
+        bool _isRailGrinding = _packet.ReadBool();
+        bool _isZiplining = _packet.ReadBool();
+
+        // Update the Animation State of Specified Character
+        NetworkManager.players[_clientID].netPC.animationHandler.SetAnimationState(new AnimationState()
+        {
+            Movement = _movement,
+            IsGrounded = _isGrounded,
+            SplineControl = _splineControlled,
+            IsWallRunning = _isWallRunning,
+            IsWallRunningRight = _isWallRunningRight,
+            IsRailGrinding = _isRailGrinding,
+            IsZiplining = _isZiplining
+        });
+
+        Debug.Log("Animation State Received");
+    }
 }

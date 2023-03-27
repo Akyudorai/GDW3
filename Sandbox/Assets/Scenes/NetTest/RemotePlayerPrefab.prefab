@@ -5192,6 +5192,7 @@ GameObject:
   - component: {fileID: 176863048618112722}
   - component: {fileID: 1142748057971125055}
   - component: {fileID: 3178759661652703145}
+  - component: {fileID: 6353386521169147611}
   m_Layer: 0
   m_Name: RemotePlayerPrefab
   m_TagString: Player
@@ -5234,11 +5235,11 @@ MonoBehaviour:
   camera_pivot: {fileID: 7583510827924976560}
   rigid: {fileID: 1201864499098928724}
   mesh: {fileID: 3965460915549815491}
-  animator: {fileID: 3178759661652703145}
   col: {fileID: 1201864499098928727}
   inputHandler: {fileID: 7375158576126092896}
   maneuverHandler: {fileID: 7375158576126092921}
   interactionHandler: {fileID: 7375158576126092927}
+  animationHandler: {fileID: 6353386521169147611}
   e_State: 0
   f_MouseSensitivity: 0.1
   b_InvertMouse: 0
@@ -5767,6 +5768,29 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6353386521169147611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201864499098928745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77b24c97ca5bd614a858e90cafc263ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsNetworked: 0
+  pc: {fileID: 0}
+  animator: {fileID: 3178759661652703145}
+  currentState:
+    Movement: 0
+    IsGrounded: 0
+    SplineControl: 0
+    IsWallRunning: 0
+    IsWallRunningRight: 0
+    IsRailGrinding: 0
+    IsZiplining: 0
 --- !u!1 &1233024386552505370
 GameObject:
   m_ObjectHideFlags: 0

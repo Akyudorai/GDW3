@@ -12,13 +12,13 @@ public class Controller : MonoBehaviour
     public GameObject camera_pivot;
     public Rigidbody rigid;
     public GameObject mesh;
-    public Animator animator;
     public Collider col;
 
     [Header("Handlers")]
     public InputHandler inputHandler;
     public ManeuverHandler maneuverHandler;
     public InteractionHandler interactionHandler;
+    public AnimationHandler animationHandler;
     public PlayerState e_State = PlayerState.Active;
 
     [Header("Camera")]
@@ -265,8 +265,8 @@ public class Controller : MonoBehaviour
 
     protected void HandleAnimations()
     {
-        animator.SetFloat("Movement", v_HorizontalVelocity.magnitude);
-        animator.SetBool("IsGrounded", b_IsGrounded);
+        animationHandler.currentState.Movement = v_HorizontalVelocity.magnitude;
+        animationHandler.currentState.IsGrounded = b_IsGrounded;        
 
         // Process Speed Line Partciles
         bool maxspeed = rigid.velocity.magnitude > f_AccelerationSpeed;

@@ -85,4 +85,22 @@ public class ClientSend : MonoBehaviour
             SendTCPData(_packet);
         }
     }
+
+    public static void SendAnimationState(int _clientID, AnimationState _state)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.sendAnimationState))
+        {
+            _packet.Write(_clientID);
+            _packet.Write(_state.Movement);
+            _packet.Write(_state.IsGrounded);
+            _packet.Write(_state.SplineControl);
+            _packet.Write(_state.IsWallRunning);
+            _packet.Write(_state.IsWallRunningRight);
+            _packet.Write(_state.IsRailGrinding);
+            _packet.Write(_state.IsZiplining);
+            // write ledge grab
+            // write ledge climb
+            SendTCPData(_packet);
+        }
+    }
 }

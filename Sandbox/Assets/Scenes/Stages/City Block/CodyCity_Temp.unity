@@ -287,8 +287,7 @@ MonoBehaviour:
   currentSpline: {fileID: 0}
   nodeIndex: 0
   mesh: {fileID: 125589069083132681}
-  pcRef: {fileID: 76165069}
-  netPC: {fileID: 0}
+  pc: {fileID: 0}
   SplineVFX: {fileID: 0}
 --- !u!114 &76165069
 MonoBehaviour:
@@ -306,11 +305,11 @@ MonoBehaviour:
   camera_pivot: {fileID: 1748955448950607732}
   rigid: {fileID: 1748955447360818341}
   mesh: {fileID: 125589069083132681}
-  animator: {fileID: 6635441553522475977}
   col: {fileID: 0}
   inputHandler: {fileID: 0}
   maneuverHandler: {fileID: 1748955447360818347}
   interactionHandler: {fileID: 1748955447360818346}
+  animationHandler: {fileID: 0}
   e_State: 0
   f_MouseSensitivity: 0.1
   b_InvertMouse: 0
@@ -12318,6 +12317,7 @@ GameObject:
   - component: {fileID: 979772615}
   - component: {fileID: 979772614}
   - component: {fileID: 979772626}
+  - component: {fileID: 979772627}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -12371,7 +12371,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pc: {fileID: 979772620}
-  netPC: {fileID: 0}
   animator: {fileID: 979772614}
   splineController: {fileID: 979772621}
   b_IsSplineControlled: 0
@@ -12531,11 +12530,11 @@ MonoBehaviour:
   camera_pivot: {fileID: 189400659}
   rigid: {fileID: 979772623}
   mesh: {fileID: 1778012279}
-  animator: {fileID: 979772614}
   col: {fileID: 979772624}
-  inputHandler: {fileID: 0}
+  inputHandler: {fileID: 979772626}
   maneuverHandler: {fileID: 979772616}
   interactionHandler: {fileID: 979772617}
+  animationHandler: {fileID: 979772627}
   e_State: 0
   f_MouseSensitivity: 0.1
   b_InvertMouse: 0
@@ -12573,9 +12572,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSpline: {fileID: 0}
   nodeIndex: 0
-  mesh: {fileID: 0}
-  pcRef: {fileID: 979772620}
-  netPC: {fileID: 0}
+  mesh: {fileID: 1778012279}
+  pc: {fileID: 0}
   SplineVFX: {fileID: 0}
 --- !u!114 &979772622
 MonoBehaviour:
@@ -12869,6 +12867,21 @@ MonoBehaviour:
   pc: {fileID: 0}
   MotionInput: {x: 0, y: 0}
   CameraInput: {x: 0, y: 0}
+--- !u!114 &979772627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979772613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77b24c97ca5bd614a858e90cafc263ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsNetworked: 0
+  pc: {fileID: 0}
+  animator: {fileID: 979772614}
 --- !u!1 &981953878
 GameObject:
   m_ObjectHideFlags: 0
@@ -24184,7 +24197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pc: {fileID: 76165069}
-  netPC: {fileID: 0}
   animator: {fileID: 6635441553522475977}
   splineController: {fileID: 76165064}
   b_IsSplineControlled: 0

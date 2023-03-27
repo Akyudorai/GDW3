@@ -79,7 +79,11 @@ public class PlayerController : Controller
 
     protected override void Awake()
     {
-        base.Awake();        
+        base.Awake();
+
+        // Initialize Animation Handler
+        animationHandler = GetComponent<AnimationHandler>();
+        animationHandler.Initialize(this, animationHandler.animator);
 
         // Initialize InteractionHandler
         interactionHandler = GetComponent<InteractionHandler>();
@@ -87,7 +91,7 @@ public class PlayerController : Controller
 
         // Initialize ManeuverHandler
         maneuverHandler = GetComponent<ManeuverHandler>();
-        maneuverHandler.Initialize(this, animator);
+        maneuverHandler.Initialize(this, animationHandler.animator);
 
         // Initialize InputHandler
         inputHandler = GetComponent<InputHandler>();

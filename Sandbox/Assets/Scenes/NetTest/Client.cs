@@ -75,7 +75,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.chatMessage, ClientHandle.ChatMessage },
             { (int)ServerPackets.playerDisconnection, ClientHandle.PlayerDisconnection },
             { (int)ServerPackets.newHighScore, ClientHandle.NewHighScore },
-            { (int)ServerPackets.joinMultiplayer, ClientHandle.JoinMultiplayer }
+            { (int)ServerPackets.joinMultiplayer, ClientHandle.JoinMultiplayer },
+            { (int)ServerPackets.receiveAnimationState, ClientHandle.ReceiveAnimationState }
         };
         Debug.Log("Initialized packets.");
     }

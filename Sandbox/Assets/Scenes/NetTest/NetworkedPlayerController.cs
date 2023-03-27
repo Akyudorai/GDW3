@@ -27,13 +27,17 @@ public class NetworkedPlayerController : Controller
     {
         base.Awake();
         
+        // Initialize Animation Handler
+        animationHandler = GetComponent<AnimationHandler>();
+        animationHandler.Initialize(this, animationHandler.animator, true);
+
         // Initialize InteractionHandler
         interactionHandler = GetComponent<InteractionHandler>();
         interactionHandler.Initialize(this);
 
         // Initialize ManeuverHandler
         maneuverHandler = GetComponent<ManeuverHandler>();
-        maneuverHandler.Initialize(this, animator);
+        maneuverHandler.Initialize(this, animationHandler.animator, true);
 
         // Initialize InputHandler
         inputHandler = GetComponent<InputHandler>();
@@ -99,11 +103,11 @@ public class NetworkedPlayerController : Controller
         HandleCamera();
         if (!maneuverHandler.b_IsSplineControlled && !maneuverHandler.b_IsLedgeHandling)
         {            
-            HandleMotion();
-
-            // Broadcast the networked position and rotation to the server
-            ClientSend.PlayerMovement(transform.position, mesh.transform.rotation);
+            HandleMotion();            
         }
+
+        // Broadcast the networked position and rotation to the server
+        ClientSend.PlayerMovement(transform.position, mesh.transform.rotation);
     }    
 
     public void SetPosition(Vector3 newPos)

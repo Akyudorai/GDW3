@@ -52,19 +52,28 @@ public class ManeuverHandler : MonoBehaviour
 
     public void Tick() 
     {   
-        b_IsSplineControlled = (splineController.currentSpline != null);        
-        animator.SetBool("SplineControl", b_IsSplineControlled);
-        
+        b_IsSplineControlled = (splineController.currentSpline != null);                       
         b_WallRunning = b_IsSplineControlled && splineController.currentSpline.splineType == SplineType.Wall;
-        animator.SetBool("IsWallrunning", b_WallRunning);
-
-        b_RailGrinding = b_IsSplineControlled && splineController.currentSpline.splineType == SplineType.Rail;
-        animator.SetBool("IsRailGrinding", b_RailGrinding);
-
-        b_Ziplining = b_IsSplineControlled && splineController.currentSpline.splineType == SplineType.Zipline;
-        animator.SetBool("IsZiplining", b_Ziplining);
-
+        b_RailGrinding = b_IsSplineControlled && splineController.currentSpline.splineType == SplineType.Rail;        
+        b_Ziplining = b_IsSplineControlled && splineController.currentSpline.splineType == SplineType.Zipline;             
         b_IsLedgeHandling = (b_LedgeGrabbing || b_LedgeClimbing);
+
+        if (b_IsNetworked)
+        {
+            if (Client.IsLocalPlayer(pc.identity))
+            {
+                pc.animationHandler.currentState.SplineControl = b_IsSplineControlled;
+                pc.animationHandler.currentState.IsRailGrinding = b_RailGrinding;
+                pc.animationHandler.currentState.IsZiplining = b_Ziplining;
+                pc.animationHandler.currentState.IsWallRunning = b_WallRunning;
+            }
+        } else
+        {
+            pc.animationHandler.currentState.SplineControl = b_IsSplineControlled;
+            pc.animationHandler.currentState.IsRailGrinding = b_RailGrinding;
+            pc.animationHandler.currentState.IsZiplining = b_Ziplining;
+            pc.animationHandler.currentState.IsWallRunning = b_WallRunning;
+        }
         
         if (b_IsLedgeHandling) 
         {               
@@ -80,8 +89,8 @@ public class ManeuverHandler : MonoBehaviour
 
         else if (b_IsSplineControlled) 
         {
-            if (b_WallRunning) {
-                animator.SetBool("IsWallrunningRight", splineController.currentSpline.isRight);
+            if (b_WallRunning) {                
+                pc.animationHandler.currentState.IsWallRunningRight = splineController.currentSpline.isRight;
             }
 
             float speed = 0f;
