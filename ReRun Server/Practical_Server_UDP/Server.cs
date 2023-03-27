@@ -29,6 +29,7 @@ namespace Practical_Server_UDP
             InitializeServerData();
 
             tcpListener = new TcpListener(IPAddress.Any, Port);
+            //tcpListener = new TcpListener(IPAddress.Parse("172.31.95.179"), Port);
             tcpListener.Start();
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
 
