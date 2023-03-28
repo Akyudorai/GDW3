@@ -189,7 +189,8 @@ public class QuestManager : MonoBehaviour
             Debug.Log("Items remaining " + questList[_quest.m_ID].m_RequiredItems.Count);
 
             DisplayQuestInfo(_quest);
-            UI_Manager.GetInstance().SendNotification("Item Collected", QuestManager.GetInstance().questList[_quest.m_ID].m_questItemIcon);
+            string notiText = "Item Collected" + "<br> <br>"  + questList[_quest.m_ID].m_questItemsCollected + " / 3";
+            UI_Manager.GetInstance().SendNotification(notiText, QuestManager.GetInstance().questList[_quest.m_ID].m_questItemIcon);
         }
         if(questList[_quest.m_ID].m_RequiredItems.Count == 0)
         {

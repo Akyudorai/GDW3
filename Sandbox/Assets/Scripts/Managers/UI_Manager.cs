@@ -244,7 +244,7 @@ public class UI_Manager : MonoBehaviour
     public void UpdateCollectibleAnnouncement(int ID) 
     {
         CollectibleTracker ct = GameObject.Find("CollectibleTracker").GetComponent<CollectibleTracker>();
-        int collectiblesFound = ct.TotalFound(ID) + 1; // +1 bc the actually collection code gets called after announcement
+        int collectiblesFound = ct.TotalFound(ID) /*+ 1*/; // +1 bc the actually collection code gets called after announcement
         int totalCollectibles = 0;
 
         switch (ID) 
