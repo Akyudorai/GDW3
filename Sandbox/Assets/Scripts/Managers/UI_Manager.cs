@@ -230,13 +230,13 @@ public class UI_Manager : MonoBehaviour
                 CollectibleImage.sprite = null;
                 break;
             case 0: // Rex
-                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/rex");
+                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/rex_icon");
                 break;
             case 1: // Mbear
-                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/mbear");
+                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/mbear_icon");
                 break;
             case 2: // Can
-                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/can");
+                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/can_icon");
                 break;
         }
     }
@@ -286,7 +286,7 @@ public class UI_Manager : MonoBehaviour
                 collectibleBoxUI[1].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/2";
                 break;
             case 2: // Can
-                collectibleBoxUI[2].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/5";
+                collectibleBoxUI[2].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/7";
                 break;
         }
     }
