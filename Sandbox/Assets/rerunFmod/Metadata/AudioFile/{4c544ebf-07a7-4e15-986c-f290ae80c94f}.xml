@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{4c544ebf-07a7-4e15-986c-f290ae80c94f}">
+		<property name="assetPath">
+			<value>RaceMusic.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>60.048000000000002</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{69092b73-773d-4de4-86e5-4739ee4120ce}</destination>
+		</relationship>
+	</object>
+</objects>

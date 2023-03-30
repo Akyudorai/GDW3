@@ -233,7 +233,11 @@ public class UI_Manager : MonoBehaviour
         //Set Player Money Amount
         VendingMoney.text = "MONEY: $" + GameManager.GetInstance().pcRef.GetMoney();
 
+        //Set text in case text was changed
+        VendingOutputDisplay.text = "Buy a drink for $50?";
 
+        //Activate yes button in case yes button was deactivated
+        VendingYesButton.gameObject.SetActive(true);
     }
 
     public void EndVendingMachineDialogue()
@@ -287,7 +291,7 @@ public class UI_Manager : MonoBehaviour
     public void UpdateCollectibleAnnouncement(int ID) 
     {
         CollectibleTracker ct = GameObject.Find("CollectibleTracker").GetComponent<CollectibleTracker>();
-        int collectiblesFound = ct.TotalFound(ID) /*+ 1*/; // +1 bc the actually collection code gets called after announcement
+        int collectiblesFound = ct.TotalFound(ID) + 1; // +1 bc the actually collection code gets called after announcement
         int totalCollectibles = 0;
 
         switch (ID) 
@@ -305,7 +309,7 @@ public class UI_Manager : MonoBehaviour
                 CollectibleAnnouncement.text = "Mithunan Bear Plushie!! ("+collectiblesFound+"/"+totalCollectibles+")";
                 break;
             case 2: // Can
-                totalCollectibles = ct.Cans.Length - 1;
+                totalCollectibles = ct.Cans.Length;
                 CollectibleAnnouncement.text = "Energy Drink!! (" + collectiblesFound + "/" + totalCollectibles + ")";
                 break;
         }
