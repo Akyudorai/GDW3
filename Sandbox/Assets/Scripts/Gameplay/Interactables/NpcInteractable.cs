@@ -95,7 +95,7 @@ public class NpcInteractable : Interactable
                         newQuestLogItem.GetComponent<QuestDataDisplay>().UpdateQuestData(npcRef.m_QuestID); //add the relevant quest info to the new quest
                         QuestManager.GetInstance().questList[npcRef.m_QuestID].m_Collected = true;
                         //UI_Manager.GetInstance().SendNotification("New Quest Received", UI_Manager.GetInstance().questSprite);
-                        UI_Manager.GetInstance().SendNotificationV2();
+                        UI_Manager.GetInstance().SendNewQuestNotification();
                         QuestManager.GetInstance().ActivateQuest(QuestManager.GetInstance().questList[npcRef.m_QuestID], newQuestLogItem.GetComponent<QuestDataDisplay>());
                         this.gameObject.GetComponent<NpcStateManager>().SwitchState(this.gameObject.GetComponent<NpcStateManager>().WaitState);
                         this.gameObject.GetComponentInChildren<Animator>().SetBool("Interactive", false); //stop mail box sway animation after accepting the quest

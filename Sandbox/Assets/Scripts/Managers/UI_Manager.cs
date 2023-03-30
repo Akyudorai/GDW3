@@ -85,6 +85,8 @@ public class UI_Manager : MonoBehaviour
     public TextMeshProUGUI notificationText;
     public Sprite questSprite;
     public GameObject newQuestNotifactionIcon;
+    public GameObject questCompleteNotificationIcon;
+    public GameObject moneyEarnedNotificationIcon;
 
     [Header("Other Components")]
     public TMP_Text SpeedTracker;
@@ -612,9 +614,19 @@ public class UI_Manager : MonoBehaviour
         PlayPhoneNotification();
     }
 
-    public void SendNotificationV2()
+    public void SendNewQuestNotification()
     {
-        newQuestNotifactionIcon.GetComponent<Animator>().SetTrigger("PlayNotification");
+        newQuestNotifactionIcon.GetComponent<Animator>().SetTrigger("t_NewQuest");
+    }
+
+    public void SendQuestCompleteNotification()
+    {
+        questCompleteNotificationIcon.GetComponent<Animator>().SetTrigger("t_QuestComplete");
+    }
+
+    public void SendMoneyEarnedNotification()
+    {
+        moneyEarnedNotificationIcon.GetComponent<Animator>().SetTrigger("t_MoneyEarned");
     }
 
     // ============ SETTINGS PANEL FUNCTIONS =====================

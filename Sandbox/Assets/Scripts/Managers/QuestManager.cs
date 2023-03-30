@@ -166,7 +166,9 @@ public class QuestManager : MonoBehaviour
 
         UI_Manager.GetInstance().questStatus.text = "Complete";
 
-        UI_Manager.GetInstance().SendNotification("Quest Complete", UI_Manager.GetInstance().questSprite);
+        //UI_Manager.GetInstance().SendNotification("Quest Complete", UI_Manager.GetInstance().questSprite);
+        UI_Manager.GetInstance().SendQuestCompleteNotification();
+        UI_Manager.GetInstance().SendMoneyEarnedNotification();
 
         GameManager.GetInstance().pcRef.AddMoney(questCompleteReward); //adding money to player wallet as a reward
     }
