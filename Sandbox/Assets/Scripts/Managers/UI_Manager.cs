@@ -111,6 +111,13 @@ public class UI_Manager : MonoBehaviour
     public Button YesDialogueButton;
     public Button NoDialogueButton;
 
+    [Header("Vending Machine Dialogue Panel")]
+    public GameObject VendingDialoguePanel;
+    public TMP_Text VendingMoney;
+    public TMP_Text VendingOutputDisplay;
+    public Button VendingYesButton;
+    public Button VendingNoButton;
+
     [Header("Interaction Prompt Panel")]
     public GameObject PromptPanel;
     public TMP_Text PromptKeyDisplay;
@@ -206,6 +213,40 @@ public class UI_Manager : MonoBehaviour
 
         // Toggle Dialogue Panel
         DialoguePanel.SetActive(false);
+    }
+
+    public void LoadVendingMachineDialogue()
+    {
+        // Lock the players controls        
+        Controller.Local.e_State = PlayerState.Locked;
+
+        // Move Camera to better position and look at NPC
+        // CameraController.LocalCamera.LookAt(npc.gameObject);
+
+        // Switch cursor mode
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+
+        // Toggle Dialogue Panel
+        VendingDialoguePanel.SetActive(true);
+
+        //Set Player Money Amount
+        VendingMoney.text = "MONEY: $" + GameManager.GetInstance().pcRef.GetMoney();
+
+
+    }
+
+    public void EndVendingMachineDialogue()
+    {
+        // Unlock Player Controls
+        Controller.Local.e_State = PlayerState.Active;
+
+        // Switch Cursor Mode
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        // Toggle Vending Machine Dialogue Panel
+        VendingDialoguePanel.SetActive(false);
     }
 
     // ============ COLLECTIBLE FUNCTIONS =====================
