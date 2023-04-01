@@ -7041,6 +7041,17 @@ PrefabInstance:
       propertyPath: MainCamera
       value: 
       objectReference: {fileID: 1748955448019000028}
+    - target: {fileID: 7172671527215562150, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Data.NpcName
+      value: Mount Nimbus
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172671527215562150, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Data.NpcDialogue.Array.data[0]
+      value: "Mount Nimbus is Vertigo Heights\u2019 highest point and just about
+        every runner\u2019s greatest challenge. Fly high, and conquer the tower!"
+      objectReference: {fileID: 0}
     - target: {fileID: 7253882857008836098, guid: 68780bfcf7a5bd5499b18462945f1f48,
         type: 3}
       propertyPath: m_LocalPosition.y

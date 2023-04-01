@@ -111,6 +111,16 @@ public class UI_Manager : MonoBehaviour
     public Button YesDialogueButton;
     public Button NoDialogueButton;
 
+    [Header("Npc Race Panel")]
+    public GameObject RacePanel;
+    public TMP_Text t_raceName;
+    public TMP_Text t_challenge;
+    public TMP_Text t_timeToBeat;
+    public TMP_Text t_bestTime;
+    public List<TMP_Text> leaderboardTimes;
+    public Button StartRaceButton;
+    public Button ComeBackButton;
+
     [Header("Vending Machine Dialogue Panel")]
     public GameObject VendingDialoguePanel;
     public TMP_Text VendingMoney;
@@ -213,6 +223,40 @@ public class UI_Manager : MonoBehaviour
 
         // Toggle Dialogue Panel
         DialoguePanel.SetActive(false);
+    }
+
+    public void LoadRaceNpcDialogue(NPC npcRef)
+    {
+        // Lock the players controls        
+        Controller.Local.e_State = PlayerState.Locked;
+
+        // Move Camera to better position and look at NPC
+        // CameraController.LocalCamera.LookAt(npc.gameObject);
+
+        // Switch cursor mode
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+
+        RacePanel.SetActive(true);
+
+        NpcData data = NpcData.Get(npcRef.m_ID);
+        t_raceName.text = data.NpcName;
+        t_challenge.text = data.NpcDialogue[0];
+        
+        //insert code for times here
+    }
+
+    public void EndNpcRaceDialogue()
+    {
+        // Unlock Player Controls
+        Controller.Local.e_State = PlayerState.Active;
+
+        // Switch Cursor Mode
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        // Toggle Dialogue Panel
+        RacePanel.SetActive(false);
     }
 
     public void LoadVendingMachineDialogue()

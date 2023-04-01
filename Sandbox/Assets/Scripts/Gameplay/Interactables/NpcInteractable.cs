@@ -130,32 +130,57 @@ public class NpcInteractable : Interactable
                 Debug.Log("Trigger Race: [" + npcRef.m_RaceID + "]");
                 
                 if (RaceManager.GetInstance().m_RaceActive == false) 
-                {                                                
+                {
                     // Open Dialogue UI
-                    UI_Manager.GetInstance().LoadNpcDialogue(npcRef);
+                    //UI_Manager.GetInstance().LoadNpcDialogue(npcRef);
+                    UI_Manager.GetInstance().LoadRaceNpcDialogue(npcRef);
 
-                    // Set the OK button in dialogue to initialize the race
-                    UI_Manager.GetInstance().YesDialogueButton.onClick.RemoveAllListeners();
-                    UI_Manager.GetInstance().YesDialogueButton.onClick.AddListener(delegate { 
-                        
+                    //// Set the OK button in dialogue to initialize the race
+                    //UI_Manager.GetInstance().YesDialogueButton.onClick.RemoveAllListeners();
+                    //UI_Manager.GetInstance().YesDialogueButton.onClick.AddListener(delegate { 
+
+                    //    // Hide the Dialogue Panel
+                    //    UI_Manager.GetInstance().EndNpcDialogue();
+
+                    //    // Begin Cinematic Intro
+                    //    if (npcRef.cinematicIndex != -1) {
+                    //        GameObject.Find("CinematicsManager").GetComponent<CinematicsManager>().Play(npcRef.cinematicIndex);
+                    //    }    
+
+                    //    // Initialize the Race while cinematic is playing
+                    //    /// TODO: Differentiate between networked races and single player race
+                    //    RaceManager.GetInstance().InitializeRace(pc, npcRef.m_RaceID);                         
+                    //});
+
+                    //// No Button Simply Ends Dialogue
+                    //UI_Manager.GetInstance().NoDialogueButton.onClick.RemoveAllListeners();
+                    //UI_Manager.GetInstance().NoDialogueButton.onClick.AddListener(delegate {
+                    //    UI_Manager.GetInstance().EndNpcDialogue();
+                    //});
+
+                    //USING UPDATED RACE PANEL UI
+                    UI_Manager.GetInstance().StartRaceButton.onClick.RemoveAllListeners();
+                    UI_Manager.GetInstance().StartRaceButton.onClick.AddListener(delegate
+                    {
                         // Hide the Dialogue Panel
-                        UI_Manager.GetInstance().EndNpcDialogue();
+                        UI_Manager.GetInstance().EndNpcRaceDialogue();
 
                         // Begin Cinematic Intro
-                        if (npcRef.cinematicIndex != -1) {
+                        if (npcRef.cinematicIndex != -1)
+                        {
                             GameObject.Find("CinematicsManager").GetComponent<CinematicsManager>().Play(npcRef.cinematicIndex);
-                        }    
+                        }
 
                         // Initialize the Race while cinematic is playing
                         /// TODO: Differentiate between networked races and single player race
-                        RaceManager.GetInstance().InitializeRace(pc, npcRef.m_RaceID);                         
+                        RaceManager.GetInstance().InitializeRace(pc, npcRef.m_RaceID);
                     });
 
-                    // No Button Simply Ends Dialogue
-                    UI_Manager.GetInstance().NoDialogueButton.onClick.RemoveAllListeners();
-                    UI_Manager.GetInstance().NoDialogueButton.onClick.AddListener(delegate {
+                    UI_Manager.GetInstance().ComeBackButton.onClick.RemoveAllListeners();
+                    UI_Manager.GetInstance().ComeBackButton.onClick.AddListener(delegate
+                    {
                         UI_Manager.GetInstance().EndNpcDialogue();
-                    });                  
+                    });
                 }
 
                 break;

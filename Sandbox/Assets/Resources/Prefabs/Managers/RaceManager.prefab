@@ -48,47 +48,40 @@ MonoBehaviour:
   b_Pregame: 0
   raceList:
   - m_ID: 0
-    m_Name: Communal Climbing
-    m_Description: Get from the Theatre to the top of the Communal Apartments.
+    m_Name: The Homestretch
+    m_Description: Traverse the neighbourhood rooftops, but be careful not to disturb
+      the residents, lest they file a noise complaint!
     m_Objective: Complete the race!
     m_Score: 0
     WPS_Index: 0
   - m_ID: 1
-    m_Name: Dine and Dash
-    m_Description: Get from the Station to the top of the Crane.
+    m_Name: Marketplace Dash
+    m_Description: "Weave through the backstreets of Vertigo Heights, and make your
+      way to the marketplace. Don\u2019t stop; there\u2019s no time for window shopping!"
     m_Objective: Complete the race!
     m_Score: 0
     WPS_Index: 1
   - m_ID: 2
-    m_Name: Skyrail Crane Dash
-    m_Description: Get from the top of the city center to the top of the bank across
-      town.
+    m_Name: Construction Crash
+    m_Description: "Take to the train tracks, and scale the construction yard to
+      the very top of the crane. Whatever you do, don\u2019t look down!"
     m_Objective: Complete the race!
     m_Score: 0
     WPS_Index: 2
   - m_ID: 3
-    m_Name: Take The Stage
-    m_Description: Make your way from the Station to the Theatre Stage.
+    m_Name: Take the Stage
+    m_Description: "Race towards Jasper Theatre, the city\u2019s shining gem for
+      stage performances, and bask in the spotlight. The show can\u2019t start without
+      you!"
     m_Objective: Complete the race!
     m_Score: 0
     WPS_Index: 3
   - m_ID: 4
-    m_Name: Scaling The Tower
-    m_Description: Get from the Communal Steps to the top of the _NAME_ Tower as
-      fast as possible!
+    m_Name: Mount Nimbus
+    m_Description: "Mount Nimbus is Vertigo Heights\u2019 highest point and just
+      about every runner\u2019s greatest challenge. Fly high, and conquer the tower!"
     m_Objective: Complete the race!
     m_Score: 0
     WPS_Index: 4
   activeRaceID: -1
   m_RaceActive: 0
-  challengeList:
-  - m_ID: 0
-    m_Name: Scaling The Tower
-    m_Description: Get from the Communal Steps to the top of the _NAME_ Tower as
-      fast as possible!
-    m_Objective: Complete the challenge!
-    m_TimeLimit: 600
-    m_Score: 600
-    WPS_Index: 0
-  activeChallengeID: -1
-  m_ChallengeActive: 0
