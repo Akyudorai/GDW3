@@ -6976,6 +6976,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 7172671526045242528, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Data.NpcName
+      value: The Homestretch
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172671526045242528, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Data.NpcDialogue.Array.data[0]
+      value: Traverse the neighbourhood rooftops, but be careful not to disturb the
+        residents, lest they file a noise complaint!
+      objectReference: {fileID: 0}
     - target: {fileID: 7172671526681022806, guid: 68780bfcf7a5bd5499b18462945f1f48,
         type: 3}
       propertyPath: m_RootOrder
@@ -7041,6 +7052,29 @@ PrefabInstance:
       propertyPath: MainCamera
       value: 
       objectReference: {fileID: 1748955448019000028}
+    - target: {fileID: 7172671527098403634, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Data.NpcName
+      value: Marketplace Dash
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172671527098403634, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Data.NpcDialogue.Array.data[0]
+      value: "Weave through the backstreets of Vertigo Heights, and make your way
+        to the marketplace. Don\u2019t stop; there\u2019s no time for window shopping!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172671527156700287, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Data.NpcName
+      value: Take the Stage
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172671527156700287, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Data.NpcDialogue.Array.data[0]
+      value: "Race towards Jasper Theatre, the city\u2019s shining gem for stage
+        performances, and bask in the spotlight. The show can\u2019t start without
+        you!"
+      objectReference: {fileID: 0}
     - target: {fileID: 7172671527215562150, guid: 68780bfcf7a5bd5499b18462945f1f48,
         type: 3}
       propertyPath: m_Data.NpcName
@@ -7051,6 +7085,17 @@ PrefabInstance:
       propertyPath: m_Data.NpcDialogue.Array.data[0]
       value: "Mount Nimbus is Vertigo Heights\u2019 highest point and just about
         every runner\u2019s greatest challenge. Fly high, and conquer the tower!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172671527291152729, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Data.NpcName
+      value: Construction Crash
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172671527291152729, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Data.NpcDialogue.Array.data[0]
+      value: "Take to the train tracks, and scale the construction yard to the very
+        top of the crane. Whatever you do, don\u2019t look down!"
       objectReference: {fileID: 0}
     - target: {fileID: 7253882857008836098, guid: 68780bfcf7a5bd5499b18462945f1f48,
         type: 3}

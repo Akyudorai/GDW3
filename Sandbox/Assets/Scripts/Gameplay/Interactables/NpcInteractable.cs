@@ -179,7 +179,7 @@ public class NpcInteractable : Interactable
                     UI_Manager.GetInstance().ComeBackButton.onClick.RemoveAllListeners();
                     UI_Manager.GetInstance().ComeBackButton.onClick.AddListener(delegate
                     {
-                        UI_Manager.GetInstance().EndNpcDialogue();
+                        UI_Manager.GetInstance().EndNpcRaceDialogue();
                     });
                 }
 

@@ -182,6 +182,7 @@ public class RaceManager : MonoBehaviour
             {
                 Debug.Log("Your score: " + time + " | Top score: " + raceList[id].m_Score);
             }
+            raceList[id].raceTimes.Add(time); //adding the new time to the race's leaderboard
         }
 
         else 

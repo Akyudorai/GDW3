@@ -139,6 +139,15 @@ public class UI_Manager : MonoBehaviour
     public TMP_InputField chatInputField;
     public GameObject chatMessagePrefab;
 
+    [Header("Message of the Day")]
+    public Image messageOfTheDay;
+    public List<Sprite> messagesSprites;
+    public GameObject motd_leftArrow;
+    public GameObject motd_rightArrow;
+    public GameObject motd_closeButton;
+    public TMP_Text pageCount;
+    public int messageIndex = 0;
+
 
     private void Start() 
     {
@@ -238,10 +247,24 @@ public class UI_Manager : MonoBehaviour
         Cursor.visible = true;
 
         RacePanel.SetActive(true);
+        RaceManager.GetInstance().raceList[npcRef.m_ID].raceTimes.Sort(); //sorts the race times from lowest to highest (hopefully) before they are displayed
+        for(int i = 0; i < RaceManager.GetInstance().raceList[npcRef.m_ID].raceTimes.Count; i++)
+        {
+            leaderboardTimes[i].gameObject.SetActive(true);
+            leaderboardTimes[i].text = RaceManager.GetInstance().raceList[npcRef.m_ID].raceTimes[i].ToString();
+        }
 
         NpcData data = NpcData.Get(npcRef.m_ID);
         t_raceName.text = data.NpcName;
         t_challenge.text = data.NpcDialogue[0];
+        if(RaceManager.GetInstance().raceList[npcRef.m_ID].m_Score <= 0)
+        {
+            t_bestTime.text = "-";
+        }
+        else
+        {
+            t_bestTime.text = RaceManager.GetInstance().raceList[npcRef.m_ID].m_Score.ToString();
+        }
         
         //insert code for times here
     }
@@ -758,5 +781,43 @@ public class UI_Manager : MonoBehaviour
         phoneNotiSFX.start();
         phoneNotiSFX.release();
     }
-    
+
+    // ============ MESSAGE OF THE DAY FUNCTIONS =====================
+    public void NextMessage() //right arrow pressed
+    {
+        messageIndex++;
+        if(messageIndex == messagesSprites.Count -1)
+        {
+            motd_rightArrow.gameObject.SetActive(false);
+        }
+        else
+        {
+            motd_rightArrow.gameObject.SetActive(true);
+        }
+        messageOfTheDay.sprite = messagesSprites[messageIndex];
+
+        motd_leftArrow.gameObject.SetActive(true);
+
+        int pageNum = messageIndex + 1;
+        pageCount.text = pageNum.ToString() + "/" + messagesSprites.Count.ToString();
+    }
+
+    public void PreviousMessage() //left arrow pressed
+    {        
+        messageIndex--;
+        if(messageIndex == 0)
+        {
+            motd_leftArrow.gameObject.SetActive(false);
+        }
+        else
+        {
+            motd_leftArrow.gameObject.SetActive(true);
+        }
+        messageOfTheDay.sprite = messagesSprites[messageIndex];
+
+        motd_rightArrow.gameObject.SetActive(true);
+
+        int pageNum = messageIndex + 1;
+        pageCount.text = pageNum.ToString() + "/" + messagesSprites.Count.ToString();
+    }
 }
