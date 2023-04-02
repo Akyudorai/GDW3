@@ -70,7 +70,8 @@ public class SoundManager : MonoBehaviour
     public float HighPitchRange = 1.05f;
 
     //Fmod instances
-    public FMOD.Studio.EventInstance backgroundMusic;
+    public FMOD.Studio.EventInstance backgroundMusic; //the overworld music
+    public FMOD.Studio.EventInstance raceMusic;
     public FMOD.Studio.EventInstance cityAmbience;
     public FMOD.Studio.EventInstance activeWallRunSfx;
 
@@ -141,7 +142,11 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         backgroundMusic = CreateSoundInstance(SoundFile.OverworldMusic);
-        backgroundMusic.start();        
+        backgroundMusic.start();
+
+        raceMusic = CreateSoundInstance(SoundFile.RaceMusic);
+        raceMusic.start();
+        raceMusic.setPaused(true);
 
         UpdateSoundSettings();
 
