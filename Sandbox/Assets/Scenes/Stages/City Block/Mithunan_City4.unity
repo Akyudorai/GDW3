@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 5729.0117, g: 13980.469, b: 17542.812, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6983,6 +6983,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7172671526045242528, guid: 68780bfcf7a5bd5499b18462945f1f48,
         type: 3}
+      propertyPath: m_Data.m_TimeToBeat
+      value: 01:22:00
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172671526045242528, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
       propertyPath: m_Data.NpcDialogue.Array.data[0]
       value: Traverse the neighbourhood rooftops, but be careful not to disturb the
         residents, lest they file a noise complaint!
@@ -7059,6 +7064,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7172671527098403634, guid: 68780bfcf7a5bd5499b18462945f1f48,
         type: 3}
+      propertyPath: m_Data.m_TimeToBeat
+      value: 01:16:00
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172671527098403634, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
       propertyPath: m_Data.NpcDialogue.Array.data[0]
       value: "Weave through the backstreets of Vertigo Heights, and make your way
         to the marketplace. Don\u2019t stop; there\u2019s no time for window shopping!"
@@ -7067,6 +7077,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Data.NpcName
       value: Take the Stage
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172671527156700287, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Data.m_TimeToBeat
+      value: 02:54:00
       objectReference: {fileID: 0}
     - target: {fileID: 7172671527156700287, guid: 68780bfcf7a5bd5499b18462945f1f48,
         type: 3}
@@ -7082,6 +7097,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7172671527215562150, guid: 68780bfcf7a5bd5499b18462945f1f48,
         type: 3}
+      propertyPath: m_Data.m_TimeToBeat
+      value: 01:13:00
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172671527215562150, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
       propertyPath: m_Data.NpcDialogue.Array.data[0]
       value: "Mount Nimbus is Vertigo Heights\u2019 highest point and just about
         every runner\u2019s greatest challenge. Fly high, and conquer the tower!"
@@ -7090,6 +7110,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Data.NpcName
       value: Construction Crash
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172671527291152729, guid: 68780bfcf7a5bd5499b18462945f1f48,
+        type: 3}
+      propertyPath: m_Data.m_TimeToBeat
+      value: 00:56:00
       objectReference: {fileID: 0}
     - target: {fileID: 7172671527291152729, guid: 68780bfcf7a5bd5499b18462945f1f48,
         type: 3}

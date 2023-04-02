@@ -12,7 +12,7 @@ public class RaceData
     public string m_Description;
     public string m_Objective;    
     public float m_Score = 0;
-    public List<float> raceTimes;
+    public List<float> raceTimes;    
 
     [Header("Race Components")]
     public int WPS_Index;

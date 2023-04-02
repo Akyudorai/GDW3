@@ -257,6 +257,7 @@ public class UI_Manager : MonoBehaviour
         NpcData data = NpcData.Get(npcRef.m_ID);
         t_raceName.text = data.NpcName;
         t_challenge.text = data.NpcDialogue[0];
+        t_timeToBeat.text = data.m_TimeToBeat;
         if(RaceManager.GetInstance().raceList[npcRef.m_ID].m_Score <= 0)
         {
             t_bestTime.text = "-";
