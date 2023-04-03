@@ -132,6 +132,7 @@ public class UI_Manager : MonoBehaviour
     public TMP_Text VendingOutputDisplay;
     public Button VendingYesButton;
     public Button VendingNoButton;
+    public Button VendingCloseButton;
 
     [Header("Interaction Prompt Panel")]
     public GameObject PromptPanel;
@@ -309,8 +310,10 @@ public class UI_Manager : MonoBehaviour
         //Set text in case text was changed
         VendingOutputDisplay.text = "Buy a drink for $50?";
 
-        //Activate yes button in case yes button was deactivated
+        //Activate yes and no button in case yes button was deactivated , turn off close button in case it was already on
         VendingYesButton.gameObject.SetActive(true);
+        VendingNoButton.gameObject.SetActive(true);
+        VendingCloseButton.gameObject.SetActive(false);
     }
 
     public void EndVendingMachineDialogue()
@@ -534,6 +537,7 @@ public class UI_Manager : MonoBehaviour
         {
             questInfoPanel.SetActive(false);
             questListPanel.SetActive(true);
+            cashTracker.gameObject.SetActive(true);
         }
         else if(viewingTutorial == true)
         {
@@ -836,5 +840,16 @@ public class UI_Manager : MonoBehaviour
 
         int pageNum = messageIndex + 1;
         pageCount.text = pageNum.ToString() + "/" + messagesSprites.Count.ToString();
+    }
+
+    // ============ RACE =====================
+
+    public void QuitRace()
+    {
+        if(RaceManager.GetInstance().m_RaceActive == true)
+        {
+            RaceManager.GetInstance().RaceComplete(true);
+            TogglePhonePanel(false);
+        }
     }
 }

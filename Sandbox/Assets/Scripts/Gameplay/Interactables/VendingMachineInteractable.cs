@@ -41,15 +41,23 @@ public class VendingMachineInteractable : Interactable
         //Opening Vending Machine Dialogue Box
         UI_Manager.GetInstance().LoadVendingMachineDialogue();
 
-        if(GameManager.GetInstance().pcRef.GetMoney() < 50f) //hide yes button if player doesn't have enough money
-        {
-            UI_Manager.GetInstance().VendingYesButton.gameObject.SetActive(false);
-            UI_Manager.GetInstance().VendingOutputDisplay.text = "<s>Buy a drink for $50?</s> Not enough money available.";
-        }
+        //if(GameManager.GetInstance().pcRef.GetMoney() < 50f) //hide yes button if player doesn't have enough money
+        //{
+        //    UI_Manager.GetInstance().VendingYesButton.gameObject.SetActive(false);
+        //    UI_Manager.GetInstance().VendingOutputDisplay.text = "<s>Buy a drink for $50?</s> Not enough money available.";
+        //}
 
         UI_Manager.GetInstance().VendingYesButton.onClick.RemoveAllListeners();
         UI_Manager.GetInstance().VendingYesButton.onClick.AddListener(delegate
         {
+            if(GameManager.GetInstance().pcRef.GetMoney() < 50f) //change text , turn off all buttons except for the close button
+            {
+                UI_Manager.GetInstance().VendingOutputDisplay.text = "Not enough money available.";
+                UI_Manager.GetInstance().VendingYesButton.gameObject.SetActive(false);
+                UI_Manager.GetInstance().VendingNoButton.gameObject.SetActive(false);
+                UI_Manager.GetInstance().VendingCloseButton.gameObject.SetActive(true);
+                return;
+            }
             UI_Manager.GetInstance().EndVendingMachineDialogue(); //hide the vending machine dialogue panel.
 
             this.gameObject.GetComponentInParent<Animator>().SetBool("Interact", true);

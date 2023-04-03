@@ -38,6 +38,7 @@ public class QuestDataDisplay : MonoBehaviour //attached to a quest button in qu
     public void QuestSelected() //player clicks on a quest from the quest list
     {
         UI_Manager.GetInstance().ToggleQuestListPanel(false);
+        UI_Manager.GetInstance().cashTracker.gameObject.SetActive(false);
         UI_Manager.GetInstance().ToggleQuestInfoPanel(true);
         
 
