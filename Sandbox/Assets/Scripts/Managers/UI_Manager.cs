@@ -40,7 +40,7 @@ public class UI_Manager : MonoBehaviour
 
     [Header("Phone Panel")]
     public GameObject PhonePanel;
-    public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel, TipPanel;
+    public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, HelpPanel, SettingsPanel, QuitPanel, TipPanel;
     public Animator phoneAnimator;
     public TextMeshProUGUI cashTracker; //temporary cash ui element
 
@@ -66,6 +66,11 @@ public class UI_Manager : MonoBehaviour
     public GameObject questStatusImg;
     public GameObject[] questItemIcons;
     public List<Sprite> questLabels;
+
+    [Header("Help Panel")]
+    public Sprite defaultHelpPanelSprite;
+    public GameObject helpList;
+    public bool viewingTutorial = false; //is the player currently viewing a tutorial?
 
     [Header("Fast Travel Panel")]
     public int stopIndex;
@@ -495,11 +500,18 @@ public class UI_Manager : MonoBehaviour
         SearchBar.gameObject.SetActive(!state);
     }
 
-    public void ToggleMultiplayerPanel(bool state) 
+    public void ToggleHelpPanel(bool state) 
     {
-        MultiplayerPanel.SetActive(state);
+        HelpPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
         SearchBar.gameObject.SetActive(!state);
+    }
+
+    public void ToggleHelpList() //goes back to the tutorial/help list
+    {
+        HelpPanel.GetComponent<Image>().sprite = defaultHelpPanelSprite; //set the background of the help panel back to the default one
+        helpList.SetActive(true); //reactivate the help list
+        viewingTutorial = false; //set to false since player is no longer viewing a singular tutorial
     }
 
     public void ToggleSettingsPanel(bool state) 
@@ -523,13 +535,17 @@ public class UI_Manager : MonoBehaviour
             questInfoPanel.SetActive(false);
             questListPanel.SetActive(true);
         }
+        else if(viewingTutorial == true)
+        {
+            ToggleHelpList();
+        }
         else
         {
             MapPanel.SetActive(!state);
             FastTravelPanel.SetActive(!state);
             MessengerPanel.SetActive(!state);
             MinigamePanel.SetActive(!state);
-            MultiplayerPanel.SetActive(!state);
+            HelpPanel.SetActive(!state);
             SettingsPanel.SetActive(!state);
             TipPanel.SetActive(!state);
             QuitPanel.SetActive(!state);
