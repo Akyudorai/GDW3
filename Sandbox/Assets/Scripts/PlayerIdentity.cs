@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerSettings
 {   
     // 1 = Nyx, 2 = Bea
-    public int Character = 1;
+    public int Character = 2;
 }
 
 public class PlayerIdentity

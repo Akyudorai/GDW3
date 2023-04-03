@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NewNotiV2Anim
+  m_Name: MoneyEarnedAnim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -32,15 +32,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.5
         value: 378
-        inSlope: 0
-        outSlope: 0
+        inSlope: 418.28574
+        outSlope: 418.28574
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1.1666666
-        value: 378
+        value: 500
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -159,15 +159,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.5
         value: 378
-        inSlope: 0
-        outSlope: 0
+        inSlope: 418.28574
+        outSlope: 418.28574
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1.1666666
-        value: 378
+        value: 500
         inSlope: 0
         outSlope: 0
         tangentMode: 136

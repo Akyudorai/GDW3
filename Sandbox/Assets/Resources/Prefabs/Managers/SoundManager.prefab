@@ -103,6 +103,20 @@ MonoBehaviour:
       Data3: 346412728
       Data4: 1285102880
     Path: event:/Music/BGM-lofi
+  bgm_overworld:
+    Guid:
+      Data1: -1271228054
+      Data2: 1268632554
+      Data3: 162090668
+      Data4: 227334116
+    Path: event:/Music/Overworld
+  bgm_race:
+    Guid:
+      Data1: -1523322896
+      Data2: 1335857810
+      Data3: 1538075021
+      Data4: 1349636574
+    Path: event:/Music/Race
   int_railStart:
     Guid:
       Data1: 2012880532

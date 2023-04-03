@@ -54,8 +54,13 @@ public class WallInteractable : Interactable
 
         // Play Wallrun SFX
         FMOD.Studio.EventInstance wallrunSFX = SoundManager.CreateSoundInstance(SoundFile.WallRun);
+        SoundManager.GetInstance().activeWallRunSfx = wallrunSFX;
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(wallrunSFX, pc.transform, pc.rigid);
         wallrunSFX.start();
-        wallrunSFX.release();    
+        float test = 3f;
+        float test2 = 4f;
+        wallrunSFX.getParameterByName("WallRunVolume", out test, out test2);
+        Debug.Log("Wall run volume: " + test);
+        //wallrunSFX.release();  //moving the release statement to where the player detaches from the wall.  
     }
 }

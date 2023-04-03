@@ -15,6 +15,8 @@ public enum SoundFile
     
     // Music
     LofiMusic,
+    OverworldMusic,
+    RaceMusic,
 
     // Interactions
     RailStart,
@@ -68,8 +70,10 @@ public class SoundManager : MonoBehaviour
     public float HighPitchRange = 1.05f;
 
     //Fmod instances
-    public FMOD.Studio.EventInstance backgroundMusic;
+    public FMOD.Studio.EventInstance backgroundMusic; //the overworld music
+    public FMOD.Studio.EventInstance raceMusic;
     public FMOD.Studio.EventInstance cityAmbience;
+    public FMOD.Studio.EventInstance activeWallRunSfx;
 
     [Header("Ambient Sounds")]
     [SerializeField] FMODUnity.EventReference amb_city;
@@ -77,6 +81,8 @@ public class SoundManager : MonoBehaviour
 
     [Header("Music Sounds")]
     [SerializeField] FMODUnity.EventReference bgm_lofi;
+    [SerializeField] FMODUnity.EventReference bgm_overworld;
+    [SerializeField] FMODUnity.EventReference bgm_race;
 
     [Header("Interaction Sounds")]
     [SerializeField] FMODUnity.EventReference int_railStart;
@@ -135,8 +141,12 @@ public class SoundManager : MonoBehaviour
     }
     private void Start()
     {
-        backgroundMusic = CreateSoundInstance(SoundFile.LofiMusic);
-        backgroundMusic.start();        
+        backgroundMusic = CreateSoundInstance(SoundFile.OverworldMusic);
+        backgroundMusic.start();
+
+        raceMusic = CreateSoundInstance(SoundFile.RaceMusic);
+        raceMusic.start();
+        raceMusic.setPaused(true);
 
         UpdateSoundSettings();
 
@@ -160,6 +170,8 @@ public class SoundManager : MonoBehaviour
             
             // Music
             case SoundFile.LofiMusic: return FMODUnity.RuntimeManager.CreateInstance(instance.bgm_lofi);
+            case SoundFile.OverworldMusic: return FMODUnity.RuntimeManager.CreateInstance(instance.bgm_overworld);
+            case SoundFile.RaceMusic: return FMODUnity.RuntimeManager.CreateInstance(instance.bgm_race);
 
             // Interactions
             case SoundFile.RailStart: return FMODUnity.RuntimeManager.CreateInstance(instance.int_railStart);

@@ -23,34 +23,51 @@ public class VendingMachineInteractable : Interactable
 
     public override void Interact(Controller pc, RaycastHit hit)
     {
-        if(vendingIsInteractable == true)
-        {
-            Debug.Log("Vending Machine already used.");
-            return;
-        }
-        if(GameManager.GetInstance().pcRef.GetMoney() < cost)
-        {
-            Debug.Log("Not enough money available to buy energy drink.");
-            return;
-        }
+        //if(vendingIsInteractable == true)
+        //{
+        //    Debug.Log("Vending Machine already used.");
+        //    return;
+        //}
+        //if(GameManager.GetInstance().pcRef.GetMoney() < cost)
+        //{
+        //    Debug.Log("Not enough money available to buy energy drink.");
+        //    return;
+        //}
         Debug.Log("Vending Machine");
         pc.v_HorizontalVelocity = Vector3.zero;
         pc.v_VerticalVelocity = Vector3.zero;
         pc.rigid.velocity = Vector3.zero;
 
-        this.gameObject.GetComponentInParent<Animator>().SetBool("Interact", true);
-        canAnimator.SetBool("CanThrow", true);
-        vendingIsInteractable = true;
+        //Opening Vending Machine Dialogue Box
+        UI_Manager.GetInstance().LoadVendingMachineDialogue();
 
-        //Play Vending machine interact sound
-        FMOD.Studio.EventInstance vendingMachineInteractSfx = SoundManager.CreateSoundInstance(SoundFile.VendingMachine);
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(vendingMachineInteractSfx, this.gameObject.transform, GameManager.GetInstance().pcRef.rigid);
-        vendingMachineInteractSfx.start();
-        vendingMachineInteractSfx.release();
+        if(GameManager.GetInstance().pcRef.GetMoney() < 50f) //hide yes button if player doesn't have enough money
+        {
+            UI_Manager.GetInstance().VendingYesButton.gameObject.SetActive(false);
+            UI_Manager.GetInstance().VendingOutputDisplay.text = "<s>Buy a drink for $50?</s> Not enough money available.";
+        }
 
-        GameManager.GetInstance().pcRef.RemoveMoney(cost); //updating player wallet.
+        UI_Manager.GetInstance().VendingYesButton.onClick.RemoveAllListeners();
+        UI_Manager.GetInstance().VendingYesButton.onClick.AddListener(delegate
+        {
+            UI_Manager.GetInstance().EndVendingMachineDialogue(); //hide the vending machine dialogue panel.
 
-        int groundLayer = LayerMask.NameToLayer("Ground"); //changing vending machine to non-interactble
-        this.gameObject.layer = groundLayer; 
+            this.gameObject.GetComponentInParent<Animator>().SetBool("Interact", true);
+            canAnimator.SetBool("CanThrow", true);
+            vendingIsInteractable = true;
+
+            //Play Vending machine interact sound
+            FMOD.Studio.EventInstance vendingMachineInteractSfx = SoundManager.CreateSoundInstance(SoundFile.VendingMachine);
+            FMODUnity.RuntimeManager.AttachInstanceToGameObject(vendingMachineInteractSfx, this.gameObject.transform, GameManager.GetInstance().pcRef.rigid);
+            vendingMachineInteractSfx.start();
+            vendingMachineInteractSfx.release();
+
+            GameManager.GetInstance().pcRef.RemoveMoney(cost); //updating player wallet.
+
+            int groundLayer = LayerMask.NameToLayer("Ground"); //changing vending machine to non-interactble
+            this.gameObject.layer = groundLayer;
+        });
+
+         
     }
 }

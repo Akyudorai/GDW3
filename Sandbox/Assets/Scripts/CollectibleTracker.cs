@@ -5,8 +5,8 @@ using UnityEngine;
 public class CollectibleTracker : MonoBehaviour
 {
     [Header("Collectible Arrays")]
-    public bool[] Mbears = new bool[3];
-    public bool[] Rexs = new bool[3];
+    public bool[] Mbears = new bool[2];
+    public bool[] Rexs = new bool[2];
     public bool[] Cans = new bool[7];
 
     public void Start() 

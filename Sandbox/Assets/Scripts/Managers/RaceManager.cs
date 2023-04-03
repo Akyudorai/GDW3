@@ -72,7 +72,11 @@ public class RaceManager : MonoBehaviour
         pc.mesh.transform.rotation = wps.Beginning.rotation;
         pc.camera_pivot.transform.rotation = wps.Beginning.rotation;
         pc.SetPlayerState(PlayerState.Locked);
-        
+
+        // Play the race music
+        SoundManager.GetInstance().backgroundMusic.setPaused(true);
+        SoundManager.GetInstance().raceMusic.setPaused(false);
+
         // Queue the Countdown Timer
         m_RaceActive = true;
         activeRaceID = raceID;
@@ -120,7 +124,7 @@ public class RaceManager : MonoBehaviour
         // Play Race Start SFX
         FMOD.Studio.EventInstance startSFX = SoundManager.CreateSoundInstance(SoundFile.RaceStart);
         startSFX.start();
-        startSFX.release(); 
+        startSFX.release();
 
         if (m_RaceActive) EventManager.OnRaceBegin?.Invoke(ID);      
 
@@ -165,7 +169,11 @@ public class RaceManager : MonoBehaviour
         UI_Manager.GetInstance().UpdatePostgamePosition(((isForfeit) ? "Boo!" : "Yay!"));
 
         m_RaceActive = false;   
-        activeRaceID = -1;                
+        activeRaceID = -1;
+
+        //Switch back to overworld music
+        SoundManager.GetInstance().backgroundMusic.setPaused(false);
+        SoundManager.GetInstance().raceMusic.setPaused(true);
     }
 
     public void SaveScore(int id, float time) 
@@ -182,6 +190,7 @@ public class RaceManager : MonoBehaviour
             {
                 Debug.Log("Your score: " + time + " | Top score: " + raceList[id].m_Score);
             }
+            raceList[id].raceTimes.Add(time); //adding the new time to the race's leaderboard
         }
 
         else 

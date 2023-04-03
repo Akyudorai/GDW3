@@ -40,7 +40,7 @@ public class UI_Manager : MonoBehaviour
 
     [Header("Phone Panel")]
     public GameObject PhonePanel;
-    public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, MultiplayerPanel, SettingsPanel, QuitPanel, TipPanel;
+    public GameObject HomepagePanel, MapPanel, FastTravelPanel, MessengerPanel, MinigamePanel, HelpPanel, SettingsPanel, QuitPanel, TipPanel;
     public Animator phoneAnimator;
     public TextMeshProUGUI cashTracker; //temporary cash ui element
 
@@ -67,6 +67,11 @@ public class UI_Manager : MonoBehaviour
     public GameObject[] questItemIcons;
     public List<Sprite> questLabels;
 
+    [Header("Help Panel")]
+    public Sprite defaultHelpPanelSprite;
+    public GameObject helpList;
+    public bool viewingTutorial = false; //is the player currently viewing a tutorial?
+
     [Header("Fast Travel Panel")]
     public int stopIndex;
     public TextMeshProUGUI destination;
@@ -85,6 +90,8 @@ public class UI_Manager : MonoBehaviour
     public TextMeshProUGUI notificationText;
     public Sprite questSprite;
     public GameObject newQuestNotifactionIcon;
+    public GameObject questCompleteNotificationIcon;
+    public GameObject moneyEarnedNotificationIcon;
 
     [Header("Other Components")]
     public TMP_Text SpeedTracker;
@@ -109,6 +116,23 @@ public class UI_Manager : MonoBehaviour
     public Button YesDialogueButton;
     public Button NoDialogueButton;
 
+    [Header("Npc Race Panel")]
+    public GameObject RacePanel;
+    public TMP_Text t_raceName;
+    public TMP_Text t_challenge;
+    public TMP_Text t_timeToBeat;
+    public TMP_Text t_bestTime;
+    public List<TMP_Text> leaderboardTimes;
+    public Button StartRaceButton;
+    public Button ComeBackButton;
+
+    [Header("Vending Machine Dialogue Panel")]
+    public GameObject VendingDialoguePanel;
+    public TMP_Text VendingMoney;
+    public TMP_Text VendingOutputDisplay;
+    public Button VendingYesButton;
+    public Button VendingNoButton;
+
     [Header("Interaction Prompt Panel")]
     public GameObject PromptPanel;
     public TMP_Text PromptKeyDisplay;
@@ -119,6 +143,15 @@ public class UI_Manager : MonoBehaviour
     public Scrollbar verticalScroll;
     public TMP_InputField chatInputField;
     public GameObject chatMessagePrefab;
+
+    [Header("Message of the Day")]
+    public Image messageOfTheDay;
+    public List<Sprite> messagesSprites;
+    public GameObject motd_leftArrow;
+    public GameObject motd_rightArrow;
+    public GameObject motd_closeButton;
+    public TMP_Text pageCount;
+    public int messageIndex = 0;
 
 
     private void Start() 
@@ -208,6 +241,93 @@ public class UI_Manager : MonoBehaviour
         DialoguePanel.SetActive(false);
     }
 
+    public void LoadRaceNpcDialogue(NPC npcRef)
+    {
+        // Lock the players controls        
+        Controller.Local.e_State = PlayerState.Locked;
+
+        // Move Camera to better position and look at NPC
+        // CameraController.LocalCamera.LookAt(npc.gameObject);
+
+        // Switch cursor mode
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+
+        RacePanel.SetActive(true);
+        RaceManager.GetInstance().raceList[npcRef.m_ID].raceTimes.Sort(); //sorts the race times from lowest to highest (hopefully) before they are displayed
+        for(int i = 0; i < RaceManager.GetInstance().raceList[npcRef.m_ID].raceTimes.Count; i++)
+        {
+            leaderboardTimes[i].gameObject.SetActive(true);
+            leaderboardTimes[i].text = RaceManager.GetInstance().raceList[npcRef.m_ID].raceTimes[i].ToString();
+        }
+
+        NpcData data = NpcData.Get(npcRef.m_ID);
+        t_raceName.text = data.NpcName;
+        t_challenge.text = data.NpcDialogue[0];
+        t_timeToBeat.text = data.m_TimeToBeat;
+        if(RaceManager.GetInstance().raceList[npcRef.m_ID].m_Score <= 0)
+        {
+            t_bestTime.text = "-";
+        }
+        else
+        {
+            t_bestTime.text = RaceManager.GetInstance().raceList[npcRef.m_ID].m_Score.ToString();
+        }
+        
+        //insert code for times here
+    }
+
+    public void EndNpcRaceDialogue()
+    {
+        // Unlock Player Controls
+        Controller.Local.e_State = PlayerState.Active;
+
+        // Switch Cursor Mode
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        // Toggle Dialogue Panel
+        RacePanel.SetActive(false);
+    }
+
+    public void LoadVendingMachineDialogue()
+    {
+        // Lock the players controls        
+        Controller.Local.e_State = PlayerState.Locked;
+
+        // Move Camera to better position and look at NPC
+        // CameraController.LocalCamera.LookAt(npc.gameObject);
+
+        // Switch cursor mode
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+
+        // Toggle Dialogue Panel
+        VendingDialoguePanel.SetActive(true);
+
+        //Set Player Money Amount
+        VendingMoney.text = "MONEY: $" + GameManager.GetInstance().pcRef.GetMoney();
+
+        //Set text in case text was changed
+        VendingOutputDisplay.text = "Buy a drink for $50?";
+
+        //Activate yes button in case yes button was deactivated
+        VendingYesButton.gameObject.SetActive(true);
+    }
+
+    public void EndVendingMachineDialogue()
+    {
+        // Unlock Player Controls
+        Controller.Local.e_State = PlayerState.Active;
+
+        // Switch Cursor Mode
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        // Toggle Vending Machine Dialogue Panel
+        VendingDialoguePanel.SetActive(false);
+    }
+
     // ============ COLLECTIBLE FUNCTIONS =====================
 
     public IEnumerator ToggleCollectiblePanel(bool state, float duration = 0) 
@@ -232,13 +352,13 @@ public class UI_Manager : MonoBehaviour
                 CollectibleImage.sprite = null;
                 break;
             case 0: // Rex
-                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/rex");
+                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/rex_icon");
                 break;
             case 1: // Mbear
-                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/mbear");
+                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/mbear_icon");
                 break;
             case 2: // Can
-                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/can");
+                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/can_icon");
                 break;
         }
     }
@@ -264,7 +384,7 @@ public class UI_Manager : MonoBehaviour
                 CollectibleAnnouncement.text = "Mithunan Bear Plushie!! ("+collectiblesFound+"/"+totalCollectibles+")";
                 break;
             case 2: // Can
-                totalCollectibles = ct.Cans.Length - 1;
+                totalCollectibles = ct.Cans.Length;
                 CollectibleAnnouncement.text = "Energy Drink!! (" + collectiblesFound + "/" + totalCollectibles + ")";
                 break;
         }
@@ -288,7 +408,7 @@ public class UI_Manager : MonoBehaviour
                 collectibleBoxUI[1].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/2";
                 break;
             case 2: // Can
-                collectibleBoxUI[2].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/5";
+                collectibleBoxUI[2].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/7";
                 break;
         }
     }
@@ -385,11 +505,18 @@ public class UI_Manager : MonoBehaviour
         SearchBar.gameObject.SetActive(!state);
     }
 
-    public void ToggleMultiplayerPanel(bool state) 
+    public void ToggleHelpPanel(bool state) 
     {
-        MultiplayerPanel.SetActive(state);
+        HelpPanel.SetActive(state);
         HomepagePanel.SetActive(!state);
         SearchBar.gameObject.SetActive(!state);
+    }
+
+    public void ToggleHelpList() //goes back to the tutorial/help list
+    {
+        HelpPanel.GetComponent<Image>().sprite = defaultHelpPanelSprite; //set the background of the help panel back to the default one
+        helpList.SetActive(true); //reactivate the help list
+        viewingTutorial = false; //set to false since player is no longer viewing a singular tutorial
     }
 
     public void ToggleSettingsPanel(bool state) 
@@ -413,13 +540,17 @@ public class UI_Manager : MonoBehaviour
             questInfoPanel.SetActive(false);
             questListPanel.SetActive(true);
         }
+        else if(viewingTutorial == true)
+        {
+            ToggleHelpList();
+        }
         else
         {
             MapPanel.SetActive(!state);
             FastTravelPanel.SetActive(!state);
             MessengerPanel.SetActive(!state);
             MinigamePanel.SetActive(!state);
-            MultiplayerPanel.SetActive(!state);
+            HelpPanel.SetActive(!state);
             SettingsPanel.SetActive(!state);
             TipPanel.SetActive(!state);
             QuitPanel.SetActive(!state);
@@ -617,9 +748,19 @@ public class UI_Manager : MonoBehaviour
         PlayPhoneNotification();
     }
 
-    public void SendNotificationV2()
+    public void SendNewQuestNotification()
     {
-        newQuestNotifactionIcon.GetComponent<Animator>().SetTrigger("PlayNotification");
+        newQuestNotifactionIcon.GetComponent<Animator>().SetTrigger("t_NewQuest");
+    }
+
+    public void SendQuestCompleteNotification()
+    {
+        questCompleteNotificationIcon.GetComponent<Animator>().SetTrigger("t_QuestComplete");
+    }
+
+    public void SendMoneyEarnedNotification()
+    {
+        moneyEarnedNotificationIcon.GetComponent<Animator>().SetTrigger("t_MoneyEarned");
     }
 
     // ============ SETTINGS PANEL FUNCTIONS =====================
@@ -662,5 +803,43 @@ public class UI_Manager : MonoBehaviour
         phoneNotiSFX.start();
         phoneNotiSFX.release();
     }
-    
+
+    // ============ MESSAGE OF THE DAY FUNCTIONS =====================
+    public void NextMessage() //right arrow pressed
+    {
+        messageIndex++;
+        if(messageIndex == messagesSprites.Count -1)
+        {
+            motd_rightArrow.gameObject.SetActive(false);
+        }
+        else
+        {
+            motd_rightArrow.gameObject.SetActive(true);
+        }
+        messageOfTheDay.sprite = messagesSprites[messageIndex];
+
+        motd_leftArrow.gameObject.SetActive(true);
+
+        int pageNum = messageIndex + 1;
+        pageCount.text = pageNum.ToString() + "/" + messagesSprites.Count.ToString();
+    }
+
+    public void PreviousMessage() //left arrow pressed
+    {        
+        messageIndex--;
+        if(messageIndex == 0)
+        {
+            motd_leftArrow.gameObject.SetActive(false);
+        }
+        else
+        {
+            motd_leftArrow.gameObject.SetActive(true);
+        }
+        messageOfTheDay.sprite = messagesSprites[messageIndex];
+
+        motd_rightArrow.gameObject.SetActive(true);
+
+        int pageNum = messageIndex + 1;
+        pageCount.text = pageNum.ToString() + "/" + messagesSprites.Count.ToString();
+    }
 }

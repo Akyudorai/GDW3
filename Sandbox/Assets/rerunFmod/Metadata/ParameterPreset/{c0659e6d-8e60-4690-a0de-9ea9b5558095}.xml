@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{c0659e6d-8e60-4690-a0de-9ea9b5558095}">
+		<property name="name">
+			<value>WallRunVolume</value>
+		</property>
+		<relationship name="folder">
+			<destination>{b29a8ff7-b906-4569-a306-ee49648b41f4}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{21bc25f8-c8a5-43b9-9b9f-d3675807a189}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{21bc25f8-c8a5-43b9-9b9f-d3675807a189}">
+		<property name="initialValue">
+			<value>1</value>
+		</property>
+	</object>
+</objects>

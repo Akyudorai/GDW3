@@ -346,7 +346,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canAnimator: {fileID: 4293063195025626693}
-  canPickUp: 0
+  vendingIsInteractable: 0
+  cost: 50
 --- !u!1 &7840456340398424695
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,7 +409,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1b2b7df05ce84a04b8299e70fa4d8927, type: 2}
+  - {fileID: 2100000, guid: ccda2ac6896ed66418e8b9c52817b426, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

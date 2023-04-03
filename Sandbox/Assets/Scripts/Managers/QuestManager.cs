@@ -166,7 +166,9 @@ public class QuestManager : MonoBehaviour
 
         UI_Manager.GetInstance().questStatus.text = "Complete";
 
-        UI_Manager.GetInstance().SendNotification("Quest Complete", UI_Manager.GetInstance().questSprite);
+        //UI_Manager.GetInstance().SendNotification("Quest Complete", UI_Manager.GetInstance().questSprite);
+        UI_Manager.GetInstance().SendQuestCompleteNotification();
+        UI_Manager.GetInstance().SendMoneyEarnedNotification();
 
         GameManager.GetInstance().pcRef.AddMoney(questCompleteReward); //adding money to player wallet as a reward
     }
@@ -189,7 +191,8 @@ public class QuestManager : MonoBehaviour
             Debug.Log("Items remaining " + questList[_quest.m_ID].m_RequiredItems.Count);
 
             DisplayQuestInfo(_quest);
-            UI_Manager.GetInstance().SendNotification("Item Collected", QuestManager.GetInstance().questList[_quest.m_ID].m_questItemIcon);
+            string notiText = "Item Collected" + "<br> <br>"  + questList[_quest.m_ID].m_questItemsCollected + " / 3";
+            UI_Manager.GetInstance().SendNotification(notiText, QuestManager.GetInstance().questList[_quest.m_ID].m_questItemIcon);
         }
         if(questList[_quest.m_ID].m_RequiredItems.Count == 0)
         {
