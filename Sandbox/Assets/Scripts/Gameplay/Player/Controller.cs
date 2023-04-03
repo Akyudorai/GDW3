@@ -403,12 +403,12 @@ public class Controller : MonoBehaviour
     public void AddMoney(int amount)
     {
         money += amount;
-        UI_Manager.GetInstance().cashTracker.text = "$" + money.ToString();
+        UI_Manager.GetInstance().cashTracker.text = "Money: $" + money.ToString();
     }
     public void RemoveMoney(int amount)
     {
         money -= amount;
-        UI_Manager.GetInstance().cashTracker.text = "$" + money.ToString();
+        UI_Manager.GetInstance().cashTracker.text = "Money: $" + money.ToString();
     }
     public int GetMoney()
     {
