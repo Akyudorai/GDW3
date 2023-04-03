@@ -472,6 +472,16 @@ public class UI_Manager : MonoBehaviour
         PhonePanel.SetActive(state);
         phoneAnimator.SetBool("PhoneOpen", true);
         GameManager.GetInstance().Pause(state);
+
+        //check if a race is active
+        if(RaceManager.GetInstance().m_RaceActive == true)
+        {
+            ToggleQuitPanel(true);
+        }
+        else
+        {
+            ToggleQuitPanel(false);
+        }
     }
     
     public void ToggleMapPanel(bool state) 
@@ -542,6 +552,10 @@ public class UI_Manager : MonoBehaviour
         else if(viewingTutorial == true)
         {
             ToggleHelpList();
+        }
+        else if(QuitPanel.activeSelf == true) //if the quit panel is active turn off the phone when the back or home button is pressed
+        {
+            TogglePhonePanel(false);
         }
         else
         {
