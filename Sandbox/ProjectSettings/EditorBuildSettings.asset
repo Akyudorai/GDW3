@@ -15,13 +15,16 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 13d44ace9156a8242bcc70267d06c2da
   - enabled: 1
-    path: Assets/Scenes/Stages/New Tutorial/NewTutorial.unity
+    path: Assets/Scenes/NewTutorial.unity
     guid: 1359123938edc6a46be08b7048eade59
   - enabled: 1
+    path: Assets/Scenes/CityMain.unity
+    guid: 1e04fdca7e58709448f1ae086e1157ea
+  - enabled: 0
     path: Assets/Scenes/Stages/City Block/CodyCity_Temp.unity
     guid: 10b0b5f8a737a8b4b837e31a70df3fbc
   - enabled: 1
-    path: Assets/Scenes/NetTest/NetTest.unity
+    path: Assets/Scenes/NetTest.unity
     guid: 544fa166fb2c81247b02b513b73e946f
   - enabled: 0
     path: Assets/Scenes/Stages/City Block/AB_City.unity

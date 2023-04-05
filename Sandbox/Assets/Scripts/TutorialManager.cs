@@ -23,6 +23,7 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator PlayIntroCinematic()
     {
+        GameManager.GetInstance().pcRef.animationHandler.animator.SetTrigger("PlayCinematic");
         cinematics.Play(0);
         GameManager.GetInstance().pcRef.SetPlayerState(PlayerState.Cinematic);
     
