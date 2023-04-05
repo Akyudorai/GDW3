@@ -36,12 +36,15 @@ public class ClientSend : MonoBehaviour
     }
 
     public static void PlayerMovement(Vector3 _position, Quaternion _rotation) 
-    {
+    {       
         using (Packet _packet = new Packet((int)ClientPackets.playerMovement))
         {
             _packet.Write(_position);
             _packet.Write(_rotation);
+
+            /// Server doesnt seem to be receiving UDP for some reason
             SendUDPData(_packet);
+            //SendTCPData(_packet);
         }
     }
 

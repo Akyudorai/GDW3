@@ -146,12 +146,12 @@ namespace Practical_Server_UDP
             }
         }
 
-        public static void Disconnection(Player _player)
+        public static void Disconnection(int _playerID)
         {
             using (Packet _packet = new Packet((int)ServerPackets.playerDisconnection))
             {
-                _packet.Write(_player.id);
-                SendTCPDataToAll(_player.id, _packet);
+                _packet.Write(_playerID);
+                SendTCPDataToAll(_playerID, _packet);
             }
         }
 
@@ -177,7 +177,9 @@ namespace Practical_Server_UDP
                 _packet.Write(_player.id);
                 _packet.Write(_player.position);
 
-                SendUDPDataToAllConnected(_packet);
+                /// UDP does not seem to be working on AWS
+                //SendUDPDataToAllConnected(_packet);
+                SendTCPDataToAllConnected(_packet);
             }
         }
 
@@ -188,7 +190,9 @@ namespace Practical_Server_UDP
                 _packet.Write(_player.id);
                 _packet.Write(_player.rotation);
 
-                SendUDPDataToAllConnected(_player.id, _packet);
+                /// UDP does not seem to be working on AWS
+                //SendUDPDataToAllConnected(_player.id, _packet);
+                SendTCPDataToAllConnected(_player.id, _packet);
             }
         }
 
@@ -239,7 +243,10 @@ namespace Practical_Server_UDP
                 _packet.Write(_isRailGrinding);
                 _packet.Write(_isZiplining);
                 _packet.Write(_isLedgeGrabbing);
-                SendUDPDataToAllConnected(_clientID, _packet);
+
+                /// UDP does not seem to be working on AWS
+                //SendUDPDataToAllConnected(_clientID, _packet);
+                SendTCPDataToAllConnected(_clientID, _packet);
             }
         }
 

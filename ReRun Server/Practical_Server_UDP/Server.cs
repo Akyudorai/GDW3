@@ -28,8 +28,8 @@ namespace Practical_Server_UDP
             Console.WriteLine("Starting server...");
             InitializeServerData();
 
-            tcpListener = new TcpListener(IPAddress.Any, Port);
-            //tcpListener = new TcpListener(IPAddress.Parse("172.31.95.179"), Port);
+            //tcpListener = new TcpListener(IPAddress.Any, Port);
+            tcpListener = new TcpListener(IPAddress.Parse("172.31.95.179"), Port);
             tcpListener.Start();
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
 
@@ -61,12 +61,15 @@ namespace Practical_Server_UDP
         {
             try
             {
+                Console.WriteLine("Begin UDP Receive Callback");
+
                 IPEndPoint _clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
                 byte[] _data = udpListener.EndReceive(_result, ref _clientEndPoint);
                 udpListener.BeginReceive(UDPReceiveCallback, null);
 
                 if (_data.Length < 4)
                 {
+                    Console.WriteLine("DATA IS LESS THAN 4");
                     return;
                 }
 
@@ -76,17 +79,18 @@ namespace Practical_Server_UDP
 
                     if (_clientId == 0)
                     {
+                        Console.WriteLine("CLIENT ID = 0");
                         return;
                     }
 
                     if (clients[_clientId].udp.endPoint == null)
                     {
-                        clients[_clientId].udp.Connect(_clientEndPoint);
+                        clients[_clientId].udp.Connect(_clientEndPoint);                        
                         return;
                     }
 
                     if (clients[_clientId].udp.endPoint.ToString() == _clientEndPoint.ToString())
-                    {
+                    {                            
                         clients[_clientId].udp.HandleData(_packet);
                     }
                 }

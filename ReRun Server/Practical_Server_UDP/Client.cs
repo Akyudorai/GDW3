@@ -168,6 +168,7 @@ namespace Practical_Server_UDP
             public void Connect(IPEndPoint _endPoint)
             {
                 endPoint = _endPoint;
+                Console.WriteLine("Connecting UDP");
             }
 
             public void SendData(Packet _packet)
@@ -202,7 +203,7 @@ namespace Practical_Server_UDP
         {
             Console.WriteLine($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
             
-            ServerSend.Disconnection(player);
+            ServerSend.Disconnection(id);
             player = null;
             tcp.Disconnect();
             udp.Disconnect();

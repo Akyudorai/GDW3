@@ -115,8 +115,8 @@ public class Client : MonoBehaviour
 
             receiveBuffer = new byte[dataBufferSize];
             
-            instance.ip = IPAddress.Parse("127.0.0.1");
-            //instance.ip = IPAddress.Parse("3.216.13.20");        
+            //instance.ip = IPAddress.Parse("127.0.0.1");
+            instance.ip = IPAddress.Parse("3.216.13.20");        
             socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
 
             instance.udp = new UDP();
@@ -267,7 +267,11 @@ public class Client : MonoBehaviour
                 _packet.InsertInt(instance.localClientID);
                 if (socket != null)
                 {
-                    socket.BeginSend(_packet.ToArray(), _packet.Length(), null, null);
+                    Debug.Log("Sending Data UDP");
+                    socket.BeginSend(_packet.ToArray(), _packet.Length(), null, null);                    
+                } else
+                {
+                    Debug.Log("Socket null");
                 }
             }
             catch (Exception _ex)

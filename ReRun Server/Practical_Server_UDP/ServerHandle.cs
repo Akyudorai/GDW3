@@ -19,13 +19,15 @@ namespace Practical_Server_UDP
             if (_fromClient != _clientIdCheck)
             {
                 Console.WriteLine($"Player \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!");
-            }            
+            }              
         }
 
         public static void PlayerMovement(int _fromClient, Packet _packet)
-        {
+        {           
+            Console.WriteLine("Receiving PlayerMovement");
+
             Vector3 _position = _packet.ReadVector3();
-            Quaternion _rotation = _packet.ReadQuaternion();
+            Quaternion _rotation = _packet.ReadQuaternion();            
 
             if (Server.clients[_fromClient].player != null)
             {
