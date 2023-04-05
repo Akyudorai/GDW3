@@ -665,10 +665,14 @@ public class UI_Manager : MonoBehaviour
 
     public void NextStop()
     {
-        if(RaceManager.GetInstance().m_RaceActive == true)
+        if (RaceManager.GetInstance() != null)
         {
-            return;
+            if (RaceManager.GetInstance().m_RaceActive == true)
+            {
+                return;
+            }
         }
+        
         List<Transform> points = SpawnPointManager.GetInstance().SpawnPoints;
         stopIndex++;
         if (stopIndex >= points.Count)
@@ -680,10 +684,14 @@ public class UI_Manager : MonoBehaviour
 
     public void PreviousStop()
     {
-        if (RaceManager.GetInstance().m_RaceActive == true)
+        if (RaceManager.GetInstance() != null)
         {
-            return;
+            if (RaceManager.GetInstance().m_RaceActive == true)
+            {
+                return;
+            }
         }
+
         List<Transform> points = SpawnPointManager.GetInstance().SpawnPoints;
         stopIndex--;
         if (stopIndex < 0)

@@ -25,6 +25,7 @@ public class MenuManager : MonoBehaviour
 
     [Header("Multiplayer Panel")]
     public GameObject multiplayerPanel;
+    public GameObject multiplayerButton;
 
     [Header("Settings Panel")]
     public GameObject settingsPanel;
@@ -37,7 +38,11 @@ public class MenuManager : MonoBehaviour
 
         if (PlayerIdentity.Username == "") LoginPanel(true);
         else MenuPanel(true);
+    }
 
+    private void Update()
+    {
+        multiplayerButton.SetActive(Client.isConnected);
     }
 
     public void LoginPanel(bool state)
