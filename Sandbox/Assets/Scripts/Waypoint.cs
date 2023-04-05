@@ -21,6 +21,12 @@ public class Waypoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //Play Vending machine interact sound
+        FMOD.Studio.EventInstance waypointSFX = SoundManager.CreateSoundInstance(SoundFile.Waypoint);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(waypointSFX, this.gameObject.transform, GameManager.GetInstance().pcRef.rigid);
+        waypointSFX.start();
+        waypointSFX.release();
+
         if (other.tag == "Player") 
         {
             system.NextWaypoint();
