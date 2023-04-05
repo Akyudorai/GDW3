@@ -25,6 +25,7 @@ public static class EventManager
     public static OnIntDelegate OnCollectibleFound;
     public static OnIntDelegate OnCinematicBegin;
     public static OnIntDelegate OnCinematicEnd;
+    public static OnVoidDelegate OnPlayerStartSingleplayer;
 
 
     // -- TRANSITION EVENTS

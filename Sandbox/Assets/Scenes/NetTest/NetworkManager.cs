@@ -65,6 +65,7 @@ public class NetworkManager : MonoBehaviour
 
         //_player.GetComponent<NetworkIdentity>().localClientID = clientID;
         //_player.GetComponent<NetworkIdentity>().username = _username;
+        _player.netPC.Initialize();
         players.Add(clientID, _player);
     }
 }

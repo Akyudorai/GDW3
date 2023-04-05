@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum PlayerState 
-{
-    Active,
-    Locked,
-    Paused
-}
-
 public class PlayerController : Controller
 {
     //[SerializeField] private PlayerInput playerInput = null;
@@ -102,11 +95,7 @@ public class PlayerController : Controller
     }
 
     protected override void Start() 
-    {
-        // Assign static LocalController variable        
-        GameManager.GetInstance().pcRef = this;        
-        Local = this;
-
+    {        
         // Set Position when scene is loaded
         GameManager.GetInstance().RespawnPlayer(SpawnPointManager.currentSpawnIndex);        
 
@@ -133,6 +122,15 @@ public class PlayerController : Controller
         HandleCamera();                             
     }
 
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        // Assign static LocalController variable        
+        GameManager.GetInstance().pcRef = this;
+        Local = this;
+    }
+
     //private void Camera()
     //{
     //    // Dynamically adjust FoV based on current speed relative to maximum speed, [60 - 90 FoV]
@@ -153,14 +151,14 @@ public class PlayerController : Controller
     //    camera_pivot.transform.localEulerAngles = new Vector3(ClampAngle(camera_pivot.transform.localEulerAngles.x, hCameraClamp.x, hCameraClamp.y), camera_pivot.transform.localEulerAngles.y, 0);
     //}
 
-    
+
 
     //private void Movement() 
     //{
     //    if (IsWallJumping) return;   
     //    if (IsSliding) return;   
     //    if (IsOverridingMovement) return;
-    
+
     //}
 
     //public IEnumerator OverrideMovement(float duration) 

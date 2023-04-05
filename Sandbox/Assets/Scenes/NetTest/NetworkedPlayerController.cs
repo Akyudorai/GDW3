@@ -47,14 +47,6 @@ public class NetworkedPlayerController : Controller
 
     protected override void Start()
     {
-        // Assign static LocalController variable
-        if (Client.IsLocalPlayer(identity))
-        {
-            Local = this;
-            GameManager.GetInstance().pcRef = this;
-        }
-
-
         // Calculate MS ticks for Server
         minTimeBetweenTicks = 1f / SERVER_TICK_RATE;
 
@@ -82,6 +74,18 @@ public class NetworkedPlayerController : Controller
             timer -= minTimeBetweenTicks;
             HandleUpdate();
             currentTick++;
+        }
+    }
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        // Assign static LocalController variable
+        if (Client.IsLocalPlayer(identity))
+        {
+            Local = this;
+            GameManager.GetInstance().pcRef = this;
         }
     }
 

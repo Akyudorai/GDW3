@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerState
+{
+    Active,
+    Locked,
+    Paused,
+    Cinematic
+}
 public class Controller : MonoBehaviour
 {
     public static Controller Local;
@@ -87,10 +94,12 @@ public class Controller : MonoBehaviour
     // PLAYER CONTROLLER
     // ----------------------------------------------------------------------------    
 
+    public virtual void Initialize() { }
+
     protected void HandleCamera()
     {
         // Prevent input when paused
-        if (e_State == PlayerState.Locked || GameManager.GetInstance().IsPaused) return;
+        if (e_State == PlayerState.Locked || e_State == PlayerState.Cinematic || GameManager.GetInstance().IsPaused) return;
 
         // Get the mouse input for horizontal and vertical axis and store as a float variable
         float cameraX = inputHandler.CameraInput.y * f_MouseSensitivity * ((b_InvertMouse) ? 1 : -1);
@@ -110,7 +119,7 @@ public class Controller : MonoBehaviour
 
         // If there is input along the X or Z axis in either direction, process motion
         bool inputDetected = (inputHandler.MotionInput.y > 0.1f || inputHandler.MotionInput.x > 0.1f || inputHandler.MotionInput.y < -0.1f || inputHandler.MotionInput.x < -0.1f);
-        if (inputDetected && e_State != PlayerState.Locked && !GameManager.GetInstance().IsPaused)
+        if (inputDetected && e_State != PlayerState.Locked && e_State != PlayerState.Cinematic && !GameManager.GetInstance().IsPaused)
         {
             //======================================================
             // Handles the horizontal motion of the player.

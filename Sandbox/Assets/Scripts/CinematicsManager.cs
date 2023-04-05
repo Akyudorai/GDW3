@@ -29,9 +29,7 @@ public class CinematicsManager : MonoBehaviour
     public List<CinematicSequence> Sequences = new List<CinematicSequence>();
 
     private void Start() 
-    {
-        MainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-
+    {        
         if (playOnAwake && currentCinematicIndex != -1) {
             Play(currentCinematicIndex);
         } 
@@ -49,7 +47,9 @@ public class CinematicsManager : MonoBehaviour
     }
 
     public void Play(int index) 
-    {        
+    {
+        MainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+
         CinematicSequence sequence = Sequences[index]; 
         currentCinematicIndex = index;
 
@@ -89,7 +89,7 @@ public class CinematicsManager : MonoBehaviour
             CinematicCamera.SetActive(false);
             MainCamera.SetActive(true);
             EventManager.OnCinematicEnd?.Invoke(currentCinematicIndex);
-            currentCinematicIndex = -1;
+            currentCinematicIndex = -1;            
         }
     }
 

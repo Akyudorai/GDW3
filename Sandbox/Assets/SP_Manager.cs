@@ -21,17 +21,23 @@ public class SP_Manager : MonoBehaviour
 
         if (prefabID == 1)
         {
-            playerOBJ = Instantiate(NyxPrefab, _position, _quaternion);
+            playerOBJ = Instantiate(NyxPrefab, _position, _quaternion);            
         }
 
         if (prefabID == 2)
         {
-            playerOBJ = Instantiate(BeaPrefab, _position, _quaternion);
+            playerOBJ = Instantiate(BeaPrefab, _position, _quaternion);            
         }
 
         if (playerOBJ == null)
         {
             Debug.LogError("Failed to instantiate player prefab");
+        }
+
+        if (playerOBJ != null)
+        {
+            playerOBJ.GetComponent<Controller>().Initialize();
+            EventManager.OnPlayerStartSingleplayer?.Invoke();
         }
     }
 }

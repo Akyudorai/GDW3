@@ -98,6 +98,7 @@ public class InputHandler : MonoBehaviour
     public void ToggleMenu(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) { return; }
+        if (pc.e_State == PlayerState.Cinematic) {  return; }
 
         if (isNetworked)
         {
