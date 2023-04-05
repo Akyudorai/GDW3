@@ -33,12 +33,20 @@ public class MenuManager : MonoBehaviour
 
     private void Start() 
     {
+        if (!SaveManager.Save.TutorialComplete)
+        {
+            LoadTutorial();
+            return;
+        }
+
         Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        Cursor.visible = true;        
 
         if (PlayerIdentity.Username == "") LoginPanel(true);
-        else MenuPanel(true);
+        else MenuPanel(true);        
     }
+
+        
 
     private void Update()
     {
@@ -69,10 +77,16 @@ public class MenuManager : MonoBehaviour
         playPanel.SetActive(state);
     }
 
+    public void LoadTutorial()
+    {
+        int index = tutorialSceneIndex;
+        SelectCharacter(1);
+        SceneManager.LoadScene(index);
+    }
+
     public void Play() 
     {   
-        int index = ((SaveManager.Save.TutorialComplete) ? citySceneIndex : tutorialSceneIndex);
-        if (!SaveManager.Save.TutorialComplete) SelectCharacter(1);
+        int index = citySceneIndex;
         SceneManager.LoadScene(index);
     }    
 

@@ -14,7 +14,7 @@ public class GameLoader : MonoBehaviour
 {
     private static bool isLoaded = false;
     public static bool IsLoaded { get { return isLoaded; }} 
-    public static int nextSceneIndex = 1; // TBE -- Change to Menu Scene as Default
+    public static int nextSceneIndex = 1;
 
     public TMP_Text StatusDisplay;
     public TMP_Text VersionDisplay;
@@ -31,8 +31,7 @@ public class GameLoader : MonoBehaviour
         LoadingBar.fillAmount = 0.0f;
         FadeImage.color = new Color(0, 0, 0, 0);
  
-        GenerateManagers();
-
+        GenerateManagers();        
     }
 
     private void Update() 

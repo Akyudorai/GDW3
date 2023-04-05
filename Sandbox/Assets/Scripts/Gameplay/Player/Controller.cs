@@ -338,6 +338,7 @@ public class Controller : MonoBehaviour
                 if (transform.parent != null)
                 {
                     transform.SetParent(null);
+                    parentPlatform = null;
                 }
                 // Temporarily disabled until scale issue is resolved when parenting
                 //if (transform.parent != null) {
