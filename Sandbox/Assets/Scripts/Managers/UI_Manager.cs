@@ -99,11 +99,12 @@ public class UI_Manager : MonoBehaviour
     public TMP_Text SpeedTracker;
     public TMP_Text CountdownDisplay;
 
-    [Header("Postgame Panel")]
-    public GameObject PostgamePanel;
-    public TMP_Text PG_TimeDisplay;
-    public TMP_Text PG_HighscoreDisplay;
-    public TMP_Text PG_PositionDisplay;
+    [Header("Post Race Panel")]
+    public GameObject PostRacePanel;
+    public TMP_Text PR_TimeDisplay;
+    public TMP_Text PR_HighscoreDisplay;
+    public TMP_Text PR_RaceName;
+    public GameObject PR_HighscoreSprite;
 
     [Header("Collectible Panel")]
     public GameObject CollectiblePanel;
@@ -414,34 +415,34 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-    // ============ POSTGAME PANEL FUNCTIONS =====================
+    // ============ POST RACE PANEL FUNCTIONS =====================
 
-    public IEnumerator TogglePostgamePanel(bool state, float duration = 0) 
+    public IEnumerator TogglePostRacePanel(bool state, float duration = 0) 
     {   
         if (state == true) {
-            PostgamePanel.SetActive(true);
+            PostRacePanel.SetActive(true);
             yield return new WaitForSeconds(duration);
-            PostgamePanel.SetActive(false);
+            PostRacePanel.SetActive(false);
         } else 
         {
             yield return null;
-            PostgamePanel.SetActive(false);
+            PostRacePanel.SetActive(false);
         }        
     }
 
-    public void UpdatePostgameTime(float time) 
+    public void UpdatePostRaceTime(float time) 
     {
-        PG_TimeDisplay.text = "YOUR TIME: " + time;
+        PR_TimeDisplay.text = time.ToString();
     }
 
-    public void UpdatePostgameHighscore(float highscore)
+    public void UpdatePostRaceHighscore(float highscore)
     {
-        PG_HighscoreDisplay.text = "HIGHSCORE: " + highscore;
+        PR_HighscoreDisplay.text = highscore.ToString();
     }
 
-    public void UpdatePostgamePosition(string result)
+    public void UpdatePostRaceName(string result)
     {
-        PG_PositionDisplay.text = result;
+        PR_RaceName.text = result;
     }
 
     // ============ SCREEN PANEL FUNCTIONS =====================

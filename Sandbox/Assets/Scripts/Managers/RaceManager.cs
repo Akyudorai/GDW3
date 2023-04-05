@@ -163,10 +163,10 @@ public class RaceManager : MonoBehaviour
             Debug.Log("Race has been forfeited");
         }
 
-        StartCoroutine(UI_Manager.GetInstance().TogglePostgamePanel(true, 3));
-        UI_Manager.GetInstance().UpdatePostgameTime(m_Timer);
-        UI_Manager.GetInstance().UpdatePostgameHighscore(raceList[activeRaceID].m_Score);        
-        UI_Manager.GetInstance().UpdatePostgamePosition(((isForfeit) ? "Boo!" : "Yay!"));
+        StartCoroutine(UI_Manager.GetInstance().TogglePostRacePanel(true, 3));
+        UI_Manager.GetInstance().UpdatePostRaceTime(m_Timer);
+        UI_Manager.GetInstance().UpdatePostRaceHighscore(raceList[activeRaceID].m_Score);
+        UI_Manager.GetInstance().UpdatePostRaceName(raceList[activeRaceID].m_Name);
 
         m_RaceActive = false;   
         activeRaceID = -1;
@@ -186,9 +186,11 @@ public class RaceManager : MonoBehaviour
                 SaveManager.GetInstance().SavePlayerData();
                 //SaveManager.GetInstance().SaveFile();            
                 Debug.Log("New Top Score: " + time);
+                UI_Manager.GetInstance().PR_HighscoreSprite.SetActive(true);
             } else 
             {
                 Debug.Log("Your score: " + time + " | Top score: " + raceList[id].m_Score);
+                UI_Manager.GetInstance().PR_HighscoreSprite.SetActive(false);
             }
             raceList[id].raceTimes.Add(time); //adding the new time to the race's leaderboard
         }
