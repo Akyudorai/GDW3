@@ -383,7 +383,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &3844797905544032856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,11 +657,13 @@ MonoBehaviour:
   rigid: {fileID: 3844797905544032857}
   mesh: {fileID: 4150663553064336305}
   col: {fileID: 3844797905544032838}
+  parentPlatform: {fileID: 0}
   inputHandler: {fileID: 3844797905544032836}
   maneuverHandler: {fileID: 3844797905544032862}
   interactionHandler: {fileID: 3844797905544032863}
   animationHandler: {fileID: 3844797905544032837}
   e_State: 0
+  b_IsDialogue: 0
   f_MouseSensitivity: 0.1
   b_InvertMouse: 0
   vec_CameraClamp: {x: -60, y: 30}

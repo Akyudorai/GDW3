@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+using UnityEngine.SceneManagement;
+
 public class UI_Manager : MonoBehaviour
 {
 
@@ -165,11 +167,7 @@ public class UI_Manager : MonoBehaviour
         questItemIcons[2] = questItem3;
 
         EventManager.OnRaceBegin += EnableRaceTimer;
-        EventManager.OnRaceEnd += DisableRaceTimer;
-
-        EventManager.OnCollectibleFound += UpdateCollectibleImage;
-        EventManager.OnCollectibleFound += UpdateCollectibleAnnouncement;
-        EventManager.OnCollectibleFound += UpdateCollectibleUI;
+        EventManager.OnRaceEnd += DisableRaceTimer;        
 
         //Debug.Log(NotificationObject.gameObject.name);
     }
@@ -369,7 +367,7 @@ public class UI_Manager : MonoBehaviour
     public void UpdateCollectibleAnnouncement(int ID) 
     {
         CollectibleTracker ct = GameObject.Find("CollectibleTracker").GetComponent<CollectibleTracker>();
-        int collectiblesFound = ct.TotalFound(ID) + 1; // +1 bc the actually collection code gets called after announcement
+        int collectiblesFound = ct.TotalFound(ID); // +1 bc the actually collection code gets called after announcement
         int totalCollectibles = 0;
 
         switch (ID) 
@@ -396,7 +394,7 @@ public class UI_Manager : MonoBehaviour
     public void UpdateCollectibleUI(int ID)
     {
         CollectibleTracker ct = GameObject.Find("CollectibleTracker").GetComponent<CollectibleTracker>();
-        int collectiblesFound = ct.TotalFound(ID) + 1; // +1 bc the actually collection code gets called after announcement
+        int collectiblesFound = ct.TotalFound(ID); // +1 bc the actually collection code gets called after announcement
         int totalCollectibles = 0;
 
         switch (ID)
@@ -479,14 +477,23 @@ public class UI_Manager : MonoBehaviour
         GameManager.GetInstance().Pause(state);
 
         //check if a race is active
-        if(RaceManager.GetInstance().m_RaceActive == true)
+        if (RaceManager.GetInstance() != null)
         {
-            ToggleQuitPanel(true);
+            if (RaceManager.GetInstance().m_RaceActive == true)
+            {
+                ToggleQuitPanel(true);
+            }
+            else
+            {
+                ToggleQuitPanel(false);
+            }
         }
+
         else
         {
             ToggleQuitPanel(false);
         }
+
     }
     
     public void ToggleMapPanel(bool state) 
@@ -575,6 +582,12 @@ public class UI_Manager : MonoBehaviour
             HomepagePanel.SetActive(state);
             SearchBar.gameObject.SetActive(state);
         }        
+    }
+
+    public void QuitToMenu()
+    {
+        NpcData.FlushData();
+        SceneManager.LoadScene(1);        
     }
 
     public void UpdateSearchBar(string _text)

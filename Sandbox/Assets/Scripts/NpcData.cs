@@ -15,4 +15,10 @@ public class NpcData
     {
         return DataDict[ID];
     } 
+
+    public static void FlushData()
+    {
+        DataDict.Clear();
+        DataDict = new Dictionary<int, NpcData>();
+    }
 }

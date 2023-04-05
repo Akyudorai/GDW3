@@ -14,6 +14,9 @@ public class Controller : MonoBehaviour
     public GameObject mesh;
     public Collider col;
 
+    [Header("Temp Components")]
+    public MovingPlatform parentPlatform = null;
+
     [Header("Handlers")]
     public InputHandler inputHandler;
     public ManeuverHandler maneuverHandler;
@@ -72,6 +75,11 @@ public class Controller : MonoBehaviour
     {
         if (maneuverHandler.b_IsLedgeHandling) return;
 
+        if (parentPlatform != null)
+        {
+            //Debug.Log("Moving " + parentPlatform.GetPlatformMoveDirection() + " at a rate of " + parentPlatform.GetPlatformSpeed());            
+        }
+
         HandleGroundDetection();
     }
 
@@ -80,7 +88,10 @@ public class Controller : MonoBehaviour
     // ----------------------------------------------------------------------------    
 
     protected void HandleCamera()
-    {        
+    {
+        // Prevent input when paused
+        if (e_State == PlayerState.Locked || GameManager.GetInstance().IsPaused) return;
+
         // Get the mouse input for horizontal and vertical axis and store as a float variable
         float cameraX = inputHandler.CameraInput.y * f_MouseSensitivity * ((b_InvertMouse) ? 1 : -1);
         float cameraY = inputHandler.CameraInput.x * f_MouseSensitivity;
@@ -238,8 +249,19 @@ public class Controller : MonoBehaviour
             //surfaceNormal = GetGroundNormal();
 
             Vector3 result = surfaceNormal;
+            float force = f_JumpForce;
+
+            if (parentPlatform != null)
+            {
+                result += parentPlatform.GetPlatformMoveDirection();                
+                force += parentPlatform.GetPlatformSpeed() * 10;                
+                parentPlatform = null;
+            }
+
             v_VerticalVelocity = Vector3.zero;
-            ApplyForce(result * f_JumpForce);
+            ApplyForce(f_JumpForce * result);
+
+            
 
             // =========================== HORIZONTAL FORCE COMPONENT ================================
 
@@ -421,6 +443,8 @@ public class Controller : MonoBehaviour
         {
             // Set parent if stepping on a platform
             transform.SetParent(col.gameObject.transform);
+
+            parentPlatform = col.gameObject.GetComponent<MovingPlatform>();
         }
     }    
 
@@ -428,7 +452,7 @@ public class Controller : MonoBehaviour
     {
         if (other.tag == "Collectible")
         {
-            Collectible c = other.GetComponent<Collectible>();
+            Collectible c = other.GetComponent<Collectible>();           
             c.OnCollect(this);
 
             // Play Collectible SFX

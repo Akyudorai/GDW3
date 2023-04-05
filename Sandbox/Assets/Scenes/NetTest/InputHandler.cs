@@ -67,7 +67,6 @@ public class InputHandler : MonoBehaviour
     public void InteractCtx(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) { return; }
-
         pc.interactionHandler.Interact(pc, InteractionType.Social);
         pc.interactionHandler.Interact(pc, InteractionType.VendingMachine);
     }

@@ -95,10 +95,7 @@ public class NetworkedPlayerController : Controller
         maneuverHandler.Tick();
 
         // Process Controller Animations
-        HandleAnimations();
-
-        // Prevent input when paused
-        if (e_State == PlayerState.Locked || GameManager.GetInstance().IsPaused) return;
+        HandleAnimations();        
 
         HandleCamera();
         if (!maneuverHandler.b_IsSplineControlled && !maneuverHandler.b_IsLedgeHandling)

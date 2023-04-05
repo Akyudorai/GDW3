@@ -102,6 +102,7 @@ public class InteractionHandler : MonoBehaviour
                     case InteractionType.Wall:
                         if (!pc.maneuverHandler.b_CanWallRun) canPerform = false;
                         if (pc.v_HorizontalVelocity.magnitude < pc.f_AccelerationSpeed / 3) canPerform = false;
+                        if (pc.maneuverHandler.splineController.currentSpline != null) canPerform = false;
                         break;
                     case InteractionType.Ledge:
                         if (pc.transform.position.y + 1.25f > closestHit.ClosestPoint(castPoint).y) canPerform = false;

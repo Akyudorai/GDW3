@@ -67,6 +67,7 @@ public class MenuManager : MonoBehaviour
     public void Play() 
     {   
         int index = ((SaveManager.Save.TutorialComplete) ? citySceneIndex : tutorialSceneIndex);
+        if (!SaveManager.Save.TutorialComplete) SelectCharacter(1);
         SceneManager.LoadScene(index);
     }    
 

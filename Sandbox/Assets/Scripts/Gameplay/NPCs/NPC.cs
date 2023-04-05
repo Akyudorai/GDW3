@@ -36,6 +36,9 @@ public class NPC : MonoBehaviour
     private void Start() 
     {
         GetComponent<NpcInteractable>().SetNpcReference(this);
+        if (NpcData.DataDict.ContainsKey(m_ID)) Debug.LogError("NPC Key Already Exists");
+        if (NpcData.DataDict.ContainsValue(m_Data)) Debug.LogError("NPC Value Already Exists"); 
+
         NpcData.DataDict.Add(m_ID, m_Data);
     }
 

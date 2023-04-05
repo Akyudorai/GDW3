@@ -14,6 +14,7 @@ public class WallInteractable : Interactable
         if (!pc.maneuverHandler.b_CanWallRun) return;
         if (pc.v_HorizontalVelocity.magnitude < pc.f_AccelerationSpeed/3) { Debug.Log("Too Slow"); return; }    
         if (pc.maneuverHandler.wallDelays.ContainsKey(this)) { Debug.Log("That Wall Is On Cooldown!"); return; }
+        if (pc.maneuverHandler.splineController.currentSpline != null) { Debug.Log("Cannot wall run while currently on a spline"); }
 
         // Calculate Direction of spline
         Vector3 playerRelativeDir = (hit.point + pc.v_HorizontalVelocity);          // Player's current direction of travel
@@ -51,6 +52,12 @@ public class WallInteractable : Interactable
         // Apply a spline boost force to the player
         pc.v_HorizontalVelocity *= 1.2f; // 20%  
         pc.rigid.useGravity = false;
+
+        // Set new SplineSpeed
+        splineSpeed = (pc.v_HorizontalVelocity.magnitude / pc.f_TopSpeed) * pc.f_TopSpeed;
+        float minSpeed = 8f;
+        float resultSpeed = Mathf.Max(splineSpeed, minSpeed);
+        pc.maneuverHandler.splineController.SetTraversalSpeed(resultSpeed);
 
         // Play Wallrun SFX
         FMOD.Studio.EventInstance wallrunSFX = SoundManager.CreateSoundInstance(SoundFile.WallRun);

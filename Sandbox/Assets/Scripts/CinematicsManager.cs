@@ -30,6 +30,8 @@ public class CinematicsManager : MonoBehaviour
 
     private void Start() 
     {
+        MainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+
         if (playOnAwake && currentCinematicIndex != -1) {
             Play(currentCinematicIndex);
         } 

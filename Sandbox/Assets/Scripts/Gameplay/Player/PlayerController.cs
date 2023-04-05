@@ -124,14 +124,13 @@ public class PlayerController : Controller
 
         // Process Controller Animations
         HandleAnimations();
-        
-        // Prevent input when paused
-        if (e_State == PlayerState.Locked || GameManager.GetInstance().IsPaused) return;
-        
-        HandleCamera();
-        if (!maneuverHandler.b_IsSplineControlled && !maneuverHandler.b_IsLedgeHandling) {
+
+        if (!maneuverHandler.b_IsSplineControlled && !maneuverHandler.b_IsLedgeHandling)
+        {
             HandleMotion();
-        }                        
+        }
+               
+        HandleCamera();                             
     }
 
     //private void Camera()

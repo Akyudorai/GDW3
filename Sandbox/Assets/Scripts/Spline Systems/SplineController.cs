@@ -50,6 +50,8 @@ public class SplineController : MonoBehaviour
     {
         if (currentSpline != null) 
         {            
+            Debug.Log("Spline Speed: " + traversalSpeed);
+
             transform.position = currentSpline.GetNode(nodeIndex).GetCurrentPosition(this);
             Vector3 lookDir = currentSpline.GetNode(nodeIndex).GetDirection();
             lookDir.y = 0;

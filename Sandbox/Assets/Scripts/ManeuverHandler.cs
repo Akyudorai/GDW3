@@ -93,18 +93,7 @@ public class ManeuverHandler : MonoBehaviour
         {
             if (b_WallRunning) {                
                 pc.animationHandler.currentState.IsWallRunningRight = splineController.currentSpline.isRight;
-            }
-
-            float speed = 0f;
-            float splineSpeed = 0f;
-
-            speed = Mathf.Max(pc.v_HorizontalVelocity.magnitude, pc.v_VerticalVelocity.magnitude);
-            splineSpeed = (Mathf.Max(speed, pc.f_TopSpeed) / pc.f_TopSpeed) * pc.f_TopSpeed;
-
-
-            float minSpeed = 8f;
-            float resultSpeed = Mathf.Max(splineSpeed, minSpeed);
-            splineController.SetTraversalSpeed(resultSpeed);
+            }            
         }        
         
         // Count down wall delay timers

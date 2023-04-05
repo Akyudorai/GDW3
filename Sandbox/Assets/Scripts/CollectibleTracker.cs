@@ -12,6 +12,17 @@ public class CollectibleTracker : MonoBehaviour
     public void Start() 
     {
         EventManager.OnCollectibleFound += CollectibleFound;
+        EventManager.OnCollectibleFound += UI_Manager.GetInstance().UpdateCollectibleImage;
+        EventManager.OnCollectibleFound += UI_Manager.GetInstance().UpdateCollectibleAnnouncement;
+        EventManager.OnCollectibleFound += UI_Manager.GetInstance().UpdateCollectibleUI;
+    }
+
+    public void OnDestroy()
+    {
+        EventManager.OnCollectibleFound -= CollectibleFound;
+        EventManager.OnCollectibleFound -= UI_Manager.GetInstance().UpdateCollectibleImage;
+        EventManager.OnCollectibleFound -= UI_Manager.GetInstance().UpdateCollectibleAnnouncement;
+        EventManager.OnCollectibleFound -= UI_Manager.GetInstance().UpdateCollectibleUI;
     }
 
     

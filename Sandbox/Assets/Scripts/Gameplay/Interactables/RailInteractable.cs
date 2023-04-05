@@ -60,6 +60,16 @@ public class RailInteractable : Interactable
         newVFX.transform.Rotate(0, pc.transform.rotation.y, 0);
         pc.maneuverHandler.splineController.SplineVFX = newVFX;
 
+        // Set new SplineSpeed
+        float speed = 0f;
+        float splineSpeed = 0f;
+        speed = Mathf.Max(pc.v_HorizontalVelocity.magnitude, pc.v_VerticalVelocity.magnitude);
+        splineSpeed = (Mathf.Max(speed, pc.f_TopSpeed) / pc.f_TopSpeed) * pc.f_TopSpeed;
+
+        float minSpeed = 8f;
+        float resultSpeed = Mathf.Max(splineSpeed, minSpeed);
+        pc.maneuverHandler.splineController.SetTraversalSpeed(resultSpeed);
+
         // Play Rail Attach SFX
         FMOD.Studio.EventInstance railAttachSFX = SoundManager.CreateSoundInstance(SoundFile.RailStart);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(railAttachSFX, pc.transform, pc.rigid);

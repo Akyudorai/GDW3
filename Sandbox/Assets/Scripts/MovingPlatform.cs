@@ -28,6 +28,22 @@ public class MovingPlatform : MonoBehaviour
         }
     }
 
+    public float GetPlatformSpeed()
+    {
+        float timeStep = speed * ((reverse) ? -Time.deltaTime : Time.deltaTime);        
+        float distance = Vector3.Distance(start.localPosition, finish.localPosition);
+        if (reverseDelay) return 0;
+        return Mathf.Abs(timeStep * distance);
+    }
+
+    public Vector3 GetPlatformMoveDirection()
+    {
+        Vector3 direction = start.localPosition - (start.localPosition - finish.localPosition);
+        if (reverse) direction *= -1;
+        if (reverseDelay) direction = Vector3.zero;
+        return direction.normalized;
+    }
+
     private IEnumerator DelayReverse() 
     {        
         reverseDelay = true;
