@@ -2044,6 +2044,7 @@ MonoBehaviour:
   menuOptions: {fileID: 1003947289}
   playPanel: {fileID: 1086504453}
   multiplayerPanel: {fileID: 147544814}
+  multiplayerButton: {fileID: 997335779}
   settingsPanel: {fileID: 793764574}
 --- !u!4 &232021444
 Transform:
