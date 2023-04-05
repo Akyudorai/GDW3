@@ -28,7 +28,12 @@ public class MenuManager : MonoBehaviour
 
     [Header("Settings Panel")]
     public GameObject settingsPanel;
-    
+
+    [Header("Settings Panel")]
+    public Slider s_masterVolumeSlider;
+    public Slider s_bgmVolumeSlider;
+    public Slider s_sfxVolumeSlider;
+
 
     private void Start() 
     {
@@ -96,5 +101,23 @@ public class MenuManager : MonoBehaviour
             UnityEditor.EditorApplication.isPlaying = false;
         #endif
             Application.Quit();
+    }
+
+    public void SettingsAdjustMasterVolume()
+    {
+        SaveManager.Settings.Master_Volume = s_masterVolumeSlider.value;
+        SoundManager.GetInstance().UpdateSoundSettings();
+    }
+
+    public void SettingsAdjustBGMVolume()
+    {
+        SaveManager.Settings.BGM_Volume = s_bgmVolumeSlider.value;
+        SoundManager.GetInstance().UpdateSoundSettings();
+    }
+
+    public void SettingsAdjustSoundEffectVolume()
+    {
+        SaveManager.Settings.SFX_Volume = s_sfxVolumeSlider.value;
+        SoundManager.GetInstance().UpdateSoundSettings();
     }
 }

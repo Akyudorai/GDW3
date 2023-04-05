@@ -77,6 +77,10 @@ public class RaceManager : MonoBehaviour
         SoundManager.GetInstance().backgroundMusic.setPaused(true);
         SoundManager.GetInstance().raceMusic.setPaused(false);
 
+        SettingsData Settings = SaveManager.Settings;
+        float bgmVolume = ((Settings.Mute_Audio) ? 0f : Mathf.Min(Settings.Master_Volume, Settings.BGM_Volume));
+        SoundManager.GetInstance().raceMusic.setParameterByName("BGMVolume", bgmVolume);
+
         // Queue the Countdown Timer
         m_RaceActive = true;
         activeRaceID = raceID;
