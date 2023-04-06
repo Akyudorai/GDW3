@@ -18,6 +18,9 @@ public enum SoundFile
     OverworldMusic,
     RaceMusic,
 
+    // Cinematics
+    IntroCinematic,
+
     // Interactions
     RailStart,
     RailLoop,
@@ -84,6 +87,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] FMODUnity.EventReference bgm_overworld;
     [SerializeField] FMODUnity.EventReference bgm_race;
 
+    [Header("Cinematics Sounds")]
+    [SerializeField] FMODUnity.EventReference cin_intro;
+
     [Header("Interaction Sounds")]
     [SerializeField] FMODUnity.EventReference int_railStart;
     [SerializeField] FMODUnity.EventReference int_railLoop;
@@ -142,7 +148,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         backgroundMusic = CreateSoundInstance(SoundFile.OverworldMusic);
-        backgroundMusic.start();
+        backgroundMusic.start();        
 
         raceMusic = CreateSoundInstance(SoundFile.RaceMusic);
         raceMusic.start();
@@ -152,6 +158,7 @@ public class SoundManager : MonoBehaviour
 
         cityAmbience = CreateSoundInstance(SoundFile.CityAmbience);
         cityAmbience.start();
+        cityAmbience.setPaused(true);
     }
 
     private void OnDestroy() 
@@ -172,6 +179,9 @@ public class SoundManager : MonoBehaviour
             case SoundFile.LofiMusic: return FMODUnity.RuntimeManager.CreateInstance(instance.bgm_lofi);
             case SoundFile.OverworldMusic: return FMODUnity.RuntimeManager.CreateInstance(instance.bgm_overworld);
             case SoundFile.RaceMusic: return FMODUnity.RuntimeManager.CreateInstance(instance.bgm_race);
+
+            // Cinematics
+            case SoundFile.IntroCinematic: return FMODUnity.RuntimeManager.CreateInstance(instance.cin_intro);
 
             // Interactions
             case SoundFile.RailStart: return FMODUnity.RuntimeManager.CreateInstance(instance.int_railStart);

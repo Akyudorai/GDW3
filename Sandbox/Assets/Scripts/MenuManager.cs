@@ -48,7 +48,9 @@ public class MenuManager : MonoBehaviour
         Cursor.visible = true;        
 
         if (PlayerIdentity.Username == "") LoginPanel(true);
-        else MenuPanel(true);        
+        else MenuPanel(true);
+
+        SoundManager.GetInstance().cityAmbience.setPaused(false);
     }
 
         

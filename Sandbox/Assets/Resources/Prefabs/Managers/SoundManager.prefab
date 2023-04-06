@@ -117,6 +117,13 @@ MonoBehaviour:
       Data3: 1538075021
       Data4: 1349636574
     Path: event:/Music/Race
+  cin_intro:
+    Guid:
+      Data1: 288031577
+      Data2: 1187897173
+      Data3: 185216958
+      Data4: 1487128017
+    Path: event:/Events/TutorialIntro
   int_railStart:
     Guid:
       Data1: 2012880532

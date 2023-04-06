@@ -287,11 +287,15 @@ public class Controller : MonoBehaviour
             StartCoroutine(JumpDelay(0.5f));
             EventManager.OnPlayerJump?.Invoke();
 
-            // Play Jump SFX
-            FMOD.Studio.EventInstance jumpSFXInstance = SoundManager.CreateSoundInstance(SoundFile.Jump);
-            FMODUnity.RuntimeManager.AttachInstanceToGameObject(jumpSFXInstance, GetComponent<Transform>(), rigid);
-            jumpSFXInstance.start();
-            jumpSFXInstance.release();
+            // Play Jump SFX -- Remove the if statement to make it so all characters play this sound effect.  Otherwise, create an alternate jump sfx for Bea
+            if (PlayerIdentity.Settings.Character == 1)
+            {
+                FMOD.Studio.EventInstance jumpSFXInstance = SoundManager.CreateSoundInstance(SoundFile.Jump);
+                FMODUnity.RuntimeManager.AttachInstanceToGameObject(jumpSFXInstance, GetComponent<Transform>(), rigid);
+                jumpSFXInstance.start();
+                jumpSFXInstance.release();
+            }
+            
         }
     }
 
@@ -466,10 +470,11 @@ public class Controller : MonoBehaviour
             c.OnCollect(this);
 
             // Play Collectible SFX
-            FMOD.Studio.EventInstance collectibleSFX = SoundManager.CreateSoundInstance(SoundFile.CollectiblePickup);
-            FMODUnity.RuntimeManager.AttachInstanceToGameObject(collectibleSFX, gameObject.transform, rigid);
-            collectibleSFX.start();
-            collectibleSFX.release();
+            UI_Manager.GetInstance().PlayPhoneNotification();
+            //FMOD.Studio.EventInstance collectibleSFX = SoundManager.CreateSoundInstance(SoundFile.CollectiblePickup);
+            //FMODUnity.RuntimeManager.AttachInstanceToGameObject(collectibleSFX, gameObject.transform, rigid);
+            //collectibleSFX.start();
+            //collectibleSFX.release();
         }
     }
 
