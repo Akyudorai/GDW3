@@ -173,13 +173,16 @@ public class SplineController : MonoBehaviour
                     //Muting the wall run sfx
                     SoundManager.GetInstance().activeWallRunSfx.setParameterByName("WallRunVolume", 0f);
                     SoundManager.GetInstance().activeWallRunSfx.release();
-
-                    // Play Wallrun Release SFX
-                    FMOD.Studio.EventInstance wallReleaseSFX = SoundManager.CreateSoundInstance(SoundFile.WallRunRelease);
-                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(wallReleaseSFX, pc.transform, pc.rigid);
-                    wallReleaseSFX.start();
-                    wallReleaseSFX.release();  
-					break;
+                    
+                    // Play Jump SFX -- Remove the if statement to make it so all characters play this sound effect.  Otherwise, create an alternate jump sfx for Bea
+                    if (PlayerIdentity.Settings.Character == 1)
+                    {
+                        FMOD.Studio.EventInstance jumpSFXInstance = SoundManager.CreateSoundInstance(SoundFile.Jump);
+                        FMODUnity.RuntimeManager.AttachInstanceToGameObject(jumpSFXInstance, GetComponent<Transform>(), pc.rigid);
+                        jumpSFXInstance.start();
+                        jumpSFXInstance.release();
+                    }
+                    break;
 			}
             
             // Calculate a launch force based on direction of travel.  The more velocity we have, the further we jump.

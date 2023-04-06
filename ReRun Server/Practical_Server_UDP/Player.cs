@@ -28,7 +28,6 @@ namespace Practical_Server_UDP
         public void Update()
         {
             // Do nothing?  Maybe useful later
-            ServerSend.PlayerPosition(this);
         }
 
         public void UpdateTransform(Vector3 _position, Quaternion _rotation)

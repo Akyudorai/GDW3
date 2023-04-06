@@ -176,7 +176,7 @@ namespace Practical_Server_UDP
             {
                 _packet.Write(_player.id);
                 _packet.Write(_player.position);
-
+                
                 /// UDP does not seem to be working on AWS
                 //SendUDPDataToAllConnected(_packet);
                 SendTCPDataToAllConnected(_packet);
