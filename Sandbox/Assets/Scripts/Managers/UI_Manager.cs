@@ -157,6 +157,11 @@ public class UI_Manager : MonoBehaviour
     public TMP_Text pageCount;
     public int messageIndex = 0;
 
+    [Header("Tutorial")]
+    public GameObject BeaTutorialPanel;
+    public Button BeaYes;
+    public Button BeaNo;
+    public TMP_Text BeaText;
 
     private void Start() 
     {
@@ -896,5 +901,11 @@ public class UI_Manager : MonoBehaviour
             EventManager.OnRaceEnd?.Invoke(true);
             TogglePhonePanel(false);
         }
+    }
+
+    // ============ TUTORIAL =====================
+    public void ToggleBeaTutorialPanel(bool state)
+    {
+        BeaTutorialPanel.SetActive(state);
     }
 }

@@ -50,8 +50,33 @@ public class NpcInteractable : Interactable
         {
             // FOR TUTORIAL ONLY.  NOT SUITED FOR OTHER SCENE SWAPPING RIGHT NOW
             case NpcType.SceneSwap:
-                SceneManager.LoadScene(npcRef.m_SceneIndex);
-                SaveManager.Save.TutorialComplete = true;
+                // Lock the players controls        
+                Controller.Local.e_State = PlayerState.Locked;
+                Controller.Local.b_IsDialogue = true;
+
+                // Switch cursor mode
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+
+                UI_Manager.GetInstance().ToggleBeaTutorialPanel(true);
+                UI_Manager.GetInstance().BeaYes.onClick.RemoveAllListeners();
+                UI_Manager.GetInstance().BeaYes.onClick.AddListener(delegate
+                {
+                    SceneManager.LoadScene(npcRef.m_SceneIndex);
+                    SaveManager.Save.TutorialComplete = true;
+                });
+                UI_Manager.GetInstance().BeaNo.onClick.RemoveAllListeners();
+                UI_Manager.GetInstance().BeaNo.onClick.AddListener(delegate
+                {
+                    // Unlock Player Controls
+                    Controller.Local.e_State = PlayerState.Active;
+                    Controller.Local.b_IsDialogue = false;
+
+                    // Switch Cursor Mode
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    UI_Manager.GetInstance().ToggleBeaTutorialPanel(false);
+                });
                 return;
                 break;
             case NpcType.Standard:                
