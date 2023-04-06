@@ -165,6 +165,11 @@ public class RaceManager : MonoBehaviour
         } else 
         {
             Debug.Log("Race has been forfeited");
+
+            // Disable all waypoints
+            WaypointManager wpm = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
+            WaypointSystem wps = wpm.GetRaceWPS(raceList[activeRaceID].WPS_Index);
+            wps.Clear();
         }
 
         StartCoroutine(UI_Manager.GetInstance().TogglePostRacePanel(true, 3));

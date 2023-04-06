@@ -11,16 +11,21 @@ public class WaypointSystem : MonoBehaviour
 
     private void Start() 
     {
-        foreach (Waypoint wp in Waypoints) 
-        {
-            wp.system = this;
-            wp.gameObject.SetActive(false);
-        }
+        Clear();
     }
 
     public void Initialize() 
     {        
         SetIndex(0);
+    }
+
+    public void Clear()
+    {
+        foreach (Waypoint wp in Waypoints)
+        {
+            wp.system = this;
+            wp.gameObject.SetActive(false);
+        }
     }
 
     public void SetIndex(int index) 

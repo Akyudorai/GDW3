@@ -245,6 +245,7 @@ public class UI_Manager : MonoBehaviour
     {
         // Lock the players controls        
         Controller.Local.e_State = PlayerState.Locked;
+        Controller.Local.b_IsDialogue = true;
 
         // Move Camera to better position and look at NPC
         // CameraController.LocalCamera.LookAt(npc.gameObject);
@@ -281,6 +282,7 @@ public class UI_Manager : MonoBehaviour
     {
         // Unlock Player Controls
         Controller.Local.e_State = PlayerState.Active;
+        Controller.Local.b_IsDialogue = false;
 
         // Switch Cursor Mode
         Cursor.lockState = CursorLockMode.Locked;
@@ -294,6 +296,7 @@ public class UI_Manager : MonoBehaviour
     {
         // Lock the players controls        
         Controller.Local.e_State = PlayerState.Locked;
+        Controller.Local.b_IsDialogue = true;
 
         // Move Camera to better position and look at NPC
         // CameraController.LocalCamera.LookAt(npc.gameObject);
@@ -321,6 +324,7 @@ public class UI_Manager : MonoBehaviour
     {
         // Unlock Player Controls
         Controller.Local.e_State = PlayerState.Active;
+        Controller.Local.b_IsDialogue = false;
 
         // Switch Cursor Mode
         Cursor.lockState = CursorLockMode.Locked;
@@ -889,7 +893,7 @@ public class UI_Manager : MonoBehaviour
     {
         if(RaceManager.GetInstance().m_RaceActive == true)
         {
-            RaceManager.GetInstance().RaceComplete(true);
+            EventManager.OnRaceEnd?.Invoke(true);
             TogglePhonePanel(false);
         }
     }
