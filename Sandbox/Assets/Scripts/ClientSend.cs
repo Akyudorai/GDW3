@@ -43,8 +43,8 @@ public class ClientSend : MonoBehaviour
             _packet.Write(_rotation);
 
             /// Server doesnt seem to be receiving UDP for some reason
-            SendUDPData(_packet);
-            //SendTCPData(_packet);
+            //SendUDPData(_packet);
+            SendTCPData(_packet);
         }
     }
 

@@ -23,9 +23,7 @@ namespace Practical_Server_UDP
         }
 
         public static void PlayerMovement(int _fromClient, Packet _packet)
-        {           
-            Console.WriteLine("Receiving PlayerMovement");
-
+        {                       
             Vector3 _position = _packet.ReadVector3();
             Quaternion _rotation = _packet.ReadQuaternion();            
 
