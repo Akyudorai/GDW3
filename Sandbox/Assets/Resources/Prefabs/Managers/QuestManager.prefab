@@ -68,9 +68,9 @@ MonoBehaviour:
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
     - {fileID: 8975739366616290640, guid: 1ee9645ae4d42ba4aae6e6e9b0abd4ad, type: 3}
     m_ItemsPositions:
-    - {x: 144.72, y: 5.78, z: -85.27}
-    - {x: 144.72, y: 0.99, z: -66.37}
-    - {x: 146.023, y: -2.456, z: -107.921}
+    - {x: 217.27, y: 5.44, z: 0.1}
+    - {x: 207.32, y: 5.81, z: -237.24}
+    - {x: 13.7, y: -2.456, z: -239.2}
     m_RequirementsMet: 0
   - m_ID: 1
     m_questItemsCollected: 0
@@ -93,9 +93,9 @@ MonoBehaviour:
     - {fileID: 3689122229430511904, guid: efa764b99bfeed14f8f8b587f2981bdc, type: 3}
     - {fileID: 3689122229430511904, guid: efa764b99bfeed14f8f8b587f2981bdc, type: 3}
     m_ItemsPositions:
-    - {x: 31.91, y: 4.98, z: 166.59}
-    - {x: 35.89, y: 30.85, z: 185.29}
-    - {x: -12.1, y: 17.92, z: 186.74}
+    - {x: 151.32, y: 5.21, z: -144.75}
+    - {x: 53.42, y: 5.24, z: -145.93}
+    - {x: 126.11, y: 31.27, z: -202.45}
     m_RequirementsMet: 0
   - m_ID: 2
     m_questItemsCollected: 0
@@ -118,9 +118,9 @@ MonoBehaviour:
     - {fileID: 2184691639774965781, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
     - {fileID: 2184691639774965781, guid: d46c8642dae3a1942bedb7219456374b, type: 3}
     m_ItemsPositions:
-    - {x: -1.9, y: 4.94, z: 119.2}
-    - {x: 22.4, y: 7.48, z: 114.5}
-    - {x: 67.85, y: 15.11, z: 104.48}
+    - {x: 13.6, y: 5.89, z: 331.7}
+    - {x: 229.1, y: 6.32, z: 314.7}
+    - {x: 144.2, y: 7.1, z: 366.6}
     m_RequirementsMet: 0
   - m_ID: 3
     m_questItemsCollected: 0
@@ -144,9 +144,9 @@ MonoBehaviour:
     - {fileID: 7699358955572214250, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
     - {fileID: 7699358955572214250, guid: da26bf431b9b2c54abbe1891b5a4cc79, type: 3}
     m_ItemsPositions:
-    - {x: -117.01, y: 16.051, z: -55.64}
-    - {x: -178.31, y: 50.29, z: -173.3}
-    - {x: -132.88, y: 4.9251046, z: -105}
+    - {x: -122.44, y: 16.051, z: -55.64}
+    - {x: -185.36, y: 28.62, z: -173.3}
+    - {x: -129.32, y: 36.86, z: -95.37}
     m_RequirementsMet: 0
   - m_ID: 4
     m_questItemsCollected: 0
@@ -170,9 +170,9 @@ MonoBehaviour:
     - {fileID: 8027450358546218079, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
     - {fileID: 8027450358546218079, guid: c7202b1b18f93a0499d4f2c8a969bc44, type: 3}
     m_ItemsPositions:
-    - {x: -10.38, y: 33.5, z: 78.62}
-    - {x: -41.54, y: 15.35, z: 106.84}
-    - {x: -56.95, y: 44.73, z: 108.97}
+    - {x: -42.5, y: 44.35, z: 85.3}
+    - {x: 39.32, y: 28.41, z: -111.26}
+    - {x: -52.62, y: 36.49, z: -23.8}
     m_RequirementsMet: 0
   - m_ID: 5
     m_questItemsCollected: 0
@@ -196,9 +196,9 @@ MonoBehaviour:
     - {fileID: 1244824266667019072, guid: ad07875fdf007fb48a6926c67ad40252, type: 3}
     - {fileID: 1244824266667019072, guid: ad07875fdf007fb48a6926c67ad40252, type: 3}
     m_ItemsPositions:
-    - {x: -2.15, y: 7.32, z: -41.26}
+    - {x: 35.52, y: 7.32, z: -151.56}
     - {x: -42.349, y: 6.74, z: 39.954}
-    - {x: -17.18, y: 10.61, z: -8.22}
+    - {x: -158.2, y: 10.61, z: -93.5}
     m_RequirementsMet: 0
   - m_ID: 6
     m_questItemsCollected: 0
@@ -222,9 +222,9 @@ MonoBehaviour:
     - {fileID: 1153120956766567600, guid: 5096cdf66dde08b46b76389442501107, type: 3}
     - {fileID: 1153120956766567600, guid: 5096cdf66dde08b46b76389442501107, type: 3}
     m_ItemsPositions:
-    - {x: -132.62, y: 14.98, z: 160.65}
-    - {x: -134.89, y: 21.47, z: 182.89}
-    - {x: -125.64, y: 25.76, z: 225.17645}
+    - {x: -1.239, y: 18.48, z: -77.17}
+    - {x: -49.3, y: 12.29, z: 59.97}
+    - {x: 18.68, y: 32.3, z: 66.728}
     m_RequirementsMet: 0
   - m_ID: 7
     m_questItemsCollected: 0
@@ -248,9 +248,9 @@ MonoBehaviour:
     - {fileID: 7700755407935074846, guid: e72c557cb04cfd64094c636e183ae4b0, type: 3}
     - {fileID: 7700755407935074846, guid: e72c557cb04cfd64094c636e183ae4b0, type: 3}
     m_ItemsPositions:
-    - {x: 155.77, y: -2.85, z: -93.77}
-    - {x: 147.824, y: -2.325, z: -125.88}
-    - {x: 147.04, y: 5.96, z: -180.19}
+    - {x: 156.57, y: -2.85, z: -65.63}
+    - {x: 97.94, y: 6.89, z: 8.88}
+    - {x: 138.62, y: 5.52, z: 50.6}
     m_RequirementsMet: 0
   - m_ID: 8
     m_questItemsCollected: 0
@@ -274,9 +274,9 @@ MonoBehaviour:
     - {fileID: 5002093220554449489, guid: 007a8e17dbad27b49a3c48d3501b3237, type: 3}
     - {fileID: 5002093220554449489, guid: 007a8e17dbad27b49a3c48d3501b3237, type: 3}
     m_ItemsPositions:
-    - {x: -65.09, y: 16.06, z: 0.28}
-    - {x: -41.74, y: 44.54, z: 86.1}
-    - {x: -28.67, y: 31.13, z: 46}
+    - {x: 200.02, y: 6.09, z: 245.79}
+    - {x: 111.52, y: 4.77, z: 245.04}
+    - {x: 109.6, y: 15.68, z: 168.34}
     m_RequirementsMet: 0
   - m_ID: 9
     m_questItemsCollected: 0
@@ -298,9 +298,9 @@ MonoBehaviour:
     - {fileID: 3571997906085087999, guid: b269c96a720a2a4488182b5cd5a1ca3b, type: 3}
     - {fileID: 3571997906085087999, guid: b269c96a720a2a4488182b5cd5a1ca3b, type: 3}
     m_ItemsPositions:
-    - {x: -49.28, y: 14, z: -209.81}
-    - {x: -50.3, y: 29.89, z: -179.3}
-    - {x: -59.68, y: 24.17, z: -103.37}
+    - {x: 36.56, y: 30.59, z: 184.76}
+    - {x: 2.65, y: 16.33, z: 183.8}
+    - {x: 7.79, y: -1.8, z: 185.12}
     m_RequirementsMet: 0
   - m_ID: 10
     m_questItemsCollected: 0
@@ -323,9 +323,9 @@ MonoBehaviour:
     - {fileID: 2966109719834194053, guid: 3a12276f0eb49e84e9b9170791b346d7, type: 3}
     - {fileID: 2966109719834194053, guid: 3a12276f0eb49e84e9b9170791b346d7, type: 3}
     m_ItemsPositions:
-    - {x: 50.62, y: 8.22, z: -185.75}
-    - {x: 120.9, y: 13.82, z: -167.04}
-    - {x: 35, y: 7.2, z: -152.9}
+    - {x: 81.54, y: 8.22, z: 425.85}
+    - {x: 223.43, y: 5.34, z: 396.48}
+    - {x: 7.81, y: 21.15, z: 390.75}
     m_RequirementsMet: 0
   - m_ID: 11
     m_questItemsCollected: 0
@@ -374,9 +374,9 @@ MonoBehaviour:
     - {fileID: 1284784122019728424, guid: 182bbdc988b73b247a14c5519c1b378e, type: 3}
     - {fileID: 1284784122019728424, guid: 182bbdc988b73b247a14c5519c1b378e, type: 3}
     m_ItemsPositions:
-    - {x: 149.38, y: 15.83, z: 95.68}
-    - {x: 149.4, y: 22.75, z: 162.28}
-    - {x: 113.2, y: 15.53, z: 171}
+    - {x: -134.07, y: 14.69, z: 169.02}
+    - {x: -93.23, y: 22.39, z: 205.68}
+    - {x: -178.17, y: 29.95, z: 228.84}
     m_RequirementsMet: 0
   activeQuestItems: []
   selectedQuest: {fileID: 0}

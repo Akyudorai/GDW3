@@ -5,9 +5,12 @@ using UnityEngine;
 public class CollectibleTracker : MonoBehaviour
 {
     [Header("Collectible Arrays")]
-    public bool[] Mbears = new bool[2];
-    public bool[] Rexs = new bool[2];
+    public bool[] Mbears = new bool[3];
+    public bool[] Rexs = new bool[3];
     public bool[] Cans = new bool[7];
+    public bool[] Pumpkins = new bool[3];
+    public bool[] Doggos = new bool[3];
+    public bool[] Cameras = new bool[3];
 
     public void Start() 
     {
@@ -51,6 +54,24 @@ public class CollectibleTracker : MonoBehaviour
                     if (Cans[i] == true) count++;
                 }
                 break;
+            case 3:
+                for (int i = 0; i < Pumpkins.Length; i++)
+                {
+                    if (Pumpkins[i] == true) count++;
+                }
+                break;
+            case 4:
+                for (int i = 0; i < Doggos.Length; i++)
+                {
+                    if (Doggos[i] == true) count++;
+                }
+                break;
+            case 5:
+                for (int i = 0; i < Cameras.Length; i++)
+                {
+                    if (Cameras[i] == true) count++;
+                }
+                break;
         }
 
         return count;
@@ -84,6 +105,36 @@ public class CollectibleTracker : MonoBehaviour
                     if (Cans[i] == false)
                     {
                         Cans[i] = true;
+                        break;
+                    }
+                }
+                break;
+            case 3: // Pumpkin
+                for (int i = 0; i < Pumpkins.Length; i++)
+                {
+                    if (Pumpkins[i] == false)
+                    {
+                        Pumpkins[i] = true;
+                        break;
+                    }
+                }
+                break;
+            case 4: // Doggo
+                for (int i = 0; i < Doggos.Length; i++)
+                {
+                    if (Doggos[i] == false)
+                    {
+                        Doggos[i] = true;
+                        break;
+                    }
+                }
+                break;
+            case 5: // Camera
+                for (int i = 0; i < Cameras.Length; i++)
+                {
+                    if (Cameras[i] == false)
+                    {
+                        Cameras[i] = true;
                         break;
                     }
                 }

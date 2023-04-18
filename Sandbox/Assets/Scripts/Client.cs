@@ -115,8 +115,8 @@ public class Client : MonoBehaviour
 
             receiveBuffer = new byte[dataBufferSize];
             
-            //instance.ip = IPAddress.Parse("127.0.0.1");
-            instance.ip = IPAddress.Parse("3.216.13.20");        
+            instance.ip = IPAddress.Parse("127.0.0.1"); // LOCAL
+            //instance.ip = IPAddress.Parse("3.216.13.20");  // SERVER       
             socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
 
             instance.udp = new UDP();

@@ -60,6 +60,7 @@ public class QuestManager : MonoBehaviour
                 }
             }
 
+            UI_Manager.GetInstance().ToggleQuestZoneOnMap(_quest.m_ID, true);
             UI_Manager.GetInstance().UpdateQuestStatus("In Progress");
             QuestManager.GetInstance().questList[_quest.m_ID].m_Status = "In Progress";
             QuestManager.GetInstance().questList[_quest.m_ID].m_QuestDataDisplay = _qdd;
@@ -161,6 +162,7 @@ public class QuestManager : MonoBehaviour
         UI_Manager.GetInstance().UpdateQuestObjective("Quest Objective: -");
 
         // Turn off Quest Panel when no quest is left
+        UI_Manager.GetInstance().ToggleQuestZoneOnMap(_quest.m_ID, false);
         UI_Manager.GetInstance().ToggleQuestInfoPanel(false);
         UI_Manager.GetInstance().ToggleQuestListPanel(true);
 

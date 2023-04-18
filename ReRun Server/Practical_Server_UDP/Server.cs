@@ -28,8 +28,8 @@ namespace Practical_Server_UDP
             Console.WriteLine("Starting server...");
             InitializeServerData();
 
-            //tcpListener = new TcpListener(IPAddress.Any, Port);
-            tcpListener = new TcpListener(IPAddress.Parse("172.31.95.179"), Port);
+            tcpListener = new TcpListener(IPAddress.Any, Port);
+            //tcpListener = new TcpListener(IPAddress.Parse("172.31.95.179"), Port);
             tcpListener.Start();
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
 

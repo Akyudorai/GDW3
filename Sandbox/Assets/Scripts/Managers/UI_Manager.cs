@@ -157,6 +157,21 @@ public class UI_Manager : MonoBehaviour
     public TMP_Text pageCount;
     public int messageIndex = 0;
 
+    [Header("Map Panel")]
+    public GameObject milkZoneMap;
+    public GameObject booksZoneMap;
+    public GameObject batteryZoneMap;
+    public GameObject mixtapeZoneMap;
+    public GameObject hardhatsZoneMap;
+    public GameObject powercellZoneMap;
+    public GameObject bootsZoneMap;
+    public GameObject celeryZoneMap;
+    public GameObject shovelZoneMap;
+    public GameObject boulderZoneMap;
+    public GameObject cpuZoneMap;
+    public GameObject cupcakeZoneMap;
+    public GameObject boneZoneMap;
+
     [Header("Tutorial")]
     public GameObject BeaTutorialPanel;
     public Button BeaYes;
@@ -184,6 +199,54 @@ public class UI_Manager : MonoBehaviour
     {
         PromptPanel.SetActive(state);
         PromptKeyDisplay.text = key;
+    }
+
+    // ============ MAP FUNCTIONS =====================
+
+    public void ToggleQuestZoneOnMap(int questID, bool state)
+    {
+        switch (questID)
+        {
+            case 0:
+                milkZoneMap.SetActive(state);
+                break;
+            case 1:
+                batteryZoneMap.SetActive(state);
+                break;
+            case 2:
+                shovelZoneMap.SetActive(state);
+                break;
+            case 3:
+                hardhatsZoneMap.SetActive(state);
+                break;
+            case 4:
+                cupcakeZoneMap.SetActive(state);
+                break;
+            case 5:
+                powercellZoneMap.SetActive(state);
+                break;
+            case 6:
+                bootsZoneMap.SetActive(state);
+                break;
+            case 7:
+                celeryZoneMap.SetActive(state);
+                break;
+            case 8:
+                boneZoneMap.SetActive(state);
+                break;
+            case 9:
+                mixtapeZoneMap.SetActive(state);
+                break;
+            case 10:
+                boulderZoneMap.SetActive(state);
+                break;
+            case 11:
+                cpuZoneMap.SetActive(state);
+                break;
+            case 12:
+                booksZoneMap.SetActive(state);
+                break;
+        }
     }
 
     // ============ DIALOGUE FUNCTIONS =====================
@@ -371,6 +434,15 @@ public class UI_Manager : MonoBehaviour
             case 2: // Can
                 CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/can_icon");
                 break;
+            case 3: // Pumpkin
+                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/pumpkin_icon");
+                break;
+            case 4: // Doggo
+                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/doggo_icon");
+                break;
+            case 5: // Camera
+                CollectibleImage.sprite = Resources.Load<Sprite>("Sprites/camera_icon");
+                break;
         }
     }
 
@@ -398,6 +470,18 @@ public class UI_Manager : MonoBehaviour
                 totalCollectibles = ct.Cans.Length;
                 CollectibleAnnouncement.text = "Energy Drink!! (" + collectiblesFound + "/" + totalCollectibles + ")";
                 break;
+            case 3: // Pumpkin
+                totalCollectibles = ct.Pumpkins.Length - 1;
+                CollectibleAnnouncement.text = "Pumpkin!! (" + collectiblesFound + "/" + totalCollectibles + ")";
+                break;
+            case 4: // Doggo
+                totalCollectibles = ct.Doggos.Length - 1;
+                CollectibleAnnouncement.text = "Doggo!! (" + collectiblesFound + "/" + totalCollectibles + ")";
+                break;
+            case 5: // Camera
+                totalCollectibles = ct.Cameras.Length - 1;
+                CollectibleAnnouncement.text = "Handheld Camera!! (" + collectiblesFound + "/" + totalCollectibles + ")";
+                break;
         }
     }
 
@@ -413,13 +497,22 @@ public class UI_Manager : MonoBehaviour
                 CollectibleAnnouncement.text = "UNKNOWN EXCEPTION";
                 break;
             case 0: // Rex
-                collectibleBoxUI[0].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/2";
+                collectibleBoxUI[0].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/3";
                 break;
             case 1: // Mbear
-                collectibleBoxUI[1].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/2";
+                collectibleBoxUI[1].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/3";
                 break;
             case 2: // Can
                 collectibleBoxUI[2].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/7";
+                break;
+            case 3: // Pumpkin
+                collectibleBoxUI[3].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/3";
+                break;
+            case 4: // Doggo
+                collectibleBoxUI[4].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/3";
+                break;
+            case 5: // Camera
+                collectibleBoxUI[5].GetComponent<CollectibleInfo>().c_progress.text = collectiblesFound + "/3";
                 break;
         }
     }

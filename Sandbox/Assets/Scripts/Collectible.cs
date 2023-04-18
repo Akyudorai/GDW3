@@ -6,7 +6,10 @@ public enum CollectibleType
 {
     TRex,
     MBear,
-    Can
+    Can,
+    Pumpkin,
+    Doggo,
+    Kainat
 }
 
 public class Collectible : MonoBehaviour

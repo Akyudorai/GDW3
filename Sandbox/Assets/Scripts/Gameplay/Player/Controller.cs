@@ -108,6 +108,11 @@ public class Controller : MonoBehaviour
         // Rotate the camera relative to the mouse input
         camera_pivot.transform.Rotate(cameraX, cameraY, 0);
 
+        // New FOV Based on speed        
+        float speed_ratio = v_HorizontalVelocity.magnitude / f_TopSpeed;
+        float FOV = 60 + (15 * speed_ratio);        
+        cam.fieldOfView = FOV;
+
         // Set the local Euler Angles and clamp the angles to prevent weird camera movements        
         camera_pivot.transform.localEulerAngles = new Vector3(ClampAngle(camera_pivot.transform.localEulerAngles.x, vec_CameraClamp.x, vec_CameraClamp.y), camera_pivot.transform.localEulerAngles.y, 0);
     }
