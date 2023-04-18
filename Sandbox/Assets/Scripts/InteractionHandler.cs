@@ -76,11 +76,10 @@ public class InteractionHandler : MonoBehaviour
         }
 
         PlayerState playerState = pc.e_State;
-        SplinePath currentSpline = pc.maneuverHandler.splineController.currentSpline;
-        
+        SplinePath currentSpline = pc.maneuverHandler.splineController.currentSpline;       
 
         if (targetInteractable == null || playerState != PlayerState.Active || currentSpline != null) 
-        {
+        {            
             UI_Manager.GetInstance().TogglePrompt(false);
         }
 
@@ -118,6 +117,9 @@ public class InteractionHandler : MonoBehaviour
                     string promptText = InputControlPath.ToHumanReadableString(
                         key.bindings[0].effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice);
                     UI_Manager.GetInstance().TogglePrompt(true, promptText);
+                } else
+                {
+                    UI_Manager.GetInstance().TogglePrompt(false);
                 }
 
                 // Set debug information

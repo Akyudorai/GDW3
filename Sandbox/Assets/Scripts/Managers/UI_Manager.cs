@@ -472,11 +472,11 @@ public class UI_Manager : MonoBehaviour
                 break;
             case 3: // Pumpkin
                 totalCollectibles = ct.Pumpkins.Length - 1;
-                CollectibleAnnouncement.text = "Pumpkin!! (" + collectiblesFound + "/" + totalCollectibles + ")";
+                CollectibleAnnouncement.text = "Dave the Pumpkin!! (" + collectiblesFound + "/" + totalCollectibles + ")";
                 break;
             case 4: // Doggo
                 totalCollectibles = ct.Doggos.Length - 1;
-                CollectibleAnnouncement.text = "Doggo!! (" + collectiblesFound + "/" + totalCollectibles + ")";
+                CollectibleAnnouncement.text = "Dumpling the Dog!! (" + collectiblesFound + "/" + totalCollectibles + ")";
                 break;
             case 5: // Camera
                 totalCollectibles = ct.Cameras.Length - 1;
