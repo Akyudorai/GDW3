@@ -460,27 +460,27 @@ public class UI_Manager : MonoBehaviour
             case 0: // Rex
                 
                 totalCollectibles = ct.Rexs.Length - 1;
-                CollectibleAnnouncement.text = "Tinysaurous Rex!! ("+collectiblesFound+"/"+totalCollectibles+")";
+                CollectibleAnnouncement.text = "Tinysaurous Rex!! ("+collectiblesFound+"/3)";
                 break;
             case 1: // Mbear
                 totalCollectibles = ct.Mbears.Length - 1;
-                CollectibleAnnouncement.text = "Mithunan Bear Plushie!! ("+collectiblesFound+"/"+totalCollectibles+")";
+                CollectibleAnnouncement.text = "Mithunan Bear Plushie!! ("+collectiblesFound+"/3)";
                 break;
             case 2: // Can
                 totalCollectibles = ct.Cans.Length;
-                CollectibleAnnouncement.text = "Energy Drink!! (" + collectiblesFound + "/" + totalCollectibles + ")";
+                CollectibleAnnouncement.text = "Energy Drink!! (" + collectiblesFound + "/7)";
                 break;
             case 3: // Pumpkin
                 totalCollectibles = ct.Pumpkins.Length - 1;
-                CollectibleAnnouncement.text = "Dave the Pumpkin!! (" + collectiblesFound + "/" + totalCollectibles + ")";
+                CollectibleAnnouncement.text = "Dave the Pumpkin!! (" + collectiblesFound + "/3)";
                 break;
             case 4: // Doggo
                 totalCollectibles = ct.Doggos.Length - 1;
-                CollectibleAnnouncement.text = "Dumpling the Dog!! (" + collectiblesFound + "/" + totalCollectibles + ")";
+                CollectibleAnnouncement.text = "Dumpling the Dog!! (" + collectiblesFound + "/3)";
                 break;
             case 5: // Camera
                 totalCollectibles = ct.Cameras.Length - 1;
-                CollectibleAnnouncement.text = "Handheld Camera!! (" + collectiblesFound + "/" + totalCollectibles + ")";
+                CollectibleAnnouncement.text = "Handheld Camera!! (" + collectiblesFound + "/3)";
                 break;
         }
     }
