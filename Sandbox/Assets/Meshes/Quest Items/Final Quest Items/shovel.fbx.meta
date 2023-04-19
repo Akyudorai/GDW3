@@ -3,7 +3,27 @@ guid: 93ea265a2d33ac4428d72779688a3f39
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Handle
+    second: {fileID: 2100000, guid: 2c53562cc518ba1488c8fe3889143bb0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Handle2
+    second: {fileID: 2100000, guid: 7597a2e6b90282640956f89be6b38f21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Head
+    second: {fileID: 2100000, guid: 1840ae648fd2a6d4c8d9d59b46487b57, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stick
+    second: {fileID: 2100000, guid: 91a49a5859807954786df411fab6e2c4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -69,7 +89,7 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0

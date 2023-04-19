@@ -3,7 +3,12 @@ guid: 0109228d814d3be4b9ae958711decca7
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rex
+    second: {fileID: 2100000, guid: 77dc58a65254b8b45b3a4f6d6f7c7ec5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
